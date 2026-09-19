@@ -1,0 +1,3044 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WIN · Oferta Comercial 2026</title>
+  <!-- Código del Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <meta name="description" content="Plataforma de Oferta comercial - CFD" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&family=Inter:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ===== VARIABLES GLOBALES ===== */
+    :root {
+      /* Paleta oficial WIN Empresas */
+      --color-naranja: #FF5A0A;
+      /* 80% color de marca y llamadas a la acción */
+      --color-blanco: #FFFFFF;
+      /* 10% fondo principal y contenedores limpios */
+      --color-negro: #0F0908;
+      /* 5% contraste estético, encabezados */
+      --color-amarillo: #FFC200;
+      /* 5% badges, alertas y acentos */
+
+      /* Derivadas para diseño donde predomina el fondo blanco */
+      --naranja-dark: #CC4808;
+      --naranja-light: #FF7A3D;
+      --naranja-alpha: rgba(255, 90, 10, 0.10);
+      --naranja-border: rgba(255, 90, 10, 0.25);
+      --bg-page: #F8F9FA;
+      --bg-card: #FFFFFF;
+      --text-main: #0F0908;
+      --text-body: #334155;
+      --text-muted: #64748B;
+      --border-subtle: #E2E8F0;
+      --border-card: #EAECEF;
+
+      /* Tipografía */
+      --font-titulo: "Outfit", sans-serif;
+      --font-cuerpo: "Inter", sans-serif;
+
+      /* Espaciado y formas */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --transition: 0.3s ease;
+      --shadow-card: 0 4px 20px rgba(15, 9, 8, 0.05);
+      --shadow-hover: 0 12px 32px rgba(255, 90, 10, 0.16);
+      --shadow-glow: 0 0 20px rgba(255, 90, 10, 0.35);
+    }
+
+    /* ===== RESET Y BASE ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-cuerpo);
+      background: var(--bg-page);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    /* ===== BARRA DE PROGRESO SUPERIOR ===== */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--color-naranja), var(--color-amarillo));
+      z-index: 9999;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 8px var(--color-naranja);
+    }
+
+    /* ===== HEADER FIJO ===== */
+    #site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--color-naranja);
+      box-shadow: 0 2px 16px rgba(15, 9, 8, 0.06);
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      gap: 1rem;
+    }
+
+    #site-header .logo {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--color-naranja);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    #site-header .logo span {
+      color: var(--text-main);
+    }
+
+    .hamburger-btn {
+      margin-left: auto;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+
+    .hamburger-btn:hover {
+      background: var(--naranja-alpha);
+    }
+
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-main);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 0.3rem;
+      margin-left: 1rem;
+    }
+
+    .header-nav .nav-btn {
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: var(--font-titulo);
+      color: var(--text-body);
+      transition: var(--transition);
+      letter-spacing: 0.3px;
+    }
+
+    .header-nav .nav-btn:hover,
+    .header-nav .nav-btn.active {
+      color: var(--color-naranja);
+      background: var(--naranja-alpha);
+    }
+
+    /* ===== DRAWER LATERAL ===== */
+    #drawer-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      background: rgba(15, 9, 8, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+
+    #drawer-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #site-drawer {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      bottom: 0;
+      width: 300px;
+      z-index: 1200;
+      background: #FFFFFF;
+      border-right: 1px solid var(--border-subtle);
+      box-shadow: 8px 0 30px rgba(0, 0, 0, 0.08);
+      transition: left var(--transition);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    #site-drawer.open {
+      left: 0;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .drawer-logo {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--color-naranja);
+    }
+
+    .drawer-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .drawer-close:hover {
+      background: var(--naranja-alpha);
+      color: var(--color-naranja);
+    }
+
+    .drawer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .drawer-nav .dnav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: var(--font-titulo);
+      color: var(--text-body);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .drawer-nav .dnav-item:hover,
+    .drawer-nav .dnav-item.active {
+      background: var(--naranja-alpha);
+      color: var(--color-naranja);
+    }
+
+    .drawer-nav .dnav-item .dnav-icon {
+      font-size: 1.1rem;
+    }
+
+    .drawer-footer {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .drawer-footer p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== DOTS DE NAVEGACIÓN LATERAL ===== */
+    #page-dots {
+      position: fixed;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .page-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #CBD5E1;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    .page-dot:hover {
+      background: var(--color-naranja);
+      transform: scale(1.2);
+    }
+
+    .page-dot.active {
+      background: var(--color-naranja);
+      border-color: var(--color-amarillo);
+      box-shadow: 0 0 10px rgba(255, 90, 10, 0.4);
+      transform: scale(1.2);
+    }
+
+    /* ===== SECCIONES PRINCIPALES ===== */
+    main {
+      padding-top: 60px;
+    }
+
+    .section-slide {
+      min-height: 100vh;
+      padding: 4rem 1.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-inner {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .section-title {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title .accent {
+      color: var(--color-naranja);
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 580px;
+    }
+
+    /* Animación de entrada */
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .anim-in {
+      animation: fadeSlideIn 0.55s ease both;
+    }
+
+    /* ===== HERO PORTADA ===== */
+    #home {
+      background: radial-gradient(ellipse 75% 55% at 75% 30%, rgba(255, 90, 10, 0.08) 0%, transparent 65%),
+        linear-gradient(180deg, #FFFFFF 0%, var(--bg-page) 100%);
+      justify-content: center;
+      padding-top: 80px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 90, 10, 0.08);
+      border: 1px solid var(--naranja-border);
+      border-radius: 99px;
+      padding: 0.3rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: var(--font-titulo);
+      color: var(--color-naranja);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
+      color: var(--text-main);
+    }
+
+    .hero-title .brand {
+      color: var(--color-naranja);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-body);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Grid de estadísticas rápidas */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: var(--shadow-card);
+    }
+
+    .stat-card:hover {
+      border-color: var(--color-naranja);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .stat-card .stat-num {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--color-naranja);
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      font-weight: 600;
+    }
+
+    /* Botones de acceso rápido */
+    .quick-access {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn-primary {
+      background: var(--color-naranja);
+      color: #FFFFFF;
+      font-family: var(--font-titulo);
+      font-weight: 800;
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      transition: var(--transition);
+      box-shadow: 0 4px 18px rgba(255, 90, 10, 0.35);
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--naranja-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(255, 90, 10, 0.5);
+    }
+
+    .btn-ghost {
+      background: #FFFFFF;
+      border: 2px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow-card);
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--color-naranja);
+      color: var(--color-naranja);
+      background: #FFF7ED;
+      transform: translateY(-2px);
+    }
+
+    /* ===== SISTEMA DE TABS ===== */
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 0.4rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 120px;
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.2px;
+      color: var(--text-muted);
+      transition: var(--transition);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .tab-btn:hover {
+      color: var(--color-naranja);
+      background: rgba(255, 90, 10, 0.05);
+    }
+
+    .tab-btn.active {
+      background: var(--color-naranja);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(255, 90, 10, 0.35);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fadeSlideIn 0.4s ease both;
+    }
+
+    /* ===== CARDS DE PLANES ===== */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .plan-card {
+      background: #F7F7F7;
+      border: 1.5px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      position: relative;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .plan-card:hover {
+      border-color: var(--color-naranja);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+    }
+
+    .plan-card.featured {
+      border: 2px solid var(--color-naranja);
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 90, 10, 0.02) 100%);
+    }
+
+    /* Botón pequeño en la esquina para simular con ese precio */
+    .btn-card-sim {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 10;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+      color: #1A1210;
+      line-height: 1;
+    }
+
+    .btn-card-sim:hover {
+      background: #FFF7ED;
+      border-color: var(--color-naranja);
+      transform: scale(1.12);
+      box-shadow: 0 4px 12px rgba(255, 90, 10, 0.25);
+    }
+
+    .plan-card .plan-speed {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: var(--text-main);
+    }
+
+    .plan-card .plan-name {
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .plan-card .plan-price {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: 2.1rem;
+      color: var(--color-naranja);
+      margin-top: 0.25rem;
+    }
+
+    .plan-card .plan-price strong {
+      color: var(--color-naranja);
+    }
+
+    .plan-card .plan-price small {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .plan-card .plan-promo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 194, 0, 0.15);
+      border: 1px solid rgba(255, 194, 0, 0.45);
+      border-radius: 99px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #9A3412;
+    }
+
+    .plan-card .plan-details {
+      font-size: 0.83rem;
+      color: #475569;
+      line-height: 1.7;
+      margin-top: 0.4rem;
+    }
+
+    .plan-card .plan-details li::before {
+      content: "✓ ";
+      color: var(--color-naranja);
+      font-weight: 800;
+    }
+
+    .badge-top {
+      position: absolute;
+      top: -11px;
+      left: 16px;
+      right: auto;
+      background: var(--color-naranja);
+      color: #FFFFFF;
+      font-family: var(--font-titulo);
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      padding: 0.22rem 0.7rem;
+      border-radius: 99px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(255, 90, 10, 0.35);
+    }
+
+    /* ===== TABLAS ===== */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      background: #FFFFFF;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .data-table {
+      width: 100%;
+      min-width: 640px;
+      font-size: 0.87rem;
+    }
+
+    .data-table thead tr {
+      background: var(--color-negro);
+      border-bottom: 2px solid var(--color-naranja);
+    }
+
+    .data-table thead th {
+      padding: 0.85rem 1rem;
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--color-amarillo);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .data-table tbody tr {
+      border-bottom: 1px solid #F1F5F9;
+      background: #FFFFFF;
+      transition: background var(--transition);
+    }
+
+    .data-table tbody tr:hover {
+      background: rgba(255, 90, 10, 0.04);
+    }
+
+    .data-table tbody td {
+      padding: 0.8rem 0.4rem;
+      vertical-align: middle;
+      color: var(--text-main);
+      text-align: center;
+    }
+
+    .data-table .td-speed {
+      font-family: var(--font-titulo);
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .data-table .td-price {
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .data-table .td-promo {
+      font-weight: 800;
+      color: var(--color-naranja);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .badge-si {
+      background: rgba(0, 200, 100, 0.12);
+      color: #16A34A;
+      border: 1px solid rgba(0, 200, 100, 0.25);
+    }
+
+    .badge-no {
+      background: #F1F5F9;
+      color: #64748B;
+      border: 1px solid #E2E8F0;
+    }
+
+    .badge-amarillo {
+      background: rgba(255, 194, 0, 0.15);
+      color: #9A3412;
+      border: 1px solid rgba(255, 194, 0, 0.35);
+    }
+
+    /* ===== SIMULADOR DE FACTURACIÓN ===== */
+    #facturacion {
+      background: linear-gradient(180deg, var(--bg-page) 0%, #FFFFFF 100%);
+    }
+
+    /* === Simulador: layout lado a lado === */
+    .sim-layout {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .sim-layout .sim-form-card {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .sim-layout .table-wrap {
+      flex: 1 1 auto;
+      margin-top: 0 !important;
+      min-width: 0;
+    }
+
+    .sim-form-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      max-width: 560px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .form-group {
+      margin-bottom: 1.4rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.45rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .form-input {
+      width: 100%;
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.75rem 1rem;
+      transition: border-color var(--transition);
+    }
+
+    .form-input:focus {
+      outline: none;
+      background: #FFFFFF;
+      border-color: var(--color-naranja);
+      box-shadow: 0 0 0 3px rgba(255, 90, 10, 0.16);
+    }
+
+    .sim-result {
+      margin-top: 1.5rem;
+      background: #FFF9F6;
+      border: 1.5px solid var(--color-naranja);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: none;
+      box-shadow: 0 4px 16px rgba(255, 90, 10, 0.1);
+    }
+
+    .sim-result.visible {
+      display: block;
+      animation: fadeSlideIn 0.4s ease both;
+    }
+
+    .sim-result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 90, 10, 0.12);
+      font-size: 0.9rem;
+    }
+
+    .sim-result-row:last-child {
+      border-bottom: none;
+    }
+
+    .sim-result-row .sr-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .sim-result-row .sr-val {
+      font-family: var(--font-titulo);
+      font-weight: 800;
+      color: var(--color-naranja);
+    }
+
+    .sim-result-row .sr-val.big {
+      font-size: 1.45rem;
+      color: var(--color-naranja);
+      background: rgba(255, 194, 0, 0.2);
+      padding: 3px 12px;
+      border-radius: 8px;
+    }
+
+    /* ===== SERVICIOS ADICIONALES ===== */
+    .adicionales-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .servicio-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem 1.2rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .servicio-card:hover {
+      border-color: var(--color-naranja);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .servicio-card.con-parrilla {
+      cursor: pointer;
+    }
+
+    .servicio-card.con-parrilla:hover {
+      border-color: var(--color-naranja);
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 90, 10, 0.02) 100%);
+    }
+
+    .servicio-card .srv-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .servicio-card .srv-name {
+      font-family: var(--font-titulo);
+      font-weight: 800;
+      font-size: 0.98rem;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+    }
+
+    .servicio-card .srv-price {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--color-naranja);
+    }
+
+    .servicio-card .srv-note {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    /* Botón interactivo para ver parrilla de canales */
+    .btn-ver-parrilla {
+      margin-top: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: rgba(255, 90, 10, 0.08);
+      border: 1.5px solid var(--naranja-border);
+      color: var(--color-naranja);
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .btn-ver-parrilla:hover,
+    .servicio-card.con-parrilla:hover .btn-ver-parrilla {
+      background: var(--color-naranja);
+      color: #FFFFFF;
+      border-color: var(--color-naranja);
+      box-shadow: 0 4px 12px rgba(255, 90, 10, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ===== MODAL POP-UP: PARRILLA DE CANALES ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 9, 8, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-dialog {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      border: 2px solid var(--color-naranja);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      width: 100%;
+      max-width: 950px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.open .modal-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      padding: 1.1rem 1.5rem;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .modal-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .modal-title-wrap .modal-icon {
+      font-size: 1.6rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .modal-badge {
+      display: inline-block;
+      background: rgba(255, 90, 10, 0.1);
+      color: var(--color-naranja);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.6rem;
+      border-radius: 99px;
+      margin-top: 0.2rem;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      font-size: 1.1rem;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .modal-close:hover {
+      background: #FEE2E2;
+      color: #DC2626;
+      border-color: #FCA5A5;
+      transform: rotate(90deg);
+    }
+
+    .modal-body {
+      padding: 1.2rem;
+      overflow-y: auto;
+      max-height: calc(90vh - 140px);
+      background: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-img-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .modal-img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border: 1px solid #E2E8F0;
+      object-fit: contain;
+    }
+
+    .modal-footer {
+      padding: 0.85rem 1.5rem;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .modal-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .modal-footer .btn-sm {
+      padding: 0.45rem 1.2rem;
+      font-size: 0.85rem;
+      border-radius: var(--radius-md);
+    }
+
+    /* ===== FAB FLOTANTES ===== */
+    #fab-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 1.5rem;
+      z-index: 800;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.7rem;
+    }
+
+    .fab-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+    }
+
+    .fab-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 24px rgba(255, 90, 10, 0.3);
+    }
+
+    #fab-mute {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+
+    #fab-top {
+      background: var(--color-naranja);
+      color: #FFFFFF;
+    }
+
+    #fab-calc {
+      background: #FFFFFF;
+      border: 1.5px solid var(--color-naranja);
+      color: var(--color-naranja);
+    }
+
+    /* ===== TOAST NOTIFICATIONS ===== */
+    #toast {
+      position: fixed;
+      bottom: 6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9000;
+      background: #0F0908;
+      border: 1.5px solid var(--color-naranja);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    #toast.visible {
+      opacity: 1;
+    }
+
+    /* ===== FOOTER ===== */
+    #site-footer {
+      background: var(--color-negro);
+      border-top: 1px solid var(--border-subtle);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    #site-footer .footer-logo {
+      font-family: var(--font-titulo);
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--color-naranja);
+      margin-bottom: 0.5rem;
+    }
+
+    #site-footer p {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.7;
+    }
+
+    .sim-layout .table-wrap {
+      flex: 1 1 auto;
+      margin-top: 0 !important;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sim-layout .data-table {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ===== RESPONSIVE < 768px ===== */
+    @media (max-width: 768px) {
+      .header-nav {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 2.6rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .adicionales-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .sim-form-card {
+        padding: 1.5rem;
+        max-width: 100%;
+      }
+
+      .sim-layout {
+        flex-direction: column;
+      }
+
+      .sim-layout .sim-form-card {
+        max-width: 100%;
+      }
+
+      .section-slide {
+        padding: 3.5rem 1rem 2rem;
+      }
+
+      #page-dots {
+        display: none;
+      }
+
+      .tab-btn {
+        min-width: 100px;
+        font-size: 0.75rem;
+      }
+
+      .data-table th,
+      .data-table tbody td {
+        padding: 8px 4px;
+        font-size: 0.8rem;
+        white-space: normal;
+      }
+
+      .table-wrap .data-table th,
+      .table-wrap .data-table td {
+        padding: 6px 2px !important;
+        font-size: 0.75rem !important;
+      }
+
+      .sim-layout .table-wrap {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: auto !important;
+        /* Revive la barra de desplazamiento */
+        display: block !important;
+        /* Anula cualquier centrado flex que rompa el lado izquierdo */
+        padding-bottom: 15px;
+        /* Espacio para que el dedo deslice cómodamente */
+      }
+
+      .sim-layout .data-table {
+        width: max-content !important;
+        /* Crece lo que necesite según el texto */
+        min-width: 100% !important;
+        margin: 0 !important;
+        /* OBLIGATORIO: Alineado a la izquierda, cero centrado */
+      }
+
+      .table-wrap .data-table th,
+      .table-wrap .data-table td {
+        padding: 10px 15px !important;
+        font-size: 0.8rem !important;
+        white-space: nowrap !important;
+        /* Mantiene el texto en una línea para obligar al scroll */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .adicionales-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-access {
+        flex-direction: column;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tab-bar {
+        gap: 0.25rem;
+        padding: 0.3rem;
+      }
+    }
+  </style>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+
+<body>
+
+  <!-- ===== BARRA DE PROGRESO SUPERIOR ===== -->
+  <div id="progress-bar" role="progressbar" aria-label="Progreso de página"></div>
+
+  <!-- ===== HEADER FIJO ===== -->
+  <header id="site-header" role="banner">
+    <button class="hamburger-btn" id="hamburger-btn" data-sound="click" aria-label="Abrir menú de navegación"
+      aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:34px;width:auto;display:block;"></div>
+    <nav class="header-nav" aria-label="Navegación principal">
+      <button class="nav-btn" data-section="home" data-sound="nav">Inicio</button>
+      <button class="nav-btn" data-section="lima" data-sound="nav">Lima</button>
+      <button class="nav-btn" data-section="provincia" data-sound="nav">Provincia</button>
+      <button class="nav-btn" data-section="adicionales" data-sound="nav">Adicionales</button>
+      <button class="nav-btn" data-section="facturacion" data-sound="nav">Simulador</button>
+    </nav>
+  </header>
+
+  <!-- ===== OVERLAY DEL DRAWER ===== -->
+  <div id="drawer-overlay" aria-hidden="true"></div>
+
+  <!-- ===== DRAWER LATERAL DE NAVEGACIÓN ===== -->
+  <aside id="site-drawer" role="navigation" aria-label="Menú lateral">
+    <div class="drawer-header">
+      <div class="drawer-logo"><img src="img/logo_winnaranja.png" alt="WIN Empresas"
+          style="height:30px;width:auto;display:block;"></div>
+      <button class="drawer-close" id="drawer-close-btn" data-sound="click" aria-label="Cerrar menú">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <button class="dnav-item" data-section="home" data-sound="nav"><span class="dnav-icon">🏠</span> Inicio</button>
+      <button class="dnav-item" data-section="lima" data-sound="nav"><span class="dnav-icon">🚀</span> Planes
+        Lima</button>
+      <button class="dnav-item" data-section="provincia" data-sound="nav"><span class="dnav-icon">🗺️</span> Planes
+        Provincia</button>
+      <button class="dnav-item" data-section="adicionales" data-sound="nav"><span class="dnav-icon">➕</span> Servicios
+        Adicionales</button>
+      <button class="dnav-item" data-section="facturacion" data-sound="nav"><span class="dnav-icon">🧮</span>
+        Simulador</button>
+    </nav>
+    <div class="drawer-footer">
+      <p>WIN &copy; 2026<br>Oferta Comercial Vigente Septiembre<br>CFD - FORMACIÓN<br><em>Pensado y creado por
+          Madeloun - Pedro</em></p>
+    </div>
+  </aside>
+
+  <!-- ===== DOTS DE NAVEGACIÓN LATERAL ===== -->
+  <div id="page-dots" role="navigation" aria-label="Navegación por puntos">
+    <button class="page-dot active" data-section="home" data-sound="nav" title="Inicio"></button>
+    <button class="page-dot" data-section="lima" data-sound="nav" title="Lima"></button>
+    <button class="page-dot" data-section="provincia" data-sound="nav" title="Provincia"></button>
+    <button class="page-dot" data-section="adicionales" data-sound="nav" title="Adicionales"></button>
+    <button class="page-dot" data-section="facturacion" data-sound="nav" title="Simulador"></button>
+  </div>
+
+  <!-- ===== MAIN: CONTENIDO PRINCIPAL ===== -->
+  <main id="main-content">
+
+    <!-- ===== SECCIÓN 1: PORTADA / HERO ===== -->
+    <section class="section-slide" id="home" aria-labelledby="home-title">
+      <div class="section-inner">
+        <div class="hero-eyebrow">💡SEPTIEMBRE 2026</div>
+        <h1 class="hero-title" id="home-title">OFERTA<br>COMERCIAL<br><span class="brand"><img
+              src="img/logo_winnaranja.png" alt="WIN"
+              style="height:135px;width:auto;display:block;margin-top:0.1rem;"></span></h1>
+        <p class="hero-subtitle">Conectividad fibra óptica de alta velocidad para Lima y provincias. Planes flexibles y
+          promociones exclusivas.</p>
+        <!-- Grid de estadísticas rápidas -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num">2.5GB</div>
+            <div class="stat-label">Velocidad máxima XGSPON</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">50%</div>
+            <div class="stat-label">Descuento promo principal</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">+20</div>
+            <div class="stat-label">Planes disponibles</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">S/99</div>
+            <div class="stat-label">Plan Lima desde</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">S/69</div>
+            <div class="stat-label">Plan Provincia desde</div>
+          </div>
+        </div>
+        <!-- Botones de acceso rápido a secciones -->
+        <div class="quick-access">
+          <button class="btn-primary" data-section="lima" data-sound="click">📡 Ver Planes Lima</button>
+          <button class="btn-primary" data-section="provincia" data-sound="click">🗺️ Ver Planes Provincia</button>
+          <button class="btn-ghost" data-section="facturacion" data-sound="click">🧮 Simular Facturación</button>
+          <button class="btn-ghost" data-section="adicionales" data-sound="click">➕ Servicios Adicionales</button>
+        </div>
+      </div>
+    </section><!-- /home -->
+
+    <!-- ===== SECCIÓN 2: PLANES LIMA ===== -->
+    <section class="section-slide" id="lima" aria-labelledby="lima-title">
+      <div class="section-inner">
+        <h2 class="section-title" id="lima-title">Planes <span class="accent">Lima</span></h2>
+        <p class="section-subtitle">Fibra óptica con la mayor velocidad del mercado. Elige tu plan ideal.</p>
+        <!-- Barra de tabs Lima -->
+        <div class="tab-bar" role="tablist" aria-label="Categorías Lima">
+          <button class="tab-btn active" role="tab" data-tab="lima-mono" data-sound="click" aria-selected="true">🏠 Mono
+            Residencial</button>
+          <button class="tab-btn" role="tab" data-tab="lima-xgspon" data-sound="click" aria-selected="false">⚡ XGSPON /
+            Gamer</button>
+          <button class="tab-btn" role="tab" data-tab="lima-bundles" data-sound="click" aria-selected="false">📺HB
+            WTV</button>
+          <button class="tab-btn" role="tab" data-tab="lima-dgo" data-sound="click" aria-selected="false">🎬 HB
+            DGO</button>
+          <button class="tab-btn" role="tab" data-tab="RUC20lima" data-sound="click" aria-selected="false"> 🏪RUC20
+          </button>
+        </div>
+
+        <!-- ===== TAB LIMA: MONO RESIDENCIAL ===== -->
+        <div class="tab-panel active" id="panel-lima-mono" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Promoción</th>
+                  <th>Beneficios</th>
+                  <th>Vertical</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-lima-mono">
+              <!-- Los datos se cargarán dinámicamente desde ofertas.json -->
+               </tbody>  
+            </table>
+          </div>
+          <!-- Cards visuales del tab Mono -->
+          <!-- Contenedor dinámico de Cards visuales del tab Mono -->
+          <div id="grid-lima-mono" class="plans-grid" style="margin-top:1.5rem"></div>
+        </div><!-- /panel-lima-mono -->
+
+        <!-- ===== TAB LIMA: XGSPON / GAMER ===== -->
+        <div class="tab-panel" id="panel-lima-xgspon" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Promoción</th>
+                  <th>Beneficios</th>
+                  <th>Vertical</th>
+                </tr>
+              </thead>
+              <tbody id="grid-lima-xgspon">
+              </tbody>
+            </table>
+          </div>
+          <div id="grid-lima-xgspon" class="plans-grid" style="margin-top:1.5rem"></div>
+        </div><!-- /panel-lima-xgspon -->
+
+        <!-- ===== TAB LIMA: COMBOS HB WTV ===== -->
+        <div class="tab-panel" id="panel-lima-bundles" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Promoción</th>
+                  <th>Equipos</th>
+                  <th>Vertical</th>
+                </tr>
+              </thead>
+              <tbody id="grid-lima-bundles">
+              </tbody>
+            </table>
+          </div>
+          <div id="grid-lima-bundles" class="plans-grid" style="margin-top:1.5rem"></div>
+        </div><!-- /panel-lima-bundles -->
+        <!-- ===== TAB LIMA: HB DGO ===== -->
+        <div class="tab-panel" id="panel-lima-dgo" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Promoción</th>
+                  <th>Equipos</th>
+                  <th>Vertical</th>
+                </tr>
+              </thead>
+              <tbody id="grid-lima-dgo">
+              </tbody>
+            </table>
+          </div>
+        <div id="grid-lima-dgo" class="plans-grid" style="margin-top:1.5rem"></div>
+        </div><!-- /panel-lima-dgo -->
+        <!-- ===== TAB LIMA: RUC20 ===== -->
+        <div class="tab-panel" id="panel-RUC20lima" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Equipos</th>
+                </tr>
+              </thead>
+              <tbody id="grid-lima-ruc20">
+              </tbody>
+            </table>
+          </div>
+        <div id="grid-lima-ruc20" class="plans-grid" style="margin-top:1.5rem">
+        </div><!-- /plans-grid RUC20 -->
+    </section><!-- /lima -->
+
+    <!-- ===== SECCIÓN 3: PLANES PROVINCIA ===== -->
+    <section class="section-slide" id="provincia" aria-labelledby="prov-title">
+      <div class="section-inner">
+        <h2 class="section-title" id="prov-title">Planes <span class="accent">Provincia</span></h2>
+        <p class="section-subtitle">Cobertura nacional con beneficios exclusivos como FonoWin y upgrade de velocidad.
+        </p>
+        <!-- Barra de tabs Provincia -->
+        <div class="tab-bar" role="tablist" aria-label="Categorías Provincia">
+          <button class="tab-btn active" role="tab" data-tab="prov-mono" data-sound="click" aria-selected="true">🏠 Mono
+            Residencial</button>
+          <button class="tab-btn" role="tab" data-tab="prov-hbtv" data-sound="click" aria-selected="false">📺 HB
+            WTV</button>
+          <button class="tab-btn" role="tab" data-tab="prov-dgofonowin" data-sound="click" aria-selected="false">🎬 HB
+            DGO/FONOWIN</button>
+          <button class="tab-btn" role="tab" data-tab="prov-RUC20" data-sound="click" aria-selected="false"> 🏪 RUC
+            20</button>
+        </div>
+
+        <!-- ===== TAB PROVINCIA: MONO ===== -->
+        <div class="tab-panel active" id="panel-prov-mono" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Promoción</th>
+                  <th>Beneficios</th>
+                  <th>FonoWin</th>
+                  <th>Vertical</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-speed">1000 Mbps</td>
+                  <td class="td-price">S/ 129</td>
+                  <td class="td-promo">S/ 64.50 (50% x3 meses)</td>
+                  <td>2 Mesh Wi-Fi</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-si">SÍ</span></td>
+                </tr>
+                <tr>
+                  <td class="td-speed">750 Mbps</td>
+                  <td class="td-price">S/ 99</td>
+                  <td class="td-promo">S/ 49.50 (50% x3 meses)</td>
+                  <td>Upgrade 1000Mbps x 6M</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-no">NO</span></td>
+                </tr>
+                <tr>
+                  <td class="td-speed">550 Mbps</td>
+                  <td class="td-price">S/ 89</td>
+                  <td class="td-promo">S/ 44.50 (50% x3 meses)</td>
+                  <td>Upgrade 1000Mbps x 6M</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-no">NO</span></td>
+                </tr>
+                <tr>
+                  <td class="td-speed">350 Mbps</td>
+                  <td class="td-price">S/ 69</td>
+                  <td class="td-promo">S/ 34.50 (50% x3 meses)</td>
+                  <td><span class="badge badge-no">NO</span></td>
+                  <td><span class="badge badge-no">NO</span></td>
+                  <td><span class="badge badge-no">NO</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="plans-grid" style="margin-top:1.5rem">
+            <div class="plan-card featured">
+              <button class="btn-card-sim" data-sim-monto="64.50" data-sim-plan="Mono Prov. 1000 Mbps"
+                data-sim-vertical="SI" data-sim-regular="129.00" title="Simular con este precio"
+                data-sound="calc">📋</button>
+              <div class="badge-top">MEJOR VALOR</div>
+              <div class="plan-name">Mono Provincia</div>
+              <div class="plan-speed">1000 Mbps</div>
+              <div class="plan-price">S/ <strong>64.50</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 129.00</div>
+              <ul class="plan-details">
+                <li>50% por 3 meses</li>
+                <li>2 Mesh Wi-Fi</li>
+                <li>Vertical WIN</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="49.50" data-sim-plan="Mono Prov. 750 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="plan-name">Mono Provincia</div>
+              <div class="plan-speed">750 Mbps</div>
+              <div class="plan-price">S/ <strong>49.50</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 99.00</div>
+              <ul class="plan-details">
+                <li>50% por 3 meses</li>
+                <li>Upgrade 1000 Mbps x 6M</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="44.50" data-sim-plan="Mono Prov. 550 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="plan-name">Mono Provincia</div>
+              <div class="plan-speed">550 Mbps</div>
+              <div class="plan-price">S/ <strong>44.50</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 89.00</div>
+              <ul class="plan-details">
+                <li>50% por 3 meses</li>
+                <li>Upgrade 1000 Mbps x 6M</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="34.50" data-sim-plan="Mono Prov. 350 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="plan-name">Mono Provincia</div>
+              <div class="plan-speed">350 Mbps</div>
+              <div class="plan-price">S/ <strong>34.50</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 69.00</div>
+              <ul class="plan-details">
+                <li>50% por 3 meses</li>
+                <li>100% fibra optica</li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /panel-prov-mono -->
+
+        <!-- ===== TAB PROVINCIA: HB WIN TV ===== -->
+        <div class="tab-panel" id="panel-prov-hbtv" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Promoción</th>
+                  <th>Beneficios</th>
+                  <th>FonoWin</th>
+                  <th>Vertical</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-speed">HB L1MAX Premium 1000 Mbps</td>
+                  <td class="td-price">S/ 129.90</td>
+                  <td class="td-promo">S/ 64.95 (50% desc.)</td>
+                  <td>2 Mesh Wi-Fi</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-si">SÍ</span></td>
+                </tr>
+                <tr>
+                  <td class="td-speed">HB L1MAX Premium 750 Mbps</td>
+                  <td class="td-price">S/ 119.90</td>
+                  <td class="td-promo">S/ 59.95 (50% desc.)</td>
+                  <td>1 Mesh Wi-Fi + Up 1000 Mbps x 6M</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-si">SÍ</span></td>
+                </tr>
+                <tr>
+                  <td class="td-speed">HB Premium 750 Mbps</td>
+                  <td class="td-price">S/ 99.90</td>
+                  <td class="td-promo">S/ 49.95 (50% desc.)</td>
+                  <td>Upgrade 1000 Mbps x 6M</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-no">NO</span></td>
+                </tr>
+                <tr>
+                  <td class="td-speed">HB Premium 550 Mbps</td>
+                  <td class="td-price">S/ 89.90</td>
+                  <td class="td-promo">S/ 44.95 (50% desc.)</td>
+                  <td>Upgrade 1000 Mbps x 6M</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-no">NO</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="plans-grid" style="margin-top:1.5rem">
+            <div class="plan-card featured">
+              <button class="btn-card-sim" data-sim-monto="64.95" data-sim-plan="HB PROV L1MAX 1000 Mbps"
+                data-sim-vertical="SI" data-sim-regular="129.90" title="Simular con este precio"
+                data-sound="calc">📋</button>
+              <div class="badge-top">PREMIUM</div>
+              <div class="plan-name">HB PROV L1MAX</div>
+              <div class="plan-speed">1000 Mbps</div>
+              <div class="plan-price">S/ <strong>64.95</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 129.90</div>
+              <ul class="plan-details">
+                <li>50% x 3 meses</li>
+                <li>2 Mesh Wi-Fi</li>
+                <li>Vertical WIN</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="59.95" data-sim-plan="HB PROV L1MAX 750 Mbps"
+                data-sim-vertical="SI" data-sim-regular="119.90" title="Simular con este precio"
+                data-sound="calc">📋</button>
+              <div class="plan-name">HB PROV L1MAX</div>
+              <div class="plan-speed">750 Mbps</div>
+              <div class="plan-price">S/ <strong>59.95</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 119.90</div>
+              <ul class="plan-details">
+                <li>50% x 3 meses</li>
+                <li>1 Mesh Wi-Fi</li>
+                <li>Vertical WIN</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="49.95" data-sim-plan="HB PROV WTV 750 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="plan-name">HB PROV WTV</div>
+              <div class="plan-speed">750 Mbps</div>
+              <div class="plan-price">S/ <strong>49.95</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 99.90</div>
+              <ul class="plan-details">
+                <li>50% x 3 meses</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="44.95" data-sim-plan="HB PROV WTV 550 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="plan-name">HB PROV WTV</div>
+              <div class="plan-speed">550 Mbps</div>
+              <div class="plan-price">S/ <strong>44.95</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 89.90</div>
+              <ul class="plan-details">
+                <li>50% x 3 meses</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /panel-hb-wintv -->
+
+        <!-- ===== TAB PROVINCIA: HB DGO ===== -->
+        <div class="tab-panel" id="panel-prov-dgofonowin" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Promoción</th>
+                  <th>Beneficios</th>
+                  <th>FonoWin</th>
+                  <th>Vertical</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-speed">HB DGO Full 1000 Mbps</td>
+                  <td class="td-price">S/ 159.90</td>
+                  <td class="td-promo">S/ 79.95 (50% desc.)</td>
+                  <td>2 Mesh Wi-Fi</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-si">SÍ</span></td>
+                </tr>
+                <tr>
+                  <td class="td-speed">HB DGO Hogar 1000 Mbps</td>
+                  <td class="td-price">S/ 129.90</td>
+                  <td class="td-promo">S/ 64.95 (50% desc.)</td>
+                  <td>2 Mesh Wi-Fi</td>
+                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
+                  <td><span class="badge badge-si">SÍ</span></td>
+                </tr>
+                <tr>
+                  <td class="td-speed">HB Fonowin 350 Mbps</td>
+                  <td class="td-price">S/ 79.00</td>
+                  <td class="td-promo">S/ 39.95 (50% desc.)</td>
+                  <td><span class="badge badge-no">NO</span></td>
+                  <td><span class="badge badge-no">NO</span></td>
+                  <td><span class="badge badge-no">NO</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="plans-grid" style="margin-top:1.5rem">
+            <div class="plan-card featured">
+              <button class="btn-card-sim" data-sim-monto="79.95" data-sim-plan="HB DGO Full 1000 Mbps"
+                data-sim-vertical="SI" data-sim-regular="159.90" title="Simular con este precio"
+                data-sound="calc">📋</button>
+              <div class="badge-top">PREMIUM</div>
+              <div class="plan-name">HB PROV DGO FULL</div>
+              <div class="plan-speed">1000 Mbps</div>
+              <div class="plan-price">S/ <strong>79.95</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 159.90</div>
+              <ul class="plan-details">
+                <li>50% x 3 meses</li>
+                <li>2 Mesh Wi-Fi</li>
+                <li>Vertical WIN</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="64.95" data-sim-plan="HB DGO Hogar 1000 Mbps"
+                data-sim-vertical="SI" data-sim-regular="129.90" title="Simular con este precio"
+                data-sound="calc">📋</button>
+              <div class="plan-name">HB PROV DGO HOGAR</div>
+              <div class="plan-speed">1000 Mbps</div>
+              <div class="plan-price">S/ <strong>64.95</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 129.90</div>
+              <ul class="plan-details">
+                <li>50% x 3 meses</li>
+                <li>2 Mesh Wi-Fi</li>
+                <li>Vertical WIN</li>
+                <li>100% fibra optica</li>
+                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="39.95" data-sim-plan="HB PROV FONOWIN 350 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="plan-name">HB PROV FONOWIN</div>
+              <div class="plan-speed">350 Mbps</div>
+              <div class="plan-price">S/ <strong>39.95</strong> <small>/ 3 meses</small></div>
+              <div class="plan-promo">Precio regular: S/ 79.90</div>
+              <ul class="plan-details">
+                <li>50% x 3 meses</li>
+                <li>100% fibra optica</li>
+                <li>Ya incluye Fonowin</li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /panel-hb-DGO-->
+
+        <!-- ===== TAB PROVINCIAS: RUC20 ===== -->
+        <div class="tab-panel" id="panel-prov-RUC20" role="tabpanel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Precio Normal</th>
+                  <th>Equipos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-speed">RUC 20 1000 Mbps</td>
+                  <td class="td-price">S/ 129.00</td>
+                  <td>2 Mesh Wi-Fi</td>
+                </tr>
+                <tr>
+                  <td class="td-speed">RUC 20 750 Mbps</td>
+                  <td class="td-price">S/ 99.00</td>
+                </tr>
+                <tr>
+                  <td class="td-speed">RUC 20 550 Mbps</td>
+                  <td class="td-price">S/ 89.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="plans-grid" style="margin-top:1.5rem">
+            <div class="plan-card featured">
+              <button class="btn-card-sim" data-sim-monto="129.00" data-sim-plan="RUC20 PROV 1000 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="badge-top">NEGOCIOS</div>
+              <div class="plan-name">RUC 20 PROV</div>
+              <div class="plan-speed">1000 Mbps</div>
+              <div class="plan-price">S/ <strong>129.00</strong></div>
+              <ul class="plan-details">
+                <li>2 Mesh Wi-Fi</li>
+                <li>Ideal para Negocios</li>
+                <li>IP Dinamica</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="99.00" data-sim-plan="RUC20 PROV 750 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="plan-name">RUC 20 PROV</div>
+              <div class="plan-speed">750 Mbps</div>
+              <div class="plan-price">S/ <strong>99.00</strong></div>
+              <ul class="plan-details">
+                <li>Ideal para Negocios</li>
+                <li>IP Dinamica</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="89.00" data-sim-plan="RUC20 PROV 550 Mbps"
+                title="Simular con este precio" data-sound="calc">📋</button>
+              <div class="plan-name">RUC 20 PROV</div>
+              <div class="plan-speed">550 Mbps</div>
+              <div class="plan-price">S/ <strong>89.00</strong></div>
+              <ul class="plan-details">
+                <li>Ideal para Negocios</li>
+                <li>IP Dinamica</li>
+              </ul>
+            </div>
+          </div><!-- /plans-grid RUC20 -->
+        </div><!-- /section-inner -->
+    </section><!-- /provincia -->
+
+    <!-- ===== SECCIÓN 4: SERVICIOS ADICIONALES ===== -->
+    <section class="section-slide" id="adicionales" aria-labelledby="adic-title">
+      <div class="section-inner">
+        <h2 class="section-title" id="adic-title">Servicios <span class="accent">Adicionales</span></h2>
+        <p class="section-subtitle">Potencia tu plan con estos servicios complementarios disponibles a demanda.</p>
+        <div class="adicionales-grid">
+          <!-- FonoWin -->
+          <div class="servicio-card">
+            <div class="srv-icon">📞</div>
+            <div class="srv-name">FonoWin</div>
+            <div class="srv-price">S/ 10 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+            <div class="srv-note">Línea fija con Tecnología VoIP</div>
+            <div class="srv-note">App para vincular en 2 celulares</div>
+          </div>
+          <!-- WINTV Premium -->
+          <div class="servicio-card con-parrilla" data-parrilla="wintv-premium"
+            title="Haz clic para ver la parrilla de canales">
+            <div class="srv-icon">📺</div>
+            <div class="srv-name">WINTV Premium</div>
+            <div class="srv-price">S/ 49 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+            <div class="srv-note">TV por streaming Premium</div>
+            <button class="btn-ver-parrilla" data-parrilla="wintv-premium" data-sound="click">📺 Ver canales</button>
+          </div>
+          <!-- WINTV L1Max -->
+          <div class="servicio-card con-parrilla" data-parrilla="wintv-l1max"
+            title="Haz clic para ver la parrilla de canales">
+            <div class="srv-icon">🏐</div>
+            <div class="srv-name">WINTV L1Max</div>
+            <div class="srv-price">S/ 59 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+            <div class="srv-note">Canales L1Max incluidos</div>
+            <button class="btn-ver-parrilla" data-parrilla="wintv-l1max" data-sound="click">📺 Ver canales</button>
+          </div>
+          <!-- WINTV L1Max Premium -->
+          <div class="servicio-card con-parrilla" data-parrilla="wintv-l1max-premium"
+            title="Haz clic para ver la parrilla de canales">
+            <div class="srv-icon">🎞️</div>
+            <div class="srv-name">WINTV L1Max Premium</div>
+            <div class="srv-price">S/ 69 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+            <div class="srv-note">L1Max + canales Premium</div>
+            <button class="btn-ver-parrilla" data-parrilla="wintv-l1max-premium" data-sound="click">📺 Ver
+              canales</button>
+          </div>
+          <!-- DGO Hogar -->
+          <div class="servicio-card con-parrilla" data-parrilla="dgo-hogar"
+            title="Haz clic para ver la parrilla de canales">
+            <div class="srv-icon">🎬</div>
+            <div class="srv-name">DGO Hogar</div>
+            <div class="srv-price">S/ 59 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+            <div class="srv-note">Incluye Prime Video + Dsport</div>
+            <button class="btn-ver-parrilla" data-parrilla="dgo-hogar" data-sound="click">📺 Ver canales</button>
+          </div>
+          <!-- DGO Full -->
+          <div class="servicio-card con-parrilla" data-parrilla="dgo-full"
+            title="Haz clic para ver la parrilla de canales">
+            <div class="srv-icon">⚽</div>
+            <div class="srv-name">DGO Full</div>
+            <div class="srv-price">S/ 76 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+            <div class="srv-note">Incluye Prime Video + Dsport</div>
+            <button class="btn-ver-parrilla" data-parrilla="dgo-full" data-sound="click">📺 Ver canales</button>
+          </div>
+          <!-- Winbox -->
+          <div class="servicio-card">
+            <div class="srv-icon">🎥</div>
+            <div class="srv-name">Winbox</div>
+            <div class="srv-price">S/ 20 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+            <div class="srv-note">TvBox con Tecnología AndroidTV</div>
+            <div class="srv-note">Acceso a Apps: Disney+, Netflix, HBOMax, Prime Video, Star+</div>
+          </div>
+          <!-- Mesh Adicional -->
+          <div class="servicio-card">
+            <div class="srv-icon">🛜</div>
+            <div class="srv-name">Mesh Wi-Fi Adicional</div>
+            <div class="srv-price">S/ 9.90 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+            <div class="srv-note">Extiende la cobertura Wi-Fi</div>
+            <div class="srv-note">Ideal para Hogares grandes o de múltiples pisos</div>
+          </div>
+          <!-- KIT WIFI PRO -->
+          <div class="servicio-card" style="border-color:var(--color-amarillo)">
+            <div class="srv-icon">💵</div>
+            <div class="srv-name">KIT WIFI PRO</div>
+            <div class="srv-price" style="color:var(--color-amarillo)">S/ 169 <small
+                style="font-size:0.8rem;color:var(--text-muted)">pago único</small></div>
+            <div class="srv-note">Venta del Mesh Wifi 6</div>
+            <div class="srv-note">Modalidad de Pago Adelantado</div>
+          </div>
+        </div><!-- /adicionales-grid -->
+      </div><!-- /section-inner -->
+    </section><!-- /adicionales -->
+
+    <!-- ===== SECCIÓN 5: SIMULADOR DE FACTURACIÓN ===== -->
+    <section class="section-slide" id="facturacion" aria-labelledby="sim-title">
+      <div class="section-inner">
+        <h2 class="section-title" id="sim-title">Simulador de <span class="accent">Facturación</span></h2>
+        <p class="section-subtitle">Calcula tu primera factura y fecha de emisión según el día de instalación.</p>
+        <div class="sim-layout">
+
+          <!-- === COLUMNA IZQUIERDA: Formulario y Resultados === -->
+          <div class="sim-form-card">
+            <!-- Formulario de simulación -->
+            <form id="sim-form" novalidate>
+              <!-- Campo: Día de instalación -->
+              <div class="form-group">
+                <label class="form-label" for="sim-dia">📅 Día de instalación (1 - 31)</label>
+                <input class="form-input" type="number" id="sim-dia" min="1" max="31" placeholder="Ej: 15"
+                  aria-describedby="sim-dia-hint" required />
+                <small id="sim-dia-hint"
+                  style="color:var(--text-muted);font-size:0.78rem;margin-top:0.3rem;display:block">
+                  Ingresa el día del mes en que se instalará el servicio
+                </small>
+              </div>
+              <!-- Campo: Monto del plan -->
+              <div class="form-group">
+                <label class="form-label" for="sim-monto">💰 Monto mensual del plan (S/)</label>
+                <input class="form-input" type="number" id="sim-monto" min="1" step="0.01" placeholder="Ej: 139"
+                  aria-describedby="sim-monto-hint" required />
+                <small id="sim-monto-hint"
+                  style="color:var(--text-muted);font-size:0.78rem;margin-top:0.3rem;display:block">
+                  Precio mensual del plan sin descuento
+                </small>
+              </div>
+
+              <!-- Botón principal (1er Recibo) -->
+              <button type="submit" class="btn-primary"
+                style="width:100%;justify-content:center;display:flex;gap:0.5rem;" data-sound="calc">
+                🧾 Calcular 1er Recibo
+              </button>
+
+              <!-- Contenedor fila para botones secundarios -->
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; width: 100%;">
+                <!-- Botón + Recibos -->
+                <a href="https://simulador-web-zeta.vercel.app/" target="_blank" rel="noopener noreferrer"
+                  style="flex: 1; display:flex;align-items:center;justify-content:center;gap:0.3rem;padding:0.75rem 0.2rem;background:linear-gradient(135deg,#FFD600,#FFC107);color:#1a1a1a;font-weight:800;font-size:0.85rem;font-family:var(--font-titulo);border-radius:10px;text-decoration:none;box-shadow:0 4px 15px rgba(255,214,0,0.4);transition:all 0.25s ease;cursor:pointer;text-align:center;"
+                  onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(255,214,0,0.55)';"
+                  onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(255,214,0,0.4)';"
+                  data-sound="click">
+                  💲 + Recibos
+                </a>
+
+                <!-- Botón Oferta Vertical -->
+                <button type="button" id="btnVertical" class="btn-primary"
+                  style="flex: 1; justify-content:center;display:flex;align-items:center;gap:0.3rem;background-color:#4c534b;padding:0.75rem 0.2rem;font-size:0.85rem;border-radius:10px;box-shadow: 0 4px 15px rgba(96, 112, 100, 0.35);"
+                  data-sound="calc">
+                  🏢 Oferta Vertical
+                </button>
+              </div>
+            </form>
+
+            <!-- RESULTADOS DEL SIMULADOR (Ahora DENTRO de la tarjeta blanca) -->
+
+            <!-- Contenedor del resultado vertical (Oculto inicialmente) -->
+            <div class="sim-result" id="res-vertical" style="border-color: #353836; background-color: #353836;"></div>
+
+            <!-- Resultado dinámico del simulador normal -->
+            <div class="sim-result" id="sim-result" aria-live="polite" aria-label="Resultado de la simulación">
+              <div class="sim-result-row"><span class="sr-label">📅 Día instalación</span><span class="sr-val"
+                  id="res-dia">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📤 Fecha de emisión</span><span class="sr-val"
+                  id="res-emision">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📆 Fecha de vencimiento</span><span class="sr-val"
+                  id="res-vencimiento">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📋 Tipo de cobro</span><span class="sr-val"
+                  id="res-tipo">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">💵 Monto plan</span><span class="sr-val"
+                  id="res-monto-plan">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">💳 Primer cobro</span><span class="sr-val big"
+                  id="res-cobro">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📝 Detalle</span><span class="sr-val" id="res-detalle"
+                  style="font-size:0.82rem;text-align:right;max-width:60%">—</span></div>
+            </div><!-- /sim-result -->
+
+          </div><!-- /sim-form-card -->
+
+          <!-- === COLUMNA DERECHA: Cuadro de referencia de ciclos === -->
+          <div class="table-wrap">
+            <table class="data-table" style="max-width:700px">
+              <thead>
+                <tr>
+                  <th>Día de Instalación</th>
+                  <th>Día de Emisión</th>
+                  <th>Vencimiento</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>01 – 10</td>
+                  <td class="td-promo">Día 11 (mes actual)</td>
+                  <td>Día 28</td>
+                </tr>
+                <tr>
+                  <td>11 – 14</td>
+                  <td class="td-promo">Día 15</td>
+                  <td>Día 28</td>
+                </tr>
+                <tr>
+                  <td>15 – 18</td>
+                  <td class="td-promo">Día 19</td>
+                  <td>Día 28</td>
+                </tr>
+                <tr>
+                  <td>19 – 22</td>
+                  <td class="td-promo">Día 23</td>
+                  <td>Día 28</td>
+                </tr>
+                <tr>
+                  <td>23 – 31</td>
+                  <td class="td-promo">Día 11 (MES SIGUIENTE)</td>
+                  <td>Día 28</td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- /table-wrap -->
+
+        </div><!-- /sim-layout -->
+      </div><!-- /section-inner -->
+    </section><!-- /facturacion -->
+  </main><!-- /main -->
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="site-footer">
+    <div class="footer-logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:70px;
+    width:auto;
+    display:inline-block;">
+    </div>
+    <p>Oferta Comercial 2026 &mdash; CFD - FORMACIÓN<br>
+      Pensado y creado por Madeloun - Pedro<br>
+  </footer>
+
+  <!-- ===== FAB: BOTONES FLOTANTES ===== -->
+  <div id="fab-container" aria-label="Acciones rápidas">
+    <!-- FAB mute/unmute de audio -->
+    <button class="fab-btn" id="fab-mute" title="Activar/Silenciar sonidos" aria-label="Silenciar sonidos"
+      aria-pressed="false">
+      🔊
+    </button>
+    <!-- FAB ir al simulador -->
+    <button class="fab-btn" id="fab-calc" title="Ir al Simulador" aria-label="Ir al simulador"
+      data-section="facturacion" data-sound="click">
+      🧮
+    </button>
+    <!-- FAB volver arriba -->
+    <button class="fab-btn" id="fab-top" title="Volver al inicio" aria-label="Volver al inicio" data-section="home"
+      data-sound="click">
+      ▲
+    </button>
+  </div>
+
+  <!-- ===== TOAST DE NOTIFICACIONES ===== -->
+  <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ===== MODAL POP-UP: PARRILLA DE CANALES ===== -->
+  <div id="modal-parrilla" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="modal-parrilla-titulo">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">📺</span>
+          <div>
+            <h3 id="modal-parrilla-titulo" class="modal-title">Parrilla de Canales</h3>
+            <span id="modal-parrilla-badge" class="modal-badge">WIN Entretenimiento</span>
+          </div>
+        </div>
+        <button id="modal-close-btn" class="modal-close" aria-label="Cerrar modal" data-sound="click">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-img-container">
+          <img id="modal-parrilla-img" src="" alt="Parrilla de canales WIN" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span id="modal-parrilla-desc" class="modal-desc">Detalle de canales disponibles</span>
+        <button id="modal-footer-close" class="btn-primary btn-sm" data-sound="click">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       BLOQUE JAVASCRIPT ÚNICO
+       Todos los comentarios en español para facilitar edición en IDE
+       ===================================================================== -->
+  <script>
+    /* ========================================================
+       MÓDULO: Web Audio API - Sonidos sintetizados (sin MP3)
+       Usa OscillatorNode + GainNode para todos los SFX
+       ======================================================== */
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let ctx = null; // Contexto de audio (se crea al primer gesto del usuario)
+    let muted = false; // Estado de silencio global
+
+    /** Inicializa (o reutiliza) el contexto de audio */
+    function getCtx() {
+      if (!AudioCtx) return null;
+      if (!ctx) ctx = new AudioCtx();
+      // Reanudar si el navegador lo suspendió por falta de gesto
+      if (ctx.state === "suspended") ctx.resume();
+      return ctx;
+    }
+
+    /** Crea un oscilador simple con rampa de frecuencia y volumen */
+    function playTone({ type = "sine", freqStart, freqEnd, duration = 0.1, vol = 0.15, delay = 0 }) {
+      if (muted) return;
+      const c = getCtx();
+      if (!c) return;
+      const osc = c.createOscillator();
+      const gain = c.createGain();
+      osc.connect(gain);
+      gain.connect(c.destination);
+      osc.type = type;
+      const t = c.currentTime + delay;
+      osc.frequency.setValueAtTime(freqStart, t);
+      osc.frequency.linearRampToValueAtTime(freqEnd ?? freqStart, t + duration);
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + duration + 0.02);
+      osc.start(t);
+      osc.stop(t + duration + 0.05);
+    }
+
+    /* ========================================================
+       CATÁLOGO DE SONIDOS (SFX)
+       Cada propiedad es una función que reproduce su efecto
+       ======================================================== */
+    const SFX = {
+      /** Click suave – sine 800→600 Hz, 60ms */
+      click() {
+        playTone({ type: "sine", freqStart: 800, freqEnd: 600, duration: 0.06 });
+      },
+      /** Cálculo – triangle + sine asciende */
+      calc() {
+        playTone({ type: "triangle", freqStart: 500, freqEnd: 1000, duration: 0.12, vol: 0.12 });
+        playTone({ type: "sine", freqStart: 1000, freqEnd: 1200, duration: 0.12, vol: 0.10, delay: 0.10 });
+      },
+      /** Éxito – tres tonos ascendentes */
+      success() {
+        [0, 0.12, 0.24].forEach((d, i) => {
+          playTone({ type: "sine", freqStart: 600 + i * 200, duration: 0.1, vol: 0.12, delay: d });
+        });
+      },
+      /** Error – sawtooth descendente */
+      error() {
+        playTone({ type: "sawtooth", freqStart: 300, freqEnd: 200, duration: 0.15, vol: 0.12 });
+      },
+      /** Mute activado */
+      mute() {
+        playTone({ type: "triangle", freqStart: 400, freqEnd: 300, duration: 0.1, vol: 0.1 });
+      },
+      /** Unmute activado */
+      unmute() {
+        playTone({ type: "triangle", freqStart: 300, freqEnd: 500, duration: 0.12, vol: 0.12 });
+      },
+      /** Navegación entre secciones */
+      nav() {
+        playTone({ type: "sine", freqStart: 700, freqEnd: 900, duration: 0.08, vol: 0.10 });
+      }
+    };
+
+    /* ========================================================
+       MÓDULO: Referencias DOM cacheadas
+       ======================================================== */
+    const DOM = {
+      progressBar: document.getElementById("progress-bar"),
+      hamburgerBtn: document.getElementById("hamburger-btn"),
+      drawer: document.getElementById("site-drawer"),
+      drawerOverlay: document.getElementById("drawer-overlay"),
+      drawerCloseBtn: document.getElementById("drawer-close-btn"),
+      pageDots: document.querySelectorAll(".page-dot"),
+      navBtns: document.querySelectorAll(".nav-btn"),
+      sections: document.querySelectorAll(".section-slide"),
+      fabMute: document.getElementById("fab-mute"),
+      toast: document.getElementById("toast"),
+      simForm: document.getElementById("sim-form"),
+      simResult: document.getElementById("sim-result"),
+    };
+
+    /** Lista de IDs de secciones en orden de navegación */
+    const SECCIONES = ["home", "lima", "provincia", "adicionales", "facturacion"];
+    let seccionActual = 0; // Índice de la sección visible activa
+
+    /* ========================================================
+       MÓDULO: Toast de notificaciones
+       ======================================================== */
+    let toastTimer = null;
+    function mostrarToast(msg, duracion = 2500) {
+      clearTimeout(toastTimer);
+      DOM.toast.textContent = msg;
+      DOM.toast.classList.add("visible");
+      toastTimer = setTimeout(() => DOM.toast.classList.remove("visible"), duracion);
+    }
+
+    /* ========================================================
+       MÓDULO: Barra de progreso superior
+       Calcula el porcentaje de scroll de la página completa
+       ======================================================== */
+    function actualizarProgreso() {
+      const scrollTop = window.scrollY;
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docH > 0 ? (scrollTop / docH) * 100 : 0;
+      DOM.progressBar.style.width = pct + "%";
+    }
+
+    /* ========================================================
+       MÓDULO: Navegación entre secciones
+       ======================================================== */
+    /** Navega a una sección por su ID y actualiza UI relacionada */
+    function navegarA(seccionId) {
+      const el = document.getElementById(seccionId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      const idx = SECCIONES.indexOf(seccionId);
+      if (idx !== -1) seccionActual = idx;
+      actualizarDots(seccionId);
+      actualizarNavBtns(seccionId);
+      cerrarDrawer();
+    }
+
+    /** Navega a la sección siguiente (cíclico) */
+    function navegarSiguiente() {
+      const siguiente = (seccionActual + 1) % SECCIONES.length;
+      navegarA(SECCIONES[siguiente]);
+    }
+
+    /** Navega a la sección anterior (cíclico) */
+    function navegarAnterior() {
+      const anterior = (seccionActual - 1 + SECCIONES.length) % SECCIONES.length;
+      navegarA(SECCIONES[anterior]);
+    }
+
+    /* ========================================================
+       MÓDULO: Actualización de estados visuales de navegación
+       ======================================================== */
+    function actualizarDots(seccionId) {
+      DOM.pageDots.forEach(dot => {
+        dot.classList.toggle("active", dot.dataset.section === seccionId);
+      });
+    }
+
+    function actualizarNavBtns(seccionId) {
+      DOM.navBtns.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.section === seccionId);
+      });
+    }
+
+    /* ========================================================
+       MÓDULO: IntersectionObserver para detectar sección activa
+       Actualiza dots y nav al hacer scroll manual
+       ======================================================== */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+          const id = entry.target.id;
+          const idx = SECCIONES.indexOf(id);
+          if (idx !== -1) seccionActual = idx;
+          actualizarDots(id);
+          actualizarNavBtns(id);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    DOM.sections.forEach(s => observer.observe(s));
+
+    /* ========================================================
+       MÓDULO: Drawer lateral
+       ======================================================== */
+    function abrirDrawer() {
+      DOM.drawer.classList.add("open");
+      DOM.drawerOverlay.classList.add("open");
+      DOM.hamburgerBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+
+    function cerrarDrawer() {
+      DOM.drawer.classList.remove("open");
+      DOM.drawerOverlay.classList.remove("open");
+      DOM.hamburgerBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    DOM.hamburgerBtn.addEventListener("click", () => {
+      SFX.click();
+      if (DOM.drawer.classList.contains("open")) cerrarDrawer();
+      else abrirDrawer();
+    });
+    DOM.drawerCloseBtn.addEventListener("click", () => { SFX.click(); cerrarDrawer(); });
+    DOM.drawerOverlay.addEventListener("click", () => cerrarDrawer());
+
+    /* ========================================================
+       MÓDULO: Sistema de tabs (Lima y Provincia)
+       Activa/desactiva paneles según el botón pulsado
+       ======================================================== */
+    function manejarTab(btn) {
+      const tabId = btn.dataset.tab;
+      if (!tabId) return;
+      // Encontrar el grupo de tabs al que pertenece este botón
+      const tabBar = btn.closest(".tab-bar");
+      const section = btn.closest(".section-slide");
+      if (!tabBar || !section) return;
+      // Desactivar todos los tabs y paneles del mismo grupo
+      tabBar.querySelectorAll(".tab-btn").forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
+      section.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      // Activar el seleccionado
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
+      const panel = document.getElementById("panel-" + tabId);
+      if (panel) panel.classList.add("active");
+    }
+    /* ========================================================
+       MÓDULO: Simulador de Facturación (Efecto Ocultar/Mostrar)
+       Aplica las reglas de ciclos de emisión y calcula montos
+       ======================================================== */
+    DOM.simForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const diaInput = document.getElementById("sim-dia").value;
+      const montoInput = document.getElementById("sim-monto").value;
+
+      const dia = parseInt(diaInput, 10);
+      const monto = parseFloat(montoInput);
+
+      // Si el usuario hace clic sin llenar datos, no hacemos nada extra, dejamos que el 'required' de HTML actúe
+      if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) {
+        return;
+      }
+
+      // Funcionalidad Ocultar/Mostrar: Si ya está visible, lo ocultamos y nos detenemos
+      if (DOM.simResult.classList.contains("visible")) {
+        DOM.simResult.classList.remove("visible");
+        SFX.click(); // Un sonido suave al cerrar
+        return;
+      }
+
+      // Si llegamos aquí, es porque vamos a calcular y mostrar.
+      SFX.calc();
+
+      // Ocultar SIEMPRE el cuadro de Oferta Vertical para evitar que se apilen
+      document.getElementById("res-vertical").classList.remove("visible");
+
+      // ------ Calcular día y mes de emisión según ciclo ------
+      let diaEmision, mesEmisionOffset, ciclo, tipoCobro;
+      // Offset: 0 = mes actual, 1 = mes siguiente
+      if (dia >= 1 && dia <= 10) { diaEmision = 11; mesEmisionOffset = 0; ciclo = "01–10"; }
+      else if (dia >= 11 && dia <= 14) { diaEmision = 15; mesEmisionOffset = 0; ciclo = "11–14"; }
+      else if (dia >= 15 && dia <= 18) { diaEmision = 19; mesEmisionOffset = 0; ciclo = "15–18"; }
+      else if (dia >= 19 && dia <= 22) { diaEmision = 23; mesEmisionOffset = 0; ciclo = "19–22"; }
+      else { diaEmision = 11; mesEmisionOffset = 1; ciclo = "23–31"; }
+
+      // ------ Determinar tipo de cobro y monto ------
+      let primerCobro, detalle;
+      const tarifa = monto; // tarifa diaria base = monto / 30
+      const tarifa_dia = monto / 30;
+
+      const fechaActual = new Date();
+      const ultimoDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0).getDate();
+
+      if (dia >= 1 && dia <= 22) {
+        // Cobro proporcional: días desde instalación hasta fin de mes
+        tipoCobro = "Proporcional";
+        const diasCobro = ultimoDiaMes - dia + 1;
+        primerCobro = tarifa_dia * diasCobro;
+        detalle = `(S/ ${tarifa_dia.toFixed(2)}/día × ${diasCobro} días hasta el día ${ultimoDiaMes})`;
+      } else {
+        // Cobro consolidado: días restantes del mes actual + mes siguiente completo
+        tipoCobro = "Consolidado";
+        const diasRestantes = ultimoDiaMes - dia + 1;
+        const cobroParcial = tarifa_dia * diasRestantes;
+        primerCobro = cobroParcial + monto;
+        detalle = `(${diasRestantes} días de este mes + 1 mes completo = S/ ${cobroParcial.toFixed(2)} + S/ ${monto.toFixed(2)})`;
+      }
+
+      // ------ Obtener fecha de emisión con nombre de mes ------
+      const hoy = new Date();
+      const mesBase = hoy.getMonth(); // 0-indexed
+      const anioBase = hoy.getFullYear();
+      const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
+        "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+      let mesEmision = mesBase + mesEmisionOffset;
+      let anioEmision = anioBase;
+      if (mesEmision > 11) { mesEmision -= 12; anioEmision++; }
+      const emisionStr = `${diaEmision} de ${meses[mesEmision]} ${anioEmision}`;
+      // Vencimiento siempre día 28 del mes de emisión
+      const vencimientoStr = `28 de ${meses[mesEmision]} ${anioEmision}`;
+
+      // ------ Renderizar resultado en el DOM ------
+      document.getElementById("res-dia").textContent = `Día ${dia}`;
+      document.getElementById("res-emision").textContent = emisionStr;
+      document.getElementById("res-vencimiento").textContent = vencimientoStr;
+      document.getElementById("res-tipo").textContent = tipoCobro;
+      document.getElementById("res-monto-plan").textContent = `S/ ${monto.toFixed(2)}`;
+      document.getElementById("res-cobro").textContent = `S/ ${primerCobro.toFixed(2)}`;
+      document.getElementById("res-detalle").textContent = detalle;
+
+      DOM.simResult.classList.add("visible");
+      setTimeout(() => SFX.success(), 300); // Efecto de éxito diferido
+      mostrarToast("✅ Simulación calculada correctamente");
+    });
+
+    /* ========================================================
+       MÓDULO: Oferta Vertical
+       ======================================================== */
+    document.getElementById("btnVertical").addEventListener("click", () => {
+      const diaInput = document.getElementById("sim-dia").value;
+      const montoInput = document.getElementById("sim-monto").value;
+
+      const dia = parseInt(diaInput, 10);
+      const monto = parseFloat(montoInput);
+      const contenedorVertical = document.getElementById("res-vertical");
+
+      if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) {
+        SFX.error();
+        mostrarToast("⚠️ Ingresa un día y monto válidos");
+        return;
+      }
+
+      if (contenedorVertical.classList.contains("visible")) {
+        contenedorVertical.classList.remove("visible");
+        SFX.click();
+        return;
+      }
+
+      SFX.calc();
+      DOM.simResult.classList.remove("visible");
+
+      // Usar directamente la información que guardamos en memoria al hacer clic en la tarjeta
+      if (planSeleccionado_aplicaVertical) {
+        const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const mesActual = new Date().getMonth();
+        let mesEmisionOffset = (dia >= 23) ? 1 : 0;
+
+        const mes1 = meses[(mesActual + mesEmisionOffset) % 12];
+        const mes2 = meses[(mesActual + mesEmisionOffset + 1) % 12];
+        const mes3 = meses[(mesActual + mesEmisionOffset + 2) % 12];
+
+        contenedorVertical.style.borderColor = "#475569";
+        contenedorVertical.style.backgroundColor = "#FFFFFF";
+        contenedorVertical.innerHTML = `
+          <h4 style="color: #475569; margin-bottom: 12px; text-align: center; font-family: var(--font-titulo); font-weight: 900;">✅ Aplica para Oferta Vertical</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem;">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 6px;">
+                  <span style="color: var(--text-muted); font-weight: 500;"><strong>1er Recibo</strong> (${mes1})</span> <span style="color:#FF5A0A; font-weight:900; font-family: var(--font-titulo);">S/ 1.00</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 6px;">
+                  <span style="color: var(--text-muted); font-weight: 500;"><strong>2do Recibo</strong> (${mes2})</span> <span style="color:#FF5A0A; font-weight:900; font-family: var(--font-titulo);">S/ 1.00</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-bottom: 4px;">
+                  <span style="color: var(--text-muted); font-weight: 500;"><strong>3er Recibo</strong> (${mes3})</span> <span style="font-weight:900; font-family: var(--font-titulo); color: var(--text-main);">S/ ${planSeleccionado_precioRegular.toFixed(2)}</span>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; text-align: center;">
+                  *A partir del 3er recibo se cobra el precio regular sin descuento.
+              </div>
+          </div>
+        `;
+        setTimeout(() => SFX.success(), 300);
+        mostrarToast("✅ Oferta Vertical calculada");
+
+      } else {
+        contenedorVertical.style.borderColor = "#dc3545";
+        contenedorVertical.style.backgroundColor = "#fff8f8";
+        contenedorVertical.innerHTML = `
+          <h4 style="color: #dc3545; margin-bottom: 10px; text-align: center; font-family: var(--font-titulo); font-weight: 800;">❌ No aplica a Oferta Vertical</h4>
+          <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin: 0; line-height: 1.5;">
+              El plan seleccionado NO califica para el beneficio de S/ 1.00 o digitaste un monto manual.
+          </p>
+        `;
+        SFX.error();
+      }
+
+      contenedorVertical.classList.add("visible");
+    });
+
+    /* ========================================================
+           MÓDULO: Simular plan directamente desde la tarjeta
+           ======================================================== */
+    // Variables globales para recordar la selección actual
+    let planSeleccionado_aplicaVertical = false;
+    let planSeleccionado_precioRegular = 0;
+
+    function simularConPrecio(monto, plan, aplicaVertical = 'NO', precioRegular = 0) {
+      navegarA("facturacion");
+
+      // Guardar en memoria la info de este plan específico
+      planSeleccionado_aplicaVertical = (aplicaVertical === 'SI');
+      planSeleccionado_precioRegular = parseFloat(precioRegular) || 0;
+
+      const inputMonto = document.getElementById("sim-monto");
+      if (inputMonto) {
+        inputMonto.value = monto;
+        inputMonto.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+
+      const inputDia = document.getElementById("sim-dia");
+      if (inputDia) {
+        const diaVal = parseInt(inputDia.value, 10);
+        if (!isNaN(diaVal) && diaVal >= 1 && diaVal <= 31) {
+          setTimeout(() => {
+            DOM.simForm.dispatchEvent(new Event("submit", { cancelable: true }));
+          }, 250);
+        } else {
+          setTimeout(() => inputDia.focus(), 350);
+        }
+      }
+      SFX.calc();
+      mostrarToast(`📋 Oferta cargada: ${plan} (S/ ${monto})`);
+    }
+
+    /* ========================================================
+       MÓDULO: Modal Pop-up - Parrilla de Canales
+       Muestra las imágenes de canales para WINTV y DGO
+       ======================================================== */
+    const PARRILLAS = {
+      "wintv-premium": {
+        titulo: "Parrilla de Canales · WINTV Premium",
+        archivo: "img/wintv PREMIUM.png",
+        desc: "Parrilla de canales completa del plan WINTV Premium por streaming."
+      },
+      "wintv-l1max": {
+        titulo: "Parrilla de Canales · WINTV L1Max",
+        archivo: "img/L1MAX.png",
+        desc: "Señal y contenido oficial de L1Max con todos los partidos de la Liga 1."
+      },
+      "wintv-l1max-premium": {
+        titulo: "Parrilla de Canales · WINTV L1Max Premium",
+        archivo: "img/wintv L1MAX PREMIUM.png",
+        desc: "Catálogo completo de L1Max junto a los mejores canales Premium de WINTV."
+      },
+      "dgo-hogar": {
+        titulo: "Parrilla de Canales · DGO Hogar",
+        archivo: "img/DGO HOGAR.png",
+        desc: "Parrilla de canales y entretenimiento en vivo del paquete DGO Hogar."
+      },
+      "dgo-full": {
+        titulo: "Parrilla de Canales · DGO Full",
+        archivo: "img/DGO FULL.png",
+        desc: "Catálogo total de canales en vivo y streaming premium de DGO Full."
+      }
+    };
+
+    const modalParrilla = document.getElementById("modal-parrilla");
+    const modalImg = document.getElementById("modal-parrilla-img");
+    const modalTitulo = document.getElementById("modal-parrilla-titulo");
+    const modalDesc = document.getElementById("modal-parrilla-desc");
+    const modalCloseBtn = document.getElementById("modal-close-btn");
+    const modalFooterClose = document.getElementById("modal-footer-close");
+
+    function abrirModalParrilla(clave) {
+      const info = PARRILLAS[clave];
+      if (!info || !modalParrilla) return;
+      modalTitulo.textContent = info.titulo;
+      modalDesc.textContent = info.desc;
+      modalImg.src = encodeURI(info.archivo);
+      modalImg.alt = info.titulo;
+      modalParrilla.classList.add("open");
+      modalParrilla.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      SFX.click();
+    }
+
+    function cerrarModalParrilla() {
+      if (!modalParrilla) return;
+      modalParrilla.classList.remove("open");
+      modalParrilla.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      SFX.click();
+    }
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", cerrarModalParrilla);
+    if (modalFooterClose) modalFooterClose.addEventListener("click", cerrarModalParrilla);
+    if (modalParrilla) {
+      modalParrilla.addEventListener("click", (e) => {
+        if (e.target === modalParrilla) cerrarModalParrilla();
+      });
+    }
+
+    /* ========================================================
+       MÓDULO: Event Delegation global
+       Maneja sonidos, simulador desde card, parrillas y navegación
+       ======================================================== */
+    document.addEventListener("click", (e) => {
+      // 1. Clic en botón de simular desde una card
+      const btnSim = e.target.closest(".btn-card-sim");
+      if (btnSim) {
+        e.preventDefault();
+        e.stopPropagation();
+        const monto = btnSim.dataset.simMonto;
+        const plan = btnSim.dataset.simPlan;
+        const vertical = btnSim.dataset.simVertical || 'NO'; // Lee si aplica o no
+        const regular = btnSim.dataset.simRegular || 0;     // Lee el precio regular
+
+        if (monto) simularConPrecio(monto, plan, vertical, regular);
+        return;
+      }
+
+      // 2. Clic para ver parrilla de canales
+      const btnParrilla = e.target.closest("[data-parrilla]");
+      if (btnParrilla) {
+        e.preventDefault();
+        const clave = btnParrilla.dataset.parrilla;
+        abrirModalParrilla(clave);
+        return;
+      }
+
+      // 3. Sonidos con data-sound
+      const targetSound = e.target.closest("[data-sound]");
+      if (targetSound) {
+        const sfx = targetSound.dataset.sound;
+        if (SFX[sfx]) SFX[sfx]();
+      }
+
+      // 4. Navegación con data-section
+      const targetSection = e.target.closest("[data-section]");
+      if (targetSection) {
+        const seccion = targetSection.dataset.section;
+        if (seccion) navegarA(seccion);
+      }
+
+      // 5. Tabs
+      const targetTab = e.target.closest(".tab-btn");
+      if (targetTab) {
+        manejarTab(targetTab);
+      }
+    });
+
+    /* ========================================================
+       MÓDULO: FAB – Mute / Unmute de audio
+       ======================================================== */
+    DOM.fabMute.addEventListener("click", () => {
+      muted = !muted;
+      if (muted) {
+        DOM.fabMute.textContent = "🔇";
+        DOM.fabMute.setAttribute("aria-pressed", "true");
+        DOM.fabMute.title = "Activar sonidos";
+        mostrarToast("🔇 Sonidos silenciados");
+      } else {
+        DOM.fabMute.textContent = "🔊";
+        DOM.fabMute.setAttribute("aria-pressed", "false");
+        DOM.fabMute.title = "Silenciar sonidos";
+        SFX.unmute();
+        mostrarToast("🔊 Sonidos activados");
+      }
+    });
+
+    /* ========================================================
+       MÓDULO: Atajos de teclado
+       ArrowRight/Down = siguiente sección
+       ArrowLeft/Up    = sección anterior
+       Escape          = cerrar modal o drawer
+       M               = toggle mute
+       ======================================================== */
+    document.addEventListener("keydown", (e) => {
+      // Ignorar si el foco está en un campo de formulario
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName)) return;
+      switch (e.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          e.preventDefault();
+          SFX.nav();
+          navegarSiguiente();
+          break;
+        case "ArrowLeft":
+        case "ArrowUp":
+          e.preventDefault();
+          SFX.nav();
+          navegarAnterior();
+          break;
+        case "Escape":
+          if (modalParrilla && modalParrilla.classList.contains("open")) {
+            cerrarModalParrilla();
+            return;
+          }
+          cerrarDrawer();
+          break;
+        case "m":
+        case "M":
+          DOM.fabMute.click();
+          break;
+      }
+    });
+
+    /* ========================================================
+       MÓDULO: Evento de scroll – actualiza barra de progreso
+       ======================================================== */
+    window.addEventListener("scroll", actualizarProgreso, { passive: true });
+
+    // ===== INICIALIZACIÓN =====
+    actualizarProgreso(); // Estado inicial de la barra
+    mostrarToast("👋 Bienvenido a la Oferta Comercial - WIN");
+
+    /* ========================================================
+       MÓDULO: Protección – Deshabilitar inspección de código
+       ======================================================== */
+    /*
+        // 1. Bloquear clic derecho (menú contextual)
+        document.addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+        });
+    
+        // 2. Bloquear atajos de teclado de herramientas de desarrollo
+        document.addEventListener("keydown", function (e) {
+          // F12
+          if (e.key === "F12") { e.preventDefault(); return false; }
+          // Ctrl+Shift+I / Cmd+Option+I (Inspeccionar)
+          if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "I") { e.preventDefault(); return false; }
+          // Ctrl+Shift+J / Cmd+Option+J (Consola)
+          if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "J") { e.preventDefault(); return false; }
+          // Ctrl+Shift+C / Cmd+Option+C (Inspector de elementos)
+          if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "C") { e.preventDefault(); return false; }
+          // Ctrl+U / Cmd+U (Ver código fuente)
+          if ((e.ctrlKey || e.metaKey) && e.key === "u") { e.preventDefault(); return false; }
+          // Ctrl+S / Cmd+S (Guardar página)
+          if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); return false; }
+        });
+    
+        // 3. Detectar si DevTools está abierto y redirigir
+        (function detectDevTools() {
+          var threshold = 160;
+          var devToolsOpen = false;
+          setInterval(function () {
+            var widthDiff = window.outerWidth - window.innerWidth > threshold;
+            var heightDiff = window.outerHeight - window.innerHeight > threshold;
+            if ((widthDiff || heightDiff) && !devToolsOpen) {
+              devToolsOpen = true;
+              document.body.innerHTML = "<div style='display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;font-size:1.5rem;color:#FF5A0A;'>🔒 Acceso no autorizado</div>";
+            }
+          }, 1000);
+        })();
+    */
+    /* ========================================================
+       MÓDULO: Renderizado Dinámico desde JSON
+       ======================================================== */
+async function cargarPlanes() {
+  try {
+    const respuesta = await fetch('ofertas.json');
+    const datos = await respuesta.json();
+
+    // 1. Contenedores de Lima Mono Residencial
+    const contenedorMonoLima = document.getElementById('grid-lima-mono');
+    const tbodyTablaLima = document.getElementById('tabla-lima-mono');
+
+    if (contenedorMonoLima) contenedorMonoLima.innerHTML = '';
+    if (tbodyTablaLima) tbodyTablaLima.innerHTML = '';
+
+    // 2. Recorrer los datos del JSON
+    datos.lima.mono_residencial.forEach(plan => {
+      
+      // --- A. CONSTRUIR FILA DE LA TABLA SUPERIOR ---
+      if (tbodyTablaLima) {
+        let promoTexto = plan.precio_regular !== plan.precio_promo 
+          ? `S/ ${plan.precio_promo.toFixed(2)} (${Math.round((1 - plan.precio_promo/plan.precio_regular)*100)}% desc.)` 
+          : '<span class="badge badge-no">Sin promo</span>';
+        
+        let verticalBadge = plan.aplica_vertical === 'SI' 
+          ? '<span class="badge badge-si">SÍ</span>' 
+          : '<span class="badge badge-no">NO</span>';
+
+        let beneficiosTexto = plan.beneficio_tabla || '<span class="badge badge-no">NO</span>';
+        if (beneficiosTexto.toUpperCase() === 'NO') {
+        beneficiosTexto = '<span class="badge badge-no">NO</span>';
+        } else if (beneficiosTexto.toUpperCase() === 'SÍ' || beneficiosTexto.toUpperCase() === 'SI') {
+        beneficiosTexto = '<span class="badge badge-si">SÍ</span>';
+      }
+
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td class="td-speed">${plan.plan}</td>
+          <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
+          <td class="td-promo">${promoTexto}</td>
+          <td>${beneficiosTexto}</td>
+          <td>${verticalBadge}</td>
+        `;
+        tbodyTablaLima.appendChild(fila);
+      }
+
+      // --- B. CONSTRUIR TARJETAS INFERIORES ---
+      if (contenedorMonoLima) {
+        let listaDetalles = '';
+        if (plan.detalles) {
+          plan.detalles.forEach(detalle => {
+            listaDetalles += `<li>${detalle}</li>`;
+          });
+        }
+
+        let badgeHTML = '';
+        let claseDestacado = '';
+        if (plan.destacado) {
+          badgeHTML = `<div class="badge-top">${plan.badge}</div>`;
+          claseDestacado = 'featured';
+        }
+
+        let htmlPromoRegular = '';
+        if (plan.precio_regular !== plan.precio_promo) {
+          htmlPromoRegular = `<div class="plan-promo">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>`;
+        }
+
+        const tarjeta = document.createElement('div');
+        tarjeta.className = `plan-card ${claseDestacado}`;
+        tarjeta.innerHTML = `
+          <button class="btn-card-sim" data-sim-monto="${plan.precio_promo.toFixed(2)}" data-sim-plan="${plan.plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular.toFixed(2)}" title="Simular con este precio" data-sound="calc">📋</button>
+          ${badgeHTML}
+          <div class="plan-name">Mono Residencial</div>
+          <div class="plan-speed">${plan.velocidad}</div>
+          <div class="plan-price">S/ <strong>${plan.precio_promo.toFixed(2)}</strong> <small>${plan.texto_promo}</small></div>
+          ${htmlPromoRegular}
+          <ul class="plan-details">
+            ${listaDetalles}
+          </ul>
+        `;
+        contenedorMonoLima.appendChild(tarjeta);
+      }
+    });
+
+  } catch (error) {
+    console.error("Error al cargar el archivo JSON:", error);
+  }
+}
+
+    // Ejecutar la función apenas termine de cargar la página
+    document.addEventListener("DOMContentLoaded", cargarPlanes);
+  </script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+
+</html>

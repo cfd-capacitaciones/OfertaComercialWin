@@ -1,0 +1,89 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "img"
+public_folder: "img"
+
+collections:
+  - name: "ofertas"
+    label: "Ofertas Comerciales"
+    files:
+      - label: "Planes Lima - Mono Residencial"
+        name: "lima_mono"
+        file: "ofertas.json"
+        fields:
+          - name: "lima"
+            label: "Lima"
+            widget: "object"
+            fields:
+              - name: "mono_residencial"
+                label: "Tarjetas Mono Residencial"
+                widget: "list"
+                fields:
+                  - {label: "Nombre del Plan", name: "plan", widget: "string"}
+                  - {label: "Velocidad", name: "velocidad", widget: "string"}
+                  - {label: "Precio Regular (S/)", name: "precio_regular", widget: "number", value_type: "float"}
+                  - {label: "Precio Promoción (S/)", name: "precio_promo", widget: "number", value_type: "float"}
+                  - {label: "Texto Extra (ej. / 1er mes)", name: "texto_promo", widget: "string", required: false}
+                  - {label: "Texto para la Tabla Superior", name: "beneficio_tabla", widget: "string"}
+                  - {label: "Destacar Plan (Cinta Naranja)", name: "destacado", widget: "boolean", default: false}
+                  - {label: "Texto de Cinta (ej. MÁS POPULAR)", name: "badge", widget: "string", required: false}
+                  - {label: "Aplica Oferta Vertical (S/ 1.00)", name: "aplica_vertical", widget: "select", options: ["SI", "NO"]}
+                  - {label: "Lista de Beneficios", name: "detalles", widget: "list"}
+              - name: "xgspon_gamer"
+                label: "Tarjetas XGSPON / Gamer"
+                widget: "list"
+                fields:
+                  - {label: "Nombre del Plan", name: "plan", widget: "string"}
+                  - {label: "Velocidad", name: "velocidad", widget: "string"}
+                  - {label: "Precio Regular (S/)", name: "precio_regular", widget: "number", value_type: "float"}
+                  - {label: "Precio Promoción (S/)", name: "precio_promo", widget: "number", value_type: "float"}
+                  - {label: "Texto Extra", name: "texto_promo", widget: "string", required: false}
+                  - {label: "Texto para la Tabla Superior", name: "beneficio_tabla", widget: "string"}
+                  - {label: "Destacar Plan", name: "destacado", widget: "boolean", default: false}
+                  - {label: "Texto de Cinta", name: "badge", widget: "string", required: false}
+                  - {label: "Aplica Oferta Vertical", name: "aplica_vertical", widget: "select", options: ["SI", "NO"]}
+                  - {label: "Lista de Beneficios", name: "detalles", widget: "list"}
+              - name: "hb_wtv"
+                label: "Tarjetas HB WTV"
+                widget: "list"
+                fields:
+                  - {label: "Nombre del Plan", name: "plan", widget: "string"}
+                  - {label: "Velocidad", name: "velocidad", widget: "string"}
+                  - {label: "Precio Regular (S/)", name: "precio_regular", widget: "number", value_type: "float"}
+                  - {label: "Precio Promoción (S/)", name: "precio_promo", widget: "number", value_type: "float"}
+                  - {label: "Texto Extra", name: "texto_promo", widget: "string", required: false}
+                  - {label: "Texto para la Tabla Superior", name: "beneficio_tabla", widget: "string"}
+                  - {label: "Destacar Plan", name: "destacado", widget: "boolean", default: false}
+                  - {label: "Texto de Cinta", name: "badge", widget: "string", required: false}
+                  - {label: "Aplica Oferta Vertical", name: "aplica_vertical", widget: "select", options: ["SI", "NO"]}
+                  - {label: "Lista de Beneficios", name: "detalles", widget: "list"}
+              - name: "hb_dgo"
+                label: "Tarjetas HB DGO"
+                widget: "list"
+                fields:
+                  - {label: "Nombre del Plan", name: "plan", widget: "string"}
+                  - {label: "Velocidad", name: "velocidad", widget: "string"}
+                  - {label: "Precio Regular (S/)", name: "precio_regular", widget: "number", value_type: "float"}
+                  - {label: "Precio Promoción (S/)", name: "precio_promo", widget: "number", value_type: "float"}
+                  - {label: "Texto Extra", name: "texto_promo", widget: "string", required: false}
+                  - {label: "Texto para la Tabla Superior", name: "beneficio_tabla", widget: "string"}
+                  - {label: "Destacar Plan", name: "destacado", widget: "boolean", default: false}
+                  - {label: "Texto de Cinta", name: "badge", widget: "string", required: false}
+                  - {label: "Aplica Oferta Vertical", name: "aplica_vertical", widget: "select", options: ["SI", "NO"]}
+                  - {label: "Lista de Beneficios", name: "detalles", widget: "list"}
+              - name: "ruc20"
+                label: "Tarjetas RUC 20 Lima"
+                widget: "list"
+                fields:
+                  - {label: "Nombre del Plan", name: "plan", widget: "string"}
+                  - {label: "Velocidad", name: "velocidad", widget: "string"}
+                  - {label: "Precio Regular (S/)", name: "precio_regular", widget: "number", value_type: "float"}
+                  - {label: "Precio Promoción (S/)", name: "precio_promo", widget: "number", value_type: "float"}
+                  - {label: "Texto Extra", name: "texto_promo", widget: "string", required: false}
+                  - {label: "Texto para la Tabla Superior", name: "beneficio_tabla", widget: "string"}
+                  - {label: "Destacar Plan", name: "destacado", widget: "boolean", default: false}
+                  - {label: "Texto de Cinta", name: "badge", widget: "string", required: false}
+                  - {label: "Aplica Oferta Vertical", name: "aplica_vertical", widget: "select", options: ["SI", "NO"]}
+                  - {label: "Lista de Beneficios", name: "detalles", widget: "list"}
