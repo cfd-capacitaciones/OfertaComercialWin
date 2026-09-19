@@ -2601,9 +2601,7 @@
           }, 1000);
         })();
     */
-
-
-  async function cargarPlanes() {
+async function cargarPlanes() {
     try {
         const projectId = '1n0remz0';
         const dataset = 'production';
@@ -2614,12 +2612,82 @@
         const data = await response.json();
         const ofertasSanity = data.result;
 
-        console.log("¡Planes cargados desde Sanity con éxito!", ofertasSanity);
+        console.log("¡Planes cargados desde Sanity!", ofertasSanity);
+        
+        // Ejecutamos la función para pintar cada tabla según su categoría
+        // NOTA: El segundo parámetro debe coincidir con cómo escribiste la categoría en Sanity
+        pintarTabla(ofertasSanity, 'mono_residencial', 'tabla-lima-mono');
+        pintarTabla(ofertasSanity, 'xgspon_gamer', 'tabla-lima-xgspon');
+        pintarTabla(ofertasSanity, 'hb_wtv', 'tabla-lima-wtv');
+        pintarTabla(ofertasSanity, 'hb_dgo', 'tabla-lima-dgo');
+        
+        // RUC 20 usa una función especial porque tiene menos columnas en tu HTML
+        pintarTablaRUC(ofertasSanity, 'ruc20', 'tabla-lima-ruc20'); 
 
     } catch (error) {
-        console.error("Error al cargar los planes desde Sanity:", error);
+        console.error("Error al cargar los planes:", error);
     }
 }
+
+// 1. Función para pintar las tablas estándar (5 columnas)
+function pintarTabla(ofertas, categoriaBuscada, idTabla) {
+    const tbody = document.getElementById(idTabla);
+    if (!tbody) return;
+    
+    tbody.innerHTML = ''; // Limpiamos la tabla antes de pintar
+
+    // Filtramos para que solo pasen los planes de esta categoría
+    const planesFiltrados = ofertas.filter(oferta => oferta.categoria === categoriaBuscada);
+
+    planesFiltrados.forEach(plan => {
+        // Usamos el operador || por si en Sanity le pusiste otro nombre al campo
+        const nombre = plan.plan || plan.nombrePlan || "Sin nombre";
+        const precioNormal = plan.precio_regular || plan.precio || "0.00";
+        const precioPromo = plan.precio_promo ? `S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small>` : '---';
+        
+        const fila = `
+            <tr>
+                <td>
+                    <strong>${nombre}</strong>
+                    ${plan.badge ? `<br><span style="font-size:0.7em; background:#ff6600; color:white; padding:2px 5px; border-radius:3px;">${plan.badge}</span>` : ''}
+                </td>
+                <td>S/ ${precioNormal}</td>
+                <td style="color: #ff6600; font-weight: bold;">${precioPromo}</td>
+                <td>${plan.beneficio_tabla || plan.detalles || '---'}</td>
+                <td>${plan.aplica_vertical || 'NO'}</td>
+            </tr>
+        `;
+        tbody.innerHTML += fila;
+    });
+}
+
+// 2. Función para pintar la tabla RUC 20 (3 columnas)
+function pintarTablaRUC(ofertas, categoriaBuscada, idTabla) {
+    const tbody = document.getElementById(idTabla);
+    if (!tbody) return;
+    
+    tbody.innerHTML = ''; 
+
+    const planesFiltrados = ofertas.filter(oferta => oferta.categoria === categoriaBuscada || oferta.categoria === 'RUC 20');
+
+    planesFiltrados.forEach(plan => {
+        const nombre = plan.plan || plan.nombrePlan || "Sin nombre";
+        const precioNormal = plan.precio_regular || plan.precio || "0.00";
+        
+        const fila = `
+            <tr>
+                <td>
+                    <strong>${nombre}</strong>
+                    ${plan.badge ? `<br><span style="font-size:0.7em; background:#ff6600; color:white; padding:2px 5px; border-radius:3px;">${plan.badge}</span>` : ''}
+                </td>
+                <td>S/ ${precioNormal}</td>
+                <td>${plan.beneficio_tabla || plan.detalles || '---'}</td>
+            </tr>
+        `;
+        tbody.innerHTML += fila;
+    });
+}
+cargarPlanes();
 // Ejecutar la función apenas termine de cargar la página
 document.addEventListener("DOMContentLoaded", cargarPlanes);
   </script>
