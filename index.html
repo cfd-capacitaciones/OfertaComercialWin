@@ -2940,8 +2940,9 @@
        ======================================================== */
 async function cargarPlanes() {
   try {
-    const respuesta = await fetch('ofertas.json');
+    const respuesta = await fetch('ofertas.json?v=' + new Date().getTime());
     const datos = await respuesta.json();
+    console.log("Datos cargados:", datos.lima);
 
     // 1. CREAMOS UNA FUNCIÓN PLANTILLA PARA NO REPETIR CÓDIGO
     function renderizarCategoria(planes, idContenedor, idTabla, nombreCategoria) {
