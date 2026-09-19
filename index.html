@@ -2899,7 +2899,7 @@
     /* ========================================================
        MÓDULO: Protección – Deshabilitar inspección de código
        ======================================================== */
-    /*
+    
         // 1. Bloquear clic derecho (menú contextual)
         document.addEventListener("contextmenu", function (e) {
           e.preventDefault();
@@ -2934,7 +2934,7 @@
             }
           }, 1000);
         })();
-    */
+
     /* ========================================================
        MÓDULO: Renderizado Dinámico desde JSON
        ======================================================== */
@@ -2943,89 +2943,102 @@ async function cargarPlanes() {
     const respuesta = await fetch('ofertas.json');
     const datos = await respuesta.json();
 
-    // 1. Contenedores de Lima Mono Residencial
-    const contenedorMonoLima = document.getElementById('grid-lima-mono');
-    const tbodyTablaLima = document.getElementById('tabla-lima-mono');
+    // 1. CREAMOS UNA FUNCIÓN PLANTILLA PARA NO REPETIR CÓDIGO
+    function renderizarCategoria(planes, idContenedor, idTabla, nombreCategoria) {
+      const contenedor = document.getElementById(idContenedor);
+      const tbody = document.getElementById(idTabla);
 
-    if (contenedorMonoLima) contenedorMonoLima.innerHTML = '';
-    if (tbodyTablaLima) tbodyTablaLima.innerHTML = '';
+      // Limpiamos los contenedores antes de pintar
+      if (contenedor) contenedor.innerHTML = '';
+      if (tbody) tbody.innerHTML = '';
 
-    // 2. Recorrer los datos del JSON
-    datos.lima.mono_residencial.forEach(plan => {
-      
-      // --- A. CONSTRUIR FILA DE LA TABLA SUPERIOR ---
-      if (tbodyTablaLima) {
-        let promoTexto = plan.precio_regular !== plan.precio_promo 
-          ? `S/ ${plan.precio_promo.toFixed(2)} (${Math.round((1 - plan.precio_promo/plan.precio_regular)*100)}% desc.)` 
-          : '<span class="badge badge-no">Sin promo</span>';
+      // Si no hay datos, cancelamos para evitar errores
+      if (!planes) return;
+
+      // Recorremos los planes de esta categoría
+      planes.forEach(plan => {
         
-        let verticalBadge = plan.aplica_vertical === 'SI' 
-          ? '<span class="badge badge-si">SÍ</span>' 
-          : '<span class="badge badge-no">NO</span>';
+        // --- A. CONSTRUIR FILA DE LA TABLA SUPERIOR ---
+        if (tbody) {
+          let promoTexto = plan.precio_regular !== plan.precio_promo 
+            ? `S/ ${plan.precio_promo.toFixed(2)} (${Math.round((1 - plan.precio_promo/plan.precio_regular)*100)}% desc.)` 
+            : '<span class="badge badge-no">Sin promo</span>';
+          
+          let verticalBadge = plan.aplica_vertical === 'SI' 
+            ? '<span class="badge badge-si">SÍ</span>' 
+            : '<span class="badge badge-no">NO</span>';
 
-        let beneficiosTexto = plan.beneficio_tabla || '<span class="badge badge-no">NO</span>';
-        if (beneficiosTexto.toUpperCase() === 'NO') {
-        beneficiosTexto = '<span class="badge badge-no">NO</span>';
-        } else if (beneficiosTexto.toUpperCase() === 'SÍ' || beneficiosTexto.toUpperCase() === 'SI') {
-        beneficiosTexto = '<span class="badge badge-si">SÍ</span>';
-      }
+          let beneficiosTexto = plan.beneficio_tabla || '<span class="badge badge-no">NO</span>';
+          if (beneficiosTexto.toUpperCase() === 'NO') {
+            beneficiosTexto = '<span class="badge badge-no">NO</span>';
+          } else if (beneficiosTexto.toUpperCase() === 'SÍ' || beneficiosTexto.toUpperCase() === 'SI') {
+            beneficiosTexto = '<span class="badge badge-si">SÍ</span>';
+          }
 
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-          <td class="td-speed">${plan.plan}</td>
-          <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
-          <td class="td-promo">${promoTexto}</td>
-          <td>${beneficiosTexto}</td>
-          <td>${verticalBadge}</td>
-        `;
-        tbodyTablaLima.appendChild(fila);
-      }
-
-      // --- B. CONSTRUIR TARJETAS INFERIORES ---
-      if (contenedorMonoLima) {
-        let listaDetalles = '';
-        if (plan.detalles) {
-          plan.detalles.forEach(detalle => {
-            listaDetalles += `<li>${detalle}</li>`;
-          });
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td class="td-speed">${plan.plan}</td>
+            <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
+            <td class="td-promo">${promoTexto}</td>
+            <td>${beneficiosTexto}</td>
+            <td>${verticalBadge}</td>
+          `;
+          tbody.appendChild(fila);
         }
 
-        let badgeHTML = '';
-        let claseDestacado = '';
-        if (plan.destacado) {
-          badgeHTML = `<div class="badge-top">${plan.badge}</div>`;
-          claseDestacado = 'featured';
-        }
+        // --- B. CONSTRUIR TARJETAS INFERIORES ---
+        if (contenedor) {
+          let listaDetalles = '';
+          if (plan.detalles) {
+            plan.detalles.forEach(detalle => {
+              listaDetalles += `<li>${detalle}</li>`;
+            });
+          }
 
-        let htmlPromoRegular = '';
-        if (plan.precio_regular !== plan.precio_promo) {
-          htmlPromoRegular = `<div class="plan-promo">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>`;
-        }
+          let badgeHTML = '';
+          let claseDestacado = '';
+          if (plan.destacado) {
+            badgeHTML = `<div class="badge-top">${plan.badge}</div>`;
+            claseDestacado = 'featured';
+          }
 
-        const tarjeta = document.createElement('div');
-        tarjeta.className = `plan-card ${claseDestacado}`;
-        tarjeta.innerHTML = `
-          <button class="btn-card-sim" data-sim-monto="${plan.precio_promo.toFixed(2)}" data-sim-plan="${plan.plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular.toFixed(2)}" title="Simular con este precio" data-sound="calc">📋</button>
-          ${badgeHTML}
-          <div class="plan-name">Mono Residencial</div>
-          <div class="plan-speed">${plan.velocidad}</div>
-          <div class="plan-price">S/ <strong>${plan.precio_promo.toFixed(2)}</strong> <small>${plan.texto_promo}</small></div>
-          ${htmlPromoRegular}
-          <ul class="plan-details">
-            ${listaDetalles}
-          </ul>
-        `;
-        contenedorMonoLima.appendChild(tarjeta);
-      }
-    });
+          let htmlPromoRegular = '';
+          if (plan.precio_regular !== plan.precio_promo) {
+            htmlPromoRegular = `<div class="plan-promo">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>`;
+          }
+
+          const tarjeta = document.createElement('div');
+          tarjeta.className = `plan-card ${claseDestacado}`;
+          tarjeta.innerHTML = `
+            <button class="btn-card-sim" data-sim-monto="${plan.precio_promo.toFixed(2)}" data-sim-plan="${plan.plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular.toFixed(2)}" title="Simular con este precio" data-sound="calc">📋</button>
+            ${badgeHTML}
+            <div class="plan-name">${nombreCategoria}</div>
+            <div class="plan-speed">${plan.velocidad}</div>
+            <div class="plan-price">S/ <strong>${plan.precio_promo.toFixed(2)}</strong> <small>${plan.texto_promo}</small></div>
+            ${htmlPromoRegular}
+            <ul class="plan-details">
+              ${listaDetalles}
+            </ul>
+          `;
+          contenedor.appendChild(tarjeta);
+        }
+      });
+    }
+
+    // 2. LLAMAMOS A LA FUNCIÓN PARA CADA UNA DE LAS 5 PESTAÑAS
+    if(datos.lima.mono_residencial) renderizarCategoria(datos.lima.mono_residencial, 'grid-lima-mono', 'tabla-lima-mono', 'Mono Residencial');
+    if(datos.lima.xgspon_gamer) renderizarCategoria(datos.lima.xgspon_gamer, 'grid-lima-xgspon', 'tabla-lima-xgspon', 'XGSPON / Gamer');
+    if(datos.lima.hb_wtv) renderizarCategoria(datos.lima.hb_wtv, 'grid-lima-wtv', 'tabla-lima-wtv', 'HB WTV');
+    if(datos.lima.hb_dgo) renderizarCategoria(datos.lima.hb_dgo, 'grid-lima-dgo', 'tabla-lima-dgo', 'HB DGO');
+    if(datos.lima.ruc20) renderizarCategoria(datos.lima.ruc20, 'grid-lima-ruc20', 'tabla-lima-ruc20', 'RUC 20');
 
   } catch (error) {
     console.error("Error al cargar el archivo JSON:", error);
   }
 }
 
-    // Ejecutar la función apenas termine de cargar la página
-    document.addEventListener("DOMContentLoaded", cargarPlanes);
+// Ejecutar la función apenas termine de cargar la página
+document.addEventListener("DOMContentLoaded", cargarPlanes);
   </script>
 <script>
   if (window.netlifyIdentity) {
