@@ -2603,10 +2603,10 @@
     */
 async function cargarPlanes() {
     try {
-        const projectId = '1n0remz0';
+        const projectId = '1n0remz0'; // Pon el correcto aquí si era otro
         const dataset = 'production';
         const query = encodeURIComponent('*[_type == "oferta"]');
-        const url = `https://${projectId}.api.sanity.io/v2023-05-03/data/query/${dataset}?query=${query}`;
+        const url = `https://${projectId}.apicdn.sanity.io/v2023-05-03/data/query/${dataset}?query=${query}`;
 
         const response = await fetch(url);
         const data = await response.json();
