@@ -2565,7 +2565,7 @@
     /* ========================================================
        MÓDULO: Protección – Deshabilitar inspección de código
        ======================================================== */
-    
+     /*
         // 1. Bloquear clic derecho (menú contextual)
         document.addEventListener("contextmenu", function (e) {
           e.preventDefault();
@@ -2600,99 +2600,26 @@
             }
           }, 1000);
         })();
+    */
 
-    /* ========================================================
-       MÓDULO: Renderizado Dinámico desde JSON
-       ======================================================== */
-async function cargarPlanes() {
-  try {
-    const respuesta = await fetch('ofertas.json?v=' + new Date().getTime());
-    const datos = await respuesta.json();
 
-    function renderizarCategoria(planes, idContenedor, idTabla, nombreCategoria, tipoTabla = 'estandar') {
-      const contenedor = document.getElementById(idContenedor);
-      const tbody = document.getElementById(idTabla);
+  async function cargarPlanes() {
+    try {
+        const projectId = '1n0remz0';
+        const dataset = 'production';
+        const query = encodeURIComponent('*[_type == "oferta"]');
+        const url = `https://${projectId}.api.sanity.io/v2023-05-03/data/query/${dataset}?query=${query}`;
 
-      if (contenedor) contenedor.innerHTML = '';
-      if (tbody) tbody.innerHTML = '';
-      if (!planes) return;
+        const response = await fetch(url);
+        const data = await response.json();
+        const ofertasSanity = data.result;
 
-      planes.forEach(plan => {
-        if (tbody) {
-          let promoTexto = plan.precio_regular !== plan.precio_promo 
-            ? `S/ ${plan.precio_promo.toFixed(2)} <br><small>(${Math.round((1 - plan.precio_promo/plan.precio_regular)*100)}% desc.)</small>` 
-            : '<span class="badge badge-no">Sin promo</span>';
-          
-          let verticalBadge = plan.aplica_vertical === 'SI' ? '<span class="badge badge-si">SÍ</span>' : '<span class="badge badge-no">NO</span>';
-          let beneficiosTexto = plan.beneficio_tabla || '<span class="badge badge-no">NO</span>';
-          if (beneficiosTexto.toUpperCase() === 'NO') beneficiosTexto = '<span class="badge badge-no">NO</span>';
-          let fonoWinBadge = plan.fonowin || '<span class="badge badge-no">NO</span>';
-          
-          const fila = document.createElement('tr');
-          
-          if (tipoTabla === 'ruc') {
-             fila.innerHTML = `
-              <td class="td-speed">${plan.plan}</td>
-              <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
-              <td>${beneficiosTexto}</td>`;
-          } else if (tipoTabla === 'provincia') {
-             fila.innerHTML = `
-              <td class="td-speed">${plan.plan}</td>
-              <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
-              <td class="td-promo">${promoTexto}</td>
-              <td>${beneficiosTexto}</td>
-              <td>${fonoWinBadge}</td>
-              <td>${verticalBadge}</td>`;
-          } else { 
-             fila.innerHTML = `
-              <td class="td-speed">${plan.plan}</td>
-              <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
-              <td class="td-promo">${promoTexto}</td>
-              <td>${beneficiosTexto}</td>
-              <td>${verticalBadge}</td>`;
-          }
-          tbody.appendChild(fila);
-        }
+        console.log("¡Planes cargados desde Sanity con éxito!", ofertasSanity);
 
-        if (contenedor) {
-          let listaDetalles = '';
-          if (plan.detalles) plan.detalles.forEach(detalle => listaDetalles += `<li>${detalle}</li>`);
-          let badgeHTML = plan.destacado ? `<div class="badge-top">${plan.badge}</div>` : '';
-          let claseDestacado = plan.destacado ? 'featured' : '';
-          let htmlPromoRegular = plan.precio_regular !== plan.precio_promo ? `<div class="plan-promo">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` : '';
-
-          const tarjeta = document.createElement('div');
-          tarjeta.className = `plan-card ${claseDestacado}`;
-          tarjeta.innerHTML = `
-            <button class="btn-card-sim" data-sim-monto="${plan.precio_promo.toFixed(2)}" data-sim-plan="${plan.plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular.toFixed(2)}" title="Simular con este precio" data-sound="calc">📋</button>
-            ${badgeHTML}
-            <div class="plan-name">${nombreCategoria}</div>
-            <div class="plan-speed">${plan.velocidad}</div>
-            <div class="plan-price">S/ <strong>${plan.precio_promo.toFixed(2)}</strong> <small>${plan.texto_promo}</small></div>
-            ${htmlPromoRegular}
-            <ul class="plan-details">${listaDetalles}</ul>`;
-          contenedor.appendChild(tarjeta);
-        }
-      });
+    } catch (error) {
+        console.error("Error al cargar los planes desde Sanity:", error);
     }
-
-    // Cargar Lima
-    if(datos.lima.mono_residencial) renderizarCategoria(datos.lima.mono_residencial, 'grid-lima-mono', 'tabla-lima-mono', 'Mono Residencial', 'estandar');
-    if(datos.lima.xgspon_gamer) renderizarCategoria(datos.lima.xgspon_gamer, 'grid-lima-xgspon', 'tabla-lima-xgspon', 'XGSPON / Gamer', 'estandar');
-    if(datos.lima.hb_wtv) renderizarCategoria(datos.lima.hb_wtv, 'grid-lima-wtv', 'tabla-lima-wtv', 'HB WTV', 'estandar');
-    if(datos.lima.hb_dgo) renderizarCategoria(datos.lima.hb_dgo, 'grid-lima-dgo', 'tabla-lima-dgo', 'HB DGO', 'estandar');
-    if(datos.lima.ruc20) renderizarCategoria(datos.lima.ruc20, 'grid-lima-ruc20', 'tabla-lima-ruc20', 'RUC 20', 'ruc');
-
-    // Cargar Provincias
-    if(datos.provincia && datos.provincia.mono_residencial) renderizarCategoria(datos.provincia.mono_residencial, 'grid-prov-mono', 'tabla-prov-mono', 'Mono Provincia', 'provincia');
-    if(datos.provincia && datos.provincia.hb_wtv) renderizarCategoria(datos.provincia.hb_wtv, 'grid-prov-wtv', 'tabla-prov-wtv', 'WTV Provincia', 'provincia');
-    if(datos.provincia && datos.provincia.hb_dgo) renderizarCategoria(datos.provincia.hb_dgo, 'grid-prov-dgo', 'tabla-prov-dgo', 'DGO Provincia', 'provincia');
-    if(datos.provincia && datos.provincia.ruc20) renderizarCategoria(datos.provincia.ruc20, 'grid-prov-ruc20', 'tabla-prov-ruc20', 'RUC 20 Provincia', 'ruc');
-
-  } catch (error) { console.error("Error cargando JSON:", error); }
 }
-
-
 // Ejecutar la función apenas termine de cargar la página
 document.addEventListener("DOMContentLoaded", cargarPlanes);
   </script>
