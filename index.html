@@ -1384,7 +1384,7 @@
       }
     }
   </style>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
 </head>
 
 <body>
@@ -2696,17 +2696,6 @@ async function cargarPlanes() {
 // Ejecutar la función apenas termine de cargar la página
 document.addEventListener("DOMContentLoaded", cargarPlanes);
   </script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
 
 </body>
 
