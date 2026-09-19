@@ -1613,402 +1613,67 @@
     <section class="section-slide" id="provincia" aria-labelledby="prov-title">
       <div class="section-inner">
         <h2 class="section-title" id="prov-title">Planes <span class="accent">Provincia</span></h2>
-        <p class="section-subtitle">Cobertura nacional con beneficios exclusivos como FonoWin y upgrade de velocidad.
-        </p>
-        <!-- Barra de tabs Provincia -->
+        <p class="section-subtitle">Cobertura nacional con beneficios exclusivos como FonoWin y upgrade de velocidad.</p>
+        
         <div class="tab-bar" role="tablist" aria-label="Categorías Provincia">
-          <button class="tab-btn active" role="tab" data-tab="prov-mono" data-sound="click" aria-selected="true">🏠 Mono
-            Residencial</button>
-          <button class="tab-btn" role="tab" data-tab="prov-hbtv" data-sound="click" aria-selected="false">📺 HB
-            WTV</button>
-          <button class="tab-btn" role="tab" data-tab="prov-dgofonowin" data-sound="click" aria-selected="false">🎬 HB
-            DGO/FONOWIN</button>
-          <button class="tab-btn" role="tab" data-tab="prov-RUC20" data-sound="click" aria-selected="false"> 🏪 RUC
-            20</button>
+          <button class="tab-btn active" role="tab" data-tab="prov-mono" data-sound="click" aria-selected="true">🏠 Mono Residencial</button>
+          <button class="tab-btn" role="tab" data-tab="prov-hbtv" data-sound="click" aria-selected="false">📺 HB WTV</button>
+          <button class="tab-btn" role="tab" data-tab="prov-dgofonowin" data-sound="click" aria-selected="false">🎬 HB DGO/FONOWIN</button>
+          <button class="tab-btn" role="tab" data-tab="prov-RUC20" data-sound="click" aria-selected="false"> 🏪 RUC 20</button>
         </div>
 
-        <!-- ===== TAB PROVINCIA: MONO ===== -->
+        <!-- TAB PROVINCIA: MONO -->
         <div class="tab-panel active" id="panel-prov-mono" role="tabpanel">
           <div class="table-wrap">
             <table class="data-table">
               <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Promoción</th>
-                  <th>Beneficios</th>
-                  <th>FonoWin</th>
-                  <th>Vertical</th>
-                </tr>
+                <tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td class="td-speed">1000 Mbps</td>
-                  <td class="td-price">S/ 129</td>
-                  <td class="td-promo">S/ 64.50 (50% x3 meses)</td>
-                  <td>2 Mesh Wi-Fi</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-si">SÍ</span></td>
-                </tr>
-                <tr>
-                  <td class="td-speed">750 Mbps</td>
-                  <td class="td-price">S/ 99</td>
-                  <td class="td-promo">S/ 49.50 (50% x3 meses)</td>
-                  <td>Upgrade 1000Mbps x 6M</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-no">NO</span></td>
-                </tr>
-                <tr>
-                  <td class="td-speed">550 Mbps</td>
-                  <td class="td-price">S/ 89</td>
-                  <td class="td-promo">S/ 44.50 (50% x3 meses)</td>
-                  <td>Upgrade 1000Mbps x 6M</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-no">NO</span></td>
-                </tr>
-                <tr>
-                  <td class="td-speed">350 Mbps</td>
-                  <td class="td-price">S/ 69</td>
-                  <td class="td-promo">S/ 34.50 (50% x3 meses)</td>
-                  <td><span class="badge badge-no">NO</span></td>
-                  <td><span class="badge badge-no">NO</span></td>
-                  <td><span class="badge badge-no">NO</span></td>
-                </tr>
-              </tbody>
+              <tbody id="tabla-prov-mono"></tbody>
             </table>
           </div>
-          <div class="plans-grid" style="margin-top:1.5rem">
-            <div class="plan-card featured">
-              <button class="btn-card-sim" data-sim-monto="64.50" data-sim-plan="Mono Prov. 1000 Mbps"
-                data-sim-vertical="SI" data-sim-regular="129.00" title="Simular con este precio"
-                data-sound="calc">📋</button>
-              <div class="badge-top">MEJOR VALOR</div>
-              <div class="plan-name">Mono Provincia</div>
-              <div class="plan-speed">1000 Mbps</div>
-              <div class="plan-price">S/ <strong>64.50</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 129.00</div>
-              <ul class="plan-details">
-                <li>50% por 3 meses</li>
-                <li>2 Mesh Wi-Fi</li>
-                <li>Vertical WIN</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="49.50" data-sim-plan="Mono Prov. 750 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="plan-name">Mono Provincia</div>
-              <div class="plan-speed">750 Mbps</div>
-              <div class="plan-price">S/ <strong>49.50</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 99.00</div>
-              <ul class="plan-details">
-                <li>50% por 3 meses</li>
-                <li>Upgrade 1000 Mbps x 6M</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="44.50" data-sim-plan="Mono Prov. 550 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="plan-name">Mono Provincia</div>
-              <div class="plan-speed">550 Mbps</div>
-              <div class="plan-price">S/ <strong>44.50</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 89.00</div>
-              <ul class="plan-details">
-                <li>50% por 3 meses</li>
-                <li>Upgrade 1000 Mbps x 6M</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="34.50" data-sim-plan="Mono Prov. 350 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="plan-name">Mono Provincia</div>
-              <div class="plan-speed">350 Mbps</div>
-              <div class="plan-price">S/ <strong>34.50</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 69.00</div>
-              <ul class="plan-details">
-                <li>50% por 3 meses</li>
-                <li>100% fibra optica</li>
-              </ul>
-            </div>
-          </div>
-        </div><!-- /panel-prov-mono -->
+          <div id="grid-prov-mono" class="plans-grid" style="margin-top:1.5rem"></div>
+        </div>
 
-        <!-- ===== TAB PROVINCIA: HB WIN TV ===== -->
+        <!-- TAB PROVINCIA: HB WIN TV -->
         <div class="tab-panel" id="panel-prov-hbtv" role="tabpanel">
           <div class="table-wrap">
             <table class="data-table">
               <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Promoción</th>
-                  <th>Beneficios</th>
-                  <th>FonoWin</th>
-                  <th>Vertical</th>
-                </tr>
+                <tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td class="td-speed">HB L1MAX Premium 1000 Mbps</td>
-                  <td class="td-price">S/ 129.90</td>
-                  <td class="td-promo">S/ 64.95 (50% desc.)</td>
-                  <td>2 Mesh Wi-Fi</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-si">SÍ</span></td>
-                </tr>
-                <tr>
-                  <td class="td-speed">HB L1MAX Premium 750 Mbps</td>
-                  <td class="td-price">S/ 119.90</td>
-                  <td class="td-promo">S/ 59.95 (50% desc.)</td>
-                  <td>1 Mesh Wi-Fi + Up 1000 Mbps x 6M</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-si">SÍ</span></td>
-                </tr>
-                <tr>
-                  <td class="td-speed">HB Premium 750 Mbps</td>
-                  <td class="td-price">S/ 99.90</td>
-                  <td class="td-promo">S/ 49.95 (50% desc.)</td>
-                  <td>Upgrade 1000 Mbps x 6M</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-no">NO</span></td>
-                </tr>
-                <tr>
-                  <td class="td-speed">HB Premium 550 Mbps</td>
-                  <td class="td-price">S/ 89.90</td>
-                  <td class="td-promo">S/ 44.95 (50% desc.)</td>
-                  <td>Upgrade 1000 Mbps x 6M</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-no">NO</span></td>
-                </tr>
-              </tbody>
+              <tbody id="tabla-prov-wtv"></tbody>
             </table>
           </div>
-          <div class="plans-grid" style="margin-top:1.5rem">
-            <div class="plan-card featured">
-              <button class="btn-card-sim" data-sim-monto="64.95" data-sim-plan="HB PROV L1MAX 1000 Mbps"
-                data-sim-vertical="SI" data-sim-regular="129.90" title="Simular con este precio"
-                data-sound="calc">📋</button>
-              <div class="badge-top">PREMIUM</div>
-              <div class="plan-name">HB PROV L1MAX</div>
-              <div class="plan-speed">1000 Mbps</div>
-              <div class="plan-price">S/ <strong>64.95</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 129.90</div>
-              <ul class="plan-details">
-                <li>50% x 3 meses</li>
-                <li>2 Mesh Wi-Fi</li>
-                <li>Vertical WIN</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="59.95" data-sim-plan="HB PROV L1MAX 750 Mbps"
-                data-sim-vertical="SI" data-sim-regular="119.90" title="Simular con este precio"
-                data-sound="calc">📋</button>
-              <div class="plan-name">HB PROV L1MAX</div>
-              <div class="plan-speed">750 Mbps</div>
-              <div class="plan-price">S/ <strong>59.95</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 119.90</div>
-              <ul class="plan-details">
-                <li>50% x 3 meses</li>
-                <li>1 Mesh Wi-Fi</li>
-                <li>Vertical WIN</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="49.95" data-sim-plan="HB PROV WTV 750 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="plan-name">HB PROV WTV</div>
-              <div class="plan-speed">750 Mbps</div>
-              <div class="plan-price">S/ <strong>49.95</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 99.90</div>
-              <ul class="plan-details">
-                <li>50% x 3 meses</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="44.95" data-sim-plan="HB PROV WTV 550 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="plan-name">HB PROV WTV</div>
-              <div class="plan-speed">550 Mbps</div>
-              <div class="plan-price">S/ <strong>44.95</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 89.90</div>
-              <ul class="plan-details">
-                <li>50% x 3 meses</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-          </div>
-        </div><!-- /panel-hb-wintv -->
+          <div id="grid-prov-wtv" class="plans-grid" style="margin-top:1.5rem"></div>
+        </div>
 
-        <!-- ===== TAB PROVINCIA: HB DGO ===== -->
+        <!-- TAB PROVINCIA: HB DGO -->
         <div class="tab-panel" id="panel-prov-dgofonowin" role="tabpanel">
           <div class="table-wrap">
             <table class="data-table">
               <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Promoción</th>
-                  <th>Beneficios</th>
-                  <th>FonoWin</th>
-                  <th>Vertical</th>
-                </tr>
+                <tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td class="td-speed">HB DGO Full 1000 Mbps</td>
-                  <td class="td-price">S/ 159.90</td>
-                  <td class="td-promo">S/ 79.95 (50% desc.)</td>
-                  <td>2 Mesh Wi-Fi</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-si">SÍ</span></td>
-                </tr>
-                <tr>
-                  <td class="td-speed">HB DGO Hogar 1000 Mbps</td>
-                  <td class="td-price">S/ 129.90</td>
-                  <td class="td-promo">S/ 64.95 (50% desc.)</td>
-                  <td>2 Mesh Wi-Fi</td>
-                  <td><span class="badge badge-amarillo">S/ 1 x 6M</span></td>
-                  <td><span class="badge badge-si">SÍ</span></td>
-                </tr>
-                <tr>
-                  <td class="td-speed">HB Fonowin 350 Mbps</td>
-                  <td class="td-price">S/ 79.00</td>
-                  <td class="td-promo">S/ 39.95 (50% desc.)</td>
-                  <td><span class="badge badge-no">NO</span></td>
-                  <td><span class="badge badge-no">NO</span></td>
-                  <td><span class="badge badge-no">NO</span></td>
-                </tr>
-              </tbody>
+              <tbody id="tabla-prov-dgo"></tbody>
             </table>
           </div>
-          <div class="plans-grid" style="margin-top:1.5rem">
-            <div class="plan-card featured">
-              <button class="btn-card-sim" data-sim-monto="79.95" data-sim-plan="HB DGO Full 1000 Mbps"
-                data-sim-vertical="SI" data-sim-regular="159.90" title="Simular con este precio"
-                data-sound="calc">📋</button>
-              <div class="badge-top">PREMIUM</div>
-              <div class="plan-name">HB PROV DGO FULL</div>
-              <div class="plan-speed">1000 Mbps</div>
-              <div class="plan-price">S/ <strong>79.95</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 159.90</div>
-              <ul class="plan-details">
-                <li>50% x 3 meses</li>
-                <li>2 Mesh Wi-Fi</li>
-                <li>Vertical WIN</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="64.95" data-sim-plan="HB DGO Hogar 1000 Mbps"
-                data-sim-vertical="SI" data-sim-regular="129.90" title="Simular con este precio"
-                data-sound="calc">📋</button>
-              <div class="plan-name">HB PROV DGO HOGAR</div>
-              <div class="plan-speed">1000 Mbps</div>
-              <div class="plan-price">S/ <strong>64.95</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 129.90</div>
-              <ul class="plan-details">
-                <li>50% x 3 meses</li>
-                <li>2 Mesh Wi-Fi</li>
-                <li>Vertical WIN</li>
-                <li>100% fibra optica</li>
-                <li>Puede agregar FonoWin a un S/ 1 x 6 meses</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="39.95" data-sim-plan="HB PROV FONOWIN 350 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="plan-name">HB PROV FONOWIN</div>
-              <div class="plan-speed">350 Mbps</div>
-              <div class="plan-price">S/ <strong>39.95</strong> <small>/ 3 meses</small></div>
-              <div class="plan-promo">Precio regular: S/ 79.90</div>
-              <ul class="plan-details">
-                <li>50% x 3 meses</li>
-                <li>100% fibra optica</li>
-                <li>Ya incluye Fonowin</li>
-              </ul>
-            </div>
-          </div>
-        </div><!-- /panel-hb-DGO-->
+          <div id="grid-prov-dgo" class="plans-grid" style="margin-top:1.5rem"></div>
+        </div>
 
-        <!-- ===== TAB PROVINCIAS: RUC20 ===== -->
+        <!-- TAB PROVINCIAS: RUC20 -->
         <div class="tab-panel" id="panel-prov-RUC20" role="tabpanel">
           <div class="table-wrap">
             <table class="data-table">
               <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Equipos</th>
-                </tr>
+                <tr><th>Plan</th><th>Precio Normal</th><th>Equipos</th></tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td class="td-speed">RUC 20 1000 Mbps</td>
-                  <td class="td-price">S/ 129.00</td>
-                  <td>2 Mesh Wi-Fi</td>
-                </tr>
-                <tr>
-                  <td class="td-speed">RUC 20 750 Mbps</td>
-                  <td class="td-price">S/ 99.00</td>
-                </tr>
-                <tr>
-                  <td class="td-speed">RUC 20 550 Mbps</td>
-                  <td class="td-price">S/ 89.00</td>
-                </tr>
-              </tbody>
+              <tbody id="tabla-prov-ruc20"></tbody>
             </table>
           </div>
-          <div class="plans-grid" style="margin-top:1.5rem">
-            <div class="plan-card featured">
-              <button class="btn-card-sim" data-sim-monto="129.00" data-sim-plan="RUC20 PROV 1000 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="badge-top">NEGOCIOS</div>
-              <div class="plan-name">RUC 20 PROV</div>
-              <div class="plan-speed">1000 Mbps</div>
-              <div class="plan-price">S/ <strong>129.00</strong></div>
-              <ul class="plan-details">
-                <li>2 Mesh Wi-Fi</li>
-                <li>Ideal para Negocios</li>
-                <li>IP Dinamica</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="99.00" data-sim-plan="RUC20 PROV 750 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="plan-name">RUC 20 PROV</div>
-              <div class="plan-speed">750 Mbps</div>
-              <div class="plan-price">S/ <strong>99.00</strong></div>
-              <ul class="plan-details">
-                <li>Ideal para Negocios</li>
-                <li>IP Dinamica</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="89.00" data-sim-plan="RUC20 PROV 550 Mbps"
-                title="Simular con este precio" data-sound="calc">📋</button>
-              <div class="plan-name">RUC 20 PROV</div>
-              <div class="plan-speed">550 Mbps</div>
-              <div class="plan-price">S/ <strong>89.00</strong></div>
-              <ul class="plan-details">
-                <li>Ideal para Negocios</li>
-                <li>IP Dinamica</li>
-              </ul>
-            </div>
-          </div><!-- /plans-grid RUC20 -->
-        </div><!-- /section-inner -->
+          <div id="grid-prov-ruc20" class="plans-grid" style="margin-top:1.5rem"></div>
+        </div>
+      </div>
     </section><!-- /provincia -->
 
     <!-- ===== SECCIÓN 4: SERVICIOS ADICIONALES ===== -->
@@ -2943,71 +2608,58 @@ async function cargarPlanes() {
   try {
     const respuesta = await fetch('ofertas.json?v=' + new Date().getTime());
     const datos = await respuesta.json();
-    console.log("Datos cargados:", datos.lima);
 
-    // 1. CREAMOS UNA FUNCIÓN PLANTILLA PARA NO REPETIR CÓDIGO
-    function renderizarCategoria(planes, idContenedor, idTabla, nombreCategoria) {
+    function renderizarCategoria(planes, idContenedor, idTabla, nombreCategoria, tipoTabla = 'estandar') {
       const contenedor = document.getElementById(idContenedor);
       const tbody = document.getElementById(idTabla);
 
-      // Limpiamos los contenedores antes de pintar
       if (contenedor) contenedor.innerHTML = '';
       if (tbody) tbody.innerHTML = '';
-
-      // Si no hay datos, cancelamos para evitar errores
       if (!planes) return;
 
-      // Recorremos los planes de esta categoría
       planes.forEach(plan => {
-        
-        // --- A. CONSTRUIR FILA DE LA TABLA SUPERIOR ---
         if (tbody) {
           let promoTexto = plan.precio_regular !== plan.precio_promo 
-            ? `S/ ${plan.precio_promo.toFixed(2)} (${Math.round((1 - plan.precio_promo/plan.precio_regular)*100)}% desc.)` 
+            ? `S/ ${plan.precio_promo.toFixed(2)} <br><small>(${Math.round((1 - plan.precio_promo/plan.precio_regular)*100)}% desc.)</small>` 
             : '<span class="badge badge-no">Sin promo</span>';
           
-          let verticalBadge = plan.aplica_vertical === 'SI' 
-            ? '<span class="badge badge-si">SÍ</span>' 
-            : '<span class="badge badge-no">NO</span>';
-
+          let verticalBadge = plan.aplica_vertical === 'SI' ? '<span class="badge badge-si">SÍ</span>' : '<span class="badge badge-no">NO</span>';
           let beneficiosTexto = plan.beneficio_tabla || '<span class="badge badge-no">NO</span>';
-          if (beneficiosTexto.toUpperCase() === 'NO') {
-            beneficiosTexto = '<span class="badge badge-no">NO</span>';
-          } else if (beneficiosTexto.toUpperCase() === 'SÍ' || beneficiosTexto.toUpperCase() === 'SI') {
-            beneficiosTexto = '<span class="badge badge-si">SÍ</span>';
-          }
-
+          if (beneficiosTexto.toUpperCase() === 'NO') beneficiosTexto = '<span class="badge badge-no">NO</span>';
+          let fonoWinBadge = plan.fonowin || '<span class="badge badge-no">NO</span>';
+          
           const fila = document.createElement('tr');
-          fila.innerHTML = `
-            <td class="td-speed">${plan.plan}</td>
-            <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
-            <td class="td-promo">${promoTexto}</td>
-            <td>${beneficiosTexto}</td>
-            <td>${verticalBadge}</td>
-          `;
+          
+          if (tipoTabla === 'ruc') {
+             fila.innerHTML = `
+              <td class="td-speed">${plan.plan}</td>
+              <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
+              <td>${beneficiosTexto}</td>`;
+          } else if (tipoTabla === 'provincia') {
+             fila.innerHTML = `
+              <td class="td-speed">${plan.plan}</td>
+              <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
+              <td class="td-promo">${promoTexto}</td>
+              <td>${beneficiosTexto}</td>
+              <td>${fonoWinBadge}</td>
+              <td>${verticalBadge}</td>`;
+          } else { 
+             fila.innerHTML = `
+              <td class="td-speed">${plan.plan}</td>
+              <td class="td-price">S/ ${plan.precio_regular.toFixed(2)}</td>
+              <td class="td-promo">${promoTexto}</td>
+              <td>${beneficiosTexto}</td>
+              <td>${verticalBadge}</td>`;
+          }
           tbody.appendChild(fila);
         }
 
-        // --- B. CONSTRUIR TARJETAS INFERIORES ---
         if (contenedor) {
           let listaDetalles = '';
-          if (plan.detalles) {
-            plan.detalles.forEach(detalle => {
-              listaDetalles += `<li>${detalle}</li>`;
-            });
-          }
-
-          let badgeHTML = '';
-          let claseDestacado = '';
-          if (plan.destacado) {
-            badgeHTML = `<div class="badge-top">${plan.badge}</div>`;
-            claseDestacado = 'featured';
-          }
-
-          let htmlPromoRegular = '';
-          if (plan.precio_regular !== plan.precio_promo) {
-            htmlPromoRegular = `<div class="plan-promo">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>`;
-          }
+          if (plan.detalles) plan.detalles.forEach(detalle => listaDetalles += `<li>${detalle}</li>`);
+          let badgeHTML = plan.destacado ? `<div class="badge-top">${plan.badge}</div>` : '';
+          let claseDestacado = plan.destacado ? 'featured' : '';
+          let htmlPromoRegular = plan.precio_regular !== plan.precio_promo ? `<div class="plan-promo">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` : '';
 
           const tarjeta = document.createElement('div');
           tarjeta.className = `plan-card ${claseDestacado}`;
@@ -3018,26 +2670,28 @@ async function cargarPlanes() {
             <div class="plan-speed">${plan.velocidad}</div>
             <div class="plan-price">S/ <strong>${plan.precio_promo.toFixed(2)}</strong> <small>${plan.texto_promo}</small></div>
             ${htmlPromoRegular}
-            <ul class="plan-details">
-              ${listaDetalles}
-            </ul>
-          `;
+            <ul class="plan-details">${listaDetalles}</ul>`;
           contenedor.appendChild(tarjeta);
         }
       });
     }
 
-    // 2. LLAMAMOS A LA FUNCIÓN PARA CADA UNA DE LAS 5 PESTAÑAS
-    if(datos.lima.mono_residencial) renderizarCategoria(datos.lima.mono_residencial, 'grid-lima-mono', 'tabla-lima-mono', 'Mono Residencial');
-    if(datos.lima.xgspon_gamer) renderizarCategoria(datos.lima.xgspon_gamer, 'grid-lima-xgspon', 'tabla-lima-xgspon', 'XGSPON / Gamer');
-    if(datos.lima.hb_wtv) renderizarCategoria(datos.lima.hb_wtv, 'grid-lima-wtv', 'tabla-lima-wtv', 'HB WTV');
-    if(datos.lima.hb_dgo) renderizarCategoria(datos.lima.hb_dgo, 'grid-lima-dgo', 'tabla-lima-dgo', 'HB DGO');
-    if(datos.lima.ruc20) renderizarCategoria(datos.lima.ruc20, 'grid-lima-ruc20', 'tabla-lima-ruc20', 'RUC 20');
+    // Cargar Lima
+    if(datos.lima.mono_residencial) renderizarCategoria(datos.lima.mono_residencial, 'grid-lima-mono', 'tabla-lima-mono', 'Mono Residencial', 'estandar');
+    if(datos.lima.xgspon_gamer) renderizarCategoria(datos.lima.xgspon_gamer, 'grid-lima-xgspon', 'tabla-lima-xgspon', 'XGSPON / Gamer', 'estandar');
+    if(datos.lima.hb_wtv) renderizarCategoria(datos.lima.hb_wtv, 'grid-lima-wtv', 'tabla-lima-wtv', 'HB WTV', 'estandar');
+    if(datos.lima.hb_dgo) renderizarCategoria(datos.lima.hb_dgo, 'grid-lima-dgo', 'tabla-lima-dgo', 'HB DGO', 'estandar');
+    if(datos.lima.ruc20) renderizarCategoria(datos.lima.ruc20, 'grid-lima-ruc20', 'tabla-lima-ruc20', 'RUC 20', 'ruc');
 
-  } catch (error) {
-    console.error("Error al cargar el archivo JSON:", error);
-  }
+    // Cargar Provincias
+    if(datos.provincia && datos.provincia.mono_residencial) renderizarCategoria(datos.provincia.mono_residencial, 'grid-prov-mono', 'tabla-prov-mono', 'Mono Provincia', 'provincia');
+    if(datos.provincia && datos.provincia.hb_wtv) renderizarCategoria(datos.provincia.hb_wtv, 'grid-prov-wtv', 'tabla-prov-wtv', 'WTV Provincia', 'provincia');
+    if(datos.provincia && datos.provincia.hb_dgo) renderizarCategoria(datos.provincia.hb_dgo, 'grid-prov-dgo', 'tabla-prov-dgo', 'DGO Provincia', 'provincia');
+    if(datos.provincia && datos.provincia.ruc20) renderizarCategoria(datos.provincia.ruc20, 'grid-prov-ruc20', 'tabla-prov-ruc20', 'RUC 20 Provincia', 'ruc');
+
+  } catch (error) { console.error("Error cargando JSON:", error); }
 }
+
 
 // Ejecutar la función apenas termine de cargar la página
 document.addEventListener("DOMContentLoaded", cargarPlanes);

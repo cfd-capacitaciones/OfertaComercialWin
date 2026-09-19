@@ -63,7 +63,7 @@
                 "aplica_vertical": "NO"
             }
         ],
-            "xgspon_gamer": [
+        "xgspon_gamer": [
       {
         "plan": "XGSPON 2.5 GB",
         "velocidad": "2.5 GB",
@@ -146,7 +146,7 @@
         ]
       }
     ],
-            "hb_wtv": [
+        "hb_wtv": [
       {
         "plan": "HB L1MAX Premium 1000 Mbps",
         "velocidad": "1000 Mbps",
@@ -256,7 +256,7 @@
         ]
       }
     ],
-            "hb_dgo": [
+        "hb_dgo": [
       {
         "plan": "HB DGO Full XGSPON 2.5GB",
         "velocidad": "2.5 GB",
@@ -339,7 +339,7 @@
         ]
       }
     ],
-            "ruc20": [
+        "ruc20": [
       {
         "plan": "RUC 20 1000 Mbps",
         "velocidad": "1000 Mbps",
@@ -387,5 +387,197 @@
         ]
       }
     ]
+    },
+    "provincia": {
+        "mono_residencial": [
+            {
+                "plan": "Mono Prov. 1000 Mbps",
+                "velocidad": "1000 Mbps",
+                "precio_regular": 129.00,
+                "precio_promo": 64.50,
+                "texto_promo": "/ 3 meses",
+                "destacado": true,
+                "badge": "MEJOR VALOR",
+                "beneficio_tabla": "2 Mesh Wi-Fi",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "SI",
+                "detalles": [ "50% por 3 meses", "2 Mesh Wi-Fi", "Vertical WIN", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            },
+            {
+                "plan": "Mono Prov. 750 Mbps",
+                "velocidad": "750 Mbps",
+                "precio_regular": 99.00,
+                "precio_promo": 49.50,
+                "texto_promo": "/ 3 meses",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "Up 1000Mbps x 6M",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "NO",
+                "detalles": [ "50% por 3 meses", "Upgrade 1000 Mbps x 6M", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            },
+            {
+                "plan": "Mono Prov. 550 Mbps",
+                "velocidad": "550 Mbps",
+                "precio_regular": 89.00,
+                "precio_promo": 44.50,
+                "texto_promo": "/ 3 meses",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "Up 1000Mbps x 6M",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "NO",
+                "detalles": [ "50% por 3 meses", "Upgrade 1000 Mbps x 6M", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            },
+            {
+                "plan": "Mono Prov. 350 Mbps",
+                "velocidad": "350 Mbps",
+                "precio_regular": 69.00,
+                "precio_promo": 34.50,
+                "texto_promo": "/ 3 meses",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "NO",
+                "fonowin": "NO",
+                "aplica_vertical": "NO",
+                "detalles": [ "50% por 3 meses", "100% fibra óptica" ]
+            }
+        ],
+        "hb_wtv": [
+            {
+                "plan": "HB PROV L1MAX 1000 Mbps",
+                "velocidad": "1000 Mbps",
+                "precio_regular": 129.90,
+                "precio_promo": 64.95,
+                "texto_promo": "/ 3 meses",
+                "destacado": true,
+                "badge": "PREMIUM",
+                "beneficio_tabla": "2 Mesh Wi-Fi",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "SI",
+                "detalles": [ "50% x 3 meses", "2 Mesh Wi-Fi", "Vertical WIN", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            },
+            {
+                "plan": "HB PROV L1MAX 750 Mbps",
+                "velocidad": "750 Mbps",
+                "precio_regular": 119.90,
+                "precio_promo": 59.95,
+                "texto_promo": "/ 3 meses",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "1 Mesh + Up 1000",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "SI",
+                "detalles": [ "50% x 3 meses", "1 Mesh Wi-Fi", "Vertical WIN", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            },
+            {
+                "plan": "HB PROV WTV 750 Mbps",
+                "velocidad": "750 Mbps",
+                "precio_regular": 99.90,
+                "precio_promo": 49.95,
+                "texto_promo": "/ 3 meses",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "Up 1000Mbps x 6M",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "NO",
+                "detalles": [ "50% x 3 meses", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            },
+            {
+                "plan": "HB PROV WTV 550 Mbps",
+                "velocidad": "550 Mbps",
+                "precio_regular": 89.90,
+                "precio_promo": 44.95,
+                "texto_promo": "/ 3 meses",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "Up 1000Mbps x 6M",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "NO",
+                "detalles": [ "50% x 3 meses", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            }
+        ],
+        "hb_dgo": [
+            {
+                "plan": "HB PROV DGO FULL",
+                "velocidad": "1000 Mbps",
+                "precio_regular": 159.90,
+                "precio_promo": 79.95,
+                "texto_promo": "/ 3 meses",
+                "destacado": true,
+                "badge": "PREMIUM",
+                "beneficio_tabla": "2 Mesh Wi-Fi",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "SI",
+                "detalles": [ "50% x 3 meses", "2 Mesh Wi-Fi", "Vertical WIN", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            },
+            {
+                "plan": "HB PROV DGO HOGAR",
+                "velocidad": "1000 Mbps",
+                "precio_regular": 129.90,
+                "precio_promo": 64.95,
+                "texto_promo": "/ 3 meses",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "2 Mesh Wi-Fi",
+                "fonowin": "<span class=\"badge badge-amarillo\">S/ 1 x 6M</span>",
+                "aplica_vertical": "SI",
+                "detalles": [ "50% x 3 meses", "2 Mesh Wi-Fi", "Vertical WIN", "100% fibra óptica", "FonoWin S/ 1 x 6 meses" ]
+            },
+            {
+                "plan": "HB PROV FONOWIN",
+                "velocidad": "350 Mbps",
+                "precio_regular": 79.00,
+                "precio_promo": 39.95,
+                "texto_promo": "/ 3 meses",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "NO",
+                "fonowin": "NO",
+                "aplica_vertical": "NO",
+                "detalles": [ "50% x 3 meses", "100% fibra óptica", "Ya incluye Fonowin" ]
+            }
+        ],
+        "ruc20": [
+            {
+                "plan": "RUC 20 PROV 1000 Mbps",
+                "velocidad": "1000 Mbps",
+                "precio_regular": 129.00,
+                "precio_promo": 129.00,
+                "texto_promo": "",
+                "destacado": true,
+                "badge": "NEGOCIOS",
+                "beneficio_tabla": "2 Mesh Wi-Fi",
+                "fonowin": "NO",
+                "aplica_vertical": "NO",
+                "detalles": [ "2 Mesh Wi-Fi", "Ideal para Negocios", "IP Dinamica" ]
+            },
+            {
+                "plan": "RUC 20 PROV 750 Mbps",
+                "velocidad": "750 Mbps",
+                "precio_regular": 99.00,
+                "precio_promo": 99.00,
+                "texto_promo": "",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "NO",
+                "fonowin": "NO",
+                "aplica_vertical": "NO",
+                "detalles": [ "Ideal para Negocios", "IP Dinamica" ]
+            },
+            {
+                "plan": "RUC 20 PROV 550 Mbps",
+                "velocidad": "550 Mbps",
+                "precio_regular": 89.00,
+                "precio_promo": 89.00,
+                "texto_promo": "",
+                "destacado": false,
+                "badge": "",
+                "beneficio_tabla": "NO",
+                "fonowin": "NO",
+                "aplica_vertical": "NO",
+                "detalles": [ "Ideal para Negocios", "IP Dinamica" ]
+            }
+        ]
     }
 }
