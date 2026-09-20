@@ -2,7 +2,8 @@ backend:
   name: github
   repo: cfd-capacitaciones/OfertaComercialWin
   branch: main
-  app_id: "Ov23liqpyegHCOn3n87g" # <-- ¡Pon el código corto que te dio GitHub!
+  auth_type: pkce
+  app_id: "Ov23liqpyegHCOn3n87g"
 
 media_folder: "img"
 public_folder: "img"
