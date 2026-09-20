@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Madeloun/OfertaComercialWin
+  repo: cfd-capacitaciones/OfertaComercialWin
   branch: main
   base_url: "https://oferta-comercial-win.vercel.app/api"
 
