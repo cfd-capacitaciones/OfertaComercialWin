@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: cfd-capacitaciones/OfertaComercialWin
+  repo: Madeloun/OfertaComercialWin
   branch: main
 
 media_folder: "img"
