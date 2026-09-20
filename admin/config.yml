@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Madeloun/OfertaComercialWin
   branch: main
 
 media_folder: "img"
@@ -9,7 +10,7 @@ collections:
   - name: "ofertas"
     label: "Ofertas Comerciales"
     files:
-      - label: "Planes Lima - Mono Residencial"
+      - label: "Ofertas Comerciales (Lima)"
         name: "lima_mono"
         file: "ofertas.json"
         fields:
