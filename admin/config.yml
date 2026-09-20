@@ -2,7 +2,7 @@ backend:
   name: github
   repo: cfd-capacitaciones/OfertaComercialWin
   branch: main
-  base_url: "https://oferta-comercial-win.vercel.app/api"
+  app_id: "Ov23liqpyegHCOn3n87g" # <-- ¡Pon el código corto que te dio GitHub!
 
 media_folder: "img"
 public_folder: "img"
