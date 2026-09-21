@@ -94,10 +94,14 @@
 
         // Funciones del Modal
         function abrirModal(id, nombre, precioActual) {
-            document.getElementById('modal-id-plan').value = id;
-            document.getElementById('modal-nombre-plan').innerText = nombre;
-            document.getElementById('modal-precio').value = precioActual;
-            document.getElementById('modal-editar').classList.remove('hidden');
+        document.getElementById('modal-id-plan').value = id;
+        document.getElementById('modal-nombre-plan').innerText = nombre;
+    
+        // Obtenemos el precio actual directamente de lo que se muestra en la tabla
+        const precioEnPantalla = document.getElementById(`precio-${id}`).innerText.replace('S/ ', '').trim();
+        document.getElementById('modal-precio').value = precioEnPantalla;
+    
+        document.getElementById('modal-editar').classList.remove('hidden');
         }
 
         function cerrarModal() {
