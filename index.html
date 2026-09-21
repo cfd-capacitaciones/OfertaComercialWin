@@ -2195,7 +2195,7 @@
 
         // 2. Manejo de Beneficios/Equipos (Si es "NO" o vacío, va en pastilla gris, sino texto normal)
         const beneficioTexto = (plan.beneficio_tabla || '').trim();
-        const esNoBeneficio = beneficioText === '' || beneficioTexto.toUpperCase() === 'NO';
+        const esNoBeneficio = beneficioTexto === '' || beneficioTexto.toUpperCase() === 'NO';
         const beneficioHtml = esNoBeneficio 
           ? `<span class="badge badge-no">NO</span>` 
           : beneficioTexto;
@@ -2262,6 +2262,7 @@
         }
       });
     }
+
     function pintarTablaRUC(lista, idTabla, idGrid) {
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
