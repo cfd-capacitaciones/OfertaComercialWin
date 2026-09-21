@@ -1507,7 +1507,7 @@
           <button class="tab-btn" role="tab" data-tab="RUC20lima" data-sound="click" aria-selected="true"> 🏪RUC20
           </button>
         </div>
-
+        <!-- Carga dinámica desde Supabase -->
         <!-- ===== TAB LIMA: MONO RESIDENCIAL ===== -->
         <div class="tab-panel active" id="panel-lima-mono" role="tabpanel">
           <div class="table-wrap">
@@ -1522,7 +1522,6 @@
                 </tr>
               </thead>
               <tbody id="tabla-lima-mono">
-              <!-- Los datos se cargarán dinámicamente desde ofertas.json -->
                </tbody>  
             </table>
           </div>
@@ -2134,37 +2133,35 @@
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74';  
     const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    async function cargarTodosLosPlanes() {
-    try {
-    // Ordenamos estrictamente por la columna 'orden' de menor a mayor
-    const { data, error } = await clienteSupabase
-      .from('planes_generales')
-      .select('*')
-      .order('orden', { ascending: true }); // <-- AQUÍ ESTÁ EL TRUCO
+async function cargarTodosLosPlanes() {
+      try {
+        // Consultamos a Supabase ordenando estrictamente por la columna 'orden'
+        const { data, error } = await clienteSupabase
+          .from('planes_generales')
+          .select('*')
+          .order('orden', { ascending: true });
 
-    if (error) {
-      console.error("Error al obtener planes:", error);
-      return;
-    }
-    
-    // ... el resto de tus filtros y funciones continúan igual ...
+        if (error) {
+          console.error("Error al obtener planes de Supabase:", error);
+          return;
+        }
 
-        // Separar por región (asegúrate de que en tu BD las provincias tengan region = 'provincia')
+        // Separar por región
         const limaPlanes = data.filter(p => (p.region || '').toLowerCase() === 'lima');
         const provPlanes = data.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
 
-        // ---- CARGAR LIMA ----
-        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono' || (p.nombre_plan || '').toLowerCase().includes('mono')), 'tabla-lima-mono', 'grid-lima-mono');
-        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon' || (p.nombre_plan || '').toLowerCase().includes('xgsp') || (p.nombre_plan || '').toLowerCase().includes('gamer')), 'tabla-lima-xgspon', 'grid-lima-xgspon');
-        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'wtv' || (p.nombre_plan || '').toLowerCase().includes('wtv')), 'tabla-lima-wtv', 'grid-lima-wtv');
-        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'dgo' || (p.nombre_plan || '').toLowerCase().includes('dgo')), 'tabla-lima-dgo', 'grid-lima-dgo');
-        pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20' || (p.nombre_plan || '').toLowerCase().includes('ruc')), 'tabla-lima-ruc20', 'grid-lima-ruc20');
+        // ---- CARGAR LIMA (Filtro estricto por categoría) ----
+        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-lima-mono', 'grid-lima-mono');
+        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon_gamer'), 'tabla-lima-xgspon', 'grid-lima-xgspon');
+        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
+        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-lima-dgo', 'grid-lima-dgo');
+        pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
 
         // ---- CARGAR PROVINCIA ----
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono' || (p.nombre_plan || '').toLowerCase().includes('mono')), 'tabla-prov-mono', 'grid-prov-mono');
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'wtv' || (p.nombre_plan || '').toLowerCase().includes('wtv')), 'tabla-prov-wtv', 'grid-prov-wtv');
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'dgo' || (p.nombre_plan || '').toLowerCase().includes('dgo') || (p.nombre_plan || '').toLowerCase().includes('fonowin')), 'tabla-prov-dgo', 'grid-prov-dgo');
-        pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20' || (p.nombre_plan || '').toLowerCase().includes('ruc')), 'tabla-prov-ruc20', 'grid-prov-ruc20');
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono');
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv');
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo');
+        pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
 
       } catch (err) {
         console.error("Excepción al cargar planes:", err);
