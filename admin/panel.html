@@ -107,7 +107,8 @@
         }
 
         async function cargarPlanes() {
-            const { data, error } = await clienteSupabase.from('planes_lima').select('*').order('region', { ascending: true });
+            // Ordenamos estrictamente por ID para que nunca cambien de posición
+            const { data, error } = await clienteSupabase.from('planes_lima').select('*').order('id', { ascending: true });
             const tbody = document.getElementById('tabla-planes');
             
             if (error) return tbody.innerHTML = `<tr><td colspan="5" class="text-center text-red-500 py-4">Error al cargar</td></tr>`;
