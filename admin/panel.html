@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - WIN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    
+    <div class="max-w-6xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <!-- Cabecera del Panel -->
+        <div class="flex justify-between items-center mb-6 border-b pb-4">
+            <div>
+                <h1 class="text-3xl font-black text-[#ff6b00] tracking-tighter mb-1">win</h1>
+                <h2 class="text-xl font-bold text-gray-800">Gestor de Ofertas Comerciales</h2>
+            </div>
+            <button onclick="cerrarSesion()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded transition-colors">
+                Cerrar Sesión
+            </button>
+        </div>
+
+        <!-- Tabla de Planes -->
+        <div class="overflow-x-auto rounded-lg border border-gray-200">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="py-3 px-4 text-left font-semibold text-sm">Región</th>
+                        <th class="py-3 px-4 text-left font-semibold text-sm">Nombre del Plan</th>
+                        <th class="py-3 px-4 text-left font-semibold text-sm">Velocidad</th>
+                        <th class="py-3 px-4 text-left font-semibold text-sm">Precio Promo</th>
+                        <th class="py-3 px-4 text-center font-semibold text-sm">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-planes" class="text-gray-700 text-sm">
+                    <tr><td colspan="5" class="text-center py-8">Cargando base de datos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 1. PEGA TUS CREDENCIALES AQUÍ (Las mismas de tu index.html)
+        const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74'; 
+        
+        const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Verificar que el usuario no se haya saltado el Login
+        async function verificarSesion() {
+            const { data: { user } } = await clienteSupabase.auth.getUser();
+            if (!user) {
+                window.location.href = '/admin/'; // Lo regresamos al login si es un intruso
+            } else {
+                cargarPlanes(); // Si es del equipo, cargamos la data
+            }
+        }
+
+        // Traer los datos de la tabla planes_lima
+        async function cargarPlanes() {
+            const { data, error } = await clienteSupabase
+                .from('planes_lima')
+                .select('*')
+                .order('region', { ascending: true }); // Ordena alfabéticamente
+
+            const tbody = document.getElementById('tabla-planes');
+            
+            if (error) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-red-500 py-4">Error: Asegúrate de que tu tabla se llame 'planes_lima'.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = ''; // Limpiamos el mensaje de "Cargando..."
+            
+            // Dibujamos las filas de los planes
+            data.forEach(plan => {
+                tbody.innerHTML += `
+                    <tr class="border-b hover:bg-orange-50 transition-colors">
+                        <td class="py-3 px-4 uppercase text-xs font-bold text-gray-500">${plan.region}</td>
+                        <td class="py-3 px-4 font-semibold text-gray-900">${plan.nombre_plan}</td>
+                        <td class="py-3 px-4">${plan.velocidad}</td>
+                        <td class="py-3 px-4 text-[#ff6b00] font-bold">S/ ${plan.precio_promo}</td>
+                        <td class="py-3 px-4 text-center">
+                            <button class="text-blue-600 hover:text-blue-800 font-semibold px-2">Editar</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Función para salir
+        async function cerrarSesion() {
+            await clienteSupabase.auth.signOut();
+            window.location.href = '/admin/';
+        }
+
+        // Arrancar el motor al abrir la página
+        verificarSesion();
+    </script>
+</body>
+</html>
