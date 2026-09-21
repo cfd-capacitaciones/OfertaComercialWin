@@ -2135,12 +2135,19 @@
     const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     async function cargarTodosLosPlanes() {
-      try {
-        const { data, error } = await clienteSupabase.from('planes_lima').select('*');
-        if (error) {
-          console.error("Error al obtener planes de Supabase:", error);
-          return;
-        }
+    try {
+    // Ordenamos estrictamente por la columna 'orden' de menor a mayor
+    const { data, error } = await clienteSupabase
+      .from('planes_generales')
+      .select('*')
+      .order('orden', { ascending: true }); // <-- AQUÍ ESTÁ EL TRUCO
+
+    if (error) {
+      console.error("Error al obtener planes:", error);
+      return;
+    }
+    
+    // ... el resto de tus filtros y funciones continúan igual ...
 
         // Separar por región (asegúrate de que en tu BD las provincias tengan region = 'provincia')
         const limaPlanes = data.filter(p => (p.region || '').toLowerCase() === 'lima');
