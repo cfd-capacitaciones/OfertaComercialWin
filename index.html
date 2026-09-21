@@ -2133,13 +2133,12 @@
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74';  
     const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-async function cargarTodosLosPlanes() {
+    async function cargarTodosLosPlanes() {
       try {
-        // Consultamos a Supabase ordenando estrictamente por la columna 'orden'
         const { data, error } = await clienteSupabase
           .from('planes_generales')
           .select('*')
-          .order('orden', { ascending: true });
+          .order('orden', { ascending: true }); // Respetando tu orden manual
 
         if (error) {
           console.error("Error al obtener planes de Supabase:", error);
@@ -2150,7 +2149,7 @@ async function cargarTodosLosPlanes() {
         const limaPlanes = data.filter(p => (p.region || '').toLowerCase() === 'lima');
         const provPlanes = data.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
 
-        // ---- CARGAR LIMA (Filtro estricto por categoría) ----
+        // ---- CARGAR LIMA (Filtro estricto por categoría de Supabase) ----
         pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-lima-mono', 'grid-lima-mono');
         pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon_gamer'), 'tabla-lima-xgspon', 'grid-lima-xgspon');
         pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
@@ -2223,9 +2222,13 @@ async function cargarTodosLosPlanes() {
       tbody.innerHTML = '';
       if (grid) grid.innerHTML = '';
 
-      if (!lista || lista.length === 0) return;
+      if (!lista || lista.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:1rem;">No hay planes RUC 20 disponibles</td></tr>`;
+        return;
+      }
 
       lista.forEach(plan => {
+        // Fila de la tabla
         tbody.innerHTML += `
           <tr>
             <td>
@@ -2236,6 +2239,22 @@ async function cargarTodosLosPlanes() {
             <td>${plan.beneficio_tabla || '---'}</td>
           </tr>
         `;
+
+        // Tarjeta visual (Panel) para RUC20
+        if (grid) {
+          grid.innerHTML += `
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="${plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical || 'NO'}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
+              <div class="plan-name">${plan.nombre_plan}</div>
+              <div class="plan-speed">${plan.velocidad || ''}</div>
+              <div class="plan-price">S/ ${plan.precio_regular}</div>
+              <div class="plan-details">
+                <li>Precio regular: S/ ${plan.precio_regular}</li>
+                <li>Equipos: ${plan.beneficio_tabla || '---'}</li>
+              </div>
+            </div>
+          `;
+        }
       });
     }
 
