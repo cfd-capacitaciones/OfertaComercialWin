@@ -1,13 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración - WIN</title>
-  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Oferta Comercial WIN</title>
+    <!-- Carga de Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de la librería de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-  <!-- Sveltia CMS en lugar de Decap -->
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-100">
+        <div class="flex justify-center mb-6">
+            <!-- Logo tipográfico de WIN -->
+            <h1 class="text-5xl font-black text-[#ff6b00] tracking-tighter">win</h1>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-1 text-center">Iniciar sesión</h2>
+        <p class="text-sm text-gray-500 mb-8 text-center">Ingresa al administrador de ofertas comerciales.</p>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Correo corporativo</label>
+                <input type="email" id="email" placeholder="nombre@win.pe" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#ff6b00] focus:border-transparent outline-none transition-all">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                <input type="password" id="password" placeholder="••••••••" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#ff6b00] focus:border-transparent outline-none transition-all">
+            </div>
+
+            <div id="error-msg" class="hidden bg-red-50 text-red-600 text-sm p-3 rounded-md border border-red-100 text-center">
+                Credenciales incorrectas. Intenta nuevamente.
+            </div>
+
+            <button onclick="iniciarSesion()" id="btn-login"
+                    class="w-full bg-[#ff6b00] hover:bg-[#e56000] text-white font-semibold py-2.5 px-4 rounded-md transition-colors mt-2">
+                Ingresar
+            </button>
+        </div>
+
+        <div class="mt-8 text-center">
+            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Herramienta Interna - Comercial</p>
+        </div>
+    </div>
+
+    <script>
+        // 1. Pegar aquí tus credenciales de Supabase
+        const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co/rest/v1/';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74';
+
+        const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        async function iniciarSesion() {
+            const emailInput = document.getElementById('email').value;
+            const passwordInput = document.getElementById('password').value;
+            const btnLogin = document.getElementById('btn-login');
+            const errorMsg = document.getElementById('error-msg');
+
+            // Estado de carga
+            btnLogin.innerText = 'Validando...';
+            btnLogin.disabled = true;
+            errorMsg.classList.add('hidden');
+
+            // Petición a la base de datos
+            const { data, error } = await clienteSupabase.auth.signInWithPassword({
+                email: emailInput,
+                password: passwordInput,
+            });
+
+            if (error) {
+                errorMsg.classList.remove('hidden');
+                btnLogin.innerText = 'Ingresar';
+                btnLogin.disabled = false;
+            } else {
+                btnLogin.innerText = '¡Operación exitosa!';
+                btnLogin.classList.replace('bg-[#ff6b00]', 'bg-green-500');
+                // Redirección al panel interactivo
+                setTimeout(() => {
+                    window.location.href = '/admin/panel.html';
+                }, 1000);
+            }
+        }
+    </script>
 </body>
 </html>
