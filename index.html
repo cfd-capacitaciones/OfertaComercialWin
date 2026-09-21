@@ -691,6 +691,12 @@
       color: #475569;
       line-height: 1.7;
       margin-top: 0.4rem;
+      list-style: none; /* <-- ESTO ELIMINA LOS PUNTOS */
+      padding-left: 0;   /* <-- QUITA EL ESPACIADO IZQUIERDO DE LA LISTA */
+    }
+
+    .plan-card .plan-details li {
+      list-style-type: none; /* Asegura que no aparezca viñeta */
     }
 
     .plan-card .plan-details li::before {
