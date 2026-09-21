@@ -2229,7 +2229,6 @@
         }
       });
     }
-
     function pintarTablaRUC(lista, idTabla, idGrid) {
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
@@ -2275,48 +2274,7 @@
         }
       });
     }
-      const tbody = document.getElementById(idTabla);
-      const grid = document.getElementById(idGrid);
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      if (grid) grid.innerHTML = '';
-
-      if (!lista || lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:1rem;">No hay planes RUC 20 disponibles</td></tr>`;
-        return;
-      }
-
-      lista.forEach(plan => {
-        // Fila de la tabla
-        tbody.innerHTML += `
-          <tr>
-            <td>
-              <strong>${plan.nombre_plan}</strong>
-              ${plan.badge ? `<br><span style="font-size:0.7em; background:#ff6600; color:white; padding:2px 5px; border-radius:3px;">${plan.badge}</span>` : ''}
-            </td>
-            <td>S/ ${plan.precio_regular}</td>
-            <td>${plan.beneficio_tabla || '---'}</td>
-          </tr>
-        `;
-
-        // Tarjeta visual (Panel) para RUC20
-        if (grid) {
-          grid.innerHTML += `
-            <div class="plan-card">
-              <button class="btn-card-sim" data-sim-monto="${plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical || 'NO'}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
-              <div class="plan-name">${plan.nombre_plan}</div>
-              <div class="plan-speed">${plan.velocidad || ''}</div>
-              <div class="plan-price">S/ ${plan.precio_regular}</div>
-              <div class="plan-details">
-                <li>Precio regular: S/ ${plan.precio_regular}</li>
-                <li>Equipos: ${plan.beneficio_tabla || '---'}</li>
-              </div>
-            </div>
-          `;
-        }
-      });
-
-
+    
     // Arrancar la carga de datos al abrir la página
     document.addEventListener("DOMContentLoaded", () => {
       cargarTodosLosPlanes();
