@@ -1384,7 +1384,7 @@
       }
     }
   </style>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -1955,25 +1955,24 @@
        BLOQUE JAVASCRIPT ÚNICO
        Todos los comentarios en español para facilitar edición en IDE
        ===================================================================== -->
+<!-- =====================================================================
+        BLOQUE JAVASCRIPT ÚNICO Y DEFINITIVO
+        ===================================================================== -->
   <script>
     /* ========================================================
        MÓDULO: Web Audio API - Sonidos sintetizados (sin MP3)
-       Usa OscillatorNode + GainNode para todos los SFX
        ======================================================== */
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    let ctx = null; // Contexto de audio (se crea al primer gesto del usuario)
-    let muted = false; // Estado de silencio global
+    let ctx = null; 
+    let muted = false; 
 
-    /** Inicializa (o reutiliza) el contexto de audio */
     function getCtx() {
       if (!AudioCtx) return null;
       if (!ctx) ctx = new AudioCtx();
-      // Reanudar si el navegador lo suspendió por falta de gesto
       if (ctx.state === "suspended") ctx.resume();
       return ctx;
     }
 
-    /** Crea un oscilador simple con rampa de frecuencia y volumen */
     function playTone({ type = "sine", freqStart, freqEnd, duration = 0.1, vol = 0.15, delay = 0 }) {
       if (muted) return;
       const c = getCtx();
@@ -1992,47 +1991,23 @@
       osc.stop(t + duration + 0.05);
     }
 
-    /* ========================================================
-       CATÁLOGO DE SONIDOS (SFX)
-       Cada propiedad es una función que reproduce su efecto
-       ======================================================== */
     const SFX = {
-      /** Click suave – sine 800→600 Hz, 60ms */
-      click() {
-        playTone({ type: "sine", freqStart: 800, freqEnd: 600, duration: 0.06 });
-      },
-      /** Cálculo – triangle + sine asciende */
+      click() { playTone({ type: "sine", freqStart: 800, freqEnd: 600, duration: 0.06 }); },
       calc() {
         playTone({ type: "triangle", freqStart: 500, freqEnd: 1000, duration: 0.12, vol: 0.12 });
         playTone({ type: "sine", freqStart: 1000, freqEnd: 1200, duration: 0.12, vol: 0.10, delay: 0.10 });
       },
-      /** Éxito – tres tonos ascendentes */
       success() {
         [0, 0.12, 0.24].forEach((d, i) => {
           playTone({ type: "sine", freqStart: 600 + i * 200, duration: 0.1, vol: 0.12, delay: d });
         });
       },
-      /** Error – sawtooth descendente */
-      error() {
-        playTone({ type: "sawtooth", freqStart: 300, freqEnd: 200, duration: 0.15, vol: 0.12 });
-      },
-      /** Mute activado */
-      mute() {
-        playTone({ type: "triangle", freqStart: 400, freqEnd: 300, duration: 0.1, vol: 0.1 });
-      },
-      /** Unmute activado */
-      unmute() {
-        playTone({ type: "triangle", freqStart: 300, freqEnd: 500, duration: 0.12, vol: 0.12 });
-      },
-      /** Navegación entre secciones */
-      nav() {
-        playTone({ type: "sine", freqStart: 700, freqEnd: 900, duration: 0.08, vol: 0.10 });
-      }
+      error() { playTone({ type: "sawtooth", freqStart: 300, freqEnd: 200, duration: 0.15, vol: 0.12 }); },
+      mute() { playTone({ type: "triangle", freqStart: 400, freqEnd: 300, duration: 0.1, vol: 0.1 }); },
+      unmute() { playTone({ type: "triangle", freqStart: 300, freqEnd: 500, duration: 0.12, vol: 0.12 }); },
+      nav() { playTone({ type: "sine", freqStart: 700, freqEnd: 900, duration: 0.08, vol: 0.10 }); }
     };
 
-    /* ========================================================
-       MÓDULO: Referencias DOM cacheadas
-       ======================================================== */
     const DOM = {
       progressBar: document.getElementById("progress-bar"),
       hamburgerBtn: document.getElementById("hamburger-btn"),
@@ -2048,13 +2023,9 @@
       simResult: document.getElementById("sim-result"),
     };
 
-    /** Lista de IDs de secciones en orden de navegación */
     const SECCIONES = ["home", "lima", "provincia", "adicionales", "facturacion"];
-    let seccionActual = 0; // Índice de la sección visible activa
+    let seccionActual = 0;
 
-    /* ========================================================
-       MÓDULO: Toast de notificaciones
-       ======================================================== */
     let toastTimer = null;
     function mostrarToast(msg, duracion = 2500) {
       clearTimeout(toastTimer);
@@ -2063,10 +2034,6 @@
       toastTimer = setTimeout(() => DOM.toast.classList.remove("visible"), duracion);
     }
 
-    /* ========================================================
-       MÓDULO: Barra de progreso superior
-       Calcula el porcentaje de scroll de la página completa
-       ======================================================== */
     function actualizarProgreso() {
       const scrollTop = window.scrollY;
       const docH = document.documentElement.scrollHeight - window.innerHeight;
@@ -2074,10 +2041,6 @@
       DOM.progressBar.style.width = pct + "%";
     }
 
-    /* ========================================================
-       MÓDULO: Navegación entre secciones
-       ======================================================== */
-    /** Navega a una sección por su ID y actualiza UI relacionada */
     function navegarA(seccionId) {
       const el = document.getElementById(seccionId);
       if (!el) return;
@@ -2089,21 +2052,16 @@
       cerrarDrawer();
     }
 
-    /** Navega a la sección siguiente (cíclico) */
     function navegarSiguiente() {
       const siguiente = (seccionActual + 1) % SECCIONES.length;
       navegarA(SECCIONES[siguiente]);
     }
 
-    /** Navega a la sección anterior (cíclico) */
     function navegarAnterior() {
       const anterior = (seccionActual - 1 + SECCIONES.length) % SECCIONES.length;
       navegarA(SECCIONES[anterior]);
     }
 
-    /* ========================================================
-       MÓDULO: Actualización de estados visuales de navegación
-       ======================================================== */
     function actualizarDots(seccionId) {
       DOM.pageDots.forEach(dot => {
         dot.classList.toggle("active", dot.dataset.section === seccionId);
@@ -2116,10 +2074,6 @@
       });
     }
 
-    /* ========================================================
-       MÓDULO: IntersectionObserver para detectar sección activa
-       Actualiza dots y nav al hacer scroll manual
-       ======================================================== */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
@@ -2134,9 +2088,6 @@
 
     DOM.sections.forEach(s => observer.observe(s));
 
-    /* ========================================================
-       MÓDULO: Drawer lateral
-       ======================================================== */
     function abrirDrawer() {
       DOM.drawer.classList.add("open");
       DOM.drawerOverlay.classList.add("open");
@@ -2159,85 +2110,175 @@
     DOM.drawerCloseBtn.addEventListener("click", () => { SFX.click(); cerrarDrawer(); });
     DOM.drawerOverlay.addEventListener("click", () => cerrarDrawer());
 
-    /* ========================================================
-       MÓDULO: Sistema de tabs (Lima y Provincia)
-       Activa/desactiva paneles según el botón pulsado
-       ======================================================== */
     function manejarTab(btn) {
       const tabId = btn.dataset.tab;
       if (!tabId) return;
-      // Encontrar el grupo de tabs al que pertenece este botón
       const tabBar = btn.closest(".tab-bar");
       const section = btn.closest(".section-slide");
       if (!tabBar || !section) return;
-      // Desactivar todos los tabs y paneles del mismo grupo
       tabBar.querySelectorAll(".tab-btn").forEach(b => {
         b.classList.remove("active");
         b.setAttribute("aria-selected", "false");
       });
       section.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-      // Activar el seleccionado
       btn.classList.add("active");
       btn.setAttribute("aria-selected", "true");
       const panel = document.getElementById("panel-" + tabId);
       if (panel) panel.classList.add("active");
     }
+
     /* ========================================================
-       MÓDULO: Simulador de Facturación (Efecto Ocultar/Mostrar)
-       Aplica las reglas de ciclos de emisión y calcula montos
+       MÓDULO SUPABASE: CONEXIÓN Y CARGA DINÁMICA DE PLANES
+       ======================================================== */
+    const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74';  
+    const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function cargarTodosLosPlanes() {
+      try {
+        const { data, error } = await clienteSupabase.from('planes_lima').select('*');
+        if (error) {
+          console.error("Error al obtener planes de Supabase:", error);
+          return;
+        }
+
+        // Separar por región (asegúrate de que en tu BD las provincias tengan region = 'provincia')
+        const limaPlanes = data.filter(p => (p.region || '').toLowerCase() === 'lima');
+        const provPlanes = data.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
+
+        // ---- CARGAR LIMA ----
+        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono' || (p.nombre_plan || '').toLowerCase().includes('mono')), 'tabla-lima-mono', 'grid-lima-mono');
+        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon' || (p.nombre_plan || '').toLowerCase().includes('xgsp') || (p.nombre_plan || '').toLowerCase().includes('gamer')), 'tabla-lima-xgspon', 'grid-lima-xgspon');
+        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'wtv' || (p.nombre_plan || '').toLowerCase().includes('wtv')), 'tabla-lima-wtv', 'grid-lima-wtv');
+        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'dgo' || (p.nombre_plan || '').toLowerCase().includes('dgo')), 'tabla-lima-dgo', 'grid-lima-dgo');
+        pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20' || (p.nombre_plan || '').toLowerCase().includes('ruc')), 'tabla-lima-ruc20', 'grid-lima-ruc20');
+
+        // ---- CARGAR PROVINCIA ----
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono' || (p.nombre_plan || '').toLowerCase().includes('mono')), 'tabla-prov-mono', 'grid-prov-mono');
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'wtv' || (p.nombre_plan || '').toLowerCase().includes('wtv')), 'tabla-prov-wtv', 'grid-prov-wtv');
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'dgo' || (p.nombre_plan || '').toLowerCase().includes('dgo') || (p.nombre_plan || '').toLowerCase().includes('fonowin')), 'tabla-prov-dgo', 'grid-prov-dgo');
+        pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20' || (p.nombre_plan || '').toLowerCase().includes('ruc')), 'tabla-prov-ruc20', 'grid-prov-ruc20');
+
+      } catch (err) {
+        console.error("Excepción al cargar planes:", err);
+      }
+    }
+
+    function pintarTablaSupabase(lista, idTabla, idGrid) {
+      const tbody = document.getElementById(idTabla);
+      const grid = document.getElementById(idGrid);
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (grid) grid.innerHTML = '';
+
+      if (!lista || lista.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
+        return;
+      }
+
+      lista.forEach(plan => {
+        const precioPromoHtml = plan.precio_promo ? `S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small>` : '---';
+        
+        // Fila de tabla
+        tbody.innerHTML += `
+          <tr>
+            <td>
+              <strong>${plan.nombre_plan}</strong>
+              ${plan.badge ? `<br><span style="font-size:0.7em; background:#ff6600; color:white; padding:2px 5px; border-radius:3px;">${plan.badge}</span>` : ''}
+            </td>
+            <td>S/ ${plan.precio_regular}</td>
+            <td style="color: #ff6600; font-weight: bold;">${precioPromoHtml}</td>
+            <td>${plan.beneficio_tabla || '---'}</td>
+            <td>${plan.aplica_vertical || 'NO'}</td>
+          </tr>
+        `;
+
+        // Card visual (si existe el grid en el HTML)
+        if (grid) {
+          grid.innerHTML += `
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="${plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
+              <div class="plan-name">${plan.nombre_plan}</div>
+              <div class="plan-speed">${plan.velocidad || ''}</div>
+              <div class="plan-price">S/ ${plan.precio_promo || plan.precio_regular} <small>${plan.texto_promo || ''}</small></div>
+              <div class="plan-details">
+                <li>Precio regular: S/ ${plan.precio_regular}</li>
+                <li>${plan.beneficio_tabla || 'Fibra Óptica'}</li>
+                <li>Vertical WIN: ${plan.aplica_vertical}</li>
+              </div>
+            </div>
+          `;
+        }
+      });
+    }
+
+    function pintarTablaRUC(lista, idTabla, idGrid) {
+      const tbody = document.getElementById(idTabla);
+      const grid = document.getElementById(idGrid);
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (grid) grid.innerHTML = '';
+
+      if (!lista || lista.length === 0) return;
+
+      lista.forEach(plan => {
+        tbody.innerHTML += `
+          <tr>
+            <td>
+              <strong>${plan.nombre_plan}</strong>
+              ${plan.badge ? `<br><span style="font-size:0.7em; background:#ff6600; color:white; padding:2px 5px; border-radius:3px;">${plan.badge}</span>` : ''}
+            </td>
+            <td>S/ ${plan.precio_regular}</td>
+            <td>${plan.beneficio_tabla || '---'}</td>
+          </tr>
+        `;
+      });
+    }
+
+    // Arrancar la carga de datos al abrir la página
+    document.addEventListener("DOMContentLoaded", () => {
+      cargarTodosLosPlanes();
+    });
+
+    /* ========================================================
+       MÓDULO: Simulador de Facturación
        ======================================================== */
     DOM.simForm.addEventListener("submit", (e) => {
       e.preventDefault();
-
       const diaInput = document.getElementById("sim-dia").value;
       const montoInput = document.getElementById("sim-monto").value;
-
       const dia = parseInt(diaInput, 10);
       const monto = parseFloat(montoInput);
 
-      // Si el usuario hace clic sin llenar datos, no hacemos nada extra, dejamos que el 'required' de HTML actúe
-      if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) {
-        return;
-      }
+      if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) return;
 
-      // Funcionalidad Ocultar/Mostrar: Si ya está visible, lo ocultamos y nos detenemos
       if (DOM.simResult.classList.contains("visible")) {
         DOM.simResult.classList.remove("visible");
-        SFX.click(); // Un sonido suave al cerrar
+        SFX.click();
         return;
       }
 
-      // Si llegamos aquí, es porque vamos a calcular y mostrar.
       SFX.calc();
-
-      // Ocultar SIEMPRE el cuadro de Oferta Vertical para evitar que se apilen
       document.getElementById("res-vertical").classList.remove("visible");
 
-      // ------ Calcular día y mes de emisión según ciclo ------
       let diaEmision, mesEmisionOffset, ciclo, tipoCobro;
-      // Offset: 0 = mes actual, 1 = mes siguiente
       if (dia >= 1 && dia <= 10) { diaEmision = 11; mesEmisionOffset = 0; ciclo = "01–10"; }
       else if (dia >= 11 && dia <= 14) { diaEmision = 15; mesEmisionOffset = 0; ciclo = "11–14"; }
       else if (dia >= 15 && dia <= 18) { diaEmision = 19; mesEmisionOffset = 0; ciclo = "15–18"; }
       else if (dia >= 19 && dia <= 22) { diaEmision = 23; mesEmisionOffset = 0; ciclo = "19–22"; }
       else { diaEmision = 11; mesEmisionOffset = 1; ciclo = "23–31"; }
 
-      // ------ Determinar tipo de cobro y monto ------
       let primerCobro, detalle;
-      const tarifa = monto; // tarifa diaria base = monto / 30
       const tarifa_dia = monto / 30;
-
       const fechaActual = new Date();
       const ultimoDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0).getDate();
 
       if (dia >= 1 && dia <= 22) {
-        // Cobro proporcional: días desde instalación hasta fin de mes
         tipoCobro = "Proporcional";
         const diasCobro = ultimoDiaMes - dia + 1;
         primerCobro = tarifa_dia * diasCobro;
         detalle = `(S/ ${tarifa_dia.toFixed(2)}/día × ${diasCobro} días hasta el día ${ultimoDiaMes})`;
       } else {
-        // Cobro consolidado: días restantes del mes actual + mes siguiente completo
         tipoCobro = "Consolidado";
         const diasRestantes = ultimoDiaMes - dia + 1;
         const cobroParcial = tarifa_dia * diasRestantes;
@@ -2245,20 +2286,17 @@
         detalle = `(${diasRestantes} días de este mes + 1 mes completo = S/ ${cobroParcial.toFixed(2)} + S/ ${monto.toFixed(2)})`;
       }
 
-      // ------ Obtener fecha de emisión con nombre de mes ------
       const hoy = new Date();
-      const mesBase = hoy.getMonth(); // 0-indexed
+      const mesBase = hoy.getMonth();
       const anioBase = hoy.getFullYear();
-      const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
-        "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+      const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
       let mesEmision = mesBase + mesEmisionOffset;
       let anioEmision = anioBase;
       if (mesEmision > 11) { mesEmision -= 12; anioEmision++; }
+      
       const emisionStr = `${diaEmision} de ${meses[mesEmision]} ${anioEmision}`;
-      // Vencimiento siempre día 28 del mes de emisión
       const vencimientoStr = `28 de ${meses[mesEmision]} ${anioEmision}`;
 
-      // ------ Renderizar resultado en el DOM ------
       document.getElementById("res-dia").textContent = `Día ${dia}`;
       document.getElementById("res-emision").textContent = emisionStr;
       document.getElementById("res-vencimiento").textContent = vencimientoStr;
@@ -2268,17 +2306,19 @@
       document.getElementById("res-detalle").textContent = detalle;
 
       DOM.simResult.classList.add("visible");
-      setTimeout(() => SFX.success(), 300); // Efecto de éxito diferido
+      setTimeout(() => SFX.success(), 300);
       mostrarToast("✅ Simulación calculada correctamente");
     });
 
     /* ========================================================
        MÓDULO: Oferta Vertical
        ======================================================== */
+    let planSeleccionado_aplicaVertical = false;
+    let planSeleccionado_precioRegular = 0;
+
     document.getElementById("btnVertical").addEventListener("click", () => {
       const diaInput = document.getElementById("sim-dia").value;
       const montoInput = document.getElementById("sim-monto").value;
-
       const dia = parseInt(diaInput, 10);
       const monto = parseFloat(montoInput);
       const contenedorVertical = document.getElementById("res-vertical");
@@ -2298,7 +2338,6 @@
       SFX.calc();
       DOM.simResult.classList.remove("visible");
 
-      // Usar directamente la información que guardamos en memoria al hacer clic en la tarjeta
       if (planSeleccionado_aplicaVertical) {
         const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         const mesActual = new Date().getMonth();
@@ -2329,7 +2368,6 @@
         `;
         setTimeout(() => SFX.success(), 300);
         mostrarToast("✅ Oferta Vertical calculada");
-
       } else {
         contenedorVertical.style.borderColor = "#dc3545";
         contenedorVertical.style.backgroundColor = "#fff8f8";
@@ -2341,21 +2379,11 @@
         `;
         SFX.error();
       }
-
       contenedorVertical.classList.add("visible");
     });
 
-    /* ========================================================
-           MÓDULO: Simular plan directamente desde la tarjeta
-           ======================================================== */
-    // Variables globales para recordar la selección actual
-    let planSeleccionado_aplicaVertical = false;
-    let planSeleccionado_precioRegular = 0;
-
     function simularConPrecio(monto, plan, aplicaVertical = 'NO', precioRegular = 0) {
       navegarA("facturacion");
-
-      // Guardar en memoria la info de este plan específico
       planSeleccionado_aplicaVertical = (aplicaVertical === 'SI');
       planSeleccionado_precioRegular = parseFloat(precioRegular) || 0;
 
@@ -2381,35 +2409,14 @@
     }
 
     /* ========================================================
-       MÓDULO: Modal Pop-up - Parrilla de Canales
-       Muestra las imágenes de canales para WINTV y DGO
+       MÓDULO: Modal Parrilla de Canales
        ======================================================== */
     const PARRILLAS = {
-      "wintv-premium": {
-        titulo: "Parrilla de Canales · WINTV Premium",
-        archivo: "img/wintv PREMIUM.png",
-        desc: "Parrilla de canales completa del plan WINTV Premium por streaming."
-      },
-      "wintv-l1max": {
-        titulo: "Parrilla de Canales · WINTV L1Max",
-        archivo: "img/L1MAX.png",
-        desc: "Señal y contenido oficial de L1Max con todos los partidos de la Liga 1."
-      },
-      "wintv-l1max-premium": {
-        titulo: "Parrilla de Canales · WINTV L1Max Premium",
-        archivo: "img/wintv L1MAX PREMIUM.png",
-        desc: "Catálogo completo de L1Max junto a los mejores canales Premium de WINTV."
-      },
-      "dgo-hogar": {
-        titulo: "Parrilla de Canales · DGO Hogar",
-        archivo: "img/DGO HOGAR.png",
-        desc: "Parrilla de canales y entretenimiento en vivo del paquete DGO Hogar."
-      },
-      "dgo-full": {
-        titulo: "Parrilla de Canales · DGO Full",
-        archivo: "img/DGO FULL.png",
-        desc: "Catálogo total de canales en vivo y streaming premium de DGO Full."
-      }
+      "wintv-premium": { titulo: "Parrilla de Canales · WINTV Premium", archivo: "img/wintv PREMIUM.png", desc: "Parrilla completa de canales WINTV Premium." },
+      "wintv-l1max": { titulo: "Parrilla de Canales · WINTV L1Max", archivo: "img/L1MAX.png", desc: "Señal oficial de L1Max." },
+      "wintv-l1max-premium": { titulo: "Parrilla de Canales · WINTV L1Max Premium", archivo: "img/wintv L1MAX PREMIUM.png", desc: "L1Max junto a los mejores canales Premium." },
+      "dgo-hogar": { titulo: "Parrilla de Canales · DGO Hogar", archivo: "img/DGO HOGAR.png", desc: "Paquete DGO Hogar." },
+      "dgo-full": { titulo: "Parrilla de Canales · DGO Full", archivo: "img/DGO FULL.png", desc: "Streaming premium de DGO Full." }
     };
 
     const modalParrilla = document.getElementById("modal-parrilla");
@@ -2448,220 +2455,50 @@
       });
     }
 
-    /* ========================================================
-       MÓDULO: Event Delegation global
-       Maneja sonidos, simulador desde card, parrillas y navegación
-       ======================================================== */
     document.addEventListener("click", (e) => {
-      // 1. Clic en botón de simular desde una card
       const btnSim = e.target.closest(".btn-card-sim");
       if (btnSim) {
         e.preventDefault();
         e.stopPropagation();
-        const monto = btnSim.dataset.simMonto;
-        const plan = btnSim.dataset.simPlan;
-        const vertical = btnSim.dataset.simVertical || 'NO'; // Lee si aplica o no
-        const regular = btnSim.dataset.simRegular || 0;     // Lee el precio regular
-
-        if (monto) simularConPrecio(monto, plan, vertical, regular);
+        simularConPrecio(btnSim.dataset.simMonto, btnSim.dataset.simPlan, btnSim.dataset.simVertical, btnSim.dataset.simRegular);
         return;
       }
 
-      // 2. Clic para ver parrilla de canales
       const btnParrilla = e.target.closest("[data-parrilla]");
       if (btnParrilla) {
         e.preventDefault();
-        const clave = btnParrilla.dataset.parrilla;
-        abrirModalParrilla(clave);
+        abrirModalParrilla(btnParrilla.dataset.parrilla);
         return;
       }
 
-      // 3. Sonidos con data-sound
       const targetSound = e.target.closest("[data-sound]");
-      if (targetSound) {
-        const sfx = targetSound.dataset.sound;
-        if (SFX[sfx]) SFX[sfx]();
-      }
+      if (targetSound && SFX[targetSound.dataset.sound]) SFX[targetSound.dataset.sound]();
 
-      // 4. Navegación con data-section
       const targetSection = e.target.closest("[data-section]");
-      if (targetSection) {
-        const seccion = targetSection.dataset.section;
-        if (seccion) navegarA(seccion);
-      }
+      if (targetSection && targetSection.dataset.section) navegarA(targetSection.dataset.section);
 
-      // 5. Tabs
       const targetTab = e.target.closest(".tab-btn");
-      if (targetTab) {
-        manejarTab(targetTab);
-      }
+      if (targetTab) manejarTab(targetTab);
     });
 
-    /* ========================================================
-       MÓDULO: FAB – Mute / Unmute de audio
-       ======================================================== */
     DOM.fabMute.addEventListener("click", () => {
       muted = !muted;
       if (muted) {
         DOM.fabMute.textContent = "🔇";
         DOM.fabMute.setAttribute("aria-pressed", "true");
-        DOM.fabMute.title = "Activar sonidos";
         mostrarToast("🔇 Sonidos silenciados");
       } else {
         DOM.fabMute.textContent = "🔊";
         DOM.fabMute.setAttribute("aria-pressed", "false");
-        DOM.fabMute.title = "Silenciar sonidos";
         SFX.unmute();
         mostrarToast("🔊 Sonidos activados");
       }
     });
 
-    /* ========================================================
-       MÓDULO: Atajos de teclado
-       ArrowRight/Down = siguiente sección
-       ArrowLeft/Up    = sección anterior
-       Escape          = cerrar modal o drawer
-       M               = toggle mute
-       ======================================================== */
-    document.addEventListener("keydown", (e) => {
-      // Ignorar si el foco está en un campo de formulario
-      if (["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName)) return;
-      switch (e.key) {
-        case "ArrowRight":
-        case "ArrowDown":
-          e.preventDefault();
-          SFX.nav();
-          navegarSiguiente();
-          break;
-        case "ArrowLeft":
-        case "ArrowUp":
-          e.preventDefault();
-          SFX.nav();
-          navegarAnterior();
-          break;
-        case "Escape":
-          if (modalParrilla && modalParrilla.classList.contains("open")) {
-            cerrarModalParrilla();
-            return;
-          }
-          cerrarDrawer();
-          break;
-        case "m":
-        case "M":
-          DOM.fabMute.click();
-          break;
-      }
-    });
-
-    /* ========================================================
-       MÓDULO: Evento de scroll – actualiza barra de progreso
-       ======================================================== */
     window.addEventListener("scroll", actualizarProgreso, { passive: true });
-
-    // ===== INICIALIZACIÓN =====
-    actualizarProgreso(); // Estado inicial de la barra
+    actualizarProgreso();
     mostrarToast("👋 Bienvenido a la Oferta Comercial - WIN");
-
-    /* ========================================================
-       MÓDULO: Protección – Deshabilitar inspección de código
-       ======================================================== */
-     /*
-        // 1. Bloquear clic derecho (menú contextual)
-        document.addEventListener("contextmenu", function (e) {
-          e.preventDefault();
-        });
-    
-        // 2. Bloquear atajos de teclado de herramientas de desarrollo
-        document.addEventListener("keydown", function (e) {
-          // F12
-          if (e.key === "F12") { e.preventDefault(); return false; }
-          // Ctrl+Shift+I / Cmd+Option+I (Inspeccionar)
-          if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "I") { e.preventDefault(); return false; }
-          // Ctrl+Shift+J / Cmd+Option+J (Consola)
-          if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "J") { e.preventDefault(); return false; }
-          // Ctrl+Shift+C / Cmd+Option+C (Inspector de elementos)
-          if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "C") { e.preventDefault(); return false; }
-          // Ctrl+U / Cmd+U (Ver código fuente)
-          if ((e.ctrlKey || e.metaKey) && e.key === "u") { e.preventDefault(); return false; }
-          // Ctrl+S / Cmd+S (Guardar página)
-          if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); return false; }
-        });
-    
-        // 3. Detectar si DevTools está abierto y redirigir
-        (function detectDevTools() {
-          var threshold = 160;
-          var devToolsOpen = false;
-          setInterval(function () {
-            var widthDiff = window.outerWidth - window.innerWidth > threshold;
-            var heightDiff = window.outerHeight - window.innerHeight > threshold;
-            if ((widthDiff || heightDiff) && !devToolsOpen) {
-              devToolsOpen = true;
-              document.body.innerHTML = "<div style='display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;font-size:1.5rem;color:#FF5A0A;'>🔒 Acceso no autorizado</div>";
-            }
-          }, 1000);
-        })();
-    */
-async function cargarPlanes() {
-    try {
-        const response = await fetch('ofertas.json');
-        const data = await response.json();
-        
-        pintarTablaJson(data.lima.mono_residencial, 'tabla-lima-mono');
-        pintarTablaJson(data.lima.xgspon_gamer, 'tabla-lima-xgspon');
-        pintarTablaJson(data.lima.hb_wtv, 'tabla-lima-wtv');
-        pintarTablaJson(data.lima.hb_dgo, 'tabla-lima-dgo');
-        pintarTablaRUCJson(data.lima.ruc20, 'tabla-lima-ruc20');
-    } catch (error) {
-        console.error("Error al cargar los planes:", error);
-    }
-}
-
-function pintarTablaJson(listaPlanes, idTabla) {
-    const tbody = document.getElementById(idTabla);
-    if (!tbody || !listaPlanes) return;
-    tbody.innerHTML = ''; 
-    listaPlanes.forEach(plan => {
-        const precioPromo = plan.precio_promo ? `S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small>` : '---';
-        const fila = `
-            <tr>
-                <td>
-                    <strong>${plan.plan}</strong>
-                    ${plan.badge ? `<br><span style="font-size:0.7em; background:#ff6600; color:white; padding:2px 5px; border-radius:3px;">${plan.badge}</span>` : ''}
-                </td>
-                <td>S/ ${plan.precio_regular}</td>
-                <td style="color: #ff6600; font-weight: bold;">${precioPromo}</td>
-                <td>${plan.beneficio_tabla || '---'}</td>
-                <td>${plan.aplica_vertical || 'NO'}</td>
-            </tr>
-        `;
-        tbody.innerHTML += fila;
-    });
-}
-
-function pintarTablaRUCJson(listaPlanes, idTabla) {
-    const tbody = document.getElementById(idTabla);
-    if (!tbody || !listaPlanes) return;
-    tbody.innerHTML = ''; 
-    listaPlanes.forEach(plan => {
-        const fila = `
-            <tr>
-                <td>
-                    <strong>${plan.plan}</strong>
-                    ${plan.badge ? `<br><span style="font-size:0.7em; background:#ff6600; color:white; padding:2px 5px; border-radius:3px;">${plan.badge}</span>` : ''}
-                </td>
-                <td>S/ ${plan.precio_regular}</td>
-                <td>${plan.beneficio_tabla || plan.detalles[0] || '---'}</td>
-            </tr>
-        `;
-        tbody.innerHTML += fila;
-    });
-}
-
-cargarPlanes();
-// Ejecutar la función apenas termine de cargar la página
-document.addEventListener("DOMContentLoaded", cargarPlanes);
   </script>
-
 </body>
 
 </html>
