@@ -2188,24 +2188,33 @@
       lista.forEach(plan => {
         const precioPromoHtml = plan.precio_promo ? `S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small>` : '---';
         
-        // Fila de tabla
+        // Estilo moderno tipo pastilla para SÍ / NO en la columna Vertical
+        const esSi = (plan.aplica_vertical || 'NO').toUpperCase() === 'SI';
+        const verticalBadge = esSi 
+          ? `<span class="badge badge-si">SÍ</span>` 
+          : `<span class="badge badge-no">NO</span>`;
+
+        // 1. Fila de tabla LIMPIA (Sin etiquetas de texto estorbando)
         tbody.innerHTML += `
           <tr>
             <td>
               <strong>${plan.nombre_plan}</strong>
-              ${plan.badge ? `<br><span style="font-size:0.7em; background:#ff6600; color:white; padding:2px 5px; border-radius:3px;">${plan.badge}</span>` : ''}
             </td>
             <td>S/ ${plan.precio_regular}</td>
-            <td style="color: #ff6600; font-weight: bold;">${precioPromoHtml}</td>
+            <td style="color: #ff6b00; font-weight: bold;">${precioPromoHtml}</td>
             <td>${plan.beneficio_tabla || '---'}</td>
-            <td>${plan.aplica_vertical || 'NO'}</td>
+            <td>${verticalBadge}</td>
           </tr>
         `;
 
-        // Card visual (si existe el grid en el HTML)
+        // 2. Tarjeta visual (Panel) - Aquí sí se muestra el badge flotante arriba si lo tiene
         if (grid) {
+          const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
+          const cardFeatured = plan.badge ? 'featured' : '';
+          
           grid.innerHTML += `
-            <div class="plan-card">
+            <div class="plan-card ${cardFeatured}">
+              ${badgeTopHtml}
               <button class="btn-card-sim" data-sim-monto="${plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
               <div class="plan-name">${plan.nombre_plan}</div>
               <div class="plan-speed">${plan.velocidad || ''}</div>
@@ -2222,6 +2231,50 @@
     }
 
     function pintarTablaRUC(lista, idTabla, idGrid) {
+      const tbody = document.getElementById(idTabla);
+      const grid = document.getElementById(idGrid);
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (grid) grid.innerHTML = '';
+
+      if (!lista || lista.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:1rem;">No hay planes RUC 20 disponibles</td></tr>`;
+        return;
+      }
+
+      lista.forEach(plan => {
+        // Tabla RUC limpia
+        tbody.innerHTML += `
+          <tr>
+            <td>
+              <strong>${plan.nombre_plan}</strong>
+            </td>
+            <td>S/ ${plan.precio_regular}</td>
+            <td>${plan.beneficio_tabla || '---'}</td>
+          </tr>
+        `;
+
+        // Tarjeta visual RUC con su respectivo badge superior si aplica
+        if (grid) {
+          const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
+          const cardFeatured = plan.badge ? 'featured' : '';
+
+          grid.innerHTML += `
+            <div class="plan-card ${cardFeatured}">
+              ${badgeTopHtml}
+              <button class="btn-card-sim" data-sim-monto="${plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical || 'NO'}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
+              <div class="plan-name">${plan.nombre_plan}</div>
+              <div class="plan-speed">${plan.velocidad || ''}</div>
+              <div class="plan-price">S/ ${plan.precio_regular}</div>
+              <div class="plan-details">
+                <li>Precio regular: S/ ${plan.precio_regular}</li>
+                <li>Equipos: ${plan.beneficio_tabla || '---'}</li>
+              </div>
+            </div>
+          `;
+        }
+      });
+    }
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
       if (!tbody) return;
@@ -2262,7 +2315,7 @@
           `;
         }
       });
-    }
+
 
     // Arrancar la carga de datos al abrir la página
     document.addEventListener("DOMContentLoaded", () => {
