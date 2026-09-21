@@ -104,26 +104,29 @@
             document.getElementById('modal-editar').classList.add('hidden');
         }
 
-        async function guardarPrecio() {
-            const id = document.getElementById('modal-id-plan').value;
-            const nuevoPrecio = document.getElementById('modal-precio').value;
-            const btn = document.getElementById('btn-guardar');
-            
-            btn.innerText = 'Guardando...';
-            
-            const { error } = await clienteSupabase
-                .from('planes_lima')
-                .update({ precio_promo: parseFloat(nuevoPrecio) })
-                .eq('id', id);
+    async function guardarPrecio() {
+    const id = document.getElementById('modal-id-plan').value;
+    const nuevoPrecio = document.getElementById('modal-precio').value;
+    const btn = document.getElementById('btn-guardar');
+    
+    btn.innerText = 'Guardando...';
+    
+    // Añadimos { error } y { data } para capturar la respuesta
+    const { data, error } = await clienteSupabase
+        .from('planes_lima')
+        .update({ precio_promo: parseFloat(nuevoPrecio) })
+        .eq('id', id);
 
-            if (!error) {
-                document.getElementById(`precio-${id}`).innerText = `S/ ${nuevoPrecio}`;
-                cerrarModal();
-            } else {
-                alert('Error al actualizar el precio. Verifica los permisos RLS en Supabase.');
-            }
-            btn.innerText = 'Guardar';
-        }
+    if (!error) {
+        document.getElementById(`precio-${id}`).innerText = `S/ ${nuevoPrecio}`;
+        cerrarModal();
+    } else {
+        // Esto nos dirá exactamente el error real de Supabase
+        console.error("Error detallado:", error);
+        alert("Error de Supabase: " + error.message);
+    }
+    btn.innerText = 'Guardar';
+}
 
         async function cerrarSesion() {
             await clienteSupabase.auth.signOut();
