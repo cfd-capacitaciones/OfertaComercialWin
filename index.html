@@ -2185,21 +2185,36 @@
       }
 
       lista.forEach(plan => {
-        const precioPromoHtml = plan.precio_promo ? `S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small>` : '---';
-        const esSi = (plan.aplica_vertical || 'NO').toUpperCase() === 'SI';
-        const verticalBadge = esSi 
+        // 1. Manejo inteligente de la Promoción (Texto con descuento o "Sin promo" gris)
+        let precioPromoHtml = '';
+        if (plan.precio_promo && plan.precio_promo > 0) {
+          precioPromoHtml = `<span style="color: #ff6b00; font-weight: bold;">S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small></span>`;
+        } else {
+          precioPromoHtml = `<span class="badge badge-no">Sin promo</span>`;
+        }
+
+        // 2. Manejo de Beneficios/Equipos (Si es "NO" o vacío, va en pastilla gris, sino texto normal)
+        const beneficioTexto = (plan.beneficio_tabla || '').trim();
+        const esNoBeneficio = beneficioText === '' || beneficioTexto.toUpperCase() === 'NO';
+        const beneficioHtml = esNoBeneficio 
+          ? `<span class="badge badge-no">NO</span>` 
+          : beneficioTexto;
+
+        // 3. Estilo para la columna Vertical (SÍ / NO)
+        const esSiVertical = (plan.aplica_vertical || 'NO').toUpperCase() === 'SI';
+        const verticalBadge = esSiVertical 
           ? `<span class="badge badge-si">SÍ</span>` 
           : `<span class="badge badge-no">NO</span>`;
 
-        // Fila de la tabla
+        // Fila de la tabla con los nuevos estilos
         tbody.innerHTML += `
           <tr>
             <td>
               <strong>${plan.nombre_plan}</strong>
             </td>
             <td>S/ ${plan.precio_regular}</td>
-            <td style="color: #ff6b00; font-weight: bold;">${precioPromoHtml}</td>
-            <td>${plan.beneficio_tabla || '---'}</td>
+            <td>${precioPromoHtml}</td>
+            <td>${beneficioHtml}</td>
             <td>${verticalBadge}</td>
           </tr>
         `;
@@ -2209,6 +2224,12 @@
           const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
           const cardFeatured = plan.badge ? 'featured' : '';
           
+          // Si tiene promo, agregamos la cajita amarilla de precio regular abajo del precio principal
+          const tienePromoReal = plan.precio_promo && plan.precio_promo > 0;
+          const precioRegularCardHtml = tienePromoReal 
+            ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` 
+            : '';
+
           let checksHtml = '';
           if (plan.detalles_card && plan.detalles_card.trim() !== '') {
             const lineas = plan.detalles_card.split('\n');
@@ -2219,9 +2240,9 @@
             });
           } else {
             checksHtml = `
-              <li>Precio regular: S/ ${plan.precio_regular}</li>
-              <li>${plan.beneficio_tabla || 'Fibra Óptica'}</li>
-              <li>Vertical WIN: ${plan.aplica_vertical}</li>
+              <li>${tienePromoReal ? '50% descuento promocional' : 'Sin promoción activa'}</li>
+              <li>Fibra Óptica</li>
+              <li>${esSiVertical ? 'Acceso a Vertical WIN' : 'Sin acceso a Vertical WIN'}</li>
             `;
           }
 
@@ -2231,7 +2252,8 @@
               <button class="btn-card-sim" data-sim-monto="${plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
               <div class="plan-name">${plan.nombre_plan}</div>
               <div class="plan-speed">${plan.velocidad || ''}</div>
-              <div class="plan-price">S/ ${plan.precio_promo || plan.precio_regular} <small>${plan.texto_promo || ''}</small></div>
+              <div class="plan-price">S/ ${tienePromoReal ? plan.precio_promo : plan.precio_regular} <small>${tienePromoReal ? (plan.texto_promo || '') : ''}</small></div>
+              ${precioRegularCardHtml}
               <div class="plan-details">
                 ${checksHtml}
               </div>
@@ -2240,7 +2262,6 @@
         }
       });
     }
-
     function pintarTablaRUC(lista, idTabla, idGrid) {
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
