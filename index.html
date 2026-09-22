@@ -2260,6 +2260,52 @@
             </div>
           `;
         }
+        // Tarjeta visual (Panel) con datos independientes
+        if (grid) {
+          const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
+          const cardFeatured = plan.badge ? 'featured' : '';
+          
+          const tienePromoReal = plan.precio_promo && plan.precio_promo > 0;
+          const precioRegularCardHtml = tienePromoReal 
+            ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` 
+            : '';
+
+          // Nombre independiente para la tarjeta (si está vacío, usa el de la tabla)
+          const nombreCardMostrar = plan.nombre_card && plan.nombre_card.trim() !== '' ? plan.nombre_card : plan.nombre_plan;
+          
+          // Texto promo exclusivo para la tarjeta
+          const textoPromoCardMostrar = plan.texto_promo_card || '';
+
+          let checksHtml = '';
+          if (plan.detalles_card && plan.detalles_card.trim() !== '') {
+            const lineas = plan.detalles_card.split('\n');
+            lineas.forEach(linea => {
+              if (linea.trim() !== '') {
+                checksHtml += `<li>${linea.trim()}</li>`;
+              }
+            });
+          } else {
+            checksHtml = `
+              <li>${tienePromoReal ? '50% descuento promocional' : 'Sin promoción activa'}</li>
+              <li>Fibra Óptica</li>
+              <li>${esSiVertical ? 'Acceso a Vertical WIN' : 'Sin acceso a Vertical WIN'}</li>
+            `;
+          }
+
+          grid.innerHTML += `
+            <div class="plan-card ${cardFeatured}">
+              ${badgeTopHtml}
+              <button class="btn-card-sim" data-sim-monto="${plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
+              <div class="plan-name">${nombreCardMostrar}</div>
+              <div class="plan-speed">${plan.velocidad || ''}</div>
+              <div class="plan-price">S/ ${tienePromoReal ? plan.precio_promo : plan.precio_regular} <small>${tienePromoReal ? textoPromoCardMostrar : ''}</small></div>
+              ${precioRegularCardHtml}
+              <div class="plan-details">
+                ${checksHtml}
+              </div>
+            </div>
+          `;
+        }
       });
     }
 
