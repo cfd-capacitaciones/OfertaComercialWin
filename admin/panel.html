@@ -93,11 +93,11 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Texto Promo en Tarjeta (Ej: / 1er mes)</label>
-                    <input type="text" id="m-texto_promomes_card" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
+                    <input type="text" id="m-texto-promo-card" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Titulo de la Tarjeta (Opcional)</label>
-                    <input type="text" id="m-nombretitulo_card" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none" placeholder="Si se vacía, usa el de la tabla">
+                    <input type="text" id="m-nombre-card" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none" placeholder="Si se vacía, usa el de la tabla">
                 </div>
             </div>
             
@@ -169,8 +169,8 @@
             document.getElementById('modal-editar').classList.remove('hidden');
             document.getElementById('m-orden').value = plan.orden || 0;
             document.getElementById('m-detalles').value = plan.detalles_card || '';
-            document.getElementById('m-texto_promomes_card').value = plan.texto_promomes_card || '';
-            document.getElementById('m-nombretitulo_card').value = plan.nombretitulo_card || '';
+            document.getElementById('m-nombre-card').value = plan.nombre-card || '';
+            document.getElementById('m-texto-promo-card').value = plan.texto-promo-card || '';
         }
 
         function cerrarModal() {
@@ -185,15 +185,15 @@
             
             const datosActualizados = {
             nombre_plan: document.getElementById('m-nombre').value,
-            nombretitulo_card: document.getElementById('m-nombretitulo_card').value,
+            nombre_card: document.getElementById('m-nombre-card').value, // Coincide con el input
             velocidad: document.getElementById('m-velocidad').value,
             precio_regular: parseFloat(document.getElementById('m-regular').value) || 0,
             precio_promo: parseFloat(document.getElementById('m-promo').value) || 0,
             texto_promo: document.getElementById('m-texto-promo').value,
-            texto_promomes_card: document.getElementById('m-texto_promomes_card').value,
+            texto_promo_card: document.getElementById('m-texto-promo-card').value, // Coincide con el input
             beneficio_tabla: document.getElementById('m-beneficio').value,
             aplica_vertical: document.getElementById('m-vertical').value,
-            orden: parseInt(document.getElementById('m-orden').value) || 0, // <-- NUEVO 
+            orden: parseInt(document.getElementById('m-orden').value) || 0,
             detalles_card: document.getElementById('m-detalles').value
             };
 
