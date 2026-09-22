@@ -2271,10 +2271,10 @@
             : '';
 
           // Nombre independiente para la tarjeta (si está vacío, usa el de la tabla)
-          const nombreCardMostrar = plan.nombre_card && plan.nombre_card.trim() !== '' ? plan.nombre_card : plan.nombre_plan;
+          const nombreCardMostrar = plan.nombretitulo_card && plan.nombretitulo_card.trim() !== '' ? plan.nombretitulo_card : plan.nombre_plan;
           
           // Texto promo exclusivo para la tarjeta
-          const textoPromoCardMostrar = plan.texto_promo_card || '';
+          const textoPromoCardMostrar = plan.texto_promomes_card || '';
 
           let checksHtml = '';
           if (plan.detalles_card && plan.detalles_card.trim() !== '') {

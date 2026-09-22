@@ -169,8 +169,8 @@
             document.getElementById('modal-editar').classList.remove('hidden');
             document.getElementById('m-orden').value = plan.orden || 0;
             document.getElementById('m-detalles').value = plan.detalles_card || '';
-            document.getElementById('m-texto-promo-card').value = plan.texto_promo_card || '';
-            document.getElementById('m-nombre-card').value = plan.nombre_card || '';
+            document.getElementById('m-texto_promomes_card').value = plan.texto_promo_card || '';
+            document.getElementById('m-nombretitulo_card').value = plan.nombre_card || '';
         }
 
         function cerrarModal() {
@@ -185,12 +185,12 @@
             
             const datosActualizados = {
             nombre_plan: document.getElementById('m-nombre').value,
-            nombre_card: document.getElementById('m-nombre-card').value,
+            nombre_card: document.getElementById('m-nombretitulo_card').value,
             velocidad: document.getElementById('m-velocidad').value,
             precio_regular: parseFloat(document.getElementById('m-regular').value) || 0,
             precio_promo: parseFloat(document.getElementById('m-promo').value) || 0,
             texto_promo: document.getElementById('m-texto-promo').value,
-            texto_promo_card: document.getElementById('m-texto-promo-card').value,
+            texto_promo_card: document.getElementById('m-texto_promomes_card').value,
             beneficio_tabla: document.getElementById('m-beneficio').value,
             aplica_vertical: document.getElementById('m-vertical').value,
             orden: parseInt(document.getElementById('m-orden').value) || 0, // <-- NUEVO 
