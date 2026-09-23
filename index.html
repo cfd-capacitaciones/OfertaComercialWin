@@ -2163,16 +2163,16 @@
         pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
 
         // ---- CARGAR PROVINCIA ----
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono');
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv');
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo');
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono', true);
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
+        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
         pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
 
       } catch (err) {
         console.error("Excepción al cargar planes:", err);
       }
     }
-    function pintarTablaSupabase(lista, idTabla, idGrid) {
+    function pintarTablaSupabase(lista, idTabla, idGrid, esProvincia = false) {
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
       if (!tbody) return;
@@ -2180,12 +2180,14 @@
       if (grid) grid.innerHTML = '';
 
       if (!lista || lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
+        // Si es provincia ocupa 6 celdas, si es lima 5
+        const celdasVacias = esProvincia ? 6 : 5; 
+        tbody.innerHTML = `<tr><td colspan="${celdasVacias}" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
         return;
       }
 
       lista.forEach(plan => {
-        // 1. Promoción en la tabla
+        // 1. Promoción
         let precioPromoHtml = '';
         if (plan.precio_promo && plan.precio_promo > 0) {
           precioPromoHtml = `<span style="color: #ff6b00; font-weight: bold;">S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small></span>`;
@@ -2193,20 +2195,30 @@
           precioPromoHtml = `<span class="badge badge-no">Sin promo</span>`;
         }
 
-        // 2. Beneficios / Equipos en la tabla
+        // 2. Beneficios / Equipos
         const beneficioTexto = (plan.beneficio_tabla || '').trim();
         const esNoBeneficio = beneficioTexto === '' || beneficioTexto.toUpperCase() === 'NO';
         const beneficioHtml = esNoBeneficio 
           ? `<span class="badge badge-no">NO</span>` 
           : beneficioTexto;
 
-        // 3. Columna Vertical (SÍ / NO)
+        // 3. FonoWin (NUEVO - Solo se dibuja si esProvincia es true)
+        let fonowinTdHtml = '';
+        if (esProvincia) {
+          const esSiFonowin = (plan.fonowin || 'NO').toUpperCase() === 'SI';
+          const fonowinBadge = esSiFonowin 
+            ? `<span class="badge badge-si">SÍ</span>` 
+            : `<span class="badge badge-no">NO</span>`;
+          fonowinTdHtml = `<td>${fonowinBadge}</td>`; // Crea la celda extra
+        }
+
+        // 4. Vertical WIN
         const esSiVertical = (plan.aplica_vertical || 'NO').toUpperCase() === 'SI';
         const verticalBadge = esSiVertical 
           ? `<span class="badge badge-si">SÍ</span>` 
           : `<span class="badge badge-no">NO</span>`;
 
-        // ---- A. Fila de la Tabla ----
+        // ---- A. Fila de la Tabla Dinámica ----
         tbody.innerHTML += `
           <tr>
             <td>
@@ -2215,11 +2227,12 @@
             <td>S/ ${plan.precio_regular}</td>
             <td>${precioPromoHtml}</td>
             <td>${beneficioHtml}</td>
+            ${fonowinTdHtml} <!-- Aquí entra la columna FonoWin solo para Provincia -->
             <td>${verticalBadge}</td>
           </tr>
         `;
 
-        // ---- B. Tarjeta Visual (Panel) - Única y limpia ----
+        // ---- B. Tarjeta Visual (Se mantiene igual) ----
         if (grid) {
           const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
           const cardFeatured = plan.badge ? 'featured' : '';
@@ -2229,11 +2242,9 @@
             ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` 
             : '';
 
-          // Textos independientes para la tarjeta
           const nombreCardMostrar = plan['nombre-card'] && plan['nombre-card'].trim() !== '' ? plan['nombre-card'] : plan.nombre_plan;
           const textoPromoCardMostrar = plan['texto-promo-card'] || '';
 
-          // Checks de la tarjeta
           let checksHtml = '';
           if (plan.detalles_card && plan.detalles_card.trim() !== '') {
             const lineas = plan.detalles_card.split('\n');
