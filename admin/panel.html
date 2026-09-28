@@ -162,7 +162,6 @@
         function abrirModal(plan) {
       // 1. Guardamos el ID del plan que estamos editando
         planEditandoId = plan.id;
-
       // Textos principales
         document.getElementById('m-nombre').value = plan.nombre_plan || '';
         document.getElementById('m-velocidad').value = plan.velocidad || '';
@@ -182,7 +181,7 @@
         document.getElementById('m-texto-promo-card').value = plan['texto-promo-card'] || plan.texto_promo_card || '';
         document.getElementById('m-nombre-card').value = plan['nombre-card'] || plan.nombre_card || '';
       // 3. Mostrar el modal en pantalla
-        document.getElementById('modal-edicion').classList.remove('hidden');
+        document.getElementById('modal').classList.remove('hidden');
     }
 
         function cerrarModal() {
