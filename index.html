@@ -1686,87 +1686,12 @@
       <div class="section-inner">
         <h2 class="section-title" id="adic-title">Servicios <span class="accent">Adicionales</span></h2>
         <p class="section-subtitle">Potencia tu plan con estos servicios complementarios disponibles a demanda.</p>
-        <div class="adicionales-grid">
-          <!-- FonoWin -->
-          <div class="servicio-card">
-            <div class="srv-icon">📞</div>
-            <div class="srv-name">FonoWin</div>
-            <div class="srv-price">S/ 10 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
-            <div class="srv-note">Línea fija con Tecnología VoIP</div>
-            <div class="srv-note">App para vincular en 2 celulares</div>
-          </div>
-          <!-- WINTV Premium -->
-          <div class="servicio-card con-parrilla" data-parrilla="wintv-premium"
-            title="Haz clic para ver la parrilla de canales">
-            <div class="srv-icon">📺</div>
-            <div class="srv-name">WINTV Premium</div>
-            <div class="srv-price">S/ 49 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
-            <div class="srv-note">TV por streaming Premium</div>
-            <button class="btn-ver-parrilla" data-parrilla="wintv-premium" data-sound="click">📺 Ver canales</button>
-          </div>
-          <!-- WINTV L1Max -->
-          <div class="servicio-card con-parrilla" data-parrilla="wintv-l1max"
-            title="Haz clic para ver la parrilla de canales">
-            <div class="srv-icon">🏐</div>
-            <div class="srv-name">WINTV L1Max</div>
-            <div class="srv-price">S/ 59 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
-            <div class="srv-note">Canales L1Max incluidos</div>
-            <button class="btn-ver-parrilla" data-parrilla="wintv-l1max" data-sound="click">📺 Ver canales</button>
-          </div>
-          <!-- WINTV L1Max Premium -->
-          <div class="servicio-card con-parrilla" data-parrilla="wintv-l1max-premium"
-            title="Haz clic para ver la parrilla de canales">
-            <div class="srv-icon">🎞️</div>
-            <div class="srv-name">WINTV L1Max Premium</div>
-            <div class="srv-price">S/ 69 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
-            <div class="srv-note">L1Max + canales Premium</div>
-            <button class="btn-ver-parrilla" data-parrilla="wintv-l1max-premium" data-sound="click">📺 Ver
-              canales</button>
-          </div>
-          <!-- DGO Hogar -->
-          <div class="servicio-card con-parrilla" data-parrilla="dgo-hogar"
-            title="Haz clic para ver la parrilla de canales">
-            <div class="srv-icon">🎬</div>
-            <div class="srv-name">DGO Hogar</div>
-            <div class="srv-price">S/ 59 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
-            <div class="srv-note">Incluye Prime Video + Dsport</div>
-            <button class="btn-ver-parrilla" data-parrilla="dgo-hogar" data-sound="click">📺 Ver canales</button>
-          </div>
-          <!-- DGO Full -->
-          <div class="servicio-card con-parrilla" data-parrilla="dgo-full"
-            title="Haz clic para ver la parrilla de canales">
-            <div class="srv-icon">⚽</div>
-            <div class="srv-name">DGO Full</div>
-            <div class="srv-price">S/ 76 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
-            <div class="srv-note">Incluye Prime Video + Dsport</div>
-            <button class="btn-ver-parrilla" data-parrilla="dgo-full" data-sound="click">📺 Ver canales</button>
-          </div>
-          <!-- Winbox -->
-          <div class="servicio-card">
-            <div class="srv-icon">🎥</div>
-            <div class="srv-name">Winbox</div>
-            <div class="srv-price">S/ 20 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
-            <div class="srv-note">TvBox con Tecnología AndroidTV</div>
-            <div class="srv-note">Acceso a Apps: Disney+, Netflix, HBOMax, Prime Video, Star+</div>
-          </div>
-          <!-- Mesh Adicional -->
-          <div class="servicio-card">
-            <div class="srv-icon">🛜</div>
-            <div class="srv-name">Mesh Wi-Fi Adicional</div>
-            <div class="srv-price">S/ 9.90 <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
-            <div class="srv-note">Extiende la cobertura Wi-Fi</div>
-            <div class="srv-note">Ideal para Hogares grandes o de múltiples pisos</div>
-          </div>
-          <!-- KIT WIFI PRO -->
-          <div class="servicio-card" style="border-color:var(--color-amarillo)">
-            <div class="srv-icon">💵</div>
-            <div class="srv-name">KIT WIFI PRO</div>
-            <div class="srv-price" style="color:var(--color-amarillo)">S/ 169 <small
-                style="font-size:0.8rem;color:var(--text-muted)">pago único</small></div>
-            <div class="srv-note">Venta del Mesh Wifi 6</div>
-            <div class="srv-note">Modalidad de Pago Adelantado</div>
-          </div>
-        </div><!-- /adicionales-grid -->
+        
+        <!-- CONTENEDOR DINÁMICO SUPABASE (Vacío) -->
+        <div id="grid-adicionales" class="adicionales-grid">
+           <!-- Las tarjetas de servicios adicionales se dibujarán aquí automáticamente desde Supabase -->
+        </div>
+
       </div><!-- /section-inner -->
     </section><!-- /adicionales -->
 
@@ -1946,6 +1871,7 @@
       </div>
       <div class="modal-body">
         <div class="modal-img-container">
+          <!-- La imagen se inyecta desde Supabase dinámicamente -->
           <img id="modal-parrilla-img" src="" alt="Parrilla de canales WIN" />
         </div>
       </div>
@@ -1957,12 +1883,8 @@
   </div>
 
   <!-- =====================================================================
-       BLOQUE JAVASCRIPT ÚNICO
-       Todos los comentarios en español para facilitar edición en IDE
+       BLOQUE JAVASCRIPT ÚNICO Y DEFINITIVO
        ===================================================================== -->
-<!-- =====================================================================
-        BLOQUE JAVASCRIPT ÚNICO Y DEFINITIVO
-        ===================================================================== -->
   <script>
     /* ========================================================
        MÓDULO: Web Audio API - Sonidos sintetizados (sin MP3)
@@ -2133,7 +2055,7 @@
     }
 
     /* ========================================================
-       MÓDULO SUPABASE: CONEXIÓN Y CARGA DINÁMICA DE PLANES
+       MÓDULO SUPABASE: CONEXIÓN Y CARGA DINÁMICA
        ======================================================== */
     const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74';  
@@ -2141,37 +2063,93 @@
 
     async function cargarTodosLosPlanes() {
       try {
-        const { data, error } = await clienteSupabase
+        // Cargar Planes de Internet
+        const { data: planes, error: errPlanes } = await clienteSupabase
           .from('planes_generales')
           .select('*')
-          .order('orden', { ascending: true }); // Respetando tu orden manual
+          .order('orden', { ascending: true }); 
 
-        if (error) {
-          console.error("Error al obtener planes de Supabase:", error);
-          return;
+        if (errPlanes) console.error("Error al obtener planes de Supabase:", errPlanes);
+        else {
+          const limaPlanes = planes.filter(p => (p.region || '').toLowerCase() === 'lima');
+          const provPlanes = planes.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
+
+          pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-lima-mono', 'grid-lima-mono');
+          pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon_gamer'), 'tabla-lima-xgspon', 'grid-lima-xgspon');
+          pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
+          pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-lima-dgo', 'grid-lima-dgo');
+          pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
+
+          pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono', true);
+          pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
+          pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
+          pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
         }
 
-        // Separar por región
-        const limaPlanes = data.filter(p => (p.region || '').toLowerCase() === 'lima');
-        const provPlanes = data.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
-
-        // ---- CARGAR LIMA (Filtro estricto por categoría de Supabase) ----
-        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-lima-mono', 'grid-lima-mono');
-        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon_gamer'), 'tabla-lima-xgspon', 'grid-lima-xgspon');
-        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
-        pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-lima-dgo', 'grid-lima-dgo');
-        pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
-
-        // ---- CARGAR PROVINCIA ----
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono', true);
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
-        pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
-        pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
+        // Cargar Servicios Adicionales Dinámicos
+        await cargarServiciosAdicionales();
 
       } catch (err) {
-        console.error("Excepción al cargar planes:", err);
+        console.error("Excepción al cargar datos:", err);
       }
     }
+
+    // --- NUEVA FUNCIÓN: CARGAR SERVICIOS ADICIONALES ---
+    async function cargarServiciosAdicionales() {
+      try {
+        const { data, error } = await clienteSupabase
+          .from('servicios_adicionales')
+          .select('*')
+          .order('orden', { ascending: true });
+        
+        if (error) throw error;
+
+        const gridAdicionales = document.getElementById('grid-adicionales');
+        if (!gridAdicionales) return;
+        
+        gridAdicionales.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            gridAdicionales.innerHTML = `<p style="color:var(--text-muted); width:100%; text-align:center;">Pronto habrá nuevos servicios disponibles.</p>`;
+            return;
+        }
+
+        data.forEach(srv => {
+            // Detectar si el servicio tiene una foto en Supabase
+            const tieneParrilla = srv.imagen_url && srv.imagen_url.trim() !== '';
+            const claseParrilla = tieneParrilla ? 'con-parrilla' : '';
+            const titleDinamico = tieneParrilla ? `title="Haz clic para ver la parrilla"` : '';
+            const btnParrillaHTML = tieneParrilla 
+              ? `<button class="btn-ver-parrilla" data-img-url="${srv.imagen_url}" data-img-title="Parrilla · ${srv.nombre}" data-sound="click">📺 Ver canales</button>` 
+              : '';
+
+            // Procesar la descripción para mantener los saltos de línea y el estilo
+            let notasHtml = '';
+            if (srv.descripcion) {
+                const lineas = srv.descripcion.split('\n');
+                lineas.forEach(linea => {
+                    if(linea.trim() !== '') {
+                        notasHtml += `<div class="srv-note">${linea.trim()}</div>`;
+                    }
+                });
+            }
+
+            // Dibujar la tarjeta idéntica a tu diseño original
+            gridAdicionales.innerHTML += `
+              <div class="servicio-card ${claseParrilla}" ${tieneParrilla ? `data-img-url="${srv.imagen_url}" data-img-title="Parrilla · ${srv.nombre}"` : ''} ${titleDinamico}>
+                <div class="srv-icon">${srv.icono || '✨'}</div>
+                <div class="srv-name">${srv.nombre}</div>
+                <div class="srv-price">S/ ${srv.precio} <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
+                ${notasHtml}
+                ${btnParrillaHTML}
+              </div>
+            `;
+        });
+      } catch (err) {
+        console.error("Error cargando servicios adicionales:", err);
+      }
+    }
+
     function pintarTablaSupabase(lista, idTabla, idGrid, esProvincia = false) {
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
@@ -2180,14 +2158,12 @@
       if (grid) grid.innerHTML = '';
 
       if (!lista || lista.length === 0) {
-        // Si es provincia ocupa 6 celdas, si es lima 5
         const celdasVacias = esProvincia ? 6 : 5; 
         tbody.innerHTML = `<tr><td colspan="${celdasVacias}" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
         return;
       }
 
       lista.forEach(plan => {
-        // 1. Promoción
         let precioPromoHtml = '';
         if (plan.precio_promo && plan.precio_promo > 0) {
           precioPromoHtml = `<span style="color: #ff6b00; font-weight: bold;">S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small></span>`;
@@ -2195,69 +2171,49 @@
           precioPromoHtml = `<span class="badge badge-no">Sin promo</span>`;
         }
 
-        // 2. Beneficios / Equipos
         const beneficioTexto = (plan.beneficio_tabla || '').trim();
         const esNoBeneficio = beneficioTexto === '' || beneficioTexto.toUpperCase() === 'NO';
-        const beneficioHtml = esNoBeneficio 
-          ? `<span class="badge badge-no">NO</span>` 
-          : beneficioTexto;
+        const beneficioHtml = esNoBeneficio ? `<span class="badge badge-no">NO</span>` : beneficioTexto;
 
-        // 3. FonoWin (NUEVO - Solo se dibuja si esProvincia es true)
         let fonowinTdHtml = '';
         if (esProvincia) {
           const esSiFonowin = (plan.fonowin || 'NO').toUpperCase() === 'SI';
-          const fonowinBadge = esSiFonowin 
-            ? `<span class="badge badge-si">SÍ</span>` 
-            : `<span class="badge badge-no">NO</span>`;
-          fonowinTdHtml = `<td>${fonowinBadge}</td>`; // Crea la celda extra
+          const fonowinBadge = esSiFonowin ? `<span class="badge badge-si">SÍ</span>` : `<span class="badge badge-no">NO</span>`;
+          fonowinTdHtml = `<td>${fonowinBadge}</td>`; 
         }
 
-        // 4. Vertical WIN
         const esSiVertical = (plan.aplica_vertical || 'NO').toUpperCase() === 'SI';
-        const verticalBadge = esSiVertical 
-          ? `<span class="badge badge-si">SÍ</span>` 
-          : `<span class="badge badge-no">NO</span>`;
+        const verticalBadge = esSiVertical ? `<span class="badge badge-si">SÍ</span>` : `<span class="badge badge-no">NO</span>`;
 
-        // ---- A. Fila de la Tabla Dinámica ----
         tbody.innerHTML += `
           <tr>
-            <td>
-              <strong>${plan.nombre_plan}</strong>
-            </td>
+            <td><strong>${plan.nombre_plan}</strong></td>
             <td>S/ ${plan.precio_regular}</td>
             <td>${precioPromoHtml}</td>
             <td>${beneficioHtml}</td>
-            ${fonowinTdHtml} <!-- Aquí entra la columna FonoWin solo para Provincia -->
+            ${fonowinTdHtml}
             <td>${verticalBadge}</td>
           </tr>
         `;
 
-        // ---- B. Tarjeta Visual (Panel) ----
         if (grid) {
           const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
           const cardFeatured = plan.badge ? 'featured' : '';
-          
           const tienePromoReal = plan.precio_promo && plan.precio_promo > 0;
-          
-          // Lógica clave para el simulador: si tiene promo, manda la promo, sino el regular.
           const montoParaSimulador = tienePromoReal ? plan.precio_promo : plan.precio_regular;
 
           const precioRegularCardHtml = tienePromoReal 
             ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` 
             : '';
 
-          // Textos independientes para la tarjeta
           const nombreCardMostrar = plan['nombre-card'] && plan['nombre-card'].trim() !== '' ? plan['nombre-card'] : plan.nombre_plan;
           const textoPromoCardMostrar = plan['texto-promo-card'] || '';
 
-          // Checks de la tarjeta
           let checksHtml = '';
           if (plan.detalles_card && plan.detalles_card.trim() !== '') {
             const lineas = plan.detalles_card.split('\n');
             lineas.forEach(linea => {
-              if (linea.trim() !== '') {
-                checksHtml += `<li>${linea.trim()}</li>`;
-              }
+              if (linea.trim() !== '') { checksHtml += `<li>${linea.trim()}</li>`; }
             });
           } else {
             checksHtml = `
@@ -2270,21 +2226,18 @@
           grid.innerHTML += `
             <div class="plan-card ${cardFeatured}">
               ${badgeTopHtml}
-              <!-- BOTÓN ACTUALIZADO PARA EL SIMULADOR -->
               <button class="btn-card-sim" data-sim-monto="${montoParaSimulador}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
-              
               <div class="plan-name">${nombreCardMostrar}</div>
               <div class="plan-speed">${plan.velocidad || ''}</div>
               <div class="plan-price">S/ ${tienePromoReal ? plan.precio_promo : plan.precio_regular} <small>${tienePromoReal ? textoPromoCardMostrar : ''}</small></div>
               ${precioRegularCardHtml}
-              <div class="plan-details">
-                ${checksHtml}
-              </div>
+              <div class="plan-details">${checksHtml}</div>
             </div>
           `;
         }
       });
     }
+
     function pintarTablaRUC(lista, idTabla, idGrid) {
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
@@ -2298,28 +2251,21 @@
       }
 
       lista.forEach(plan => {
-        // --- 1. FILA DE LA TABLA (Solo 3 columnas para RUC20) ---
         const beneficioTexto = (plan.beneficio_tabla || '').trim();
         const esNoBeneficio = beneficioTexto === '' || beneficioTexto.toUpperCase() === 'NO';
-        const beneficioHtml = esNoBeneficio 
-          ? `<span class="badge badge-no">NO</span>` 
-          : beneficioTexto;
+        const beneficioHtml = esNoBeneficio ? `<span class="badge badge-no">NO</span>` : beneficioTexto;
 
         tbody.innerHTML += `
           <tr>
-            <td>
-              <strong>${plan.nombre_plan}</strong>
-            </td>
+            <td><strong>${plan.nombre_plan}</strong></td>
             <td>S/ ${plan.precio_regular}</td>
             <td>${beneficioHtml}</td>
           </tr>
         `;
 
-        // --- 2. TARJETA VISUAL (Actualizada para leer títulos personalizados) ---
         if (grid) {
           const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
           const cardFeatured = plan.badge ? 'featured' : '';
-          
           const tienePromoReal = plan.precio_promo && plan.precio_promo > 0;
           const montoParaSimulador = tienePromoReal ? plan.precio_promo : plan.precio_regular;
 
@@ -2327,18 +2273,14 @@
             ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` 
             : '';
 
-          // Textos independientes para la tarjeta (Solución al problema)
           const nombreCardMostrar = plan['nombre-card'] && plan['nombre-card'].trim() !== '' ? plan['nombre-card'] : plan.nombre_plan;
           const textoPromoCardMostrar = plan['texto-promo-card'] || '';
 
-          // Checks de la tarjeta
           let checksHtml = '';
           if (plan.detalles_card && plan.detalles_card.trim() !== '') {
             const lineas = plan.detalles_card.split('\n');
             lineas.forEach(linea => {
-              if (linea.trim() !== '') {
-                checksHtml += `<li>${linea.trim()}</li>`;
-              }
+              if (linea.trim() !== '') { checksHtml += `<li>${linea.trim()}</li>`; }
             });
           } else {
             checksHtml = `
@@ -2352,19 +2294,17 @@
             <div class="plan-card ${cardFeatured}">
               ${badgeTopHtml}
               <button class="btn-card-sim" data-sim-monto="${montoParaSimulador}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="NO" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
-              
               <div class="plan-name">${nombreCardMostrar}</div>
               <div class="plan-speed">${plan.velocidad || ''}</div>
               <div class="plan-price">S/ ${tienePromoReal ? plan.precio_promo : plan.precio_regular} <small>${tienePromoReal ? textoPromoCardMostrar : ''}</small></div>
               ${precioRegularCardHtml}
-              <div class="plan-details">
-                ${checksHtml}
-              </div>
+              <div class="plan-details">${checksHtml}</div>
             </div>
           `;
         }
       });
     }
+
     // Arrancar la carga de datos al abrir la página
     document.addEventListener("DOMContentLoaded", () => {
       cargarTodosLosPlanes();
@@ -2539,16 +2479,8 @@
     }
 
     /* ========================================================
-       MÓDULO: Modal Parrilla de Canales
+       MÓDULO: Modal Parrilla de Canales Dinámico (Supabase)
        ======================================================== */
-    const PARRILLAS = {
-      "wintv-premium": { titulo: "Parrilla de Canales · WINTV Premium", archivo: "img/wintv PREMIUM.png", desc: "Parrilla completa de canales WINTV Premium." },
-      "wintv-l1max": { titulo: "Parrilla de Canales · WINTV L1Max", archivo: "img/L1MAX.png", desc: "Señal oficial de L1Max." },
-      "wintv-l1max-premium": { titulo: "Parrilla de Canales · WINTV L1Max Premium", archivo: "img/wintv L1MAX PREMIUM.png", desc: "L1Max junto a los mejores canales Premium." },
-      "dgo-hogar": { titulo: "Parrilla de Canales · DGO Hogar", archivo: "img/DGO HOGAR.png", desc: "Paquete DGO Hogar." },
-      "dgo-full": { titulo: "Parrilla de Canales · DGO Full", archivo: "img/DGO FULL.png", desc: "Streaming premium de DGO Full." }
-    };
-
     const modalParrilla = document.getElementById("modal-parrilla");
     const modalImg = document.getElementById("modal-parrilla-img");
     const modalTitulo = document.getElementById("modal-parrilla-titulo");
@@ -2556,13 +2488,14 @@
     const modalCloseBtn = document.getElementById("modal-close-btn");
     const modalFooterClose = document.getElementById("modal-footer-close");
 
-    function abrirModalParrilla(clave) {
-      const info = PARRILLAS[clave];
-      if (!info || !modalParrilla) return;
-      modalTitulo.textContent = info.titulo;
-      modalDesc.textContent = info.desc;
-      modalImg.src = encodeURI(info.archivo);
-      modalImg.alt = info.titulo;
+    // Ahora la función recibe la URL y el Título directamente desde la base de datos
+    function abrirModalParrillaDinamico(urlImagen, titulo) {
+      if (!modalParrilla) return;
+      modalTitulo.textContent = titulo;
+      modalDesc.textContent = "Detalle de canales disponibles";
+      modalImg.src = urlImagen;
+      modalImg.alt = titulo;
+      
       modalParrilla.classList.add("open");
       modalParrilla.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -2585,7 +2518,9 @@
       });
     }
 
+    // Lector global de clics en la página
     document.addEventListener("click", (e) => {
+      // 1. Clic en botón del Simulador
       const btnSim = e.target.closest(".btn-card-sim");
       if (btnSim) {
         e.preventDefault();
@@ -2594,10 +2529,11 @@
         return;
       }
 
-      const btnParrilla = e.target.closest("[data-parrilla]");
+      // 2. Clic en botón "Ver canales" (Lógica Dinámica de Supabase)
+      const btnParrilla = e.target.closest("[data-img-url]");
       if (btnParrilla) {
         e.preventDefault();
-        abrirModalParrilla(btnParrilla.dataset.parrilla);
+        abrirModalParrillaDinamico(btnParrilla.dataset.imgUrl, btnParrilla.dataset.imgTitle);
         return;
       }
 
