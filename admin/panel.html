@@ -169,16 +169,13 @@
         } else {
         plan = dato;
         }
-
       // Protección por si la variable tiene otro nombre o no se encuentra el plan
         if (!plan) {
             console.error("No se encontró la información del plan.");
             return;
         }
-
       // 2. Guardamos el ID correctamente para evitar el error "bigint" de Supabase
         planEditandoId = plan.id;
-
       // 3. Llenamos el formulario (Aplica la regla anti-datos fantasmas)
         document.getElementById('m-nombre').value = plan.nombre_plan || '';
         document.getElementById('m-velocidad').value = plan.velocidad || '';      
