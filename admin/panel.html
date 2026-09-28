@@ -15,9 +15,15 @@
                 <h1 class="text-3xl font-black text-[#ff6b00] tracking-tighter mb-1">win</h1>
                 <h2 class="text-xl font-bold text-gray-800">Gestor de Ofertas Comerciales</h2>
             </div>
-            <button onclick="cerrarSesion()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded transition-colors">
-                Cerrar Sesión
-            </button>
+            <!-- SECCIÓN DE BOTONES SUPERIORES ACTUALIZADA -->
+            <div class="flex items-center space-x-3">
+                <button onclick="abrirModalNuevo()" class="bg-[#ff6b00] hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded transition-colors shadow-sm">
+                    + Nuevo Plan
+                </button>
+                <button onclick="cerrarSesion()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded transition-colors">
+                    Cerrar Sesión
+                </button>
+            </div>
         </div>
 
         <div class="overflow-x-auto rounded-lg border border-gray-200">
@@ -38,11 +44,11 @@
         </div>
     </div>
 
-    <!-- MEGA MODAL DE EDICIÓN COMPLETA -->
+    <!-- MEGA MODAL DE EDICIÓN / CREACIÓN COMPLETA -->
     <div id="modal-editar" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Editar Oferta Comercial</h3>
+                <h3 id="titulo-modal" class="text-2xl font-bold text-gray-800">Oferta Comercial</h3>
                 <button onclick="cerrarModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
             </div>
             
@@ -50,6 +56,27 @@
             <input type="hidden" id="m-id">
             
             <div class="grid grid-cols-2 gap-4 mb-6">
+                
+                <!-- NUEVOS CAMPOS DE UBICACIÓN DEL PLAN -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Región</label>
+                    <select id="m-region" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none font-semibold text-gray-800 bg-gray-50">
+                        <option value="LIMA">LIMA</option>
+                        <option value="PROVINCIA">PROVINCIA</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Categoría (Pestaña)</label>
+                    <select id="m-categoria" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none font-semibold text-gray-800 bg-gray-50">
+                        <option value="MONO_RESIDENCIAL">Mono Residencial</option>
+                        <option value="XGSPON_GAMER">XGSPON / Gamer</option>
+                        <option value="HB_WTV">HB WTV</option>
+                        <option value="HB_DGO">HB DGO</option>
+                        <option value="RUC20">RUC 20</option>
+                    </select>
+                </div>
+                <div class="col-span-2 border-b mb-2 mt-1"></div>
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nombre del Plan</label>
                     <input type="text" id="m-nombre" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
@@ -131,7 +158,13 @@
         }
 
         async function cargarPlanes() {
-            const { data, error } = await clienteSupabase.from('planes_generales').select('*').order('id', { ascending: true });
+            // Se ordenan primero por región (LIMA/PROVINCIA) y luego por su ID para mantener orden
+            const { data, error } = await clienteSupabase
+                .from('planes_generales')
+                .select('*')
+                .order('region', { ascending: true })
+                .order('id', { ascending: true });
+            
             const tbody = document.getElementById('tabla-planes');
             
             if (error) return tbody.innerHTML = `<tr><td colspan="5" class="text-center text-red-500 py-4">Error al cargar</td></tr>`;
@@ -160,24 +193,43 @@
             });
         }
 
+        // --- FUNCIÓN NUEVA: ABRIR MODAL COMPLETAMENTE LIMPIO PARA CREAR ---
+        function abrirModalNuevo() {
+            document.getElementById('titulo-modal').innerText = 'Crear Nuevo Plan';
+            document.getElementById('m-id').value = ''; // ID vacío = MODO CREACIÓN
+            
+            // Valores por defecto para plan nuevo
+            document.getElementById('m-region').value = 'LIMA';
+            document.getElementById('m-categoria').value = 'MONO_RESIDENCIAL';
+            document.getElementById('m-nombre').value = '';
+            document.getElementById('m-velocidad').value = '';      
+            document.getElementById('m-regular').value = '';
+            document.getElementById('m-promo').value = '';      
+            document.getElementById('m-texto-promo').value = '';
+            document.getElementById('m-beneficio').value = '';    
+            document.getElementById('m-vertical').value = 'NO';
+            document.getElementById('m-fonowin').value = 'NO';
+            document.getElementById('m-orden').value = '';    
+            document.getElementById('m-detalles').value = '';
+            document.getElementById('m-texto-promo-card').value = '';
+            document.getElementById('m-nombre-card').value = '';
+
+            document.getElementById('modal-editar').classList.remove('hidden');
+        }
+
+        // --- FUNCIÓN EXISTENTE: ABRIR MODAL PARA EDITAR ---
         function abrirModal(dato) {
-            let plan;
-            if (typeof dato !== 'object') {
-                // CORRECCIÓN 1: Usamos 'planesData' que es el nombre real de tu lista
-                plan = planesData.find(p => p.id == dato); 
-            } else {
-                plan = dato;
-            }
+            document.getElementById('titulo-modal').innerText = 'Editar Oferta Comercial';
+            let plan = (typeof dato !== 'object') ? planesData.find(p => p.id == dato) : dato;
 
-            if (!plan) {
-                console.error("No se encontró la información del plan.");
-                return;
-            }
+            if (!plan) return;
 
-            // CORRECCIÓN 2: Guardamos el ID en el input oculto para que 'guardarPlan' lo encuentre (Esto evita el error bigint)
-            document.getElementById('m-id').value = plan.id;
+            document.getElementById('m-id').value = plan.id; // ID lleno = MODO EDICIÓN
 
-            // 3. Llenamos el formulario con la regla anti-datos fantasmas
+            // Cargar los campos existentes
+            document.getElementById('m-region').value = (plan.region || 'LIMA').toUpperCase();
+            document.getElementById('m-categoria').value = (plan.categoria || 'MONO_RESIDENCIAL').toUpperCase();
+            
             document.getElementById('m-nombre').value = plan.nombre_plan || '';
             document.getElementById('m-velocidad').value = plan.velocidad || '';      
             document.getElementById('m-regular').value = (plan.precio_regular !== null && plan.precio_regular !== undefined) ? plan.precio_regular : '';
@@ -188,12 +240,10 @@
             document.getElementById('m-fonowin').value = plan.fonowin || 'NO';
             document.getElementById('m-orden').value = plan.orden || '';    
             
-            // ÁREA DE LA TARJETA
             document.getElementById('m-detalles').value = plan.detalles_card || '';
             document.getElementById('m-texto-promo-card').value = plan['texto-promo-card'] || plan.texto_promo_card || '';
             document.getElementById('m-nombre-card').value = plan['nombre-card'] || plan.nombre_card || '';
 
-            // 4. Mostrar el modal en pantalla
             document.getElementById('modal-editar').classList.remove('hidden');
         }
 
@@ -201,13 +251,16 @@
             document.getElementById('modal-editar').classList.add('hidden');
         }
 
+        // --- FUNCIÓN MODIFICADA: GUARDAR O INSERTAR ---
         async function guardarPlan() {
             const btn = document.getElementById('btn-guardar');
             btn.innerText = 'Guardando...';
             
             const idPlan = document.getElementById('m-id').value;
             
-            const datosActualizados = {
+            const datosPlan = {
+                region: document.getElementById('m-region').value,
+                categoria: document.getElementById('m-categoria').value,
                 nombre_plan: document.getElementById('m-nombre').value,
                 "nombre-card": document.getElementById('m-nombre-card').value, 
                 velocidad: document.getElementById('m-velocidad').value,
@@ -222,10 +275,17 @@
                 detalles_card: document.getElementById('m-detalles').value
             };
 
-            const { error } = await clienteSupabase
-                .from('planes_generales')
-                .update(datosActualizados)
-                .eq('id', idPlan);
+            let consultaExterna;
+
+            if (idPlan === '') {
+                // Si el ID está vacío, es un NUEVO plan (INSERTAR)
+                consultaExterna = clienteSupabase.from('planes_generales').insert([datosPlan]);
+            } else {
+                // Si el ID tiene número, es un plan EXISTENTE (ACTUALIZAR)
+                consultaExterna = clienteSupabase.from('planes_generales').update(datosPlan).eq('id', idPlan);
+            }
+
+            const { error } = await consultaExterna;
 
             if (!error) {
                 cerrarModal();
