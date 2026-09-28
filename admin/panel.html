@@ -159,27 +159,31 @@
                 `;
             });
         }
+        function abrirModal(plan) {
+      // 1. Guardamos el ID del plan que estamos editando
+        planEditandoId = plan.id;
 
-        function abrirModal(id) {
-            const plan = planesData.find(p => p.id === id);
-            
-            document.getElementById('m-id').value = plan.id;
-            document.getElementById('m-nombre').value = plan.nombre_plan || '';
-            document.getElementById('m-velocidad').value = plan.velocidad || '';
-            document.getElementById('m-regular').value = plan.precio_regular || '';
-            document.getElementById('m-promo').value = plan.precio_promo || '';
-            document.getElementById('m-texto-promo').value = plan.texto_promo || '';
-            document.getElementById('m-beneficio').value = plan.beneficio_tabla || '';
-            document.getElementById('m-vertical').value = plan.aplica_vertical || 'NO';
-            document.getElementById('m-fonowin').value = plan.fonowin || 'NO';
-            document.getElementById('m-orden').value = plan.orden_visualizacion || '';
-            document.getElementById('m-detalles').value = plan.detalles_tarjeta || '';          
-            document.getElementById('modal-editar').classList.remove('hidden');
-            document.getElementById('m-orden').value = plan.orden || 0;
-            document.getElementById('m-detalles').value = plan.detalles_card || '';
-            document.getElementById('m-nombre-card').value = plan.nombre-card || '';
-            document.getElementById('m-texto-promo-card').value = plan.texto-promo-card || '';
-        }
+      // Textos principales
+        document.getElementById('m-nombre').value = plan.nombre_plan || '';
+        document.getElementById('m-velocidad').value = plan.velocidad || '';
+      // Precios (Validación estricta para números)
+        document.getElementById('m-regular').value = (plan.precio_regular !== null && plan.precio_regular !== undefined) ? plan.precio_regular : '';
+        document.getElementById('m-promo').value = (plan.precio_promo !== null && plan.precio_promo !== undefined) ? plan.precio_promo : '';
+      // Promociones y beneficios
+        document.getElementById('m-texto-promo').value = plan.texto_promo || '';
+        document.getElementById('m-beneficio').value = plan.beneficio_tabla || '';
+      // Selectores (Si están vacíos, vuelven a "NO" por defecto)
+        document.getElementById('m-vertical').value = plan.aplica_vertical || 'NO';
+        document.getElementById('m-fonowin').value = plan.fonowin || 'NO';
+      // Orden numérico
+        document.getElementById('m-orden').value = plan.orden || '';
+      // ÁREA DE LA TARJETA (Todo lo que se escribe manual)
+        document.getElementById('m-detalles').value = plan.detalles_card || '';
+        document.getElementById('m-texto-promo-card').value = plan['texto-promo-card'] || plan.texto_promo_card || '';
+        document.getElementById('m-nombre-card').value = plan['nombre-card'] || plan.nombre_card || '';
+      // 3. Mostrar el modal en pantalla
+        document.getElementById('modal-edicion').classList.remove('hidden');
+    }
 
         function cerrarModal() {
             document.getElementById('modal-editar').classList.add('hidden');
