@@ -46,6 +46,7 @@
                 <button onclick="cerrarModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
             </div>
             
+            <!-- INPUT OCULTO PARA EL ID -->
             <input type="hidden" id="m-id">
             
             <div class="grid grid-cols-2 gap-4 mb-6">
@@ -116,7 +117,7 @@
     </div>
 
     <script>
-        // 1. PEGA TUS CREDENCIALES AQUÍ
+        // CREDENCIALES
         const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74'; 
         
@@ -130,7 +131,6 @@
         }
 
         async function cargarPlanes() {
-            // Ordenamos estrictamente por ID para que nunca cambien de posición
             const { data, error } = await clienteSupabase.from('planes_generales').select('*').order('id', { ascending: true });
             const tbody = document.getElementById('tabla-planes');
             
@@ -159,41 +159,43 @@
                 `;
             });
         }
-        function abrirModal(dato) {
-      // 1. Detectar si el botón envió el objeto completo o solo el número de ID
-        let plan;
-        if (typeof dato !== 'object') {
-        // Si envió solo un ID, buscamos los datos reales en tu lista global
-        // (Asegúrate de que 'planes' sea el nombre exacto de tu variable global)
-        plan = planes.find(p => p.id == dato); 
-        } else {
-        plan = dato;
-        }
-      // Protección por si la variable tiene otro nombre o no se encuentra el plan
-        if (!plan) {
-            console.error("No se encontró la información del plan.");
-            return;
-        }
-      // 2. Guardamos el ID correctamente para evitar el error "bigint" de Supabase
-        planEditandoId = plan.id;
-      // 3. Llenamos el formulario (Aplica la regla anti-datos fantasmas)
-        document.getElementById('m-nombre').value = plan.nombre_plan || '';
-        document.getElementById('m-velocidad').value = plan.velocidad || '';      
-        document.getElementById('m-regular').value = (plan.precio_regular !== null && plan.precio_regular !== undefined) ? plan.precio_regular : '';
-        document.getElementById('m-promo').value = (plan.precio_promo !== null && plan.precio_promo !== undefined) ? plan.precio_promo : '';      
-        document.getElementById('m-texto-promo').value = plan.texto_promo || '';
-        document.getElementById('m-beneficio').value = plan.beneficio_tabla || '';     
-        document.getElementById('m-vertical').value = plan.aplica_vertical || 'NO';
-        document.getElementById('m-fonowin').value = plan.fonowin || 'NO';
-        document.getElementById('m-orden').value = plan.orden || '';     
-      // ÁREA DE LA TARJETA
-        document.getElementById('m-detalles').value = plan.detalles_card || '';
-        document.getElementById('m-texto-promo-card').value = plan['texto-promo-card'] || plan.texto_promo_card || '';
-        document.getElementById('m-nombre-card').value = plan['nombre-card'] || plan.nombre_card || '';
 
-      // 4. Mostrar el modal en pantalla
-        document.getElementById('modal-editar').classList.remove('hidden');
-    }
+        function abrirModal(dato) {
+            let plan;
+            if (typeof dato !== 'object') {
+                // CORRECCIÓN 1: Usamos 'planesData' que es el nombre real de tu lista
+                plan = planesData.find(p => p.id == dato); 
+            } else {
+                plan = dato;
+            }
+
+            if (!plan) {
+                console.error("No se encontró la información del plan.");
+                return;
+            }
+
+            // CORRECCIÓN 2: Guardamos el ID en el input oculto para que 'guardarPlan' lo encuentre (Esto evita el error bigint)
+            document.getElementById('m-id').value = plan.id;
+
+            // 3. Llenamos el formulario con la regla anti-datos fantasmas
+            document.getElementById('m-nombre').value = plan.nombre_plan || '';
+            document.getElementById('m-velocidad').value = plan.velocidad || '';      
+            document.getElementById('m-regular').value = (plan.precio_regular !== null && plan.precio_regular !== undefined) ? plan.precio_regular : '';
+            document.getElementById('m-promo').value = (plan.precio_promo !== null && plan.precio_promo !== undefined) ? plan.precio_promo : '';      
+            document.getElementById('m-texto-promo').value = plan.texto_promo || '';
+            document.getElementById('m-beneficio').value = plan.beneficio_tabla || '';    
+            document.getElementById('m-vertical').value = plan.aplica_vertical || 'NO';
+            document.getElementById('m-fonowin').value = plan.fonowin || 'NO';
+            document.getElementById('m-orden').value = plan.orden || '';    
+            
+            // ÁREA DE LA TARJETA
+            document.getElementById('m-detalles').value = plan.detalles_card || '';
+            document.getElementById('m-texto-promo-card').value = plan['texto-promo-card'] || plan.texto_promo_card || '';
+            document.getElementById('m-nombre-card').value = plan['nombre-card'] || plan.nombre_card || '';
+
+            // 4. Mostrar el modal en pantalla
+            document.getElementById('modal-editar').classList.remove('hidden');
+        }
 
         function cerrarModal() {
             document.getElementById('modal-editar').classList.add('hidden');
@@ -206,18 +208,18 @@
             const idPlan = document.getElementById('m-id').value;
             
             const datosActualizados = {
-            nombre_plan: document.getElementById('m-nombre').value,
-            "nombre-card": document.getElementById('m-nombre-card').value, // Coincide con el input
-            velocidad: document.getElementById('m-velocidad').value,
-            precio_regular: parseFloat(document.getElementById('m-regular').value) || 0,
-            precio_promo: parseFloat(document.getElementById('m-promo').value) || 0,
-            texto_promo: document.getElementById('m-texto-promo').value,
-            "texto-promo-card": document.getElementById('m-texto-promo-card').value, // Coincide con el input
-            beneficio_tabla: document.getElementById('m-beneficio').value,
-            aplica_vertical: document.getElementById('m-vertical').value,
-            fonowin: document.getElementById('m-fonowin').value,
-            orden: parseInt(document.getElementById('m-orden').value) || 0,
-            detalles_card: document.getElementById('m-detalles').value
+                nombre_plan: document.getElementById('m-nombre').value,
+                "nombre-card": document.getElementById('m-nombre-card').value, 
+                velocidad: document.getElementById('m-velocidad').value,
+                precio_regular: parseFloat(document.getElementById('m-regular').value) || 0,
+                precio_promo: parseFloat(document.getElementById('m-promo').value) || 0,
+                texto_promo: document.getElementById('m-texto-promo').value,
+                "texto-promo-card": document.getElementById('m-texto-promo-card').value, 
+                beneficio_tabla: document.getElementById('m-beneficio').value,
+                aplica_vertical: document.getElementById('m-vertical').value,
+                fonowin: document.getElementById('m-fonowin').value,
+                orden: parseInt(document.getElementById('m-orden').value) || 0,
+                detalles_card: document.getElementById('m-detalles').value
             };
 
             const { error } = await clienteSupabase
