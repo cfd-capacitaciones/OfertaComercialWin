@@ -159,28 +159,42 @@
                 `;
             });
         }
-        function abrirModal(plan) {
-      // 1. Guardamos el ID del plan que estamos editando
+        function abrirModal(dato) {
+      // 1. Detectar si el botón envió el objeto completo o solo el número de ID
+        let plan;
+        if (typeof dato !== 'object') {
+        // Si envió solo un ID, buscamos los datos reales en tu lista global
+        // (Asegúrate de que 'planes' sea el nombre exacto de tu variable global)
+        plan = planes.find(p => p.id == dato); 
+        } else {
+        plan = dato;
+        }
+
+      // Protección por si la variable tiene otro nombre o no se encuentra el plan
+        if (!plan) {
+            console.error("No se encontró la información del plan.");
+            return;
+        }
+
+      // 2. Guardamos el ID correctamente para evitar el error "bigint" de Supabase
         planEditandoId = plan.id;
-      // Textos principales
+
+      // 3. Llenamos el formulario (Aplica la regla anti-datos fantasmas)
         document.getElementById('m-nombre').value = plan.nombre_plan || '';
-        document.getElementById('m-velocidad').value = plan.velocidad || '';
-      // Precios (Validación estricta para números)
+        document.getElementById('m-velocidad').value = plan.velocidad || '';      
         document.getElementById('m-regular').value = (plan.precio_regular !== null && plan.precio_regular !== undefined) ? plan.precio_regular : '';
-        document.getElementById('m-promo').value = (plan.precio_promo !== null && plan.precio_promo !== undefined) ? plan.precio_promo : '';
-      // Promociones y beneficios
+        document.getElementById('m-promo').value = (plan.precio_promo !== null && plan.precio_promo !== undefined) ? plan.precio_promo : '';      
         document.getElementById('m-texto-promo').value = plan.texto_promo || '';
-        document.getElementById('m-beneficio').value = plan.beneficio_tabla || '';
-      // Selectores (Si están vacíos, vuelven a "NO" por defecto)
+        document.getElementById('m-beneficio').value = plan.beneficio_tabla || '';     
         document.getElementById('m-vertical').value = plan.aplica_vertical || 'NO';
         document.getElementById('m-fonowin').value = plan.fonowin || 'NO';
-      // Orden numérico
-        document.getElementById('m-orden').value = plan.orden || '';
-      // ÁREA DE LA TARJETA (Todo lo que se escribe manual)
+        document.getElementById('m-orden').value = plan.orden || '';     
+      // ÁREA DE LA TARJETA
         document.getElementById('m-detalles').value = plan.detalles_card || '';
         document.getElementById('m-texto-promo-card').value = plan['texto-promo-card'] || plan.texto_promo_card || '';
         document.getElementById('m-nombre-card').value = plan['nombre-card'] || plan.nombre_card || '';
-      // 3. Mostrar el modal en pantalla
+
+      // 4. Mostrar el modal en pantalla
         document.getElementById('modal-editar').classList.remove('hidden');
     }
 
