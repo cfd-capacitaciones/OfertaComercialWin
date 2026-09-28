@@ -2285,7 +2285,6 @@
         }
       });
     }
-
     function pintarTablaRUC(lista, idTabla, idGrid) {
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
@@ -2294,27 +2293,45 @@
       if (grid) grid.innerHTML = '';
 
       if (!lista || lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:1rem;">No hay planes RUC 20 disponibles</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
         return;
       }
 
       lista.forEach(plan => {
-        // Fila de la tabla RUC
+        // --- 1. FILA DE LA TABLA (Solo 3 columnas para RUC20) ---
+        const beneficioTexto = (plan.beneficio_tabla || '').trim();
+        const esNoBeneficio = beneficioTexto === '' || beneficioTexto.toUpperCase() === 'NO';
+        const beneficioHtml = esNoBeneficio 
+          ? `<span class="badge badge-no">NO</span>` 
+          : beneficioTexto;
+
         tbody.innerHTML += `
           <tr>
             <td>
               <strong>${plan.nombre_plan}</strong>
             </td>
             <td>S/ ${plan.precio_regular}</td>
-            <td>${plan.beneficio_tabla || '---'}</td>
+            <td>${beneficioHtml}</td>
           </tr>
         `;
 
-        // Tarjeta visual RUC
+        // --- 2. TARJETA VISUAL (Actualizada para leer títulos personalizados) ---
         if (grid) {
           const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
           const cardFeatured = plan.badge ? 'featured' : '';
+          
+          const tienePromoReal = plan.precio_promo && plan.precio_promo > 0;
+          const montoParaSimulador = tienePromoReal ? plan.precio_promo : plan.precio_regular;
 
+          const precioRegularCardHtml = tienePromoReal 
+            ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` 
+            : '';
+
+          // Textos independientes para la tarjeta (Solución al problema)
+          const nombreCardMostrar = plan['nombre-card'] && plan['nombre-card'].trim() !== '' ? plan['nombre-card'] : plan.nombre_plan;
+          const textoPromoCardMostrar = plan['texto-promo-card'] || '';
+
+          // Checks de la tarjeta
           let checksHtml = '';
           if (plan.detalles_card && plan.detalles_card.trim() !== '') {
             const lineas = plan.detalles_card.split('\n');
@@ -2325,18 +2342,21 @@
             });
           } else {
             checksHtml = `
-              <li>Precio regular: S/ ${plan.precio_regular}</li>
-              <li>Equipos: ${plan.beneficio_tabla || '---'}</li>
+              <li>Fibra Óptica</li>
+              <li>${beneficioTexto}</li>
+              <li>Ideal para empresas</li>
             `;
           }
 
           grid.innerHTML += `
             <div class="plan-card ${cardFeatured}">
               ${badgeTopHtml}
-              <button class="btn-card-sim" data-sim-monto="${plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical || 'NO'}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
-              <div class="plan-name">${plan.nombre_plan}</div>
+              <button class="btn-card-sim" data-sim-monto="${montoParaSimulador}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="NO" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
+              
+              <div class="plan-name">${nombreCardMostrar}</div>
               <div class="plan-speed">${plan.velocidad || ''}</div>
-              <div class="plan-price">S/ ${plan.precio_regular}</div>
+              <div class="plan-price">S/ ${tienePromoReal ? plan.precio_promo : plan.precio_regular} <small>${tienePromoReal ? textoPromoCardMostrar : ''}</small></div>
+              ${precioRegularCardHtml}
               <div class="plan-details">
                 ${checksHtml}
               </div>
@@ -2345,7 +2365,6 @@
         }
       });
     }
-    
     // Arrancar la carga de datos al abrir la página
     document.addEventListener("DOMContentLoaded", () => {
       cargarTodosLosPlanes();
