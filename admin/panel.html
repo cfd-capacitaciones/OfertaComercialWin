@@ -188,7 +188,7 @@
             </div>
             
             <input type="hidden" id="s-id">
-            <input type="hidden" id="s-url-actual"> <!-- Guarda el link actual si no se sube foto nueva -->
+            <input type="hidden" id="s-url-actual">
             
             <div class="space-y-4 mb-6">
                 <div>
@@ -196,28 +196,30 @@
                     <input type="text" id="s-nombre" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none">
                 </div>
                 <div class="flex space-x-4">
-                    <div class="w-1/2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Precio Mensual (S/)</label>
+                    <div class="w-1/3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Precio (S/)</label>
                         <input type="number" step="0.10" id="s-precio" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none">
                     </div>
-                    <div class="w-1/2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Orden de vista (1, 2, 3)</label>
+                    <div class="w-1/3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Orden (1, 2...)</label>
                         <input type="number" id="s-orden" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none">
+                    </div>
+                    <div class="w-1/3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Ícono (Emoji)</label>
+                        <input type="text" id="s-icono" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none" placeholder="Ej: 📞">
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Descripción corta (Textos en gris de la tarjeta)</label>
-                    <textarea id="s-descripcion" rows="3" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none" placeholder="Canales L1Max incluidos"></textarea>
+                    <textarea id="s-descripcion" rows="3" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none" placeholder="Línea fija con Tecnología VoIP&#10;App para vincular en 2 celulares"></textarea>
                 </div>
                 
                 <div class="border-t pt-4 mt-2">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Parrilla de Canales (Solo para servicios de TV)</label>
                     <p class="text-xs text-gray-500 mb-2">Si subes una imagen, aparecerá automáticamente el botón "Ver canales" en la web.</p>
                     
-                    <!-- Input de archivo -->
                     <input type="file" id="s-imagen" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
                     
-                    <!-- Visor de imagen actual -->
                     <div id="s-vista-previa" class="mt-3 hidden">
                         <p class="text-xs font-semibold text-emerald-600 mb-1">Imagen actual guardada:</p>
                         <img id="s-img-tag" src="" alt="Parrilla" class="h-16 rounded border shadow-sm">
@@ -234,7 +236,6 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL -->
     <script>
         // CREDENCIALES
         const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
@@ -244,11 +245,9 @@
         let planesData = []; 
         let serviciosData = [];
 
-        // --- NAVEGACIÓN ENTRE PESTAÑAS ---
         function cambiarPestaña(seccion) {
             document.getElementById('seccion-planes').classList.add('hidden');
             document.getElementById('seccion-servicios').classList.add('hidden');
-            
             document.getElementById('tab-planes').classList.replace('bg-[#ff6b00]', 'bg-gray-200');
             document.getElementById('tab-planes').classList.replace('text-white', 'text-gray-600');
             document.getElementById('tab-servicios').classList.replace('bg-[#ff6b00]', 'bg-gray-200');
@@ -270,12 +269,9 @@
         async function verificarSesion() {
             const { data: { user } } = await clienteSupabase.auth.getUser();
             if (!user) window.location.href = '/admin/';
-            else cargarPlanes(); // Carga planes por defecto al entrar
+            else cargarPlanes(); 
         }
 
-        // ==========================================
-        // LÓGICA DE PLANES DE INTERNET (Mantenida intacta)
-        // ==========================================
         const categoriasPorDefecto = {
             'LIMA': ['MONO_RESIDENCIAL', 'XGSPON_GAMER', 'HB_WTV', 'HB_DGO', 'RUC20'],
             'PROVINCIA': ['MONO_RESIDENCIAL', 'HB_WTV', 'HB_DGO', 'RUC20']
@@ -411,9 +407,6 @@
             }
         }
 
-        // ==========================================
-        // LÓGICA DE SERVICIOS ADICIONALES (NUEVA)
-        // ==========================================
         async function cargarServicios() {
             const { data, error } = await clienteSupabase.from('servicios_adicionales').select('*').order('orden', { ascending: true });
             const tbody = document.getElementById('tabla-servicios');
@@ -431,11 +424,12 @@
                 const tieneParrilla = srv.imagen_url && srv.imagen_url.trim() !== '' 
                     ? '<span class="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full font-bold">SÍ (Mostrará botón)</span>' 
                     : '<span class="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">NO</span>';
+                const emoji = srv.icono ? srv.icono : '';
 
                 tbody.innerHTML += `
                     <tr class="border-b hover:bg-emerald-50 transition-colors">
                         <td class="py-3 px-4 font-bold text-gray-400">${srv.orden || '-'}</td>
-                        <td class="py-3 px-4 font-semibold text-gray-900">${srv.nombre}</td>
+                        <td class="py-3 px-4 font-semibold text-gray-900">${emoji} ${srv.nombre}</td>
                         <td class="py-3 px-4 font-bold text-[#10b981]">S/ ${srv.precio}</td>
                         <td class="py-3 px-4">${tieneParrilla}</td>
                         <td class="py-3 px-4 text-center space-x-3">
@@ -451,9 +445,9 @@
             document.getElementById('s-id').value = ''; 
             document.getElementById('s-url-actual').value = '';
             
-            ['s-nombre','s-precio','s-descripcion','s-orden'].forEach(id => document.getElementById(id).value = '');
+            ['s-nombre','s-precio','s-descripcion','s-orden','s-icono'].forEach(id => document.getElementById(id).value = '');
             document.getElementById('s-imagen').value = '';
-            document.getElementById('s-vista-previa').classList.add('hidden'); // Ocultar visor
+            document.getElementById('s-vista-previa').classList.add('hidden'); 
 
             document.getElementById('modal-servicio').classList.remove('hidden');
         }
@@ -468,11 +462,11 @@
             document.getElementById('s-precio').value = srv.precio !== null ? srv.precio : '';      
             document.getElementById('s-descripcion').value = srv.descripcion || '';
             document.getElementById('s-orden').value = srv.orden || '';    
+            document.getElementById('s-icono').value = srv.icono || '';    
             
-            document.getElementById('s-imagen').value = ''; // Limpiar el input de archivo
+            document.getElementById('s-imagen').value = ''; 
             document.getElementById('s-url-actual').value = srv.imagen_url || '';
 
-            // Mostrar vista previa si ya tiene foto
             if (srv.imagen_url && srv.imagen_url.trim() !== '') {
                 document.getElementById('s-vista-previa').classList.remove('hidden');
                 document.getElementById('s-img-tag').src = srv.imagen_url;
@@ -487,19 +481,17 @@
 
         async function guardarServicio() {
             const btn = document.getElementById('btn-guardar-servicio'); 
-            btn.innerHTML = 'Subiendo... ⏳'; // Indicador de carga
+            btn.innerHTML = 'Subiendo... ⏳'; 
             btn.disabled = true;
 
             const idServ = document.getElementById('s-id').value;
             const inputArchivo = document.getElementById('s-imagen');
             let imageUrlFinal = document.getElementById('s-url-actual').value;
 
-            // 1. SI HAY UNA FOTO SELECCIONADA, LA SUBIMOS AL STORAGE
             if (inputArchivo.files.length > 0) {
                 const archivo = inputArchivo.files[0];
-                const nombreArchivoAleatorio = `${Date.now()}_${archivo.name.replace(/\s+/g, '_')}`; // Nombre único seguro
+                const nombreArchivoAleatorio = `${Date.now()}_${archivo.name.replace(/\s+/g, '_')}`; 
                 
-                // Subir a Supabase Storage
                 const { data: uploadData, error: uploadError } = await clienteSupabase.storage
                     .from('servicios-img')
                     .upload(nombreArchivoAleatorio, archivo);
@@ -510,21 +502,20 @@
                     return;
                 }
                 
-                // Obtener el Link Público de la imagen subida
                 const { data: publicUrlData } = clienteSupabase.storage
                     .from('servicios-img')
                     .getPublicUrl(nombreArchivoAleatorio);
                     
-                imageUrlFinal = publicUrlData.publicUrl; // Guardamos el link final
+                imageUrlFinal = publicUrlData.publicUrl; 
             }
 
-            // 2. GUARDAR LOS TEXTOS Y EL LINK EN LA BASE DE DATOS
             const datosSrv = {
                 nombre: document.getElementById('s-nombre').value,
                 precio: parseFloat(document.getElementById('s-precio').value) || 0,
                 descripcion: document.getElementById('s-descripcion').value,
                 orden: parseInt(document.getElementById('s-orden').value) || 0,
-                imagen_url: imageUrlFinal // Se inyecta el link aquí
+                icono: document.getElementById('s-icono').value,
+                imagen_url: imageUrlFinal 
             };
 
             const consulta = idServ === '' 
@@ -545,7 +536,7 @@
         }
 
         async function eliminarServicio(id) {
-            if (confirm("¿Eliminar este servicio? (Ojo: Esto no borra la foto del Storage, solo la tarjeta web)")) {
+            if (confirm("¿Eliminar este servicio?")) {
                 const { error } = await clienteSupabase.from('servicios_adicionales').delete().eq('id', id);
                 if (!error) cargarServicios(); else alert('Error: ' + error.message);
             }
