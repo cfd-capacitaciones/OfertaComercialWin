@@ -10,52 +10,97 @@
 <body class="bg-gray-100 min-h-screen p-8 relative">
     
     <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <div class="flex justify-between items-center mb-6 border-b pb-4">
+        
+        <!-- CABECERA PRINCIPAL -->
+        <div class="flex justify-between items-center mb-6">
             <div>
                 <h1 class="text-3xl font-black text-[#ff6b00] tracking-tighter mb-1">win</h1>
                 <h2 class="text-xl font-bold text-gray-800">Gestor de Ofertas Comerciales</h2>
             </div>
             <div class="flex items-center space-x-3">
-                <button onclick="abrirModalNuevo()" class="bg-[#ff6b00] hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded transition-colors shadow-sm">
-                    + Nuevo Plan
-                </button>
                 <button onclick="cerrarSesion()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded transition-colors">
                     Cerrar Sesión
                 </button>
             </div>
         </div>
 
-        <div class="overflow-x-auto rounded-lg border border-gray-200">
-            <table class="min-w-full bg-white">
-                <thead class="bg-gray-800 text-white">
-                    <tr>
-                        <th class="py-3 px-4 text-left font-semibold text-sm">Región</th>
-                        <th class="py-3 px-4 text-left font-semibold text-sm">Plan</th>
-                        <th class="py-3 px-4 text-left font-semibold text-sm">Velocidad</th>
-                        <th class="py-3 px-4 text-left font-semibold text-sm">Precio Promo</th>
-                        <th class="py-3 px-4 text-center font-semibold text-sm">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tabla-planes" class="text-gray-700 text-sm">
-                    <tr><td colspan="5" class="text-center py-8">Cargando base de datos...</td></tr>
-                </tbody>
-            </table>
+        <!-- PESTAÑAS DE NAVEGACIÓN -->
+        <div class="flex space-x-2 border-b-2 border-gray-200 mb-6 pb-2">
+            <button id="tab-planes" onclick="cambiarPestaña('planes')" class="px-6 py-2 bg-[#ff6b00] text-white font-bold rounded-t-lg transition-colors">
+                Ofertas de Internet
+            </button>
+            <button id="tab-servicios" onclick="cambiarPestaña('servicios')" class="px-6 py-2 bg-gray-200 text-gray-600 hover:text-gray-900 font-bold rounded-t-lg transition-colors">
+                Servicios Adicionales
+            </button>
+        </div>
+
+        <!-- ==========================================
+             SECCIÓN 1: PLANES DE INTERNET 
+        =========================================== -->
+        <div id="seccion-planes">
+            <div class="flex justify-end mb-4">
+                <button onclick="abrirModalNuevo()" class="bg-[#ff6b00] hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded shadow-sm">
+                    + Nuevo Plan de Internet
+                </button>
+            </div>
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Región</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Plan</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Velocidad</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Precio Promo</th>
+                            <th class="py-3 px-4 text-center font-semibold text-sm">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-planes" class="text-gray-700 text-sm">
+                        <tr><td colspan="5" class="text-center py-8">Cargando planes...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             SECCIÓN 2: SERVICIOS ADICIONALES 
+        =========================================== -->
+        <div id="seccion-servicios" class="hidden">
+            <div class="flex justify-end mb-4">
+                <button onclick="abrirModalServicioNuevo()" class="bg-[#10b981] hover:bg-emerald-600 text-white font-semibold px-4 py-2 rounded shadow-sm">
+                    + Nuevo Servicio Adicional
+                </button>
+            </div>
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="py-3 px-4 text-left font-semibold text-sm w-16">Orden</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Servicio</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Precio</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Parrilla TV</th>
+                            <th class="py-3 px-4 text-center font-semibold text-sm">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-servicios" class="text-gray-700 text-sm">
+                        <tr><td colspan="5" class="text-center py-8">Cargando servicios...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <!-- MEGA MODAL DE EDICIÓN / CREACIÓN -->
+    <!-- ==========================================
+         MODAL: PLANES DE INTERNET 
+    =========================================== -->
     <div id="modal-editar" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6">
                 <h3 id="titulo-modal" class="text-2xl font-bold text-gray-800">Oferta Comercial</h3>
                 <button onclick="cerrarModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
             </div>
-            
             <input type="hidden" id="m-id">
             
             <div class="grid grid-cols-2 gap-4 mb-6">
-                
-                <!-- SELECTORES DINÁMICOS DE REGIÓN Y CATEGORÍA -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Región</label>
                     <select id="m-region" onchange="actualizarCategorias()" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none font-bold text-gray-800 bg-gray-50">
@@ -65,15 +110,10 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Categoría (Pestaña)</label>
-                    <select id="m-categoria" onchange="verificarNuevaCategoria()" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none font-bold text-gray-800 bg-gray-50">
-                        <!-- Se llena automáticamente con JS -->
-                    </select>
-                    <!-- CAJA OCULTA PARA ESCRIBIR LA NUEVA CATEGORÍA -->
+                    <select id="m-categoria" onchange="verificarNuevaCategoria()" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none font-bold text-gray-800 bg-gray-50"></select>
                     <input type="text" id="m-nueva-categoria" placeholder="Escribe la nueva pestaña..." class="hidden w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none mt-2 font-semibold text-[#ff6b00] bg-orange-50">
                 </div>
-                
                 <div class="col-span-2 border-b mb-2 mt-1"></div>
-
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nombre del Plan</label>
                     <input type="text" id="m-nombre" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
@@ -82,7 +122,6 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Velocidad</label>
                     <input type="text" id="m-velocidad" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
                 </div>
-                
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Precio Regular (S/)</label>
                     <input type="number" step="0.10" id="m-regular" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
@@ -91,7 +130,6 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Precio Promo (S/)</label>
                     <input type="number" step="0.10" id="m-promo" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
                 </div>
-
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Texto Promo (Ej: (50% desc.))</label>
                     <input type="text" id="m-texto-promo" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
@@ -100,7 +138,6 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Beneficio Tabla (Ej: 2 Mesh)</label>
                     <input type="text" id="m-beneficio" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
                 </div>
-
                 <div class="col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-1">¿Aplica Vertical WIN?</label>
                     <select id="m-vertical" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
@@ -121,7 +158,7 @@
                 </div>
                 <div class="col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Detalles de la Tarjeta (Escribe cada check en una nueva línea)</label>
-                    <textarea id="m-detalles" rows="3" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none" placeholder="50% descuento promocional&#10;Fibra Óptica&#10;2 equipos Mesh Wi-Fi"></textarea>
+                    <textarea id="m-detalles" rows="3" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none"></textarea>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Texto Promo en Tarjeta (Ej: / 1er mes)</label>
@@ -129,7 +166,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Titulo de la Tarjeta (Opcional)</label>
-                    <input type="text" id="m-nombre-card" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none" placeholder="Si se vacía, usa el de la tabla">
+                    <input type="text" id="m-nombre-card" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#ff6b00] outline-none">
                 </div>
             </div>
             
@@ -140,107 +177,157 @@
         </div>
     </div>
 
+    <!-- ==========================================
+         MODAL: SERVICIOS ADICIONALES 
+    =========================================== -->
+    <div id="modal-servicio" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="titulo-modal-servicio" class="text-2xl font-bold text-gray-800">Servicio Adicional</h3>
+                <button onclick="cerrarModalServicio()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+            </div>
+            
+            <input type="hidden" id="s-id">
+            <input type="hidden" id="s-url-actual"> <!-- Guarda el link actual si no se sube foto nueva -->
+            
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nombre del Servicio (Ej: WINTV L1Max)</label>
+                    <input type="text" id="s-nombre" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none">
+                </div>
+                <div class="flex space-x-4">
+                    <div class="w-1/2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Precio Mensual (S/)</label>
+                        <input type="number" step="0.10" id="s-precio" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Orden de vista (1, 2, 3)</label>
+                        <input type="number" id="s-orden" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Descripción corta (Textos en gris de la tarjeta)</label>
+                    <textarea id="s-descripcion" rows="3" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#10b981] outline-none" placeholder="Canales L1Max incluidos"></textarea>
+                </div>
+                
+                <div class="border-t pt-4 mt-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Parrilla de Canales (Solo para servicios de TV)</label>
+                    <p class="text-xs text-gray-500 mb-2">Si subes una imagen, aparecerá automáticamente el botón "Ver canales" en la web.</p>
+                    
+                    <!-- Input de archivo -->
+                    <input type="file" id="s-imagen" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                    
+                    <!-- Visor de imagen actual -->
+                    <div id="s-vista-previa" class="mt-3 hidden">
+                        <p class="text-xs font-semibold text-emerald-600 mb-1">Imagen actual guardada:</p>
+                        <img id="s-img-tag" src="" alt="Parrilla" class="h-16 rounded border shadow-sm">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-end space-x-3 pt-4 border-t">
+                <button onclick="cerrarModalServicio()" class="px-5 py-2.5 text-gray-600 hover:bg-gray-100 rounded-md font-medium transition-colors">Cancelar</button>
+                <button onclick="guardarServicio()" id="btn-guardar-servicio" class="px-5 py-2.5 bg-[#10b981] text-white rounded-md hover:bg-emerald-600 font-medium transition-colors flex items-center">
+                    Guardar Servicio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT PRINCIPAL -->
     <script>
         // CREDENCIALES
         const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74'; 
-        
         const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
         let planesData = []; 
+        let serviciosData = [];
 
-        // --- LÓGICA DE PESTAÑAS INTELIGENTES ---
+        // --- NAVEGACIÓN ENTRE PESTAÑAS ---
+        function cambiarPestaña(seccion) {
+            document.getElementById('seccion-planes').classList.add('hidden');
+            document.getElementById('seccion-servicios').classList.add('hidden');
+            
+            document.getElementById('tab-planes').classList.replace('bg-[#ff6b00]', 'bg-gray-200');
+            document.getElementById('tab-planes').classList.replace('text-white', 'text-gray-600');
+            document.getElementById('tab-servicios').classList.replace('bg-[#ff6b00]', 'bg-gray-200');
+            document.getElementById('tab-servicios').classList.replace('text-white', 'text-gray-600');
+
+            if(seccion === 'planes') {
+                document.getElementById('seccion-planes').classList.remove('hidden');
+                document.getElementById('tab-planes').classList.replace('bg-gray-200', 'bg-[#ff6b00]');
+                document.getElementById('tab-planes').classList.replace('text-gray-600', 'text-white');
+                cargarPlanes();
+            } else {
+                document.getElementById('seccion-servicios').classList.remove('hidden');
+                document.getElementById('tab-servicios').classList.replace('bg-gray-200', 'bg-[#ff6b00]');
+                document.getElementById('tab-servicios').classList.replace('text-gray-600', 'text-white');
+                cargarServicios();
+            }
+        }
+
+        async function verificarSesion() {
+            const { data: { user } } = await clienteSupabase.auth.getUser();
+            if (!user) window.location.href = '/admin/';
+            else cargarPlanes(); // Carga planes por defecto al entrar
+        }
+
+        // ==========================================
+        // LÓGICA DE PLANES DE INTERNET (Mantenida intacta)
+        // ==========================================
         const categoriasPorDefecto = {
             'LIMA': ['MONO_RESIDENCIAL', 'XGSPON_GAMER', 'HB_WTV', 'HB_DGO', 'RUC20'],
             'PROVINCIA': ['MONO_RESIDENCIAL', 'HB_WTV', 'HB_DGO', 'RUC20']
         };
 
         const nombresAmigables = {
-            'MONO_RESIDENCIAL': 'Mono Residencial',
-            'XGSPON_GAMER': 'XGSPON / Gamer',
-            'HB_WTV': 'HB WTV',
-            'HB_DGO': 'HB DGO',
-            'RUC20': 'RUC 20'
+            'MONO_RESIDENCIAL': 'Mono Residencial', 'XGSPON_GAMER': 'XGSPON / Gamer',
+            'HB_WTV': 'HB WTV', 'HB_DGO': 'HB DGO', 'RUC20': 'RUC 20'
         };
 
         function actualizarCategorias(categoriaSeleccionada = null) {
             const region = document.getElementById('m-region').value;
             const selectCat = document.getElementById('m-categoria');
-            
-            // 1. Cargar las pestañas oficiales de la región
             let categorias = [...(categoriasPorDefecto[region] || [])];
             
-            // 2. Revisar si existen otras pestañas nuevas en la Base de Datos para esta región
             planesData.forEach(p => {
                 const regBD = (p.region || '').toUpperCase();
                 const catBD = (p.categoria || '').toUpperCase();
-                if (regBD === region && catBD && !categorias.includes(catBD)) {
-                    categorias.push(catBD);
-                }
+                if (regBD === region && catBD && !categorias.includes(catBD)) categorias.push(catBD);
             });
 
-            // 3. Imprimir las opciones en el Select
             selectCat.innerHTML = '';
             categorias.forEach(cat => {
-                const nombre = nombresAmigables[cat] || cat.replace(/_/g, ' '); // Formato bonito
-                selectCat.innerHTML += `<option value="${cat}">${nombre}</option>`;
+                selectCat.innerHTML += `<option value="${cat}">${nombresAmigables[cat] || cat.replace(/_/g, ' ')}</option>`;
             });
-            
-            // 4. Siempre agregar el botón de crear nueva al final
             selectCat.innerHTML += `<option value="NUEVA" style="color: #ff6b00; font-weight: bold;">+ Crear nueva pestaña...</option>`;
 
-            // 5. Autoseleccionar la correcta al editar
             if (categoriaSeleccionada) {
                 const catUpper = categoriaSeleccionada.toUpperCase();
-                if (categorias.includes(catUpper)) {
-                    selectCat.value = catUpper;
-                } else {
-                    selectCat.value = 'NUEVA';
-                    document.getElementById('m-nueva-categoria').value = categoriaSeleccionada;
-                }
+                if (categorias.includes(catUpper)) selectCat.value = catUpper;
+                else { selectCat.value = 'NUEVA'; document.getElementById('m-nueva-categoria').value = categoriaSeleccionada; }
             }
-            
             verificarNuevaCategoria();
         }
 
-        // Muestra u oculta la caja para escribir la nueva categoría
         function verificarNuevaCategoria() {
             const select = document.getElementById('m-categoria');
             const inputNuevo = document.getElementById('m-nueva-categoria');
-            
-            if (select.value === 'NUEVA') {
-                inputNuevo.classList.remove('hidden');
-                inputNuevo.focus();
-            } else {
-                inputNuevo.classList.add('hidden');
-                inputNuevo.value = '';
-            }
-        }
-        // ----------------------------------------
-
-        async function verificarSesion() {
-            const { data: { user } } = await clienteSupabase.auth.getUser();
-            if (!user) window.location.href = '/admin/';
-            else cargarPlanes();
+            if (select.value === 'NUEVA') { inputNuevo.classList.remove('hidden'); inputNuevo.focus(); } 
+            else { inputNuevo.classList.add('hidden'); inputNuevo.value = ''; }
         }
 
         async function cargarPlanes() {
-            const { data, error } = await clienteSupabase
-                .from('planes_generales')
-                .select('*')
-                .order('region', { ascending: true })
-                .order('id', { ascending: true });
-            
-            const tbody = document.getElementById('tabla-planes');
-            if (error) return tbody.innerHTML = `<tr><td colspan="5" class="text-center text-red-500 py-4">Error al cargar</td></tr>`;
-            
+            const { data, error } = await clienteSupabase.from('planes_generales').select('*').order('region', { ascending: true }).order('id', { ascending: true });
+            if (error) return;
             planesData = data;
-            renderizarTabla();
+            renderizarTablaPlanes();
         }
 
-        function renderizarTabla() {
+        function renderizarTablaPlanes() {
             const tbody = document.getElementById('tabla-planes');
             tbody.innerHTML = '';
-            
             planesData.forEach(plan => {
                 tbody.innerHTML += `
                     <tr class="border-b hover:bg-orange-50 transition-colors">
@@ -252,49 +339,31 @@
                             <button onclick="abrirModal(${plan.id})" class="text-blue-600 hover:text-blue-800 font-semibold">Editar</button>
                             <button onclick="eliminarPlan(${plan.id})" class="text-red-500 hover:text-red-700 font-semibold">Eliminar</button>
                         </td>
-                    </tr>
-                `;
+                    </tr>`;
             });
         }
 
         function abrirModalNuevo() {
             document.getElementById('titulo-modal').innerText = 'Crear Nuevo Plan';
             document.getElementById('m-id').value = ''; 
-            
             document.getElementById('m-region').value = 'LIMA';
-            actualizarCategorias('MONO_RESIDENCIAL'); // Actualiza listas según Lima
-
-            document.getElementById('m-nombre').value = '';
-            document.getElementById('m-velocidad').value = '';      
-            document.getElementById('m-regular').value = '';
-            document.getElementById('m-promo').value = '';      
-            document.getElementById('m-texto-promo').value = '';
-            document.getElementById('m-beneficio').value = '';    
-            document.getElementById('m-vertical').value = 'NO';
-            document.getElementById('m-fonowin').value = 'NO';
-            document.getElementById('m-orden').value = '';    
-            document.getElementById('m-detalles').value = '';
-            document.getElementById('m-texto-promo-card').value = '';
-            document.getElementById('m-nombre-card').value = '';
-
+            actualizarCategorias('MONO_RESIDENCIAL'); 
+            ['m-nombre','m-velocidad','m-regular','m-promo','m-texto-promo','m-beneficio','m-orden','m-detalles','m-texto-promo-card','m-nombre-card'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('m-vertical').value = 'NO'; document.getElementById('m-fonowin').value = 'NO';
             document.getElementById('modal-editar').classList.remove('hidden');
         }
 
         function abrirModal(dato) {
             document.getElementById('titulo-modal').innerText = 'Editar Oferta Comercial';
             let plan = (typeof dato !== 'object') ? planesData.find(p => p.id == dato) : dato;
-
             if (!plan) return;
-
             document.getElementById('m-id').value = plan.id; 
-            
             document.getElementById('m-region').value = (plan.region || 'LIMA').toUpperCase();
-            actualizarCategorias(plan.categoria); // Actualiza listas según región guardada
-
+            actualizarCategorias(plan.categoria);
             document.getElementById('m-nombre').value = plan.nombre_plan || '';
             document.getElementById('m-velocidad').value = plan.velocidad || '';      
-            document.getElementById('m-regular').value = (plan.precio_regular !== null && plan.precio_regular !== undefined) ? plan.precio_regular : '';
-            document.getElementById('m-promo').value = (plan.precio_promo !== null && plan.precio_promo !== undefined) ? plan.precio_promo : '';      
+            document.getElementById('m-regular').value = (plan.precio_regular !== null) ? plan.precio_regular : '';
+            document.getElementById('m-promo').value = (plan.precio_promo !== null) ? plan.precio_promo : '';      
             document.getElementById('m-texto-promo').value = plan.texto_promo || '';
             document.getElementById('m-beneficio').value = plan.beneficio_tabla || '';    
             document.getElementById('m-vertical').value = plan.aplica_vertical || 'NO';
@@ -303,76 +372,182 @@
             document.getElementById('m-detalles').value = plan.detalles_card || '';
             document.getElementById('m-texto-promo-card').value = plan['texto-promo-card'] || plan.texto_promo_card || '';
             document.getElementById('m-nombre-card').value = plan['nombre-card'] || plan.nombre_card || '';
-
             document.getElementById('modal-editar').classList.remove('hidden');
         }
 
-        function cerrarModal() {
-            document.getElementById('modal-editar').classList.add('hidden');
-        }
+        function cerrarModal() { document.getElementById('modal-editar').classList.add('hidden'); }
 
         async function guardarPlan() {
-            const btn = document.getElementById('btn-guardar');
-            btn.innerText = 'Guardando...';
-            
+            const btn = document.getElementById('btn-guardar'); btn.innerText = 'Guardando...';
             const idPlan = document.getElementById('m-id').value;
+            let catElegida = document.getElementById('m-categoria').value;
             
-            // Logica para saber si la categoría es nueva
-            let categoriaElegida = document.getElementById('m-categoria').value;
-            if (categoriaElegida === 'NUEVA') {
+            if (catElegida === 'NUEVA') {
                 const nombreNuevo = document.getElementById('m-nueva-categoria').value.trim();
-                if (!nombreNuevo) {
-                    alert("Debes escribir el nombre de la nueva pestaña.");
-                    btn.innerText = 'Guardar Cambios';
-                    return;
-                }
-                // Convierte espacios a guiones bajos y en mayúscula (Ej: MI PESTAÑA -> MI_PESTANA)
-                categoriaElegida = nombreNuevo.toUpperCase().replace(/\s+/g, '_');
+                if (!nombreNuevo) { alert("Escribe el nombre de la pestaña."); btn.innerText = 'Guardar Cambios'; return; }
+                catElegida = nombreNuevo.toUpperCase().replace(/\s+/g, '_');
             }
 
             const datosPlan = {
-                region: document.getElementById('m-region').value,
-                categoria: categoriaElegida,
-                nombre_plan: document.getElementById('m-nombre').value,
-                "nombre-card": document.getElementById('m-nombre-card').value, 
-                velocidad: document.getElementById('m-velocidad').value,
-                precio_regular: parseFloat(document.getElementById('m-regular').value) || 0,
-                precio_promo: parseFloat(document.getElementById('m-promo').value) || 0,
-                texto_promo: document.getElementById('m-texto-promo').value,
-                "texto-promo-card": document.getElementById('m-texto-promo-card').value, 
-                beneficio_tabla: document.getElementById('m-beneficio').value,
-                aplica_vertical: document.getElementById('m-vertical').value,
-                fonowin: document.getElementById('m-fonowin').value,
-                orden: parseInt(document.getElementById('m-orden').value) || 0,
-                detalles_card: document.getElementById('m-detalles').value
+                region: document.getElementById('m-region').value, categoria: catElegida,
+                nombre_plan: document.getElementById('m-nombre').value, "nombre-card": document.getElementById('m-nombre-card').value, 
+                velocidad: document.getElementById('m-velocidad').value, precio_regular: parseFloat(document.getElementById('m-regular').value) || 0,
+                precio_promo: parseFloat(document.getElementById('m-promo').value) || 0, texto_promo: document.getElementById('m-texto-promo').value,
+                "texto-promo-card": document.getElementById('m-texto-promo-card').value, beneficio_tabla: document.getElementById('m-beneficio').value,
+                aplica_vertical: document.getElementById('m-vertical').value, fonowin: document.getElementById('m-fonowin').value,
+                orden: parseInt(document.getElementById('m-orden').value) || 0, detalles_card: document.getElementById('m-detalles').value
             };
 
-            let consultaExterna;
-            if (idPlan === '') {
-                consultaExterna = clienteSupabase.from('planes_generales').insert([datosPlan]);
-            } else {
-                consultaExterna = clienteSupabase.from('planes_generales').update(datosPlan).eq('id', idPlan);
-            }
-
+            const consultaExterna = idPlan === '' ? clienteSupabase.from('planes_generales').insert([datosPlan]) : clienteSupabase.from('planes_generales').update(datosPlan).eq('id', idPlan);
             const { error } = await consultaExterna;
-
-            if (!error) {
-                cerrarModal();
-                cargarPlanes();
-            } else {
-                alert('Error al guardar: ' + error.message);
-            }
+            if (!error) { cerrarModal(); cargarPlanes(); } else { alert('Error: ' + error.message); }
             btn.innerText = 'Guardar Cambios';
         }
 
         async function eliminarPlan(id) {
-            if (confirm("¿Estás segura de eliminar este plan? Esta acción no se puede deshacer.")) {
+            if (confirm("¿Eliminar este plan?")) {
                 const { error } = await clienteSupabase.from('planes_generales').delete().eq('id', id);
-                if (!error) {
-                    cargarPlanes();
-                } else {
-                    alert('Error al eliminar: ' + error.message);
+                if (!error) cargarPlanes(); else alert('Error: ' + error.message);
+            }
+        }
+
+        // ==========================================
+        // LÓGICA DE SERVICIOS ADICIONALES (NUEVA)
+        // ==========================================
+        async function cargarServicios() {
+            const { data, error } = await clienteSupabase.from('servicios_adicionales').select('*').order('orden', { ascending: true });
+            const tbody = document.getElementById('tabla-servicios');
+            if (error) return tbody.innerHTML = `<tr><td colspan="5" class="text-center text-red-500 py-4">Error al cargar servicios</td></tr>`;
+            
+            serviciosData = data;
+            renderizarTablaServicios();
+        }
+
+        function renderizarTablaServicios() {
+            const tbody = document.getElementById('tabla-servicios');
+            tbody.innerHTML = '';
+            
+            serviciosData.forEach(srv => {
+                const tieneParrilla = srv.imagen_url && srv.imagen_url.trim() !== '' 
+                    ? '<span class="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full font-bold">SÍ (Mostrará botón)</span>' 
+                    : '<span class="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">NO</span>';
+
+                tbody.innerHTML += `
+                    <tr class="border-b hover:bg-emerald-50 transition-colors">
+                        <td class="py-3 px-4 font-bold text-gray-400">${srv.orden || '-'}</td>
+                        <td class="py-3 px-4 font-semibold text-gray-900">${srv.nombre}</td>
+                        <td class="py-3 px-4 font-bold text-[#10b981]">S/ ${srv.precio}</td>
+                        <td class="py-3 px-4">${tieneParrilla}</td>
+                        <td class="py-3 px-4 text-center space-x-3">
+                            <button onclick="abrirModalServicio(${srv.id})" class="text-blue-600 hover:text-blue-800 font-semibold">Editar</button>
+                            <button onclick="eliminarServicio(${srv.id})" class="text-red-500 hover:text-red-700 font-semibold">Eliminar</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function abrirModalServicioNuevo() {
+            document.getElementById('titulo-modal-servicio').innerText = 'Crear Nuevo Servicio';
+            document.getElementById('s-id').value = ''; 
+            document.getElementById('s-url-actual').value = '';
+            
+            ['s-nombre','s-precio','s-descripcion','s-orden'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('s-imagen').value = '';
+            document.getElementById('s-vista-previa').classList.add('hidden'); // Ocultar visor
+
+            document.getElementById('modal-servicio').classList.remove('hidden');
+        }
+
+        function abrirModalServicio(id) {
+            document.getElementById('titulo-modal-servicio').innerText = 'Editar Servicio';
+            const srv = serviciosData.find(s => s.id == id);
+            if (!srv) return;
+
+            document.getElementById('s-id').value = srv.id; 
+            document.getElementById('s-nombre').value = srv.nombre || '';
+            document.getElementById('s-precio').value = srv.precio !== null ? srv.precio : '';      
+            document.getElementById('s-descripcion').value = srv.descripcion || '';
+            document.getElementById('s-orden').value = srv.orden || '';    
+            
+            document.getElementById('s-imagen').value = ''; // Limpiar el input de archivo
+            document.getElementById('s-url-actual').value = srv.imagen_url || '';
+
+            // Mostrar vista previa si ya tiene foto
+            if (srv.imagen_url && srv.imagen_url.trim() !== '') {
+                document.getElementById('s-vista-previa').classList.remove('hidden');
+                document.getElementById('s-img-tag').src = srv.imagen_url;
+            } else {
+                document.getElementById('s-vista-previa').classList.add('hidden');
+            }
+
+            document.getElementById('modal-servicio').classList.remove('hidden');
+        }
+
+        function cerrarModalServicio() { document.getElementById('modal-servicio').classList.add('hidden'); }
+
+        async function guardarServicio() {
+            const btn = document.getElementById('btn-guardar-servicio'); 
+            btn.innerHTML = 'Subiendo... ⏳'; // Indicador de carga
+            btn.disabled = true;
+
+            const idServ = document.getElementById('s-id').value;
+            const inputArchivo = document.getElementById('s-imagen');
+            let imageUrlFinal = document.getElementById('s-url-actual').value;
+
+            // 1. SI HAY UNA FOTO SELECCIONADA, LA SUBIMOS AL STORAGE
+            if (inputArchivo.files.length > 0) {
+                const archivo = inputArchivo.files[0];
+                const nombreArchivoAleatorio = `${Date.now()}_${archivo.name.replace(/\s+/g, '_')}`; // Nombre único seguro
+                
+                // Subir a Supabase Storage
+                const { data: uploadData, error: uploadError } = await clienteSupabase.storage
+                    .from('servicios-img')
+                    .upload(nombreArchivoAleatorio, archivo);
+                
+                if (uploadError) {
+                    alert('Error al subir la imagen: ' + uploadError.message);
+                    btn.innerHTML = 'Guardar Servicio'; btn.disabled = false;
+                    return;
                 }
+                
+                // Obtener el Link Público de la imagen subida
+                const { data: publicUrlData } = clienteSupabase.storage
+                    .from('servicios-img')
+                    .getPublicUrl(nombreArchivoAleatorio);
+                    
+                imageUrlFinal = publicUrlData.publicUrl; // Guardamos el link final
+            }
+
+            // 2. GUARDAR LOS TEXTOS Y EL LINK EN LA BASE DE DATOS
+            const datosSrv = {
+                nombre: document.getElementById('s-nombre').value,
+                precio: parseFloat(document.getElementById('s-precio').value) || 0,
+                descripcion: document.getElementById('s-descripcion').value,
+                orden: parseInt(document.getElementById('s-orden').value) || 0,
+                imagen_url: imageUrlFinal // Se inyecta el link aquí
+            };
+
+            const consulta = idServ === '' 
+                ? clienteSupabase.from('servicios_adicionales').insert([datosSrv]) 
+                : clienteSupabase.from('servicios_adicionales').update(datosSrv).eq('id', idServ);
+            
+            const { error } = await consulta;
+            
+            if (!error) { 
+                cerrarModalServicio(); 
+                cargarServicios(); 
+            } else { 
+                alert('Error al guardar: ' + error.message); 
+            }
+            
+            btn.innerHTML = 'Guardar Servicio'; 
+            btn.disabled = false;
+        }
+
+        async function eliminarServicio(id) {
+            if (confirm("¿Eliminar este servicio? (Ojo: Esto no borra la foto del Storage, solo la tarjeta web)")) {
+                const { error } = await clienteSupabase.from('servicios_adicionales').delete().eq('id', id);
+                if (!error) cargarServicios(); else alert('Error: ' + error.message);
             }
         }
 
