@@ -10,23 +10,14 @@
   <meta name="description" content="Plataforma de Oferta comercial - CFD" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&family=Inter:wght@400;500;700&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     /* ===== VARIABLES GLOBALES ===== */
     :root {
-      /* Paleta oficial WIN Empresas */
       --color-naranja: #FF5A0A;
-      /* 80% color de marca y llamadas a la acción */
       --color-blanco: #FFFFFF;
-      /* 10% fondo principal y contenedores limpios */
       --color-negro: #0F0908;
-      /* 5% contraste estético, encabezados */
       --color-amarillo: #FFC200;
-      /* 5% badges, alertas y acentos */
-
-      /* Derivadas para diseño donde predomina el fondo blanco */
       --naranja-dark: #CC4808;
       --naranja-light: #FF7A3D;
       --naranja-alpha: rgba(255, 90, 10, 0.10);
@@ -38,12 +29,8 @@
       --text-muted: #64748B;
       --border-subtle: #E2E8F0;
       --border-card: #EAECEF;
-
-      /* Tipografía */
       --font-titulo: "Outfit", sans-serif;
       --font-cuerpo: "Inter", sans-serif;
-
-      /* Espaciado y formas */
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 20px;
@@ -55,2185 +42,630 @@
     }
 
     /* ===== RESET Y BASE ===== */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-cuerpo); background: var(--bg-page); color: var(--text-main); overflow-x: hidden; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    table { border-collapse: collapse; width: 100%; }
+
+    /* ===== CLASE MÁGICA MULTICANAL (Oculta elementos según el canal) ===== */
+    .oculto-por-canal {
+        display: none !important;
     }
 
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
+    /* ===== BARRA DE PROGRESO ===== */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--color-naranja), var(--color-amarillo)); z-index: 9999; transition: width 0.4s ease; box-shadow: 0 0 8px var(--color-naranja); }
 
-    body {
-      font-family: var(--font-cuerpo);
-      background: var(--bg-page);
-      color: var(--text-main);
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
+    /* ===== HEADER ===== */
+    #site-header { position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 1000; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(16px); border-bottom: 2px solid var(--color-naranja); box-shadow: 0 2px 16px rgba(15, 9, 8, 0.06); display: flex; align-items: center; padding: 0 1.5rem; gap: 1rem; }
+    #site-header .logo { font-family: var(--font-titulo); font-weight: 900; font-size: 1.35rem; color: var(--color-naranja); letter-spacing: -0.5px; display: flex; align-items: center; gap: 0.4rem; }
+    .hamburger-btn { margin-left: auto; width: 40px; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; border-radius: var(--radius-sm); transition: background var(--transition); cursor: pointer; }
+    .hamburger-btn:hover { background: var(--naranja-alpha); }
+    .hamburger-btn span { display: block; width: 22px; height: 2px; background: var(--text-main); border-radius: 2px; transition: var(--transition); }
+    .header-nav { display: flex; gap: 0.3rem; margin-left: 1rem; }
+    .header-nav .nav-btn { padding: 0.4rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 700; font-family: var(--font-titulo); color: var(--text-body); transition: var(--transition); letter-spacing: 0.3px; }
+    .header-nav .nav-btn:hover, .header-nav .nav-btn.active { color: var(--color-naranja); background: var(--naranja-alpha); }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    /* ===== DRAWER ===== */
+    #drawer-overlay { position: fixed; inset: 0; z-index: 1100; background: rgba(15, 9, 8, 0.45); backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity var(--transition); }
+    #drawer-overlay.open { opacity: 1; pointer-events: all; }
+    #site-drawer { position: fixed; top: 0; left: -320px; bottom: 0; width: 300px; z-index: 1200; background: #FFFFFF; border-right: 1px solid var(--border-subtle); box-shadow: 8px 0 30px rgba(0, 0, 0, 0.08); transition: left var(--transition); display: flex; flex-direction: column; padding: 1.5rem; }
+    #site-drawer.open { left: 0; }
+    .drawer-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+    .drawer-logo img { height: 30px; width: auto; display: block; }
+    .drawer-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.1rem; color: var(--text-muted); transition: var(--transition); cursor: pointer; }
+    .drawer-close:hover { background: var(--naranja-alpha); color: var(--color-naranja); }
+    .drawer-nav { display: flex; flex-direction: column; gap: 0.4rem; }
+    .drawer-nav .dnav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; font-family: var(--font-titulo); color: var(--text-body); transition: var(--transition); cursor: pointer; }
+    .drawer-nav .dnav-item:hover, .drawer-nav .dnav-item.active { background: var(--naranja-alpha); color: var(--color-naranja); }
+    .drawer-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); }
+    .drawer-footer p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; }
 
-    button {
-      cursor: pointer;
-      border: none;
-      background: none;
-      font-family: inherit;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    /* ===== BARRA DE PROGRESO SUPERIOR ===== */
-    #progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      width: 0%;
-      background: linear-gradient(90deg, var(--color-naranja), var(--color-amarillo));
-      z-index: 9999;
-      transition: width 0.4s ease;
-      box-shadow: 0 0 8px var(--color-naranja);
-    }
-
-    /* ===== HEADER FIJO ===== */
-    #site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 2px solid var(--color-naranja);
-      box-shadow: 0 2px 16px rgba(15, 9, 8, 0.06);
-      display: flex;
-      align-items: center;
-      padding: 0 1.5rem;
-      gap: 1rem;
-    }
-
-    #site-header .logo {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: 1.35rem;
-      color: var(--color-naranja);
-      letter-spacing: -0.5px;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    #site-header .logo span {
-      color: var(--text-main);
-    }
-
-    .hamburger-btn {
-      margin-left: auto;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      border-radius: var(--radius-sm);
-      transition: background var(--transition);
-      cursor: pointer;
-    }
-
-    .hamburger-btn:hover {
-      background: var(--naranja-alpha);
-    }
-
-    .hamburger-btn span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--text-main);
-      border-radius: 2px;
-      transition: var(--transition);
-    }
-
-    .header-nav {
-      display: flex;
-      gap: 0.3rem;
-      margin-left: 1rem;
-    }
-
-    .header-nav .nav-btn {
-      padding: 0.4rem 0.85rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.82rem;
-      font-weight: 700;
-      font-family: var(--font-titulo);
-      color: var(--text-body);
-      transition: var(--transition);
-      letter-spacing: 0.3px;
-    }
-
-    .header-nav .nav-btn:hover,
-    .header-nav .nav-btn.active {
-      color: var(--color-naranja);
-      background: var(--naranja-alpha);
-    }
-
-    /* ===== DRAWER LATERAL ===== */
-    #drawer-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1100;
-      background: rgba(15, 9, 8, 0.45);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity var(--transition);
-    }
-
-    #drawer-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    #site-drawer {
-      position: fixed;
-      top: 0;
-      left: -320px;
-      bottom: 0;
-      width: 300px;
-      z-index: 1200;
-      background: #FFFFFF;
-      border-right: 1px solid var(--border-subtle);
-      box-shadow: 8px 0 30px rgba(0, 0, 0, 0.08);
-      transition: left var(--transition);
-      display: flex;
-      flex-direction: column;
-      padding: 1.5rem;
-    }
-
-    #site-drawer.open {
-      left: 0;
-    }
-
-    .drawer-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 2rem;
-    }
-
-    .drawer-logo {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: 1.2rem;
-      color: var(--color-naranja);
-    }
-
-    .drawer-close {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      transition: var(--transition);
-      cursor: pointer;
-    }
-
-    .drawer-close:hover {
-      background: var(--naranja-alpha);
-      color: var(--color-naranja);
-    }
-
-    .drawer-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .drawer-nav .dnav-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius-md);
-      font-size: 0.95rem;
-      font-weight: 600;
-      font-family: var(--font-titulo);
-      color: var(--text-body);
-      transition: var(--transition);
-      cursor: pointer;
-    }
-
-    .drawer-nav .dnav-item:hover,
-    .drawer-nav .dnav-item.active {
-      background: var(--naranja-alpha);
-      color: var(--color-naranja);
-    }
-
-    .drawer-nav .dnav-item .dnav-icon {
-      font-size: 1.1rem;
-    }
-
-    .drawer-footer {
-      margin-top: auto;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .drawer-footer p {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ===== DOTS DE NAVEGACIÓN LATERAL ===== */
-    #page-dots {
-      position: fixed;
-      right: 1.2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 900;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .page-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #CBD5E1;
-      cursor: pointer;
-      transition: var(--transition);
-      border: 2px solid transparent;
-    }
-
-    .page-dot:hover {
-      background: var(--color-naranja);
-      transform: scale(1.2);
-    }
-
-    .page-dot.active {
-      background: var(--color-naranja);
-      border-color: var(--color-amarillo);
-      box-shadow: 0 0 10px rgba(255, 90, 10, 0.4);
-      transform: scale(1.2);
-    }
+    /* ===== DOTS ===== */
+    #page-dots { position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%); z-index: 900; display: flex; flex-direction: column; gap: 10px; }
+    .page-dot { width: 10px; height: 10px; border-radius: 50%; background: #CBD5E1; cursor: pointer; transition: var(--transition); border: 2px solid transparent; }
+    .page-dot:hover { background: var(--color-naranja); transform: scale(1.2); }
+    .page-dot.active { background: var(--color-naranja); border-color: var(--color-amarillo); box-shadow: 0 0 10px rgba(255, 90, 10, 0.4); transform: scale(1.2); }
 
     /* ===== SECCIONES PRINCIPALES ===== */
-    main {
-      padding-top: 60px;
-    }
+    main { padding-top: 60px; }
+    .section-slide { min-height: 100vh; padding: 4rem 1.5rem 3rem; display: flex; flex-direction: column; align-items: center; }
+    .section-inner { width: 100%; max-width: 1100px; }
+    .section-title { font-family: var(--font-titulo); font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15; margin-bottom: 0.5rem; }
+    .section-title .accent { color: var(--color-naranja); }
+    .section-subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 580px; }
 
-    .section-slide {
-      min-height: 100vh;
-      padding: 4rem 1.5rem 3rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .section-inner {
-      width: 100%;
-      max-width: 1100px;
-    }
-
-    .section-title {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      line-height: 1.15;
-      margin-bottom: 0.5rem;
-    }
-
-    .section-title .accent {
-      color: var(--color-naranja);
-    }
-
-    .section-subtitle {
-      font-size: 1rem;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 580px;
-    }
-
-    /* Animación de entrada */
-    @keyframes fadeSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .anim-in {
-      animation: fadeSlideIn 0.55s ease both;
-    }
+    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ===== HERO PORTADA ===== */
-    #home {
-      background: radial-gradient(ellipse 75% 55% at 75% 30%, rgba(255, 90, 10, 0.08) 0%, transparent 65%),
-        linear-gradient(180deg, #FFFFFF 0%, var(--bg-page) 100%);
-      justify-content: center;
-      padding-top: 80px;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 90, 10, 0.08);
-      border: 1px solid var(--naranja-border);
-      border-radius: 99px;
-      padding: 0.3rem 1rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      font-family: var(--font-titulo);
-      color: var(--color-naranja);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
-
-    .hero-title {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 1.05;
-      margin-bottom: 1.2rem;
-      color: var(--text-main);
-    }
-
-    .hero-title .brand {
-      color: var(--color-naranja);
-    }
-
-    .hero-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-body);
-      max-width: 560px;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
-    }
-
-    /* Grid de estadísticas rápidas */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .stat-card {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-card);
-      border-radius: var(--radius-md);
-      padding: 1.2rem 1rem;
-      text-align: center;
-      transition: var(--transition);
-      box-shadow: var(--shadow-card);
-    }
-
-    .stat-card:hover {
-      border-color: var(--color-naranja);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-3px);
-    }
-
-    .stat-card .stat-num {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: 2rem;
-      color: var(--color-naranja);
-    }
-
-    .stat-card .stat-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.2rem;
-      font-weight: 600;
-    }
-
-    /* Botones de acceso rápido */
-    .quick-access {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .btn-primary {
-      background: var(--color-naranja);
-      color: #FFFFFF;
-      font-family: var(--font-titulo);
-      font-weight: 800;
-      padding: 0.8rem 1.8rem;
-      border-radius: var(--radius-md);
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-      transition: var(--transition);
-      box-shadow: 0 4px 18px rgba(255, 90, 10, 0.35);
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background: var(--naranja-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(255, 90, 10, 0.5);
-    }
-
-    .btn-ghost {
-      background: #FFFFFF;
-      border: 2px solid var(--border-subtle);
-      color: var(--text-main);
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      padding: 0.75rem 1.6rem;
-      border-radius: var(--radius-md);
-      font-size: 0.95rem;
-      transition: var(--transition);
-      box-shadow: var(--shadow-card);
-      cursor: pointer;
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--color-naranja);
-      color: var(--color-naranja);
-      background: #FFF7ED;
-      transform: translateY(-2px);
-    }
+    #home { background: radial-gradient(ellipse 75% 55% at 75% 30%, rgba(255, 90, 10, 0.08) 0%, transparent 65%), linear-gradient(180deg, #FFFFFF 0%, var(--bg-page) 100%); justify-content: center; padding-top: 80px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255, 90, 10, 0.08); border: 1px solid var(--naranja-border); border-radius: 99px; padding: 0.3rem 1rem; font-size: 0.78rem; font-weight: 700; font-family: var(--font-titulo); color: var(--color-naranja); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero-title { font-family: var(--font-titulo); font-weight: 900; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.05; margin-bottom: 1.2rem; color: var(--text-main); }
+    .hero-subtitle { font-size: 1.1rem; color: var(--text-body); max-width: 560px; line-height: 1.7; margin-bottom: 2.5rem; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .stat-card { background: #FFFFFF; border: 1.5px solid var(--border-card); border-radius: var(--radius-md); padding: 1.2rem 1rem; text-align: center; transition: var(--transition); box-shadow: var(--shadow-card); }
+    .stat-card:hover { border-color: var(--color-naranja); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .stat-card .stat-num { font-family: var(--font-titulo); font-weight: 900; font-size: 2rem; color: var(--color-naranja); }
+    .stat-card .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; font-weight: 600; }
+    
+    .quick-access { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .btn-primary { background: var(--color-naranja); color: #FFFFFF; font-family: var(--font-titulo); font-weight: 800; padding: 0.8rem 1.8rem; border-radius: var(--radius-md); font-size: 0.95rem; letter-spacing: 0.3px; transition: var(--transition); box-shadow: 0 4px 18px rgba(255, 90, 10, 0.35); }
+    .btn-primary:hover { background: var(--naranja-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255, 90, 10, 0.5); }
+    .btn-ghost { background: #FFFFFF; border: 2px solid var(--border-subtle); color: var(--text-main); font-family: var(--font-titulo); font-weight: 700; padding: 0.75rem 1.6rem; border-radius: var(--radius-md); font-size: 0.95rem; transition: var(--transition); box-shadow: var(--shadow-card); }
+    .btn-ghost:hover { border-color: var(--color-naranja); color: var(--color-naranja); background: #FFF7ED; transform: translateY(-2px); }
 
     /* ===== SISTEMA DE TABS ===== */
-    .tab-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.5rem;
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 0.4rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
+    .tab-bar { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; background: #FFFFFF; border: 1.5px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 0.4rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
+    .tab-btn { flex: 1; min-width: 120px; padding: 0.65rem 1rem; border-radius: var(--radius-md); font-family: var(--font-titulo); font-weight: 700; font-size: 0.82rem; color: var(--text-muted); transition: var(--transition); text-align: center; }
+    .tab-btn:hover { color: var(--color-naranja); background: rgba(255, 90, 10, 0.05); }
+    .tab-btn.active { background: var(--color-naranja); color: #FFFFFF; box-shadow: 0 4px 14px rgba(255, 90, 10, 0.35); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeSlideIn 0.4s ease both; }
 
-    .tab-btn {
-      flex: 1;
-      min-width: 120px;
-      padding: 0.65rem 1rem;
-      border-radius: var(--radius-md);
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 0.82rem;
-      letter-spacing: 0.2px;
-      color: var(--text-muted);
-      transition: var(--transition);
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .tab-btn:hover {
-      color: var(--color-naranja);
-      background: rgba(255, 90, 10, 0.05);
-    }
-
-    .tab-btn.active {
-      background: var(--color-naranja);
-      color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(255, 90, 10, 0.35);
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-      animation: fadeSlideIn 0.4s ease both;
-    }
+    /* ===== INFO GENERAL (EXCLUSIVO CROSS) ===== */
+    .info-tabs { display: flex; gap: 0.5rem; margin-bottom: 0; }
+    .info-tab { background: #FFFFFF; color: var(--text-main); font-family: var(--font-titulo); font-weight: 800; padding: 0.8rem 2rem; border-radius: 12px 12px 0 0; font-size: 0.95rem; border: 1.5px solid var(--border-subtle); border-bottom: none; transition: all 0.2s; }
+    .info-tab.active { background: #0F0908; color: #FFFFFF; border-color: #0F0908; }
+    .info-content-box { background: #FFFFFF; border: 2px solid #0F0908; border-radius: 0 12px 12px 12px; overflow: hidden; box-shadow: var(--shadow-card); }
+    .info-header-bar { background: #0F0908; color: #FFFFFF; padding: 0.8rem 1.5rem; font-family: var(--font-titulo); font-weight: 900; font-size: 1.1rem; border-bottom: 4px solid var(--color-naranja); display: flex; align-items: center; gap: 0.5rem; }
+    .info-body-pad { padding: 2rem; }
+    .info-h4 { color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 900; font-size: 0.9rem; margin-bottom: 0.8rem; letter-spacing: 1px; border-left: 3px solid var(--color-naranja); padding-left: 8px; }
+    .info-p { color: var(--text-body); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .info-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .info-card-item { background: #FFFFFF; border: 1px solid var(--border-subtle); border-left: 3px solid var(--color-naranja); border-radius: 8px; padding: 1.2rem; font-size: 0.85rem; color: var(--text-body); line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .info-card-item strong { color: var(--text-main); font-weight: 800; }
 
     /* ===== CARDS DE PLANES ===== */
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .plan-card {
-      background: #F7F7F7;
-      border: 1.5px solid var(--border-card);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      position: relative;
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      box-shadow: var(--shadow-card);
-    }
-
-    .plan-card:hover {
-      border-color: var(--color-naranja);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-4px);
-    }
-
-    .plan-card.featured {
-      border: 2px solid var(--color-naranja);
-      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 90, 10, 0.02) 100%);
-    }
-
-    /* Botón pequeño en la esquina para simular con ese precio */
-    .btn-card-sim {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 34px;
-      height: 34px;
-      background: #F8FAFC;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 10px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      z-index: 10;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
-      color: #1A1210;
-      line-height: 1;
-    }
-
-    .btn-card-sim:hover {
-      background: #FFF7ED;
-      border-color: var(--color-naranja);
-      transform: scale(1.12);
-      box-shadow: 0 4px 12px rgba(255, 90, 10, 0.25);
-    }
-
-    .plan-card .plan-speed {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: 1.6rem;
-      color: var(--text-main);
-    }
-
-    .plan-card .plan-name {
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .plan-card .plan-price {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: 2.1rem;
-      color: var(--color-naranja);
-      margin-top: 0.25rem;
-    }
-
-    .plan-card .plan-price strong {
-      color: var(--color-naranja);
-    }
-
-    .plan-card .plan-price small {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .plan-card .plan-promo {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(255, 194, 0, 0.15);
-      border: 1px solid rgba(255, 194, 0, 0.45);
-      border-radius: 99px;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: #9A3412;
-    }
-
-    .plan-card .plan-details {
-      font-size: 0.83rem;
-      color: #475569;
-      line-height: 1.7;
-      margin-top: 0.4rem;
-      list-style: none; /* <-- ESTO ELIMINA LOS PUNTOS */
-      padding-left: 0;   /* <-- QUITA EL ESPACIADO IZQUIERDO DE LA LISTA */
-    }
-
-    .plan-card .plan-details li {
-      list-style-type: none; /* Asegura que no aparezca viñeta */
-    }
-
-    .plan-card .plan-details li::before {
-      content: "✓ ";
-      color: var(--color-naranja);
-      font-weight: 800;
-    }
-
-    .badge-top {
-      position: absolute;
-      top: -11px;
-      left: 16px;
-      right: auto;
-      background: var(--color-naranja);
-      color: #FFFFFF;
-      font-family: var(--font-titulo);
-      font-weight: 800;
-      font-size: 0.7rem;
-      letter-spacing: 0.5px;
-      padding: 0.22rem 0.7rem;
-      border-radius: 99px;
-      text-transform: uppercase;
-      box-shadow: 0 2px 8px rgba(255, 90, 10, 0.35);
-    }
+    .plans-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
+    .plan-card { background: #F7F7F7; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.5rem; position: relative; transition: var(--transition); display: flex; flex-direction: column; gap: 0.6rem; box-shadow: var(--shadow-card); }
+    .plan-card:hover { border-color: var(--color-naranja); box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .plan-card.featured { border: 2px solid var(--color-naranja); background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 90, 10, 0.02) 100%); }
+    .btn-card-sim { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: all 0.2s ease; z-index: 10; color: #1A1210; line-height: 1; }
+    .btn-card-sim:hover { background: #FFF7ED; border-color: var(--color-naranja); transform: scale(1.12); box-shadow: 0 4px 12px rgba(255, 90, 10, 0.25); }
+    .plan-card .plan-speed { font-family: var(--font-titulo); font-weight: 900; font-size: 1.6rem; color: var(--text-main); }
+    .plan-card .plan-name { font-family: var(--font-titulo); font-weight: 700; font-size: 0.88rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .plan-card .plan-price { font-family: var(--font-titulo); font-weight: 900; font-size: 2.1rem; color: var(--color-naranja); margin-top: 0.25rem; }
+    .plan-card .plan-price small { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+    .plan-card .plan-details { font-size: 0.83rem; color: #475569; line-height: 1.7; margin-top: 0.4rem; padding-left: 0; }
+    .plan-card .plan-details li { list-style-type: none; }
+    .plan-card .plan-details li::before { content: "✓ "; color: var(--color-naranja); font-weight: 800; }
+    .badge-top { position: absolute; top: -11px; left: 16px; background: var(--color-naranja); color: #FFFFFF; font-family: var(--font-titulo); font-weight: 800; font-size: 0.7rem; padding: 0.22rem 0.7rem; border-radius: 99px; text-transform: uppercase; box-shadow: 0 2px 8px rgba(255, 90, 10, 0.35); }
 
     /* ===== TABLAS ===== */
-    .table-wrap {
-      overflow-x: auto;
-      border-radius: var(--radius-md);
-      background: #FFFFFF;
-      box-shadow: var(--shadow-card);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .data-table {
-      width: 100%;
-      min-width: 640px;
-      font-size: 0.87rem;
-    }
-
-    .data-table thead tr {
-      background: var(--color-negro);
-      border-bottom: 2px solid var(--color-naranja);
-    }
-
-    .data-table thead th {
-      padding: 0.85rem 1rem;
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--color-amarillo);
-      white-space: nowrap;
-      text-align: center;
-    }
-
-    .data-table tbody tr {
-      border-bottom: 1px solid #F1F5F9;
-      background: #FFFFFF;
-      transition: background var(--transition);
-    }
-
-    .data-table tbody tr:hover {
-      background: rgba(255, 90, 10, 0.04);
-    }
-
-    .data-table tbody td {
-      padding: 0.8rem 0.4rem;
-      vertical-align: middle;
-      color: var(--text-main);
-      text-align: center;
-    }
-
-    .data-table .td-speed {
-      font-family: var(--font-titulo);
-      font-weight: 800;
-      color: var(--text-main);
-      white-space: nowrap;
-    }
-
-    .data-table .td-price {
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .data-table .td-promo {
-      font-weight: 800;
-      color: var(--color-naranja);
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.15rem 0.5rem;
-      border-radius: 99px;
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-
-    .badge-si {
-      background: rgba(0, 200, 100, 0.12);
-      color: #16A34A;
-      border: 1px solid rgba(0, 200, 100, 0.25);
-    }
-
-    .badge-no {
-      background: #F1F5F9;
-      color: #64748B;
-      border: 1px solid #E2E8F0;
-    }
-
-    .badge-amarillo {
-      background: rgba(255, 194, 0, 0.15);
-      color: #9A3412;
-      border: 1px solid rgba(255, 194, 0, 0.35);
-    }
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-md); background: #FFFFFF; box-shadow: var(--shadow-card); border: 1px solid var(--border-subtle); }
+    .data-table { width: 100%; min-width: 640px; font-size: 0.87rem; }
+    .data-table thead tr { background: var(--color-negro); border-bottom: 2px solid var(--color-naranja); }
+    .data-table thead th { padding: 0.85rem 1rem; font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; color: var(--color-amarillo); white-space: nowrap; text-align: center; }
+    .data-table tbody tr { border-bottom: 1px solid #F1F5F9; transition: background var(--transition); }
+    .data-table tbody tr:hover { background: rgba(255, 90, 10, 0.04); }
+    .data-table tbody td { padding: 0.8rem 0.4rem; vertical-align: middle; text-align: center; }
+    .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 99px; font-size: 0.72rem; font-weight: 700; }
+    .badge-si { background: rgba(0, 200, 100, 0.12); color: #16A34A; border: 1px solid rgba(0, 200, 100, 0.25); }
+    .badge-no { background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0; }
 
     /* ===== SIMULADOR DE FACTURACIÓN ===== */
-    #facturacion {
-      background: linear-gradient(180deg, var(--bg-page) 0%, #FFFFFF 100%);
-    }
-
-    /* === Simulador: layout lado a lado === */
-    .sim-layout {
-      display: flex;
-      gap: 2rem;
-      align-items: flex-start;
-      width: 100%;
-    }
-
-    .sim-layout .sim-form-card {
-      flex: 0 0 auto;
-      width: 100%;
-      max-width: 480px;
-    }
-
-    .sim-layout .table-wrap {
-      flex: 1 1 auto;
-      margin-top: 0 !important;
-      min-width: 0;
-    }
-
-    .sim-form-card {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-subtle);
-      border-radius: var(--radius-xl);
-      padding: 2.5rem;
-      max-width: 560px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-    }
-
-    .form-group {
-      margin-bottom: 1.4rem;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 0.45rem;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .form-input {
-      width: 100%;
-      background: #F8FAFC;
-      border: 1.5px solid #CBD5E1;
-      border-radius: var(--radius-md);
-      color: var(--text-main);
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 0.75rem 1rem;
-      transition: border-color var(--transition);
-    }
-
-    .form-input:focus {
-      outline: none;
-      background: #FFFFFF;
-      border-color: var(--color-naranja);
-      box-shadow: 0 0 0 3px rgba(255, 90, 10, 0.16);
-    }
-
-    .sim-result {
-      margin-top: 1.5rem;
-      background: #FFF9F6;
-      border: 1.5px solid var(--color-naranja);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      display: none;
-      box-shadow: 0 4px 16px rgba(255, 90, 10, 0.1);
-    }
-
-    .sim-result.visible {
-      display: block;
-      animation: fadeSlideIn 0.4s ease both;
-    }
-
-    .sim-result-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255, 90, 10, 0.12);
-      font-size: 0.9rem;
-    }
-
-    .sim-result-row:last-child {
-      border-bottom: none;
-    }
-
-    .sim-result-row .sr-label {
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .sim-result-row .sr-val {
-      font-family: var(--font-titulo);
-      font-weight: 800;
-      color: var(--color-naranja);
-    }
-
-    .sim-result-row .sr-val.big {
-      font-size: 1.45rem;
-      color: var(--color-naranja);
-      background: rgba(255, 194, 0, 0.2);
-      padding: 3px 12px;
-      border-radius: 8px;
-    }
+    #facturacion { background: linear-gradient(180deg, var(--bg-page) 0%, #FFFFFF 100%); }
+    .sim-layout { display: flex; gap: 2rem; align-items: flex-start; width: 100%; }
+    .sim-layout .sim-form-card { flex: 0 0 auto; width: 100%; max-width: 480px; }
+    .sim-layout .table-wrap { flex: 1 1 auto; margin-top: 0 !important; min-width: 0; }
+    .sim-form-card { background: #FFFFFF; border: 1.5px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 2.5rem; max-width: 560px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
+    .form-group { margin-bottom: 1.4rem; }
+    .form-label { display: block; margin-bottom: 0.45rem; font-size: 0.85rem; font-weight: 700; }
+    .form-input { width: 100%; background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: var(--radius-md); font-family: var(--font-titulo); font-weight: 700; font-size: 1.1rem; padding: 0.75rem 1rem; }
+    .form-input:focus { outline: none; background: #FFFFFF; border-color: var(--color-naranja); box-shadow: 0 0 0 3px rgba(255, 90, 10, 0.16); }
+    .sim-result { margin-top: 1.5rem; background: #FFF9F6; border: 1.5px solid var(--color-naranja); border-radius: var(--radius-lg); padding: 1.5rem; display: none; }
+    .sim-result.visible { display: block; animation: fadeSlideIn 0.4s ease both; }
+    .sim-result-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 90, 10, 0.12); font-size: 0.9rem; }
+    .sim-result-row:last-child { border-bottom: none; }
+    .sim-result-row .sr-label { color: var(--text-muted); font-weight: 500; }
+    .sim-result-row .sr-val { font-family: var(--font-titulo); font-weight: 800; color: var(--color-naranja); }
+    .sim-result-row .sr-val.big { font-size: 1.45rem; background: rgba(255, 194, 0, 0.2); padding: 3px 12px; border-radius: 8px; }
 
     /* ===== SERVICIOS ADICIONALES ===== */
-    .adicionales-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 1.2rem;
-    }
+    .adicionales-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.2rem; }
+    .servicio-card { background: #FFFFFF; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.4rem 1.2rem; transition: var(--transition); display: flex; flex-direction: column; box-shadow: var(--shadow-card); position: relative; }
+    .servicio-card:hover { border-color: var(--color-naranja); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .servicio-card.con-parrilla { cursor: pointer; }
+    .servicio-card .srv-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .servicio-card .srv-name { font-family: var(--font-titulo); font-weight: 800; font-size: 0.98rem; margin-bottom: 0.25rem; }
+    .servicio-card .srv-price { font-family: var(--font-titulo); font-weight: 900; font-size: 1.5rem; color: var(--color-naranja); }
+    .servicio-card .srv-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.3rem; line-height: 1.4; flex-grow: 1; }
+    .btn-ver-parrilla { margin-top: 0.8rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; background: rgba(255, 90, 10, 0.08); border: 1.5px solid var(--naranja-border); color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; padding: 0.4rem 0.8rem; border-radius: 99px; cursor: pointer; transition: all 0.2s ease; width: 100%; }
+    .btn-ver-parrilla:hover, .servicio-card.con-parrilla:hover .btn-ver-parrilla { background: var(--color-naranja); color: #FFFFFF; border-color: var(--color-naranja); }
 
-    .servicio-card {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-card);
-      border-radius: var(--radius-lg);
-      padding: 1.4rem 1.2rem;
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-      box-shadow: var(--shadow-card);
-      position: relative;
-    }
+    /* ===== MODAL ===== */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15, 9, 8, 0.75); backdrop-filter: blur(8px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 1.2rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-dialog { background: #FFFFFF; border-radius: var(--radius-xl); border: 2px solid var(--color-naranja); width: 100%; max-width: 950px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; transform: translateY(20px) scale(0.97); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    .modal-overlay.open .modal-dialog { transform: translateY(0) scale(1); }
+    .modal-header { padding: 1.1rem 1.5rem; background: #FFFFFF; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
+    .modal-title-wrap { display: flex; align-items: center; gap: 0.75rem; }
+    .modal-title { font-family: var(--font-titulo); font-weight: 900; font-size: 1.25rem; line-height: 1.2; }
+    .modal-badge { display: inline-block; background: rgba(255, 90, 10, 0.1); color: var(--color-naranja); font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 99px; margin-top: 0.2rem; }
+    .modal-close { width: 36px; height: 36px; border-radius: 50%; background: #F1F5F9; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+    .modal-close:hover { background: #FEE2E2; color: #DC2626; border-color: #FCA5A5; }
+    .modal-body { padding: 1.2rem; overflow-y: auto; max-height: calc(90vh - 140px); background: #000000; display: flex; justify-content: center; }
+    .modal-img-container img { max-width: 100%; border-radius: var(--radius-md); }
+    .modal-footer { padding: 0.85rem 1.5rem; background: #FFFFFF; border-top: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
+    .modal-desc { font-size: 0.82rem; color: var(--text-muted); }
 
-    .servicio-card:hover {
-      border-color: var(--color-naranja);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-3px);
-    }
-
-    .servicio-card.con-parrilla {
-      cursor: pointer;
-    }
-
-    .servicio-card.con-parrilla:hover {
-      border-color: var(--color-naranja);
-      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 90, 10, 0.02) 100%);
-    }
-
-    .servicio-card .srv-icon {
-      font-size: 1.8rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .servicio-card .srv-name {
-      font-family: var(--font-titulo);
-      font-weight: 800;
-      font-size: 0.98rem;
-      margin-bottom: 0.25rem;
-      color: var(--text-main);
-    }
-
-    .servicio-card .srv-price {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: 1.5rem;
-      color: var(--color-naranja);
-    }
-
-    .servicio-card .srv-note {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      margin-top: 0.3rem;
-      line-height: 1.4;
-      flex-grow: 1;
-    }
-
-    /* Botón interactivo para ver parrilla de canales */
-    .btn-ver-parrilla {
-      margin-top: 0.8rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      background: rgba(255, 90, 10, 0.08);
-      border: 1.5px solid var(--naranja-border);
-      color: var(--color-naranja);
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 0.78rem;
-      padding: 0.4rem 0.8rem;
-      border-radius: 99px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      width: 100%;
-    }
-
-    .btn-ver-parrilla:hover,
-    .servicio-card.con-parrilla:hover .btn-ver-parrilla {
-      background: var(--color-naranja);
-      color: #FFFFFF;
-      border-color: var(--color-naranja);
-      box-shadow: 0 4px 12px rgba(255, 90, 10, 0.3);
-      transform: translateY(-1px);
-    }
-
-    /* ===== MODAL POP-UP: PARRILLA DE CANALES ===== */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 9, 8, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 99999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.2rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .modal-dialog {
-      background: #FFFFFF;
-      border-radius: var(--radius-xl);
-      border: 2px solid var(--color-naranja);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-      width: 100%;
-      max-width: 950px;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: translateY(20px) scale(0.97);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .modal-overlay.open .modal-dialog {
-      transform: translateY(0) scale(1);
-    }
-
-    .modal-header {
-      padding: 1.1rem 1.5rem;
-      background: #FFFFFF;
-      border-bottom: 1px solid var(--border-subtle);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .modal-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .modal-title-wrap .modal-icon {
-      font-size: 1.6rem;
-    }
-
-    .modal-title {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: 1.25rem;
-      color: var(--text-main);
-      line-height: 1.2;
-    }
-
-    .modal-badge {
-      display: inline-block;
-      background: rgba(255, 90, 10, 0.1);
-      color: var(--color-naranja);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.15rem 0.6rem;
-      border-radius: 99px;
-      margin-top: 0.2rem;
-    }
-
-    .modal-close {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #F1F5F9;
-      border: 1px solid #CBD5E1;
-      font-size: 1.1rem;
-      color: #475569;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .modal-close:hover {
-      background: #FEE2E2;
-      color: #DC2626;
-      border-color: #FCA5A5;
-      transform: rotate(90deg);
-    }
-
-    .modal-body {
-      padding: 1.2rem;
-      overflow-y: auto;
-      max-height: calc(90vh - 140px);
-      background: #000000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-img-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .modal-img-container img {
-      max-width: 100%;
-      height: auto;
-      border-radius: var(--radius-md);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      border: 1px solid #E2E8F0;
-      object-fit: contain;
-    }
-
-    .modal-footer {
-      padding: 0.85rem 1.5rem;
-      background: #FFFFFF;
-      border-top: 1px solid var(--border-subtle);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .modal-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .modal-footer .btn-sm {
-      padding: 0.45rem 1.2rem;
-      font-size: 0.85rem;
-      border-radius: var(--radius-md);
-    }
-
-    /* ===== FAB FLOTANTES ===== */
-    #fab-container {
-      position: fixed;
-      bottom: 2rem;
-      right: 1.5rem;
-      z-index: 800;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.7rem;
-    }
-
-    .fab-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      transition: var(--transition);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      cursor: pointer;
-    }
-
-    .fab-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 24px rgba(255, 90, 10, 0.3);
-    }
-
-    #fab-mute {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-subtle);
-      color: var(--text-main);
-    }
-
-    #fab-top {
-      background: var(--color-naranja);
-      color: #FFFFFF;
-    }
-
-    #fab-calc {
-      background: #FFFFFF;
-      border: 1.5px solid var(--color-naranja);
-      color: var(--color-naranja);
-    }
-
-    /* ===== TOAST NOTIFICATIONS ===== */
-    #toast {
-      position: fixed;
-      bottom: 6rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9000;
-      background: #0F0908;
-      border: 1.5px solid var(--color-naranja);
-      border-radius: var(--radius-md);
-      padding: 0.75rem 1.5rem;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-    }
-
-    #toast.visible {
-      opacity: 1;
-    }
+    /* ===== FAB FLOTANTES & TOAST ===== */
+    #fab-container { position: fixed; bottom: 2rem; right: 1.5rem; z-index: 800; display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; }
+    .fab-btn { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); }
+    #fab-mute { background: #FFFFFF; border: 1.5px solid var(--border-subtle); }
+    #fab-top { background: var(--color-naranja); color: #FFFFFF; }
+    #fab-calc { background: #FFFFFF; border: 1.5px solid var(--color-naranja); color: var(--color-naranja); }
+    #toast { position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%); z-index: 9000; background: #0F0908; border: 1.5px solid var(--color-naranja); border-radius: var(--radius-md); padding: 0.75rem 1.5rem; font-size: 0.88rem; font-weight: 700; color: #FFFFFF; opacity: 0; transition: opacity 0.3s ease; }
+    #toast.visible { opacity: 1; }
 
     /* ===== FOOTER ===== */
-    #site-footer {
-      background: var(--color-negro);
-      border-top: 1px solid var(--border-subtle);
-      padding: 2rem 1.5rem;
-      text-align: center;
-    }
+    #site-footer { background: var(--color-negro); border-top: 1px solid var(--border-subtle); padding: 2rem 1.5rem; text-align: center; }
+    #site-footer p { font-size: 0.8rem; color: rgba(255, 255, 255, 0.65); line-height: 1.7; }
 
-    #site-footer .footer-logo {
-      font-family: var(--font-titulo);
-      font-weight: 900;
-      font-size: 1.3rem;
-      color: var(--color-naranja);
-      margin-bottom: 0.5rem;
-    }
-
-    #site-footer p {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.65);
-      line-height: 1.7;
-    }
-
-    .sim-layout .table-wrap {
-      flex: 1 1 auto;
-      margin-top: 0 !important;
-      min-width: 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    .sim-layout .data-table {
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    /* ===== RESPONSIVE < 768px ===== */
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .header-nav {
-        display: none;
-      }
-
-      .hero-title {
-        font-size: 2.6rem;
-      }
-
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .plans-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .adicionales-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .table-wrap {
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .sim-form-card {
-        padding: 1.5rem;
-        max-width: 100%;
-      }
-
-      .sim-layout {
-        flex-direction: column;
-      }
-
-      .sim-layout .sim-form-card {
-        max-width: 100%;
-      }
-
-      .section-slide {
-        padding: 3.5rem 1rem 2rem;
-      }
-
-      #page-dots {
-        display: none;
-      }
-
-      .tab-btn {
-        min-width: 100px;
-        font-size: 0.75rem;
-      }
-
-      .data-table th,
-      .data-table tbody td {
-        padding: 8px 4px;
-        font-size: 0.8rem;
-        white-space: normal;
-      }
-
-      .table-wrap .data-table th,
-      .table-wrap .data-table td {
-        padding: 6px 2px !important;
-        font-size: 0.75rem !important;
-      }
-
-      .sim-layout .table-wrap {
-        width: 100% !important;
-        max-width: 100vw !important;
-        overflow-x: auto !important;
-        /* Revive la barra de desplazamiento */
-        display: block !important;
-        /* Anula cualquier centrado flex que rompa el lado izquierdo */
-        padding-bottom: 15px;
-        /* Espacio para que el dedo deslice cómodamente */
-      }
-
-      .sim-layout .data-table {
-        width: max-content !important;
-        /* Crece lo que necesite según el texto */
-        min-width: 100% !important;
-        margin: 0 !important;
-        /* OBLIGATORIO: Alineado a la izquierda, cero centrado */
-      }
-
-      .table-wrap .data-table th,
-      .table-wrap .data-table td {
-        padding: 10px 15px !important;
-        font-size: 0.8rem !important;
-        white-space: nowrap !important;
-        /* Mantiene el texto en una línea para obligar al scroll */
-      }
+      .header-nav { display: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .plans-grid { grid-template-columns: 1fr; }
+      .adicionales-grid { grid-template-columns: repeat(2, 1fr); }
+      .sim-layout { flex-direction: column; }
+      .sim-layout .sim-form-card { max-width: 100%; }
+      #page-dots { display: none; }
+      .tab-btn { min-width: 100px; font-size: 0.75rem; }
+      .table-wrap { width: 100% !important; max-width: 100vw !important; overflow-x: auto !important; display: block !important; padding-bottom: 15px; }
+      .sim-layout .data-table { width: max-content !important; min-width: 100% !important; margin: 0 !important; }
+      .table-wrap .data-table th, .table-wrap .data-table td { padding: 10px 15px !important; font-size: 0.8rem !important; white-space: nowrap !important; }
     }
-
     @media (max-width: 480px) {
-      .adicionales-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .quick-access {
-        flex-direction: column;
-      }
-
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .tab-bar {
-        gap: 0.25rem;
-        padding: 0.3rem;
-      }
+      .adicionales-grid { grid-template-columns: 1fr; }
+      .quick-access { flex-direction: column; }
     }
   </style>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
-  <!-- ===== BARRA DE PROGRESO SUPERIOR ===== -->
-  <div id="progress-bar" role="progressbar" aria-label="Progreso de página"></div>
+  <div id="progress-bar" role="progressbar"></div>
 
-  <!-- ===== HEADER FIJO ===== -->
+  <!-- ===== HEADER ===== -->
   <header id="site-header" role="banner">
-    <button class="hamburger-btn" id="hamburger-btn" data-sound="click" aria-label="Abrir menú de navegación"
-      aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger-btn" id="hamburger-btn"><span></span><span></span><span></span></button>
     <div class="logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:34px;width:auto;display:block;"></div>
-    <nav class="header-nav" aria-label="Navegación principal">
-      <button class="nav-btn" data-section="home" data-sound="nav">Inicio</button>
-      <button class="nav-btn" data-section="lima" data-sound="nav">Lima</button>
-      <button class="nav-btn" data-section="provincia" data-sound="nav">Provincia</button>
-      <button class="nav-btn" data-section="adicionales" data-sound="nav">Adicionales</button>
-      <button class="nav-btn" data-section="facturacion" data-sound="nav">Simulador</button>
+    <nav class="header-nav">
+      <button class="nav-btn" data-section="home">Inicio</button>
+      <button class="nav-btn" data-section="lima">Lima</button>
+      <button class="nav-btn" data-section="provincia">Provincia</button>
+      <!-- Botón exclusivo para CROSS (Oculto por defecto) -->
+      <button class="nav-btn oculto-por-canal" data-section="info-general">Info General</button>
+      <button class="nav-btn" data-section="adicionales">Adicionales</button>
+      <button class="nav-btn" data-section="facturacion">Simulador</button>
     </nav>
   </header>
 
-  <!-- ===== OVERLAY DEL DRAWER ===== -->
-  <div id="drawer-overlay" aria-hidden="true"></div>
+  <div id="drawer-overlay"></div>
 
-  <!-- ===== DRAWER LATERAL DE NAVEGACIÓN ===== -->
-  <aside id="site-drawer" role="navigation" aria-label="Menú lateral">
+  <!-- ===== DRAWER LATERAL ===== -->
+  <aside id="site-drawer">
     <div class="drawer-header">
-      <div class="drawer-logo"><img src="img/logo_winnaranja.png" alt="WIN Empresas"
-          style="height:30px;width:auto;display:block;"></div>
-      <button class="drawer-close" id="drawer-close-btn" data-sound="click" aria-label="Cerrar menú">✕</button>
+      <div class="drawer-logo"><img src="img/logo_winnaranja.png" alt="WIN Empresas" style="height:30px;width:auto;display:block;"></div>
+      <button class="drawer-close" id="drawer-close-btn">✕</button>
     </div>
     <nav class="drawer-nav">
-      <button class="dnav-item" data-section="home" data-sound="nav"><span class="dnav-icon">🏠</span> Inicio</button>
-      <button class="dnav-item" data-section="lima" data-sound="nav"><span class="dnav-icon">🚀</span> Planes
-        Lima</button>
-      <button class="dnav-item" data-section="provincia" data-sound="nav"><span class="dnav-icon">🗺️</span> Planes
-        Provincia</button>
-      <button class="dnav-item" data-section="adicionales" data-sound="nav"><span class="dnav-icon">➕</span> Servicios
-        Adicionales</button>
-      <button class="dnav-item" data-section="facturacion" data-sound="nav"><span class="dnav-icon">🧮</span>
-        Simulador</button>
+      <button class="dnav-item" data-section="home"><span class="dnav-icon">🏠</span> Inicio</button>
+      <button class="dnav-item" data-section="lima"><span class="dnav-icon">🚀</span> Planes Lima</button>
+      <button class="dnav-item" data-section="provincia"><span class="dnav-icon">🗺️</span> Planes Provincia</button>
+      <button class="dnav-item oculto-por-canal" data-section="info-general"><span class="dnav-icon">ℹ️</span> Info General</button>
+      <button class="dnav-item" data-section="adicionales"><span class="dnav-icon">➕</span> Servicios Adicionales</button>
+      <button class="dnav-item" data-section="facturacion"><span class="dnav-icon">🧮</span> Simulador</button>
     </nav>
     <div class="drawer-footer">
-      <p>WIN &copy; 2026<br>Oferta Comercial Vigente Septiembre<br>CFD - FORMACIÓN<br><em>Pensado y creado por
-          Madeloun - Pedro</em></p>
+      <p>WIN &copy; 2026<br>CFD - FORMACIÓN<br><em>Madeloun - Pedro</em></p>
     </div>
   </aside>
 
-  <!-- ===== DOTS DE NAVEGACIÓN LATERAL ===== -->
-  <div id="page-dots" role="navigation" aria-label="Navegación por puntos">
-    <button class="page-dot active" data-section="home" data-sound="nav" title="Inicio"></button>
-    <button class="page-dot" data-section="lima" data-sound="nav" title="Lima"></button>
-    <button class="page-dot" data-section="provincia" data-sound="nav" title="Provincia"></button>
-    <button class="page-dot" data-section="adicionales" data-sound="nav" title="Adicionales"></button>
-    <button class="page-dot" data-section="facturacion" data-sound="nav" title="Simulador"></button>
+  <!-- ===== DOTS NAVEGACIÓN ===== -->
+  <div id="page-dots">
+    <button class="page-dot active" data-section="home" title="Inicio"></button>
+    <button class="page-dot" data-section="lima" title="Lima"></button>
+    <button class="page-dot" data-section="provincia" title="Provincia"></button>
+    <button class="page-dot oculto-por-canal" data-section="info-general" title="Info General"></button>
+    <button class="page-dot" data-section="adicionales" title="Adicionales"></button>
+    <button class="page-dot" data-section="facturacion" title="Simulador"></button>
   </div>
 
-  <!-- ===== MAIN: CONTENIDO PRINCIPAL ===== -->
   <main id="main-content">
 
-    <!-- ===== SECCIÓN 1: PORTADA / HERO ===== -->
-    <section class="section-slide" id="home" aria-labelledby="home-title">
+    <!-- ===== SECCIÓN 1: HOME ===== -->
+    <section class="section-slide" id="home">
       <div class="section-inner">
-        <div class="hero-eyebrow">💡SEPTIEMBRE 2026</div>
-        <h1 class="hero-title" id="home-title">OFERTA<br>COMERCIAL<br><span class="brand"><img
-              src="img/logo_winnaranja.png" alt="WIN"
-              style="height:135px;width:auto;display:block;margin-top:0.1rem;"></span></h1>
-        <p class="hero-subtitle">Conectividad fibra óptica de alta velocidad para Lima y provincias. Planes flexibles y
-          promociones exclusivas.</p>
-        <!-- Grid de estadísticas rápidas -->
+        <div class="hero-eyebrow" id="hero-tag">💡 GENERAL</div>
+        <h1 class="hero-title">OFERTA<br>COMERCIAL<br><span class="brand"><img src="img/logo_winnaranja.png" alt="WIN" style="height:135px;width:auto;display:block;margin-top:0.1rem;"></span></h1>
+        <p class="hero-subtitle" id="hero-desc">Conectividad fibra óptica de alta velocidad para Lima y provincias. Planes flexibles y promociones exclusivas.</p>
+        
         <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-num">2.5GB</div>
-            <div class="stat-label">Velocidad máxima XGSPON</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">50%</div>
-            <div class="stat-label">Descuento promo principal</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">+20</div>
-            <div class="stat-label">Planes disponibles</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">S/99</div>
-            <div class="stat-label">Plan Lima desde</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">S/69</div>
-            <div class="stat-label">Plan Provincia desde</div>
-          </div>
+          <div class="stat-card"><div class="stat-num">2.5GB</div><div class="stat-label">Velocidad máxima XGSPON</div></div>
+          <div class="stat-card"><div class="stat-num">50%</div><div class="stat-label">Descuento promo principal</div></div>
+          <div class="stat-card"><div class="stat-num">+20</div><div class="stat-label">Planes disponibles</div></div>
+          <div class="stat-card"><div class="stat-num">S/99</div><div class="stat-label">Plan Lima desde</div></div>
         </div>
-        <!-- Botones de acceso rápido a secciones -->
+        
         <div class="quick-access">
-          <button class="btn-primary" data-section="lima" data-sound="click">📡 Ver Planes Lima</button>
-          <button class="btn-primary" data-section="provincia" data-sound="click">🗺️ Ver Planes Provincia</button>
-          <button class="btn-ghost" data-section="facturacion" data-sound="click">🧮 Simular Facturación</button>
-          <button class="btn-ghost" data-section="adicionales" data-sound="click">➕ Servicios Adicionales</button>
+          <button class="btn-primary btn-planes-acceso" data-section="lima">📡 Ver Planes Lima</button>
+          <button class="btn-primary btn-planes-acceso" data-section="provincia">🗺️ Ver Planes Provincia</button>
+          <button class="btn-ghost" data-section="facturacion">🧮 Simular Facturación</button>
+          <button class="btn-ghost" data-section="adicionales">➕ Servicios Adicionales</button>
         </div>
       </div>
-    </section><!-- /home -->
+    </section>
 
     <!-- ===== SECCIÓN 2: PLANES LIMA ===== -->
-    <section class="section-slide" id="lima" aria-labelledby="lima-title">
+    <section class="section-slide" id="lima">
       <div class="section-inner">
-        <h2 class="section-title" id="lima-title">Planes <span class="accent">Lima</span></h2>
-        <p class="section-subtitle">Fibra óptica con la mayor velocidad del mercado. Elige tu plan ideal.</p>
-        <!-- Barra de tabs Lima -->
-        <div class="tab-bar" role="tablist" aria-label="Categorías Lima">
-          <button class="tab-btn active" role="tab" data-tab="lima-mono" data-sound="click" aria-selected="true">🏠 Mono
-            Residencial</button>
-          <button class="tab-btn" role="tab" data-tab="lima-xgspon" data-sound="click" aria-selected="true">⚡ XGSPON /
-            Gamer</button>
-          <button class="tab-btn" role="tab" data-tab="lima-bundles" data-sound="click" aria-selected="true">📺HB
-            WTV</button>
-          <button class="tab-btn" role="tab" data-tab="lima-dgo" data-sound="click" aria-selected="true">🎬 HB
-            DGO</button>
-          <button class="tab-btn" role="tab" data-tab="RUC20lima" data-sound="click" aria-selected="true"> 🏪RUC20
-          </button>
+        <h2 class="section-title">Planes <span class="accent">Lima</span></h2>
+        <p class="section-subtitle">Fibra óptica con la mayor velocidad del mercado.</p>
+        <div class="tab-bar" role="tablist">
+          <button class="tab-btn active" role="tab" data-tab="lima-mono">🏠 Mono Residencial</button>
+          <button class="tab-btn" role="tab" data-tab="lima-xgspon">⚡ XGSPON / Gamer</button>
+          <button class="tab-btn" role="tab" data-tab="lima-bundles">📺 HB WTV</button>
+          <button class="tab-btn" role="tab" data-tab="lima-dgo">🎬 HB DGO</button>
+          <button class="tab-btn" role="tab" data-tab="RUC20lima"> 🏪 RUC20</button>
         </div>
-        <!-- Carga dinámica desde Supabase -->
-        <!-- ===== TAB LIMA: MONO RESIDENCIAL ===== -->
-        <div class="tab-panel active" id="panel-lima-mono" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Promoción</th>
-                  <th>Beneficios</th>
-                  <th>Vertical</th>
-                </tr>
-              </thead>
-              <tbody id="tabla-lima-mono">
-               </tbody>  
-            </table>
-          </div>
-          <!-- Cards visuales del tab Mono -->
-          <!-- Contenedor dinámico de Cards visuales del tab Mono -->
-          <div id="grid-lima-mono" class="plans-grid" style="margin-top:1.5rem"></div>
-        </div><!-- /panel-lima-mono -->
-
-        <!-- ===== TAB LIMA: XGSPON / GAMER ===== -->
-        <div class="tab-panel" id="panel-lima-xgspon" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Promoción</th>
-                  <th>Beneficios</th>
-                  <th>Vertical</th>
-                </tr>
-              </thead>
-              <tbody id="tabla-lima-xgspon">
-              </tbody>
-            </table>
-          </div>
-          <div id="grid-lima-xgspon" class="plans-grid" style="margin-top:1.5rem"></div>
-        </div><!-- /panel-lima-xgspon -->
-
-        <!-- ===== TAB LIMA: COMBOS HB WTV ===== -->
-        <div class="tab-panel" id="panel-lima-bundles" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Promoción</th>
-                  <th>Equipos</th>
-                  <th>Vertical</th>
-                </tr>
-              </thead>
-              <tbody id="tabla-lima-wtv">
-              </tbody>
-            </table>
-          </div>
-          <div id="grid-lima-wtv" class="plans-grid" style="margin-top:1.5rem"></div>
-        </div><!-- /panel-lima-bundles -->
-        <!-- ===== TAB LIMA: HB DGO ===== -->
-        <div class="tab-panel" id="panel-lima-dgo" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Promoción</th>
-                  <th>Equipos</th>
-                  <th>Vertical</th>
-                </tr>
-              </thead>
-              <tbody id="tabla-lima-dgo">
-              </tbody>
-            </table>
-          </div>
-        <div id="grid-lima-dgo" class="plans-grid" style="margin-top:1.5rem"></div>
-        </div><!-- /panel-lima-dgo -->
-        <!-- ===== TAB LIMA: RUC20 ===== -->
-        <div class="tab-panel" id="panel-RUC20lima" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Plan</th>
-                  <th>Precio Normal</th>
-                  <th>Equipos</th>
-                </tr>
-              </thead>
-              <tbody id="tabla-lima-ruc20">
-              </tbody>
-            </table>
-          </div>
-        <div id="grid-lima-ruc20" class="plans-grid" style="margin-top:1.5rem">
-        </div><!-- /plans-grid RUC20 -->
-        </div>
-    </section><!-- /lima -->
+        <!-- Paneles -->
+        <div class="tab-panel active" id="panel-lima-mono"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-mono"></tbody></table></div><div id="grid-lima-mono" class="plans-grid" style="margin-top:1.5rem"></div></div>
+        <div class="tab-panel" id="panel-lima-xgspon"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-xgspon"></tbody></table></div><div id="grid-lima-xgspon" class="plans-grid" style="margin-top:1.5rem"></div></div>
+        <div class="tab-panel" id="panel-lima-bundles"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Equipos</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-wtv"></tbody></table></div><div id="grid-lima-wtv" class="plans-grid" style="margin-top:1.5rem"></div></div>
+        <div class="tab-panel" id="panel-lima-dgo"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Equipos</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-dgo"></tbody></table></div><div id="grid-lima-dgo" class="plans-grid" style="margin-top:1.5rem"></div></div>
+        <div class="tab-panel" id="panel-RUC20lima"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Equipos</th></tr></thead><tbody id="tabla-lima-ruc20"></tbody></table></div><div id="grid-lima-ruc20" class="plans-grid" style="margin-top:1.5rem"></div></div>
+      </div>
+    </section>
 
     <!-- ===== SECCIÓN 3: PLANES PROVINCIA ===== -->
-    <section class="section-slide" id="provincia" aria-labelledby="prov-title">
+    <section class="section-slide" id="provincia">
       <div class="section-inner">
-        <h2 class="section-title" id="prov-title">Planes <span class="accent">Provincia</span></h2>
-        <p class="section-subtitle">Cobertura nacional con beneficios exclusivos como FonoWin y upgrade de velocidad.</p>
-        
-        <div class="tab-bar" role="tablist" aria-label="Categorías Provincia">
-          <button class="tab-btn active" role="tab" data-tab="prov-mono" data-sound="click" aria-selected="true">🏠 Mono Residencial</button>
-          <button class="tab-btn" role="tab" data-tab="prov-hbtv" data-sound="click" aria-selected="false">📺 HB WTV</button>
-          <button class="tab-btn" role="tab" data-tab="prov-dgofonowin" data-sound="click" aria-selected="false">🎬 HB DGO/FONOWIN</button>
-          <button class="tab-btn" role="tab" data-tab="prov-RUC20" data-sound="click" aria-selected="false"> 🏪 RUC 20</button>
+        <h2 class="section-title">Planes <span class="accent">Provincia</span></h2>
+        <p class="section-subtitle">Cobertura nacional con beneficios exclusivos.</p>
+        <div class="tab-bar" role="tablist">
+          <button class="tab-btn active" role="tab" data-tab="prov-mono">🏠 Mono Residencial</button>
+          <button class="tab-btn" role="tab" data-tab="prov-hbtv">📺 HB WTV</button>
+          <button class="tab-btn" role="tab" data-tab="prov-dgofonowin">🎬 HB DGO/FONOWIN</button>
+          <button class="tab-btn" role="tab" data-tab="prov-RUC20"> 🏪 RUC 20</button>
         </div>
-
-        <!-- TAB PROVINCIA: MONO -->
-        <div class="tab-panel active" id="panel-prov-mono" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr>
-              </thead>
-              <tbody id="tabla-prov-mono"></tbody>
-            </table>
-          </div>
-          <div id="grid-prov-mono" class="plans-grid" style="margin-top:1.5rem"></div>
-        </div>
-
-        <!-- TAB PROVINCIA: HB WIN TV -->
-        <div class="tab-panel" id="panel-prov-hbtv" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr>
-              </thead>
-              <tbody id="tabla-prov-wtv"></tbody>
-            </table>
-          </div>
-          <div id="grid-prov-wtv" class="plans-grid" style="margin-top:1.5rem"></div>
-        </div>
-
-        <!-- TAB PROVINCIA: HB DGO -->
-        <div class="tab-panel" id="panel-prov-dgofonowin" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr>
-              </thead>
-              <tbody id="tabla-prov-dgo"></tbody>
-            </table>
-          </div>
-          <div id="grid-prov-dgo" class="plans-grid" style="margin-top:1.5rem"></div>
-        </div>
-
-        <!-- TAB PROVINCIAS: RUC20 -->
-        <div class="tab-panel" id="panel-prov-RUC20" role="tabpanel">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>Plan</th><th>Precio Normal</th><th>Equipos</th></tr>
-              </thead>
-              <tbody id="tabla-prov-ruc20"></tbody>
-            </table>
-          </div>
-          <div id="grid-prov-ruc20" class="plans-grid" style="margin-top:1.5rem"></div>
-        </div>
+        <div class="tab-panel active" id="panel-prov-mono"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr></thead><tbody id="tabla-prov-mono"></tbody></table></div><div id="grid-prov-mono" class="plans-grid" style="margin-top:1.5rem"></div></div>
+        <div class="tab-panel" id="panel-prov-hbtv"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr></thead><tbody id="tabla-prov-wtv"></tbody></table></div><div id="grid-prov-wtv" class="plans-grid" style="margin-top:1.5rem"></div></div>
+        <div class="tab-panel" id="panel-prov-dgofonowin"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>FonoWin</th><th>Vertical</th></tr></thead><tbody id="tabla-prov-dgo"></tbody></table></div><div id="grid-prov-dgo" class="plans-grid" style="margin-top:1.5rem"></div></div>
+        <div class="tab-panel" id="panel-prov-RUC20"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Equipos</th></tr></thead><tbody id="tabla-prov-ruc20"></tbody></table></div><div id="grid-prov-ruc20" class="plans-grid" style="margin-top:1.5rem"></div></div>
       </div>
-    </section><!-- /provincia -->
+    </section>
+
+    <!-- ===== SECCIÓN NUEVA: INFORMACIÓN GENERAL (EXCLUSIVA DE CROSS) ===== -->
+    <section class="section-slide oculto-por-canal" id="info-general">
+        <div class="section-inner">
+            <h2 class="section-title">INFORMACIÓN <span class="accent">GENERAL</span></h2>
+            <p class="section-subtitle">Costos y beneficios de nuestros servicios de streaming.</p>
+
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="cambiarTabInfo('paramount')">PARAMOUNT +</button>
+                <button class="info-tab" onclick="cambiarTabInfo('universal')">UNIVERSAL +</button>
+            </div>
+
+            <!-- TAB PARAMOUNT -->
+            <div id="info-paramount" class="info-content-box">
+                <div class="info-header-bar"><span style="color:#FF5A0A;font-size:1.4rem;">●</span> PARAMOUNT+</div>
+                <div class="info-body-pad">
+                    <h4 class="info-h4">| BENEFICIOS</h4>
+                    <p class="info-p">Paramount+ es un servicio de streaming donde puedes disfrutar de series, películas y contenidos originales de MTV, Nickelodeon, Paramount y Comedy Central.</p>
+                    <div class="info-cards-grid">
+                        <div class="info-card-item"><strong>Pantallas simultáneas:</strong> hasta 2.</div>
+                        <div class="info-card-item"><strong>Perfiles:</strong> hasta 6 perfiles por cuenta.</div>
+                        <div class="info-card-item"><strong>Compatibilidad:</strong> Google Chrome, Mozilla Firefox, Safari, Internet Explorer y Microsoft Edge.</div>
+                        <div class="info-card-item">Disponible también en <strong>Smart TV y TV Box</strong> que cuenten con la aplicación en su tienda.</div>
+                        <div class="info-card-item"><strong>Calidad HD:</strong> para visualizar contenido en HD, el dispositivo debe ser compatible.</div>
+                    </div>
+                    <h4 class="info-h4">| COSTOS</h4>
+                    <p class="info-p" style="margin-bottom:0"><strong>S/ 14.90 mensuales</strong> (Facturado como servicio adicional independiente).</p>
+                </div>
+            </div>
+
+            <!-- TAB UNIVERSAL -->
+            <div id="info-universal" class="info-content-box" style="display: none;">
+                <div class="info-header-bar"><span style="color:#10b981;font-size:1.4rem;">●</span> UNIVERSAL+</div>
+                <div class="info-body-pad">
+                    <h4 class="info-h4" style="border-color:#10b981; color:#10b981">| BENEFICIOS</h4>
+                    <p class="info-p">Disfruta de las mejores series, películas taquilleras y franquicias exclusivas del ecosistema de Universal Studios en alta calidad.</p>
+                    <div class="info-cards-grid">
+                        <div class="info-card-item" style="border-left-color:#10b981">Miles de horas de contenido On-Demand.</div>
+                        <div class="info-card-item" style="border-left-color:#10b981">Series aclamadas exclusivas de USA Network, SYFY y más.</div>
+                        <div class="info-card-item" style="border-left-color:#10b981">Películas directamente desde el cine a tu hogar.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ===== SECCIÓN 4: SERVICIOS ADICIONALES ===== -->
-    <section class="section-slide" id="adicionales" aria-labelledby="adic-title">
+    <section class="section-slide" id="adicionales">
       <div class="section-inner">
-        <h2 class="section-title" id="adic-title">Servicios <span class="accent">Adicionales</span></h2>
-        <p class="section-subtitle">Potencia tu plan con estos servicios complementarios disponibles a demanda.</p>
-        
-        <!-- CONTENEDOR DINÁMICO SUPABASE (Vacío) -->
-        <div id="grid-adicionales" class="adicionales-grid">
-           <!-- Las tarjetas de servicios adicionales se dibujarán aquí automáticamente desde Supabase -->
-        </div>
+        <h2 class="section-title">Servicios <span class="accent">Adicionales</span></h2>
+        <p class="section-subtitle">Potencia tu plan con estos servicios complementarios.</p>
+        <div id="grid-adicionales" class="adicionales-grid"></div>
+      </div>
+    </section>
 
-      </div><!-- /section-inner -->
-    </section><!-- /adicionales -->
-
-    <!-- ===== SECCIÓN 5: SIMULADOR DE FACTURACIÓN ===== -->
-    <section class="section-slide" id="facturacion" aria-labelledby="sim-title">
+    <!-- ===== SECCIÓN 5: SIMULADOR ===== -->
+    <section class="section-slide" id="facturacion">
       <div class="section-inner">
-        <h2 class="section-title" id="sim-title">Simulador de <span class="accent">Facturación</span></h2>
-        <p class="section-subtitle">Calcula tu primera factura y fecha de emisión según el día de instalación.</p>
+        <h2 class="section-title">Simulador de <span class="accent">Facturación</span></h2>
+        <p class="section-subtitle">Calcula tu primera factura según el día de instalación.</p>
         <div class="sim-layout">
-
-          <!-- === COLUMNA IZQUIERDA: Formulario y Resultados === -->
           <div class="sim-form-card">
-            <!-- Formulario de simulación -->
             <form id="sim-form" novalidate>
-              <!-- Campo: Día de instalación -->
               <div class="form-group">
                 <label class="form-label" for="sim-dia">📅 Día de instalación (1 - 31)</label>
-                <input class="form-input" type="number" id="sim-dia" min="1" max="31" placeholder="Ej: 15"
-                  aria-describedby="sim-dia-hint" required />
-                <small id="sim-dia-hint"
-                  style="color:var(--text-muted);font-size:0.78rem;margin-top:0.3rem;display:block">
-                  Ingresa el día del mes en que se instalará el servicio
-                </small>
+                <input class="form-input" type="number" id="sim-dia" min="1" max="31" placeholder="Ej: 15" required />
               </div>
-              <!-- Campo: Monto del plan -->
               <div class="form-group">
                 <label class="form-label" for="sim-monto">💰 Monto mensual del plan (S/)</label>
-                <input class="form-input" type="number" id="sim-monto" min="1" step="0.01" placeholder="Ej: 139"
-                  aria-describedby="sim-monto-hint" required />
-                <small id="sim-monto-hint"
-                  style="color:var(--text-muted);font-size:0.78rem;margin-top:0.3rem;display:block">
-                  Precio mensual del plan sin descuento
-                </small>
+                <input class="form-input" type="number" id="sim-monto" min="1" step="0.01" placeholder="Ej: 139" required />
               </div>
-
-              <!-- Botón principal (1er Recibo) -->
-              <button type="submit" class="btn-primary"
-                style="width:100%;justify-content:center;display:flex;gap:0.5rem;" data-sound="calc">
-                🧾 Calcular 1er Recibo
-              </button>
-
-              <!-- Contenedor fila para botones secundarios -->
+              <button type="submit" class="btn-primary" style="width:100%;justify-content:center;display:flex;gap:0.5rem;" data-sound="calc">🧾 Calcular 1er Recibo</button>
               <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; width: 100%;">
-                <!-- Botón + Recibos -->
-                <a href="https://simulador-web-zeta.vercel.app/" target="_blank" rel="noopener noreferrer"
-                  style="flex: 1; display:flex;align-items:center;justify-content:center;gap:0.3rem;padding:0.75rem 0.2rem;background:linear-gradient(135deg,#FFD600,#FFC107);color:#1a1a1a;font-weight:800;font-size:0.85rem;font-family:var(--font-titulo);border-radius:10px;text-decoration:none;box-shadow:0 4px 15px rgba(255,214,0,0.4);transition:all 0.25s ease;cursor:pointer;text-align:center;"
-                  onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(255,214,0,0.55)';"
-                  onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(255,214,0,0.4)';"
-                  data-sound="click">
-                  💲 + Recibos
-                </a>
-
-                <!-- Botón Oferta Vertical -->
-                <button type="button" id="btnVertical" class="btn-primary"
-                  style="flex: 1; justify-content:center;display:flex;align-items:center;gap:0.3rem;background-color:#4c534b;padding:0.75rem 0.2rem;font-size:0.85rem;border-radius:10px;box-shadow: 0 4px 15px rgba(96, 112, 100, 0.35);"
-                  data-sound="calc">
-                  🏢 Oferta Vertical
-                </button>
+                <a href="https://simulador-web-zeta.vercel.app/" target="_blank" style="flex: 1; display:flex;align-items:center;justify-content:center;gap:0.3rem;padding:0.75rem 0.2rem;background:linear-gradient(135deg,#FFD600,#FFC107);color:#1a1a1a;font-weight:800;font-size:0.85rem;font-family:var(--font-titulo);border-radius:10px;text-decoration:none;box-shadow:0 4px 15px rgba(255,214,0,0.4);" data-sound="click">💲 + Recibos</a>
+                <button type="button" id="btnVertical" class="btn-primary" style="flex: 1; justify-content:center;display:flex;align-items:center;gap:0.3rem;background-color:#4c534b;padding:0.75rem 0.2rem;font-size:0.85rem;border-radius:10px;box-shadow: 0 4px 15px rgba(96, 112, 100, 0.35);" data-sound="calc">🏢 Oferta Vertical</button>
               </div>
             </form>
-
-            <!-- RESULTADOS DEL SIMULADOR (Ahora DENTRO de la tarjeta blanca) -->
-
-            <!-- Contenedor del resultado vertical (Oculto inicialmente) -->
             <div class="sim-result" id="res-vertical" style="border-color: #353836; background-color: #353836;"></div>
-
-            <!-- Resultado dinámico del simulador normal -->
-            <div class="sim-result" id="sim-result" aria-live="polite" aria-label="Resultado de la simulación">
-              <div class="sim-result-row"><span class="sr-label">📅 Día instalación</span><span class="sr-val"
-                  id="res-dia">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">📤 Fecha de emisión</span><span class="sr-val"
-                  id="res-emision">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">📆 Fecha de vencimiento</span><span class="sr-val"
-                  id="res-vencimiento">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">📋 Tipo de cobro</span><span class="sr-val"
-                  id="res-tipo">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">💵 Monto plan</span><span class="sr-val"
-                  id="res-monto-plan">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">💳 Primer cobro</span><span class="sr-val big"
-                  id="res-cobro">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">📝 Detalle</span><span class="sr-val" id="res-detalle"
-                  style="font-size:0.82rem;text-align:right;max-width:60%">—</span></div>
-            </div><!-- /sim-result -->
-
-          </div><!-- /sim-form-card -->
-
-          <!-- === COLUMNA DERECHA: Cuadro de referencia de ciclos === -->
+            <div class="sim-result" id="sim-result">
+              <div class="sim-result-row"><span class="sr-label">📅 Día instalación</span><span class="sr-val" id="res-dia">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📤 Fecha de emisión</span><span class="sr-val" id="res-emision">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📆 Fecha de vencimiento</span><span class="sr-val" id="res-vencimiento">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📋 Tipo de cobro</span><span class="sr-val" id="res-tipo">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">💵 Monto plan</span><span class="sr-val" id="res-monto-plan">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">💳 Primer cobro</span><span class="sr-val big" id="res-cobro">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📝 Detalle</span><span class="sr-val" id="res-detalle" style="font-size:0.82rem;text-align:right;max-width:60%">—</span></div>
+            </div>
+          </div>
           <div class="table-wrap">
             <table class="data-table" style="max-width:700px">
-              <thead>
-                <tr>
-                  <th>Día de Instalación</th>
-                  <th>Día de Emisión</th>
-                  <th>Vencimiento</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Día de Instalación</th><th>Día de Emisión</th><th>Vencimiento</th></tr></thead>
               <tbody>
-                <tr>
-                  <td>01 – 10</td>
-                  <td class="td-promo">Día 11 (mes actual)</td>
-                  <td>Día 28</td>
-                </tr>
-                <tr>
-                  <td>11 – 14</td>
-                  <td class="td-promo">Día 15</td>
-                  <td>Día 28</td>
-                </tr>
-                <tr>
-                  <td>15 – 18</td>
-                  <td class="td-promo">Día 19</td>
-                  <td>Día 28</td>
-                </tr>
-                <tr>
-                  <td>19 – 22</td>
-                  <td class="td-promo">Día 23</td>
-                  <td>Día 28</td>
-                </tr>
-                <tr>
-                  <td>23 – 31</td>
-                  <td class="td-promo">Día 11 (MES SIGUIENTE)</td>
-                  <td>Día 28</td>
-                </tr>
+                <tr><td>01 – 10</td><td class="td-promo">Día 11 (mes actual)</td><td>Día 28</td></tr>
+                <tr><td>11 – 14</td><td class="td-promo">Día 15</td><td>Día 28</td></tr>
+                <tr><td>15 – 18</td><td class="td-promo">Día 19</td><td>Día 28</td></tr>
+                <tr><td>19 – 22</td><td class="td-promo">Día 23</td><td>Día 28</td></tr>
+                <tr><td>23 – 31</td><td class="td-promo">Día 11 (MES SIGUIENTE)</td><td>Día 28</td></tr>
               </tbody>
             </table>
-          </div><!-- /table-wrap -->
-
-        </div><!-- /sim-layout -->
-      </div><!-- /section-inner -->
-    </section><!-- /facturacion -->
-  </main><!-- /main -->
-
-  <!-- ===== FOOTER ===== -->
-  <footer id="site-footer">
-    <div class="footer-logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:70px;
-    width:auto;
-    display:inline-block;">
-    </div>
-    <p>Oferta Comercial 2026 &mdash; CFD - FORMACIÓN<br>
-      Pensado y creado por Madeloun - Pedro<br>
-  </footer>
-
-  <!-- ===== FAB: BOTONES FLOTANTES ===== -->
-  <div id="fab-container" aria-label="Acciones rápidas">
-    <!-- FAB mute/unmute de audio -->
-    <button class="fab-btn" id="fab-mute" title="Activar/Silenciar sonidos" aria-label="Silenciar sonidos"
-      aria-pressed="false">
-      🔊
-    </button>
-    <!-- FAB ir al simulador -->
-    <button class="fab-btn" id="fab-calc" title="Ir al Simulador" aria-label="Ir al simulador"
-      data-section="facturacion" data-sound="click">
-      🧮
-    </button>
-    <!-- FAB volver arriba -->
-    <button class="fab-btn" id="fab-top" title="Volver al inicio" aria-label="Volver al inicio" data-section="home"
-      data-sound="click">
-      ▲
-    </button>
-  </div>
-
-  <!-- ===== TOAST DE NOTIFICACIONES ===== -->
-  <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-
-  <!-- ===== MODAL POP-UP: PARRILLA DE CANALES ===== -->
-  <div id="modal-parrilla" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
-    aria-labelledby="modal-parrilla-titulo">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <div class="modal-title-wrap">
-          <span class="modal-icon">📺</span>
-          <div>
-            <h3 id="modal-parrilla-titulo" class="modal-title">Parrilla de Canales</h3>
-            <span id="modal-parrilla-badge" class="modal-badge">WIN Entretenimiento</span>
           </div>
         </div>
-        <button id="modal-close-btn" class="modal-close" aria-label="Cerrar modal" data-sound="click">✕</button>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer">
+    <div class="footer-logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:70px; display:inline-block;"></div>
+    <p>Oferta Comercial 2026 &mdash; CFD - FORMACIÓN<br>Pensado y creado por Madeloun - Pedro</p>
+  </footer>
+
+  <div id="fab-container">
+    <button class="fab-btn" id="fab-mute">🔊</button>
+    <button class="fab-btn" id="fab-calc" data-section="facturacion">🧮</button>
+    <button class="fab-btn" id="fab-top" data-section="home">▲</button>
+  </div>
+
+  <div id="toast"></div>
+
+  <!-- MODAL DE PARRILLAS (DINÁMICO) -->
+  <div id="modal-parrilla" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap"><span class="modal-icon">📺</span><div><h3 id="modal-parrilla-titulo" class="modal-title">Parrilla</h3><span id="modal-parrilla-badge" class="modal-badge">WIN Entretenimiento</span></div></div>
+        <button id="modal-close-btn" class="modal-close">✕</button>
       </div>
       <div class="modal-body">
-        <div class="modal-img-container">
-          <!-- La imagen se inyecta desde Supabase dinámicamente -->
-          <img id="modal-parrilla-img" src="" alt="Parrilla de canales WIN" />
-        </div>
+        <div class="modal-img-container"><img id="modal-parrilla-img" src="" alt="Parrilla" /></div>
       </div>
       <div class="modal-footer">
-        <span id="modal-parrilla-desc" class="modal-desc">Detalle de canales disponibles</span>
-        <button id="modal-footer-close" class="btn-primary btn-sm" data-sound="click">Cerrar</button>
+        <span id="modal-parrilla-desc" class="modal-desc">Detalles</span>
+        <button id="modal-footer-close" class="btn-primary btn-sm">Cerrar</button>
       </div>
     </div>
   </div>
 
-  <!-- =====================================================================
-       BLOQUE JAVASCRIPT ÚNICO Y DEFINITIVO
-       ===================================================================== -->
   <script>
-    /* ========================================================
-       MÓDULO: Web Audio API - Sonidos sintetizados (sin MP3)
-       ======================================================== */
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    let ctx = null; 
-    let muted = false; 
+    // ==========================================
+    // 1. DETECTOR DE CANALES Y NAVEGACIÓN
+    // ==========================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const canalActual = (urlParams.get('canal') || 'GENERAL').toUpperCase();
 
-    function getCtx() {
-      if (!AudioCtx) return null;
-      if (!ctx) ctx = new AudioCtx();
-      if (ctx.state === "suspended") ctx.resume();
-      return ctx;
-    }
-
-    function playTone({ type = "sine", freqStart, freqEnd, duration = 0.1, vol = 0.15, delay = 0 }) {
-      if (muted) return;
-      const c = getCtx();
-      if (!c) return;
-      const osc = c.createOscillator();
-      const gain = c.createGain();
-      osc.connect(gain);
-      gain.connect(c.destination);
-      osc.type = type;
-      const t = c.currentTime + delay;
-      osc.frequency.setValueAtTime(freqStart, t);
-      osc.frequency.linearRampToValueAtTime(freqEnd ?? freqStart, t + duration);
-      gain.gain.setValueAtTime(vol, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + duration + 0.02);
-      osc.start(t);
-      osc.stop(t + duration + 0.05);
-    }
-
-    const SFX = {
-      click() { playTone({ type: "sine", freqStart: 800, freqEnd: 600, duration: 0.06 }); },
-      calc() {
-        playTone({ type: "triangle", freqStart: 500, freqEnd: 1000, duration: 0.12, vol: 0.12 });
-        playTone({ type: "sine", freqStart: 1000, freqEnd: 1200, duration: 0.12, vol: 0.10, delay: 0.10 });
-      },
-      success() {
-        [0, 0.12, 0.24].forEach((d, i) => {
-          playTone({ type: "sine", freqStart: 600 + i * 200, duration: 0.1, vol: 0.12, delay: d });
-        });
-      },
-      error() { playTone({ type: "sawtooth", freqStart: 300, freqEnd: 200, duration: 0.15, vol: 0.12 }); },
-      mute() { playTone({ type: "triangle", freqStart: 400, freqEnd: 300, duration: 0.1, vol: 0.1 }); },
-      unmute() { playTone({ type: "triangle", freqStart: 300, freqEnd: 500, duration: 0.12, vol: 0.12 }); },
-      nav() { playTone({ type: "sine", freqStart: 700, freqEnd: 900, duration: 0.08, vol: 0.10 }); }
-    };
-
-    const DOM = {
-      progressBar: document.getElementById("progress-bar"),
-      hamburgerBtn: document.getElementById("hamburger-btn"),
-      drawer: document.getElementById("site-drawer"),
-      drawerOverlay: document.getElementById("drawer-overlay"),
-      drawerCloseBtn: document.getElementById("drawer-close-btn"),
-      pageDots: document.querySelectorAll(".page-dot"),
-      navBtns: document.querySelectorAll(".nav-btn"),
-      sections: document.querySelectorAll(".section-slide"),
-      fabMute: document.getElementById("fab-mute"),
-      toast: document.getElementById("toast"),
-      simForm: document.getElementById("sim-form"),
-      simResult: document.getElementById("sim-result"),
-    };
-
-    const SECCIONES = ["home", "lima", "provincia", "adicionales", "facturacion"];
-    let seccionActual = 0;
-
-    let toastTimer = null;
-    function mostrarToast(msg, duracion = 2500) {
-      clearTimeout(toastTimer);
-      DOM.toast.textContent = msg;
-      DOM.toast.classList.add("visible");
-      toastTimer = setTimeout(() => DOM.toast.classList.remove("visible"), duracion);
-    }
-
-    function actualizarProgreso() {
-      const scrollTop = window.scrollY;
-      const docH = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docH > 0 ? (scrollTop / docH) * 100 : 0;
-      DOM.progressBar.style.width = pct + "%";
-    }
-
-    function navegarA(seccionId) {
-      const el = document.getElementById(seccionId);
-      if (!el) return;
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      const idx = SECCIONES.indexOf(seccionId);
-      if (idx !== -1) seccionActual = idx;
-      actualizarDots(seccionId);
-      actualizarNavBtns(seccionId);
-      cerrarDrawer();
-    }
-
-    function navegarSiguiente() {
-      const siguiente = (seccionActual + 1) % SECCIONES.length;
-      navegarA(SECCIONES[siguiente]);
-    }
-
-    function navegarAnterior() {
-      const anterior = (seccionActual - 1 + SECCIONES.length) % SECCIONES.length;
-      navegarA(SECCIONES[anterior]);
-    }
-
-    function actualizarDots(seccionId) {
-      DOM.pageDots.forEach(dot => {
-        dot.classList.toggle("active", dot.dataset.section === seccionId);
+    // Actualiza el array de secciones solo con las visibles
+    let SECCIONES_ACTIVAS = [];
+    function actualizarSeccionesVisibles() {
+      SECCIONES_ACTIVAS = Array.from(document.querySelectorAll('.section-slide:not(.oculto-por-canal)')).map(s => s.id);
+      
+      // Ocultar los botones de navegación que pertenecen a secciones escondidas
+      document.querySelectorAll('.page-dot, .nav-btn, .dnav-item').forEach(btn => {
+         const sec = btn.dataset.section;
+         if (sec) {
+            if (SECCIONES_ACTIVAS.includes(sec)) {
+                btn.classList.remove('oculto-por-canal');
+            } else {
+                btn.classList.add('oculto-por-canal');
+            }
+         }
       });
     }
 
-    function actualizarNavBtns(seccionId) {
-      DOM.navBtns.forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.section === seccionId);
-      });
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
-          const id = entry.target.id;
-          const idx = SECCIONES.indexOf(id);
-          if (idx !== -1) seccionActual = idx;
-          actualizarDots(id);
-          actualizarNavBtns(id);
+    function configurarInterfazPorCanal() {
+        if (canalActual === 'CROSS') {
+            // Ocultar Planes
+            document.getElementById('lima').classList.add('oculto-por-canal');
+            document.getElementById('provincia').classList.add('oculto-por-canal');
+            document.querySelectorAll('.btn-planes-acceso').forEach(btn => btn.style.display = 'none');
+            
+            // Mostrar Info General
+            document.getElementById('info-general').classList.remove('oculto-por-canal');
+            document.getElementById('hero-tag').textContent = `💡 CANAL CROSS`;
+            document.getElementById('hero-desc').textContent = "Beneficios exclusivos, argumentarios y servicios adicionales a tu medida.";
+        } 
+        else if (canalActual === 'ATQ') {
+            document.getElementById('hero-tag').textContent = `💡 CANAL ATQ`;
         }
-      });
-    }, { threshold: 0.4 });
-
-    DOM.sections.forEach(s => observer.observe(s));
-
-    function abrirDrawer() {
-      DOM.drawer.classList.add("open");
-      DOM.drawerOverlay.classList.add("open");
-      DOM.hamburgerBtn.setAttribute("aria-expanded", "true");
-      document.body.style.overflow = "hidden";
+        actualizarSeccionesVisibles();
     }
 
-    function cerrarDrawer() {
-      DOM.drawer.classList.remove("open");
-      DOM.drawerOverlay.classList.remove("open");
-      DOM.hamburgerBtn.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
+    // Funcionalidad de los TABS de Información (Paramount vs Universal)
+    window.cambiarTabInfo = function(tipo) {
+        document.querySelectorAll('.info-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.info-content-box').forEach(c => c.style.display = 'none');
+        
+        if(tipo === 'paramount') {
+            document.querySelectorAll('.info-tab')[0].classList.add('active');
+            document.getElementById('info-paramount').style.display = 'block';
+        } else {
+            document.querySelectorAll('.info-tab')[1].classList.add('active');
+            document.getElementById('info-universal').style.display = 'block';
+        }
     }
 
-    DOM.hamburgerBtn.addEventListener("click", () => {
-      SFX.click();
-      if (DOM.drawer.classList.contains("open")) cerrarDrawer();
-      else abrirDrawer();
-    });
-    DOM.drawerCloseBtn.addEventListener("click", () => { SFX.click(); cerrarDrawer(); });
-    DOM.drawerOverlay.addEventListener("click", () => cerrarDrawer());
-
-    function manejarTab(btn) {
-      const tabId = btn.dataset.tab;
-      if (!tabId) return;
-      const tabBar = btn.closest(".tab-bar");
-      const section = btn.closest(".section-slide");
-      if (!tabBar || !section) return;
-      tabBar.querySelectorAll(".tab-btn").forEach(b => {
-        b.classList.remove("active");
-        b.setAttribute("aria-selected", "false");
-      });
-      section.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-      btn.setAttribute("aria-selected", "true");
-      const panel = document.getElementById("panel-" + tabId);
-      if (panel) panel.classList.add("active");
-    }
-
-    /* ========================================================
-       MÓDULO SUPABASE: CONEXIÓN Y CARGA DINÁMICA
-       ======================================================== */
+    // ==========================================
+    // 2. CONEXIÓN A SUPABASE Y RENDERIZADO
+    // ==========================================
     const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74';  
     const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+    document.addEventListener("DOMContentLoaded", () => {
+      configurarInterfazPorCanal();
+      cargarTodosLosPlanes();
+    });
+
     async function cargarTodosLosPlanes() {
-      try {
-        // Cargar Planes de Internet
-        const { data: planes, error: errPlanes } = await clienteSupabase
-          .from('planes_generales')
-          .select('*')
-          .order('orden', { ascending: true }); 
+        try {
+            const { data: planes, error: errPlanes } = await clienteSupabase.from('planes_generales').select('*').order('orden', { ascending: true }); 
+            if (errPlanes) throw errPlanes;
+            
+            // Filtro por canal y luego renderizado normal
+            const planesCanal = planes.filter(p => (p.canal || 'GENERAL').toUpperCase() === canalActual);
+            
+            if(canalActual !== 'CROSS') {
+                const limaPlanes = planesCanal.filter(p => (p.region || '').toLowerCase() === 'lima');
+                const provPlanes = planesCanal.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
 
-        if (errPlanes) console.error("Error al obtener planes de Supabase:", errPlanes);
-        else {
-          const limaPlanes = planes.filter(p => (p.region || '').toLowerCase() === 'lima');
-          const provPlanes = planes.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
+                pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-lima-mono', 'grid-lima-mono');
+                pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon_gamer'), 'tabla-lima-xgspon', 'grid-lima-xgspon');
+                pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
+                pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-lima-dgo', 'grid-lima-dgo');
+                pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
 
-          pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-lima-mono', 'grid-lima-mono');
-          pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon_gamer'), 'tabla-lima-xgspon', 'grid-lima-xgspon');
-          pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
-          pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-lima-dgo', 'grid-lima-dgo');
-          pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
-
-          pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono', true);
-          pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
-          pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
-          pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
-        }
-
-        // Cargar Servicios Adicionales Dinámicos
-        await cargarServiciosAdicionales();
-
-      } catch (err) {
-        console.error("Excepción al cargar datos:", err);
-      }
-    }
-
-    // --- NUEVA FUNCIÓN: CARGAR SERVICIOS ADICIONALES ---
-    async function cargarServiciosAdicionales() {
-      try {
-        const { data, error } = await clienteSupabase
-          .from('servicios_adicionales')
-          .select('*')
-          .order('orden', { ascending: true });
-        
-        if (error) throw error;
-
-        const gridAdicionales = document.getElementById('grid-adicionales');
-        if (!gridAdicionales) return;
-        
-        gridAdicionales.innerHTML = '';
-
-        if (!data || data.length === 0) {
-            gridAdicionales.innerHTML = `<p style="color:var(--text-muted); width:100%; text-align:center;">Pronto habrá nuevos servicios disponibles.</p>`;
-            return;
-        }
-
-        data.forEach(srv => {
-            // Detectar si el servicio tiene una foto en Supabase
-            const tieneParrilla = srv.imagen_url && srv.imagen_url.trim() !== '';
-            const claseParrilla = tieneParrilla ? 'con-parrilla' : '';
-            const titleDinamico = tieneParrilla ? `title="Haz clic para ver la parrilla"` : '';
-            const btnParrillaHTML = tieneParrilla 
-              ? `<button class="btn-ver-parrilla" data-img-url="${srv.imagen_url}" data-img-title="Parrilla · ${srv.nombre}" data-sound="click">📺 Ver canales</button>` 
-              : '';
-
-            // Procesar la descripción para mantener los saltos de línea y el estilo
-            let notasHtml = '';
-            if (srv.descripcion) {
-                const lineas = srv.descripcion.split('\n');
-                lineas.forEach(linea => {
-                    if(linea.trim() !== '') {
-                        notasHtml += `<div class="srv-note">${linea.trim()}</div>`;
-                    }
-                });
+                pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono', true);
+                pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
+                pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
+                pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
             }
 
-            // Dibujar la tarjeta idéntica a tu diseño original
-            gridAdicionales.innerHTML += `
-              <div class="servicio-card ${claseParrilla}" ${tieneParrilla ? `data-img-url="${srv.imagen_url}" data-img-title="Parrilla · ${srv.nombre}"` : ''} ${titleDinamico}>
+            await cargarServiciosAdicionales();
+        } catch (err) { console.error(err); }
+    }
+
+    async function cargarServiciosAdicionales() {
+        const { data, error } = await clienteSupabase.from('servicios_adicionales').select('*').order('orden', { ascending: true });
+        if (error) return;
+
+        const grid = document.getElementById('grid-adicionales');
+        grid.innerHTML = '';
+        
+        const serviciosCanal = data.filter(s => (s.canal || 'GENERAL').toUpperCase() === canalActual);
+
+        serviciosCanal.forEach(srv => {
+            const tieneParrilla = srv.imagen_url && srv.imagen_url.trim() !== '';
+            const btnParrillaHTML = tieneParrilla 
+              ? `<button class="btn-ver-parrilla" data-img-url="${srv.imagen_url}" data-img-title="Parrilla · ${srv.nombre}">📺 Ver canales</button>` : '';
+
+            let notasHtml = '';
+            if (srv.descripcion) srv.descripcion.split('\n').forEach(l => { if(l.trim()) notasHtml += `<div class="srv-note">${l.trim()}</div>` });
+
+            grid.innerHTML += `
+              <div class="servicio-card ${tieneParrilla ? 'con-parrilla' : ''}" ${tieneParrilla ? `data-img-url="${srv.imagen_url}" data-img-title="Parrilla · ${srv.nombre}"` : ''}>
                 <div class="srv-icon">${srv.icono || '✨'}</div>
                 <div class="srv-name">${srv.nombre}</div>
                 <div class="srv-price">S/ ${srv.precio} <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
                 ${notasHtml}
                 ${btnParrillaHTML}
-              </div>
-            `;
+              </div>`;
         });
-      } catch (err) {
-        console.error("Error cargando servicios adicionales:", err);
-      }
     }
 
     function pintarTablaSupabase(lista, idTabla, idGrid, esProvincia = false) {
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
       if (!tbody) return;
-      tbody.innerHTML = '';
-      if (grid) grid.innerHTML = '';
+      tbody.innerHTML = ''; if (grid) grid.innerHTML = '';
 
       if (!lista || lista.length === 0) {
-        const celdasVacias = esProvincia ? 6 : 5; 
-        tbody.innerHTML = `<tr><td colspan="${celdasVacias}" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="${esProvincia ? 6 : 5}" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
         return;
       }
 
       lista.forEach(plan => {
-        let precioPromoHtml = '';
-        if (plan.precio_promo && plan.precio_promo > 0) {
-          precioPromoHtml = `<span style="color: #ff6b00; font-weight: bold;">S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small></span>`;
-        } else {
-          precioPromoHtml = `<span class="badge badge-no">Sin promo</span>`;
-        }
-
-        const beneficioTexto = (plan.beneficio_tabla || '').trim();
-        const esNoBeneficio = beneficioTexto === '' || beneficioTexto.toUpperCase() === 'NO';
-        const beneficioHtml = esNoBeneficio ? `<span class="badge badge-no">NO</span>` : beneficioTexto;
+        let precioPromoHtml = plan.precio_promo > 0 ? `<span style="color: #ff6b00; font-weight: bold;">S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small></span>` : `<span class="badge badge-no">Sin promo</span>`;
+        const benTxt = (plan.beneficio_tabla || '').trim();
+        const beneficioHtml = (benTxt === '' || benTxt.toUpperCase() === 'NO') ? `<span class="badge badge-no">NO</span>` : benTxt;
 
         let fonowinTdHtml = '';
-        if (esProvincia) {
-          const esSiFonowin = (plan.fonowin || 'NO').toUpperCase() === 'SI';
-          const fonowinBadge = esSiFonowin ? `<span class="badge badge-si">SÍ</span>` : `<span class="badge badge-no">NO</span>`;
-          fonowinTdHtml = `<td>${fonowinBadge}</td>`; 
-        }
+        if (esProvincia) fonowinTdHtml = `<td>${(plan.fonowin || 'NO').toUpperCase() === 'SI' ? '<span class="badge badge-si">SÍ</span>' : '<span class="badge badge-no">NO</span>'}</td>`; 
 
-        const esSiVertical = (plan.aplica_vertical || 'NO').toUpperCase() === 'SI';
-        const verticalBadge = esSiVertical ? `<span class="badge badge-si">SÍ</span>` : `<span class="badge badge-no">NO</span>`;
+        const verticalBadge = (plan.aplica_vertical || 'NO').toUpperCase() === 'SI' ? `<span class="badge badge-si">SÍ</span>` : `<span class="badge badge-no">NO</span>`;
 
-        tbody.innerHTML += `
-          <tr>
-            <td><strong>${plan.nombre_plan}</strong></td>
-            <td>S/ ${plan.precio_regular}</td>
-            <td>${precioPromoHtml}</td>
-            <td>${beneficioHtml}</td>
-            ${fonowinTdHtml}
-            <td>${verticalBadge}</td>
-          </tr>
-        `;
+        tbody.innerHTML += `<tr><td><strong>${plan.nombre_plan}</strong></td><td>S/ ${plan.precio_regular}</td><td>${precioPromoHtml}</td><td>${beneficioHtml}</td>${fonowinTdHtml}<td>${verticalBadge}</td></tr>`;
 
         if (grid) {
           const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
           const cardFeatured = plan.badge ? 'featured' : '';
-          const tienePromoReal = plan.precio_promo && plan.precio_promo > 0;
-          const montoParaSimulador = tienePromoReal ? plan.precio_promo : plan.precio_regular;
-
-          const precioRegularCardHtml = tienePromoReal 
-            ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` 
-            : '';
-
-          const nombreCardMostrar = plan['nombre-card'] && plan['nombre-card'].trim() !== '' ? plan['nombre-card'] : plan.nombre_plan;
-          const textoPromoCardMostrar = plan['texto-promo-card'] || '';
-
+          const tienePromo = plan.precio_promo > 0;
+          
           let checksHtml = '';
-          if (plan.detalles_card && plan.detalles_card.trim() !== '') {
-            const lineas = plan.detalles_card.split('\n');
-            lineas.forEach(linea => {
-              if (linea.trim() !== '') { checksHtml += `<li>${linea.trim()}</li>`; }
-            });
+          if (plan.detalles_card && plan.detalles_card.trim()) {
+            plan.detalles_card.split('\n').forEach(l => { if (l.trim()) checksHtml += `<li>${l.trim()}</li>` });
           } else {
-            checksHtml = `
-              <li>${tienePromoReal ? '50% descuento promocional' : 'Sin promoción activa'}</li>
-              <li>Fibra Óptica</li>
-              <li>${esSiVertical ? 'Acceso a Vertical WIN' : 'Sin acceso a Vertical WIN'}</li>
-            `;
+            checksHtml = `<li>Fibra Óptica</li><li>${plan.aplica_vertical === 'SI' ? 'Acceso a Vertical WIN' : 'Beneficios exclusivos'}</li>`;
           }
 
           grid.innerHTML += `
             <div class="plan-card ${cardFeatured}">
               ${badgeTopHtml}
-              <button class="btn-card-sim" data-sim-monto="${montoParaSimulador}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
-              <div class="plan-name">${nombreCardMostrar}</div>
+              <button class="btn-card-sim" data-sim-monto="${tienePromo ? plan.precio_promo : plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="${plan.aplica_vertical}" data-sim-regular="${plan.precio_regular}">🧮</button>
+              <div class="plan-name">${plan['nombre-card'] || plan.nombre_plan}</div>
               <div class="plan-speed">${plan.velocidad || ''}</div>
-              <div class="plan-price">S/ ${tienePromoReal ? plan.precio_promo : plan.precio_regular} <small>${tienePromoReal ? textoPromoCardMostrar : ''}</small></div>
-              ${precioRegularCardHtml}
+              <div class="plan-price">S/ ${tienePromo ? plan.precio_promo : plan.precio_regular} <small>${tienePromo ? (plan['texto-promo-card'] || '') : ''}</small></div>
+              ${tienePromo ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular}</div>` : ''}
               <div class="plan-details">${checksHtml}</div>
-            </div>
-          `;
+            </div>`;
         }
       });
     }
@@ -2242,8 +674,7 @@
       const tbody = document.getElementById(idTabla);
       const grid = document.getElementById(idGrid);
       if (!tbody) return;
-      tbody.innerHTML = '';
-      if (grid) grid.innerHTML = '';
+      tbody.innerHTML = ''; if (grid) grid.innerHTML = '';
 
       if (!lista || lista.length === 0) {
         tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
@@ -2251,320 +682,207 @@
       }
 
       lista.forEach(plan => {
-        const beneficioTexto = (plan.beneficio_tabla || '').trim();
-        const esNoBeneficio = beneficioTexto === '' || beneficioTexto.toUpperCase() === 'NO';
-        const beneficioHtml = esNoBeneficio ? `<span class="badge badge-no">NO</span>` : beneficioTexto;
-
-        tbody.innerHTML += `
-          <tr>
-            <td><strong>${plan.nombre_plan}</strong></td>
-            <td>S/ ${plan.precio_regular}</td>
-            <td>${beneficioHtml}</td>
-          </tr>
-        `;
+        const benTxt = (plan.beneficio_tabla || '').trim();
+        const beneficioHtml = (benTxt === '' || benTxt.toUpperCase() === 'NO') ? `<span class="badge badge-no">NO</span>` : benTxt;
+        tbody.innerHTML += `<tr><td><strong>${plan.nombre_plan}</strong></td><td>S/ ${plan.precio_regular}</td><td>${beneficioHtml}</td></tr>`;
 
         if (grid) {
-          const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
-          const cardFeatured = plan.badge ? 'featured' : '';
-          const tienePromoReal = plan.precio_promo && plan.precio_promo > 0;
-          const montoParaSimulador = tienePromoReal ? plan.precio_promo : plan.precio_regular;
-
-          const precioRegularCardHtml = tienePromoReal 
-            ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular.toFixed(2)}</div>` 
-            : '';
-
-          const nombreCardMostrar = plan['nombre-card'] && plan['nombre-card'].trim() !== '' ? plan['nombre-card'] : plan.nombre_plan;
-          const textoPromoCardMostrar = plan['texto-promo-card'] || '';
-
+          const tienePromo = plan.precio_promo > 0;
           let checksHtml = '';
-          if (plan.detalles_card && plan.detalles_card.trim() !== '') {
-            const lineas = plan.detalles_card.split('\n');
-            lineas.forEach(linea => {
-              if (linea.trim() !== '') { checksHtml += `<li>${linea.trim()}</li>`; }
-            });
+          if (plan.detalles_card && plan.detalles_card.trim()) {
+            plan.detalles_card.split('\n').forEach(l => { if (l.trim()) checksHtml += `<li>${l.trim()}</li>` });
           } else {
-            checksHtml = `
-              <li>Fibra Óptica</li>
-              <li>${beneficioTexto}</li>
-              <li>Ideal para empresas</li>
-            `;
+            checksHtml = `<li>Fibra Óptica</li><li>${beneficioHtml}</li><li>Ideal para empresas</li>`;
           }
 
           grid.innerHTML += `
-            <div class="plan-card ${cardFeatured}">
-              ${badgeTopHtml}
-              <button class="btn-card-sim" data-sim-monto="${montoParaSimulador}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="NO" data-sim-regular="${plan.precio_regular}" title="Simular este plan">🧮</button>
-              <div class="plan-name">${nombreCardMostrar}</div>
+            <div class="plan-card">
+              <button class="btn-card-sim" data-sim-monto="${tienePromo ? plan.precio_promo : plan.precio_regular}" data-sim-plan="${plan.nombre_plan}" data-sim-vertical="NO" data-sim-regular="${plan.precio_regular}">🧮</button>
+              <div class="plan-name">${plan['nombre-card'] || plan.nombre_plan}</div>
               <div class="plan-speed">${plan.velocidad || ''}</div>
-              <div class="plan-price">S/ ${tienePromoReal ? plan.precio_promo : plan.precio_regular} <small>${tienePromoReal ? textoPromoCardMostrar : ''}</small></div>
-              ${precioRegularCardHtml}
+              <div class="plan-price">S/ ${tienePromo ? plan.precio_promo : plan.precio_regular} <small>${tienePromo ? (plan['texto-promo-card'] || '') : ''}</small></div>
+              ${tienePromo ? `<div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 4px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 0.5rem;">Precio regular: S/ ${plan.precio_regular}</div>` : ''}
               <div class="plan-details">${checksHtml}</div>
-            </div>
-          `;
+            </div>`;
         }
       });
     }
 
-    // Arrancar la carga de datos al abrir la página
-    document.addEventListener("DOMContentLoaded", () => {
-      cargarTodosLosPlanes();
-    });
+    // ==========================================
+    // 3. EVENTOS, SCROLL Y MODALES
+    // ==========================================
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let ctx = null, muted = false; 
 
-    /* ========================================================
-       MÓDULO: Simulador de Facturación
-       ======================================================== */
+    function playTone({ type = "sine", freqStart, freqEnd, duration = 0.1, vol = 0.15, delay = 0 }) {
+      if (muted || !AudioCtx) return;
+      if (!ctx) ctx = new AudioCtx();
+      if (ctx.state === "suspended") ctx.resume();
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = type;
+      const t = ctx.currentTime + delay;
+      osc.frequency.setValueAtTime(freqStart, t);
+      osc.frequency.linearRampToValueAtTime(freqEnd ?? freqStart, t + duration);
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + duration + 0.02);
+      osc.start(t); osc.stop(t + duration + 0.05);
+    }
+
+    const SFX = {
+      click: () => playTone({ type: "sine", freqStart: 800, freqEnd: 600, duration: 0.06 }),
+      calc: () => { playTone({ type: "triangle", freqStart: 500, freqEnd: 1000, duration: 0.12, vol: 0.12 }); playTone({ type: "sine", freqStart: 1000, freqEnd: 1200, duration: 0.12, vol: 0.10, delay: 0.10 }); },
+      success: () => [0, 0.12, 0.24].forEach((d, i) => playTone({ type: "sine", freqStart: 600 + i * 200, duration: 0.1, vol: 0.12, delay: d })),
+      error: () => playTone({ type: "sawtooth", freqStart: 300, freqEnd: 200, duration: 0.15, vol: 0.12 })
+    };
+
+    const DOM = {
+      toast: document.getElementById("toast"),
+      simForm: document.getElementById("sim-form"),
+      simResult: document.getElementById("sim-result")
+    };
+
+    let toastTimer = null;
+    function mostrarToast(msg) {
+      clearTimeout(toastTimer);
+      DOM.toast.textContent = msg; DOM.toast.classList.add("visible");
+      toastTimer = setTimeout(() => DOM.toast.classList.remove("visible"), 2500);
+    }
+
+    function navegarA(seccionId) {
+      const el = document.getElementById(seccionId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelectorAll(".page-dot").forEach(d => d.classList.toggle("active", d.dataset.section === seccionId));
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.section === seccionId));
+      document.getElementById("site-drawer").classList.remove("open");
+      document.getElementById("drawer-overlay").classList.remove("open");
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.4 && !entry.target.classList.contains('oculto-por-canal')) {
+          const id = entry.target.id;
+          document.querySelectorAll(".page-dot").forEach(d => d.classList.toggle("active", d.dataset.section === id));
+          document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.section === id));
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll(".section-slide").forEach(s => observer.observe(s));
+
+    document.getElementById("hamburger-btn").addEventListener("click", () => { document.getElementById("site-drawer").classList.add("open"); document.getElementById("drawer-overlay").classList.add("open"); });
+    document.getElementById("drawer-close-btn").addEventListener("click", () => { document.getElementById("site-drawer").classList.remove("open"); document.getElementById("drawer-overlay").classList.remove("open"); });
+    document.getElementById("drawer-overlay").addEventListener("click", () => { document.getElementById("site-drawer").classList.remove("open"); document.getElementById("drawer-overlay").classList.remove("open"); });
+
+    function manejarTab(btn) {
+      const tabBar = btn.closest(".tab-bar"), section = btn.closest(".section-slide");
+      if (!tabBar || !section) return;
+      tabBar.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      section.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("panel-" + btn.dataset.tab)?.classList.add("active");
+    }
+
+    // Modal Parrilla Dinámico (Desde Supabase)
+    const modalParrilla = document.getElementById("modal-parrilla");
+    function abrirModalParrillaDinamico(url, titulo) {
+      document.getElementById("modal-parrilla-titulo").textContent = titulo;
+      document.getElementById("modal-parrilla-img").src = url;
+      modalParrilla.classList.add("open");
+      SFX.click();
+    }
+    document.getElementById("modal-close-btn").addEventListener("click", () => modalParrilla.classList.remove("open"));
+    document.getElementById("modal-footer-close").addEventListener("click", () => modalParrilla.classList.remove("open"));
+    modalParrilla.addEventListener("click", (e) => { if(e.target === modalParrilla) modalParrilla.classList.remove("open") });
+
+    // Simulador
+    let planVertical = false, planPrecio = 0;
     DOM.simForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const diaInput = document.getElementById("sim-dia").value;
-      const montoInput = document.getElementById("sim-monto").value;
-      const dia = parseInt(diaInput, 10);
-      const monto = parseFloat(montoInput);
-
+      const dia = parseInt(document.getElementById("sim-dia").value, 10), monto = parseFloat(document.getElementById("sim-monto").value);
       if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) return;
-
-      if (DOM.simResult.classList.contains("visible")) {
-        DOM.simResult.classList.remove("visible");
-        SFX.click();
-        return;
-      }
-
+      
       SFX.calc();
       document.getElementById("res-vertical").classList.remove("visible");
-
-      let diaEmision, mesEmisionOffset, ciclo, tipoCobro;
-      if (dia >= 1 && dia <= 10) { diaEmision = 11; mesEmisionOffset = 0; ciclo = "01–10"; }
-      else if (dia >= 11 && dia <= 14) { diaEmision = 15; mesEmisionOffset = 0; ciclo = "11–14"; }
-      else if (dia >= 15 && dia <= 18) { diaEmision = 19; mesEmisionOffset = 0; ciclo = "15–18"; }
-      else if (dia >= 19 && dia <= 22) { diaEmision = 23; mesEmisionOffset = 0; ciclo = "19–22"; }
-      else { diaEmision = 11; mesEmisionOffset = 1; ciclo = "23–31"; }
-
-      let primerCobro, detalle;
-      const tarifa_dia = monto / 30;
-      const fechaActual = new Date();
-      const ultimoDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0).getDate();
-
-      if (dia >= 1 && dia <= 22) {
-        tipoCobro = "Proporcional";
-        const diasCobro = ultimoDiaMes - dia + 1;
-        primerCobro = tarifa_dia * diasCobro;
-        detalle = `(S/ ${tarifa_dia.toFixed(2)}/día × ${diasCobro} días hasta el día ${ultimoDiaMes})`;
-      } else {
-        tipoCobro = "Consolidado";
-        const diasRestantes = ultimoDiaMes - dia + 1;
-        const cobroParcial = tarifa_dia * diasRestantes;
-        primerCobro = cobroParcial + monto;
-        detalle = `(${diasRestantes} días de este mes + 1 mes completo = S/ ${cobroParcial.toFixed(2)} + S/ ${monto.toFixed(2)})`;
-      }
-
-      const hoy = new Date();
-      const mesBase = hoy.getMonth();
-      const anioBase = hoy.getFullYear();
-      const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
-      let mesEmision = mesBase + mesEmisionOffset;
-      let anioEmision = anioBase;
-      if (mesEmision > 11) { mesEmision -= 12; anioEmision++; }
       
-      const emisionStr = `${diaEmision} de ${meses[mesEmision]} ${anioEmision}`;
-      const vencimientoStr = `28 de ${meses[mesEmision]} ${anioEmision}`;
+      let diaEmision = (dia <= 10) ? 11 : (dia <= 14) ? 15 : (dia <= 18) ? 19 : (dia <= 22) ? 23 : 11;
+      let mesOffset = (dia >= 23) ? 1 : 0;
+      let tarifa_dia = monto / 30;
+      let ultimoDia = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+      
+      let cobro, tipo, det;
+      if(dia <= 22) { tipo = "Proporcional"; cobro = tarifa_dia * (ultimoDia - dia + 1); det = `(S/ ${tarifa_dia.toFixed(2)}/día × ${ultimoDia - dia + 1} días)`; }
+      else { tipo = "Consolidado"; cobro = (tarifa_dia * (ultimoDia - dia + 1)) + monto; det = `(${ultimoDia - dia + 1} días + 1 mes completo)`; }
+
+      const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+      let d = new Date(), m = d.getMonth() + mesOffset, a = d.getFullYear();
+      if(m > 11){ m -= 12; a++; }
 
       document.getElementById("res-dia").textContent = `Día ${dia}`;
-      document.getElementById("res-emision").textContent = emisionStr;
-      document.getElementById("res-vencimiento").textContent = vencimientoStr;
-      document.getElementById("res-tipo").textContent = tipoCobro;
+      document.getElementById("res-emision").textContent = `${diaEmision} de ${meses[m]} ${a}`;
+      document.getElementById("res-vencimiento").textContent = `28 de ${meses[m]} ${a}`;
+      document.getElementById("res-tipo").textContent = tipo;
       document.getElementById("res-monto-plan").textContent = `S/ ${monto.toFixed(2)}`;
-      document.getElementById("res-cobro").textContent = `S/ ${primerCobro.toFixed(2)}`;
-      document.getElementById("res-detalle").textContent = detalle;
-
+      document.getElementById("res-cobro").textContent = `S/ ${cobro.toFixed(2)}`;
+      document.getElementById("res-detalle").textContent = det;
+      
       DOM.simResult.classList.add("visible");
       setTimeout(() => SFX.success(), 300);
-      mostrarToast("✅ Simulación calculada correctamente");
+      mostrarToast("✅ Simulación calculada");
     });
-
-    /* ========================================================
-       MÓDULO: Oferta Vertical
-       ======================================================== */
-    let planSeleccionado_aplicaVertical = false;
-    let planSeleccionado_precioRegular = 0;
 
     document.getElementById("btnVertical").addEventListener("click", () => {
-      const diaInput = document.getElementById("sim-dia").value;
-      const montoInput = document.getElementById("sim-monto").value;
-      const dia = parseInt(diaInput, 10);
-      const monto = parseFloat(montoInput);
-      const contenedorVertical = document.getElementById("res-vertical");
+      const dia = parseInt(document.getElementById("sim-dia").value, 10), monto = parseFloat(document.getElementById("sim-monto").value);
+      if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) return;
+      SFX.calc(); DOM.simResult.classList.remove("visible");
 
-      if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) {
-        SFX.error();
-        mostrarToast("⚠️ Ingresa un día y monto válidos");
-        return;
-      }
-
-      if (contenedorVertical.classList.contains("visible")) {
-        contenedorVertical.classList.remove("visible");
-        SFX.click();
-        return;
-      }
-
-      SFX.calc();
-      DOM.simResult.classList.remove("visible");
-
-      if (planSeleccionado_aplicaVertical) {
-        const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        const mesActual = new Date().getMonth();
-        let mesEmisionOffset = (dia >= 23) ? 1 : 0;
-
-        const mes1 = meses[(mesActual + mesEmisionOffset) % 12];
-        const mes2 = meses[(mesActual + mesEmisionOffset + 1) % 12];
-        const mes3 = meses[(mesActual + mesEmisionOffset + 2) % 12];
-
-        contenedorVertical.style.borderColor = "#475569";
-        contenedorVertical.style.backgroundColor = "#FFFFFF";
-        contenedorVertical.innerHTML = `
-          <h4 style="color: #475569; margin-bottom: 12px; text-align: center; font-family: var(--font-titulo); font-weight: 900;">✅ Aplica para Oferta Vertical</h4>
-          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem;">
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 6px;">
-                  <span style="color: var(--text-muted); font-weight: 500;"><strong>1er Recibo</strong> (${mes1})</span> <span style="color:#FF5A0A; font-weight:900; font-family: var(--font-titulo);">S/ 1.00</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 6px;">
-                  <span style="color: var(--text-muted); font-weight: 500;"><strong>2do Recibo</strong> (${mes2})</span> <span style="color:#FF5A0A; font-weight:900; font-family: var(--font-titulo);">S/ 1.00</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; padding-bottom: 4px;">
-                  <span style="color: var(--text-muted); font-weight: 500;"><strong>3er Recibo</strong> (${mes3})</span> <span style="font-weight:900; font-family: var(--font-titulo); color: var(--text-main);">S/ ${planSeleccionado_precioRegular.toFixed(2)}</span>
-              </div>
-              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; text-align: center;">
-                  *A partir del 3er recibo se cobra el precio regular sin descuento.
-              </div>
-          </div>
-        `;
-        setTimeout(() => SFX.success(), 300);
-        mostrarToast("✅ Oferta Vertical calculada");
+      const res = document.getElementById("res-vertical");
+      if (planVertical) {
+        const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+        let m = new Date().getMonth() + (dia >= 23 ? 1 : 0);
+        res.innerHTML = `<h4 style="color:#475569;margin-bottom:10px;text-align:center;">✅ Aplica Vertical</h4>
+        <div style="font-size:0.95rem;"><div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span><strong>1er Recibo</strong> (${meses[m%12]})</span><span style="color:#FF5A0A;font-weight:900;">S/ 1.00</span></div>
+        <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span><strong>2do Recibo</strong> (${meses[(m+1)%12]})</span><span style="color:#FF5A0A;font-weight:900;">S/ 1.00</span></div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px;"><span><strong>3er Recibo</strong> (${meses[(m+2)%12]})</span><span style="font-weight:900;">S/ ${planPrecio.toFixed(2)}</span></div></div>`;
+        res.style.borderColor = "#475569"; res.style.backgroundColor = "#FFF"; setTimeout(() => SFX.success(), 300); mostrarToast("✅ Oferta Vertical calculada");
       } else {
-        contenedorVertical.style.borderColor = "#dc3545";
-        contenedorVertical.style.backgroundColor = "#fff8f8";
-        contenedorVertical.innerHTML = `
-          <h4 style="color: #dc3545; margin-bottom: 10px; text-align: center; font-family: var(--font-titulo); font-weight: 800;">❌ No aplica a Oferta Vertical</h4>
-          <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin: 0; line-height: 1.5;">
-              El plan seleccionado NO califica para el beneficio de S/ 1.00 o digitaste un monto manual.
-          </p>
-        `;
-        SFX.error();
+        res.innerHTML = `<h4 style="color:#dc3545;text-align:center;">❌ No aplica</h4><p style="text-align:center;font-size:0.85rem;margin:0;">El plan no califica para S/ 1.00</p>`;
+        res.style.borderColor = "#dc3545"; res.style.backgroundColor = "#fff8f8"; SFX.error();
       }
-      contenedorVertical.classList.add("visible");
+      res.classList.add("visible");
     });
 
-    function simularConPrecio(monto, plan, aplicaVertical = 'NO', precioRegular = 0) {
-      navegarA("facturacion");
-      planSeleccionado_aplicaVertical = (aplicaVertical === 'SI');
-      planSeleccionado_precioRegular = parseFloat(precioRegular) || 0;
-
-      const inputMonto = document.getElementById("sim-monto");
-      if (inputMonto) {
-        inputMonto.value = monto;
-        inputMonto.dispatchEvent(new Event("input", { bubbles: true }));
-      }
-
-      const inputDia = document.getElementById("sim-dia");
-      if (inputDia) {
-        const diaVal = parseInt(inputDia.value, 10);
-        if (!isNaN(diaVal) && diaVal >= 1 && diaVal <= 31) {
-          setTimeout(() => {
-            DOM.simForm.dispatchEvent(new Event("submit", { cancelable: true }));
-          }, 250);
-        } else {
-          setTimeout(() => inputDia.focus(), 350);
-        }
-      }
-      SFX.calc();
-      mostrarToast(`📋 Oferta cargada: ${plan} (S/ ${monto})`);
-    }
-
-    /* ========================================================
-       MÓDULO: Modal Parrilla de Canales Dinámico (Supabase)
-       ======================================================== */
-    const modalParrilla = document.getElementById("modal-parrilla");
-    const modalImg = document.getElementById("modal-parrilla-img");
-    const modalTitulo = document.getElementById("modal-parrilla-titulo");
-    const modalDesc = document.getElementById("modal-parrilla-desc");
-    const modalCloseBtn = document.getElementById("modal-close-btn");
-    const modalFooterClose = document.getElementById("modal-footer-close");
-
-    // Ahora la función recibe la URL y el Título directamente desde la base de datos
-    function abrirModalParrillaDinamico(urlImagen, titulo) {
-      if (!modalParrilla) return;
-      modalTitulo.textContent = titulo;
-      modalDesc.textContent = "Detalle de canales disponibles";
-      modalImg.src = urlImagen;
-      modalImg.alt = titulo;
-      
-      modalParrilla.classList.add("open");
-      modalParrilla.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      SFX.click();
-    }
-
-    function cerrarModalParrilla() {
-      if (!modalParrilla) return;
-      modalParrilla.classList.remove("open");
-      modalParrilla.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      SFX.click();
-    }
-
-    if (modalCloseBtn) modalCloseBtn.addEventListener("click", cerrarModalParrilla);
-    if (modalFooterClose) modalFooterClose.addEventListener("click", cerrarModalParrilla);
-    if (modalParrilla) {
-      modalParrilla.addEventListener("click", (e) => {
-        if (e.target === modalParrilla) cerrarModalParrilla();
-      });
-    }
-
-    // Lector global de clics en la página
     document.addEventListener("click", (e) => {
-      // 1. Clic en botón del Simulador
       const btnSim = e.target.closest(".btn-card-sim");
       if (btnSim) {
-        e.preventDefault();
-        e.stopPropagation();
-        simularConPrecio(btnSim.dataset.simMonto, btnSim.dataset.simPlan, btnSim.dataset.simVertical, btnSim.dataset.simRegular);
+        navegarA("facturacion");
+        planVertical = (btnSim.dataset.simVertical === 'SI'); planPrecio = parseFloat(btnSim.dataset.simRegular) || 0;
+        document.getElementById("sim-monto").value = btnSim.dataset.simMonto;
+        SFX.calc(); mostrarToast(`📋 Oferta cargada: ${btnSim.dataset.simPlan}`);
         return;
       }
-
-      // 2. Clic en botón "Ver canales" (Lógica Dinámica de Supabase)
+      
       const btnParrilla = e.target.closest("[data-img-url]");
-      if (btnParrilla) {
-        e.preventDefault();
-        abrirModalParrillaDinamico(btnParrilla.dataset.imgUrl, btnParrilla.dataset.imgTitle);
-        return;
-      }
-
-      const targetSound = e.target.closest("[data-sound]");
-      if (targetSound && SFX[targetSound.dataset.sound]) SFX[targetSound.dataset.sound]();
-
-      const targetSection = e.target.closest("[data-section]");
-      if (targetSection && targetSection.dataset.section) navegarA(targetSection.dataset.section);
-
-      const targetTab = e.target.closest(".tab-btn");
-      if (targetTab) manejarTab(targetTab);
+      if (btnParrilla) { e.preventDefault(); abrirModalParrillaDinamico(btnParrilla.dataset.imgUrl, btnParrilla.dataset.imgTitle); return; }
+      
+      const btnSect = e.target.closest("[data-section]");
+      if (btnSect) navegarA(btnSect.dataset.section);
+      
+      const btnTab = e.target.closest(".tab-btn");
+      if (btnTab) manejarTab(btnTab);
     });
 
-    DOM.fabMute.addEventListener("click", () => {
+    // Mute/Unmute
+    document.getElementById("fab-mute").addEventListener("click", (e) => {
       muted = !muted;
-      if (muted) {
-        DOM.fabMute.textContent = "🔇";
-        DOM.fabMute.setAttribute("aria-pressed", "true");
-        mostrarToast("🔇 Sonidos silenciados");
-      } else {
-        DOM.fabMute.textContent = "🔊";
-        DOM.fabMute.setAttribute("aria-pressed", "false");
-        SFX.unmute();
-        mostrarToast("🔊 Sonidos activados");
-      }
+      e.target.textContent = muted ? "🔇" : "🔊";
+      mostrarToast(muted ? "🔇 Sonidos silenciados" : "🔊 Sonidos activados");
     });
 
-    window.addEventListener("scroll", actualizarProgreso, { passive: true });
-    actualizarProgreso();
-    mostrarToast("👋 Bienvenido a la Oferta Comercial - WIN");
+    window.addEventListener("scroll", () => {
+      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById("progress-bar").style.width = (pct || 0) + "%";
+    }, { passive: true });
   </script>
 </body>
-
 </html>
