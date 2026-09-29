@@ -11,14 +11,24 @@
     
     <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6 w-full flex-grow">
         
-        <!-- CABECERA PRINCIPAL CON LOGO ACTUALIZADO -->
+        <!-- CABECERA PRINCIPAL -->
         <div class="flex justify-between items-center mb-6">
             <div>
-                <!-- Se reemplazó el texto por el logo de la carpeta img -->
                 <img src="../img/logo_winnaranja.png" alt="WIN" style="height: 38px; width: auto; margin-bottom: 6px; display: block;">
                 <h2 class="text-xl font-bold text-gray-800">Gestor de Ofertas Comerciales</h2>
             </div>
-            <div class="flex items-center space-x-3">
+            
+            <div class="flex items-center space-x-4">
+                <!-- NUEVO SELECTOR MULTICANAL -->
+                <div class="flex items-center space-x-2 bg-orange-50 border border-orange-200 px-4 py-2 rounded-md shadow-sm">
+                    <span class="text-sm font-bold text-gray-700">CANAL:</span>
+                    <select id="filtro-canal" onchange="cambiarCanal()" class="font-black text-[#ff6b00] bg-transparent outline-none cursor-pointer">
+                        <option value="GENERAL">GENERAL</option>
+                        <option value="CROSS">CROSS</option>
+                        <option value="ATQ">ATQ</option>
+                    </select>
+                </div>
+
                 <button onclick="cerrarSesion()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded transition-colors">
                     Cerrar Sesión
                 </button>
@@ -90,10 +100,10 @@
         </div>
     </div>
 
-    <!-- SELLO DE AUTORÍA Y USO INTERNO -->
+    <!-- SELLO DE AUTORÍA -->
     <footer class="w-full max-w-7xl mx-auto mt-8 text-center pb-4">
         <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">Uso interno exclusivo de Formación WIN</p>
-        <p class="text-xs text-gray-400 mt-1">Plataforma diseñada y creada por <span class="font-semibold text-gray-500">Madeloun T.</span></p>
+        <p class="text-xs text-gray-400 mt-1">Plataforma diseñada y creada por <span class="font-semibold text-gray-500">Madeloun</span></p>
     </footer>
 
     <!-- ==========================================
@@ -102,10 +112,14 @@
     <div id="modal-editar" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6">
-                <h3 id="titulo-modal" class="text-2xl font-bold text-gray-800">Oferta Comercial</h3>
+                <h3 class="text-2xl font-bold text-gray-800">
+                    <span id="titulo-modal">Oferta Comercial</span>
+                    <span id="badge-canal-plan" class="ml-2 text-xs bg-[#ff6b00] text-white px-2 py-1 rounded-md align-middle uppercase tracking-wide"></span>
+                </h3>
                 <button onclick="cerrarModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
             </div>
             <input type="hidden" id="m-id">
+            <input type="hidden" id="m-canal"> <!-- NUEVO CAMPO OCULTO -->
             
             <div class="grid grid-cols-2 gap-4 mb-6">
                 <div>
@@ -190,12 +204,16 @@
     <div id="modal-servicio" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6">
-                <h3 id="titulo-modal-servicio" class="text-2xl font-bold text-gray-800">Servicio Adicional</h3>
+                <h3 class="text-2xl font-bold text-gray-800">
+                    <span id="titulo-modal-servicio">Servicio Adicional</span>
+                    <span id="badge-canal-servicio" class="ml-2 text-xs bg-[#10b981] text-white px-2 py-1 rounded-md align-middle uppercase tracking-wide"></span>
+                </h3>
                 <button onclick="cerrarModalServicio()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
             </div>
             
             <input type="hidden" id="s-id">
             <input type="hidden" id="s-url-actual">
+            <input type="hidden" id="s-canal"> <!-- NUEVO CAMPO OCULTO -->
             
             <div class="space-y-4 mb-6">
                 <div>
@@ -244,13 +262,22 @@
     </div>
 
     <script>
-        // CREDENCIALES
         const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74'; 
         const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
         
         let planesData = []; 
         let serviciosData = [];
+
+        // NUEVA LÓGICA: FILTRO MULTICANAL
+        function obtenerCanalActual() {
+            return document.getElementById('filtro-canal').value;
+        }
+
+        function cambiarCanal() {
+            renderizarTablaPlanes();
+            renderizarTablaServicios();
+        }
 
         function cambiarPestaña(seccion) {
             document.getElementById('seccion-planes').classList.add('hidden');
@@ -264,19 +291,21 @@
                 document.getElementById('seccion-planes').classList.remove('hidden');
                 document.getElementById('tab-planes').classList.replace('bg-gray-200', 'bg-[#ff6b00]');
                 document.getElementById('tab-planes').classList.replace('text-gray-600', 'text-white');
-                cargarPlanes();
             } else {
                 document.getElementById('seccion-servicios').classList.remove('hidden');
                 document.getElementById('tab-servicios').classList.replace('bg-gray-200', 'bg-[#ff6b00]');
                 document.getElementById('tab-servicios').classList.replace('text-gray-600', 'text-white');
-                cargarServicios();
             }
         }
 
         async function verificarSesion() {
             const { data: { user } } = await clienteSupabase.auth.getUser();
             if (!user) window.location.href = '/admin/';
-            else cargarPlanes(); 
+            else {
+                // Cargamos ambos para tener la data lista en memoria
+                cargarPlanes(); 
+                cargarServicios();
+            }
         }
 
         const categoriasPorDefecto = {
@@ -292,12 +321,18 @@
         function actualizarCategorias(categoriaSeleccionada = null) {
             const region = document.getElementById('m-region').value;
             const selectCat = document.getElementById('m-categoria');
+            const canal = obtenerCanalActual();
             let categorias = [...(categoriasPorDefecto[region] || [])];
             
             planesData.forEach(p => {
                 const regBD = (p.region || '').toUpperCase();
                 const catBD = (p.categoria || '').toUpperCase();
-                if (regBD === region && catBD && !categorias.includes(catBD)) categorias.push(catBD);
+                const canalBD = (p.canal || 'GENERAL').toUpperCase();
+                
+                // Solo jala las pestañas del canal que estamos viendo
+                if (regBD === region && catBD && canalBD === canal && !categorias.includes(catBD)) {
+                    categorias.push(catBD);
+                }
             });
 
             selectCat.innerHTML = '';
@@ -331,7 +366,17 @@
         function renderizarTablaPlanes() {
             const tbody = document.getElementById('tabla-planes');
             tbody.innerHTML = '';
-            planesData.forEach(plan => {
+            const canalActual = obtenerCanalActual();
+            
+            // Filtro maestro por canal
+            const planesFiltrados = planesData.filter(p => (p.canal || 'GENERAL').toUpperCase() === canalActual);
+
+            if(planesFiltrados.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-gray-500 py-8 font-bold">No hay planes en el canal ${canalActual}</td></tr>`;
+                return;
+            }
+
+            planesFiltrados.forEach(plan => {
                 tbody.innerHTML += `
                     <tr class="border-b hover:bg-orange-50 transition-colors">
                         <td class="py-3 px-4 uppercase text-xs font-bold text-gray-500">${plan.region}</td>
@@ -347,9 +392,14 @@
         }
 
         function abrirModalNuevo() {
+            const canal = obtenerCanalActual();
             document.getElementById('titulo-modal').innerText = 'Crear Nuevo Plan';
+            document.getElementById('badge-canal-plan').innerText = canal;
+            
             document.getElementById('m-id').value = ''; 
+            document.getElementById('m-canal').value = canal; // Asigna canal
             document.getElementById('m-region').value = 'LIMA';
+            
             actualizarCategorias('MONO_RESIDENCIAL'); 
             ['m-nombre','m-velocidad','m-regular','m-promo','m-texto-promo','m-beneficio','m-orden','m-detalles','m-texto-promo-card','m-nombre-card'].forEach(id => document.getElementById(id).value = '');
             document.getElementById('m-vertical').value = 'NO'; document.getElementById('m-fonowin').value = 'NO';
@@ -360,8 +410,13 @@
             document.getElementById('titulo-modal').innerText = 'Editar Oferta Comercial';
             let plan = (typeof dato !== 'object') ? planesData.find(p => p.id == dato) : dato;
             if (!plan) return;
+            
+            const canal = (plan.canal || 'GENERAL').toUpperCase();
+            document.getElementById('badge-canal-plan').innerText = canal;
+            document.getElementById('m-canal').value = canal;
             document.getElementById('m-id').value = plan.id; 
             document.getElementById('m-region').value = (plan.region || 'LIMA').toUpperCase();
+            
             actualizarCategorias(plan.categoria);
             document.getElementById('m-nombre').value = plan.nombre_plan || '';
             document.getElementById('m-velocidad').value = plan.velocidad || '';      
@@ -392,6 +447,7 @@
             }
 
             const datosPlan = {
+                canal: document.getElementById('m-canal').value,
                 region: document.getElementById('m-region').value, categoria: catElegida,
                 nombre_plan: document.getElementById('m-nombre').value, "nombre-card": document.getElementById('m-nombre-card').value, 
                 velocidad: document.getElementById('m-velocidad').value, precio_regular: parseFloat(document.getElementById('m-regular').value) || 0,
@@ -416,9 +472,7 @@
 
         async function cargarServicios() {
             const { data, error } = await clienteSupabase.from('servicios_adicionales').select('*').order('orden', { ascending: true });
-            const tbody = document.getElementById('tabla-servicios');
-            if (error) return tbody.innerHTML = `<tr><td colspan="5" class="text-center text-red-500 py-4">Error al cargar servicios</td></tr>`;
-            
+            if (error) return;
             serviciosData = data;
             renderizarTablaServicios();
         }
@@ -426,10 +480,19 @@
         function renderizarTablaServicios() {
             const tbody = document.getElementById('tabla-servicios');
             tbody.innerHTML = '';
+            const canalActual = obtenerCanalActual();
             
-            serviciosData.forEach(srv => {
+            // Filtro maestro por canal
+            const serviciosFiltrados = serviciosData.filter(s => (s.canal || 'GENERAL').toUpperCase() === canalActual);
+
+            if(serviciosFiltrados.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-gray-500 py-8 font-bold">No hay servicios en el canal ${canalActual}</td></tr>`;
+                return;
+            }
+            
+            serviciosFiltrados.forEach(srv => {
                 const tieneParrilla = srv.imagen_url && srv.imagen_url.trim() !== '' 
-                    ? '<span class="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full font-bold">SÍ (Mostrará botón)</span>' 
+                    ? '<span class="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full font-bold">SÍ</span>' 
                     : '<span class="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">NO</span>';
                 const emoji = srv.icono ? srv.icono : '';
 
@@ -448,9 +511,13 @@
         }
 
         function abrirModalServicioNuevo() {
+            const canal = obtenerCanalActual();
             document.getElementById('titulo-modal-servicio').innerText = 'Crear Nuevo Servicio';
+            document.getElementById('badge-canal-servicio').innerText = canal;
+            
             document.getElementById('s-id').value = ''; 
             document.getElementById('s-url-actual').value = '';
+            document.getElementById('s-canal').value = canal; // Asigna canal
             
             ['s-nombre','s-precio','s-descripcion','s-orden','s-icono'].forEach(id => document.getElementById(id).value = '');
             document.getElementById('s-imagen').value = '';
@@ -464,6 +531,10 @@
             const srv = serviciosData.find(s => s.id == id);
             if (!srv) return;
 
+            const canal = (srv.canal || 'GENERAL').toUpperCase();
+            document.getElementById('badge-canal-servicio').innerText = canal;
+            
+            document.getElementById('s-canal').value = canal;
             document.getElementById('s-id').value = srv.id; 
             document.getElementById('s-nombre').value = srv.nombre || '';
             document.getElementById('s-precio').value = srv.precio !== null ? srv.precio : '';      
@@ -517,6 +588,7 @@
             }
 
             const datosSrv = {
+                canal: document.getElementById('s-canal').value,
                 nombre: document.getElementById('s-nombre').value,
                 precio: parseFloat(document.getElementById('s-precio').value) || 0,
                 descripcion: document.getElementById('s-descripcion').value,
