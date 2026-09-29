@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WIN · Oferta Comercial 2026</title>
-  <!-- Código del Favicon -->
   <link rel="icon" type="image/png" href="img/favicon.png" />
   <meta name="description" content="Plataforma de Oferta comercial - CFD" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,31 +13,13 @@
   <style>
     /* ===== VARIABLES GLOBALES ===== */
     :root {
-      --color-naranja: #FF5A0A;
-      --color-blanco: #FFFFFF;
-      --color-negro: #0F0908;
-      --color-amarillo: #FFC200;
-      --naranja-dark: #CC4808;
-      --naranja-light: #FF7A3D;
-      --naranja-alpha: rgba(255, 90, 10, 0.10);
-      --naranja-border: rgba(255, 90, 10, 0.25);
-      --bg-page: #F8F9FA;
-      --bg-card: #FFFFFF;
-      --text-main: #0F0908;
-      --text-body: #334155;
-      --text-muted: #64748B;
-      --border-subtle: #E2E8F0;
-      --border-card: #EAECEF;
-      --font-titulo: "Outfit", sans-serif;
-      --font-cuerpo: "Inter", sans-serif;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 20px;
-      --radius-xl: 28px;
-      --transition: 0.3s ease;
-      --shadow-card: 0 4px 20px rgba(15, 9, 8, 0.05);
-      --shadow-hover: 0 12px 32px rgba(255, 90, 10, 0.16);
-      --shadow-glow: 0 0 20px rgba(255, 90, 10, 0.35);
+      --color-naranja: #FF5A0A; --color-blanco: #FFFFFF; --color-negro: #0F0908; --color-amarillo: #FFC200;
+      --naranja-dark: #CC4808; --naranja-light: #FF7A3D; --naranja-alpha: rgba(255, 90, 10, 0.10); --naranja-border: rgba(255, 90, 10, 0.25);
+      --bg-page: #F8F9FA; --bg-card: #FFFFFF; --text-main: #0F0908; --text-body: #334155; --text-muted: #64748B;
+      --border-subtle: #E2E8F0; --border-card: #EAECEF;
+      --font-titulo: "Outfit", sans-serif; --font-cuerpo: "Inter", sans-serif;
+      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px; --radius-xl: 28px; --transition: 0.3s ease;
+      --shadow-card: 0 4px 20px rgba(15, 9, 8, 0.05); --shadow-hover: 0 12px 32px rgba(255, 90, 10, 0.16);
     }
 
     /* ===== RESET Y BASE ===== */
@@ -47,48 +28,37 @@
     body { font-family: var(--font-cuerpo); background: var(--bg-page); color: var(--text-main); overflow-x: hidden; min-height: 100vh; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; border: none; background: none; font-family: inherit; }
-    ul { list-style: none; }
-    img { max-width: 100%; display: block; }
-    table { border-collapse: collapse; width: 100%; }
+    ul { list-style: none; } img { max-width: 100%; display: block; } table { border-collapse: collapse; width: 100%; }
 
-    /* ===== CLASE MÁGICA MULTICANAL (Oculta elementos según el canal) ===== */
-    .oculto-por-canal {
-        display: none !important;
-    }
+    /* ===== CLASE MÁGICA MULTICANAL ===== */
+    .oculto-por-canal { display: none !important; }
 
-    /* ===== BARRA DE PROGRESO ===== */
-    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--color-naranja), var(--color-amarillo)); z-index: 9999; transition: width 0.4s ease; box-shadow: 0 0 8px var(--color-naranja); }
-
-    /* ===== HEADER ===== */
+    /* ===== BARRA DE PROGRESO & HEADER ===== */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--color-naranja), var(--color-amarillo)); z-index: 9999; transition: width 0.4s ease; }
     #site-header { position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 1000; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(16px); border-bottom: 2px solid var(--color-naranja); box-shadow: 0 2px 16px rgba(15, 9, 8, 0.06); display: flex; align-items: center; padding: 0 1.5rem; gap: 1rem; }
-    #site-header .logo { font-family: var(--font-titulo); font-weight: 900; font-size: 1.35rem; color: var(--color-naranja); letter-spacing: -0.5px; display: flex; align-items: center; gap: 0.4rem; }
+    #site-header .logo { font-family: var(--font-titulo); font-weight: 900; font-size: 1.35rem; color: var(--color-naranja); display: flex; align-items: center; gap: 0.4rem; }
     .hamburger-btn { margin-left: auto; width: 40px; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; border-radius: var(--radius-sm); transition: background var(--transition); cursor: pointer; }
-    .hamburger-btn:hover { background: var(--naranja-alpha); }
     .hamburger-btn span { display: block; width: 22px; height: 2px; background: var(--text-main); border-radius: 2px; transition: var(--transition); }
     .header-nav { display: flex; gap: 0.3rem; margin-left: 1rem; }
-    .header-nav .nav-btn { padding: 0.4rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 700; font-family: var(--font-titulo); color: var(--text-body); transition: var(--transition); letter-spacing: 0.3px; }
+    .header-nav .nav-btn { padding: 0.4rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 700; font-family: var(--font-titulo); color: var(--text-body); transition: var(--transition); }
     .header-nav .nav-btn:hover, .header-nav .nav-btn.active { color: var(--color-naranja); background: var(--naranja-alpha); }
 
-    /* ===== DRAWER ===== */
+    /* ===== DRAWER & DOTS ===== */
     #drawer-overlay { position: fixed; inset: 0; z-index: 1100; background: rgba(15, 9, 8, 0.45); backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity var(--transition); }
     #drawer-overlay.open { opacity: 1; pointer-events: all; }
     #site-drawer { position: fixed; top: 0; left: -320px; bottom: 0; width: 300px; z-index: 1200; background: #FFFFFF; border-right: 1px solid var(--border-subtle); box-shadow: 8px 0 30px rgba(0, 0, 0, 0.08); transition: left var(--transition); display: flex; flex-direction: column; padding: 1.5rem; }
     #site-drawer.open { left: 0; }
     .drawer-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
     .drawer-logo img { height: 30px; width: auto; display: block; }
-    .drawer-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.1rem; color: var(--text-muted); transition: var(--transition); cursor: pointer; }
-    .drawer-close:hover { background: var(--naranja-alpha); color: var(--color-naranja); }
+    .drawer-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.1rem; color: var(--text-muted); cursor: pointer; }
     .drawer-nav { display: flex; flex-direction: column; gap: 0.4rem; }
-    .drawer-nav .dnav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; font-family: var(--font-titulo); color: var(--text-body); transition: var(--transition); cursor: pointer; }
+    .drawer-nav .dnav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; font-family: var(--font-titulo); color: var(--text-body); cursor: pointer; }
     .drawer-nav .dnav-item:hover, .drawer-nav .dnav-item.active { background: var(--naranja-alpha); color: var(--color-naranja); }
     .drawer-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); }
     .drawer-footer p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; }
-
-    /* ===== DOTS ===== */
     #page-dots { position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%); z-index: 900; display: flex; flex-direction: column; gap: 10px; }
     .page-dot { width: 10px; height: 10px; border-radius: 50%; background: #CBD5E1; cursor: pointer; transition: var(--transition); border: 2px solid transparent; }
-    .page-dot:hover { background: var(--color-naranja); transform: scale(1.2); }
-    .page-dot.active { background: var(--color-naranja); border-color: var(--color-amarillo); box-shadow: 0 0 10px rgba(255, 90, 10, 0.4); transform: scale(1.2); }
+    .page-dot.active { background: var(--color-naranja); border-color: var(--color-amarillo); transform: scale(1.2); }
 
     /* ===== SECCIONES PRINCIPALES ===== */
     main { padding-top: 60px; }
@@ -97,86 +67,74 @@
     .section-title { font-family: var(--font-titulo); font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15; margin-bottom: 0.5rem; }
     .section-title .accent { color: var(--color-naranja); }
     .section-subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 580px; }
-
     @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ===== HERO PORTADA ===== */
     #home { background: radial-gradient(ellipse 75% 55% at 75% 30%, rgba(255, 90, 10, 0.08) 0%, transparent 65%), linear-gradient(180deg, #FFFFFF 0%, var(--bg-page) 100%); justify-content: center; padding-top: 80px; }
-    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255, 90, 10, 0.08); border: 1px solid var(--naranja-border); border-radius: 99px; padding: 0.3rem 1rem; font-size: 0.78rem; font-weight: 700; font-family: var(--font-titulo); color: var(--color-naranja); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255, 90, 10, 0.08); border: 1px solid var(--naranja-border); border-radius: 99px; padding: 0.3rem 1rem; font-size: 0.78rem; font-weight: 700; font-family: var(--font-titulo); color: var(--color-naranja); letter-spacing: 1.5px; margin-bottom: 1.2rem; }
     .hero-title { font-family: var(--font-titulo); font-weight: 900; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.05; margin-bottom: 1.2rem; color: var(--text-main); }
     .hero-subtitle { font-size: 1.1rem; color: var(--text-body); max-width: 560px; line-height: 1.7; margin-bottom: 2.5rem; }
-    
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
-    .stat-card { background: #FFFFFF; border: 1.5px solid var(--border-card); border-radius: var(--radius-md); padding: 1.2rem 1rem; text-align: center; transition: var(--transition); box-shadow: var(--shadow-card); }
-    .stat-card:hover { border-color: var(--color-naranja); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
-    .stat-card .stat-num { font-family: var(--font-titulo); font-weight: 900; font-size: 2rem; color: var(--color-naranja); }
-    .stat-card .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; font-weight: 600; }
-    
     .quick-access { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-    .btn-primary { background: var(--color-naranja); color: #FFFFFF; font-family: var(--font-titulo); font-weight: 800; padding: 0.8rem 1.8rem; border-radius: var(--radius-md); font-size: 0.95rem; letter-spacing: 0.3px; transition: var(--transition); box-shadow: 0 4px 18px rgba(255, 90, 10, 0.35); }
+    .btn-primary { background: var(--color-naranja); color: #FFFFFF; font-family: var(--font-titulo); font-weight: 800; padding: 0.8rem 1.8rem; border-radius: var(--radius-md); font-size: 0.95rem; cursor: pointer; transition: var(--transition); }
     .btn-primary:hover { background: var(--naranja-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255, 90, 10, 0.5); }
-    .btn-ghost { background: #FFFFFF; border: 2px solid var(--border-subtle); color: var(--text-main); font-family: var(--font-titulo); font-weight: 700; padding: 0.75rem 1.6rem; border-radius: var(--radius-md); font-size: 0.95rem; transition: var(--transition); box-shadow: var(--shadow-card); }
+    .btn-ghost { background: #FFFFFF; border: 2px solid var(--border-subtle); color: var(--text-main); font-family: var(--font-titulo); font-weight: 700; padding: 0.75rem 1.6rem; border-radius: var(--radius-md); font-size: 0.95rem; cursor: pointer; transition: var(--transition); }
     .btn-ghost:hover { border-color: var(--color-naranja); color: var(--color-naranja); background: #FFF7ED; transform: translateY(-2px); }
 
-    /* ===== SISTEMA DE TABS ===== */
+    /* ===== TABS & PLANES ===== */
     .tab-bar { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; background: #FFFFFF; border: 1.5px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 0.4rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
-    .tab-btn { flex: 1; min-width: 120px; padding: 0.65rem 1rem; border-radius: var(--radius-md); font-family: var(--font-titulo); font-weight: 700; font-size: 0.82rem; color: var(--text-muted); transition: var(--transition); text-align: center; }
-    .tab-btn:hover { color: var(--color-naranja); background: rgba(255, 90, 10, 0.05); }
-    .tab-btn.active { background: var(--color-naranja); color: #FFFFFF; box-shadow: 0 4px 14px rgba(255, 90, 10, 0.35); }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; animation: fadeSlideIn 0.4s ease both; }
-
-    /* ===== INFO GENERAL (EXCLUSIVO CROSS) ===== */
-    .info-tabs { display: flex; gap: 0.5rem; margin-bottom: 0; }
-    .info-tab { background: #FFFFFF; color: var(--text-main); font-family: var(--font-titulo); font-weight: 800; padding: 0.8rem 2rem; border-radius: 12px 12px 0 0; font-size: 0.95rem; border: 1.5px solid var(--border-subtle); border-bottom: none; transition: all 0.2s; }
-    .info-tab.active { background: #0F0908; color: #FFFFFF; border-color: #0F0908; }
-    .info-content-box { background: #FFFFFF; border: 2px solid #0F0908; border-radius: 0 12px 12px 12px; overflow: hidden; box-shadow: var(--shadow-card); }
-    .info-header-bar { background: #0F0908; color: #FFFFFF; padding: 0.8rem 1.5rem; font-family: var(--font-titulo); font-weight: 900; font-size: 1.1rem; border-bottom: 4px solid var(--color-naranja); display: flex; align-items: center; gap: 0.5rem; }
-    .info-body-pad { padding: 2rem; }
-    .info-h4 { color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 900; font-size: 0.9rem; margin-bottom: 0.8rem; letter-spacing: 1px; border-left: 3px solid var(--color-naranja); padding-left: 8px; }
-    .info-p { color: var(--text-body); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
-    .info-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .info-card-item { background: #FFFFFF; border: 1px solid var(--border-subtle); border-left: 3px solid var(--color-naranja); border-radius: 8px; padding: 1.2rem; font-size: 0.85rem; color: var(--text-body); line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-    .info-card-item strong { color: var(--text-main); font-weight: 800; }
-
-    /* ===== CARDS DE PLANES ===== */
+    .tab-btn { flex: 1; min-width: 120px; padding: 0.65rem 1rem; border-radius: var(--radius-md); font-family: var(--font-titulo); font-weight: 700; font-size: 0.82rem; color: var(--text-muted); cursor: pointer; text-align: center; }
+    .tab-btn.active { background: var(--color-naranja); color: #FFFFFF; }
+    .tab-panel { display: none; } .tab-panel.active { display: block; animation: fadeSlideIn 0.4s ease both; }
+    
     .plans-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
-    .plan-card { background: #F7F7F7; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.5rem; position: relative; transition: var(--transition); display: flex; flex-direction: column; gap: 0.6rem; box-shadow: var(--shadow-card); }
-    .plan-card:hover { border-color: var(--color-naranja); box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .plan-card { background: #F7F7F7; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.5rem; position: relative; display: flex; flex-direction: column; gap: 0.6rem; box-shadow: var(--shadow-card); transition: var(--transition); }
+    .plan-card:hover { border-color: var(--color-naranja); transform: translateY(-4px); }
     .plan-card.featured { border: 2px solid var(--color-naranja); background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 90, 10, 0.02) 100%); }
-    .btn-card-sim { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: all 0.2s ease; z-index: 10; color: #1A1210; line-height: 1; }
-    .btn-card-sim:hover { background: #FFF7ED; border-color: var(--color-naranja); transform: scale(1.12); box-shadow: 0 4px 12px rgba(255, 90, 10, 0.25); }
+    .btn-card-sim { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; }
     .plan-card .plan-speed { font-family: var(--font-titulo); font-weight: 900; font-size: 1.6rem; color: var(--text-main); }
-    .plan-card .plan-name { font-family: var(--font-titulo); font-weight: 700; font-size: 0.88rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .plan-card .plan-name { font-family: var(--font-titulo); font-weight: 700; font-size: 0.88rem; color: var(--text-muted); text-transform: uppercase; }
     .plan-card .plan-price { font-family: var(--font-titulo); font-weight: 900; font-size: 2.1rem; color: var(--color-naranja); margin-top: 0.25rem; }
-    .plan-card .plan-price small { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-    .plan-card .plan-details { font-size: 0.83rem; color: #475569; line-height: 1.7; margin-top: 0.4rem; padding-left: 0; }
+    .plan-card .plan-details { font-size: 0.83rem; color: #475569; line-height: 1.7; padding-left: 0; }
     .plan-card .plan-details li { list-style-type: none; }
     .plan-card .plan-details li::before { content: "✓ "; color: var(--color-naranja); font-weight: 800; }
-    .badge-top { position: absolute; top: -11px; left: 16px; background: var(--color-naranja); color: #FFFFFF; font-family: var(--font-titulo); font-weight: 800; font-size: 0.7rem; padding: 0.22rem 0.7rem; border-radius: 99px; text-transform: uppercase; box-shadow: 0 2px 8px rgba(255, 90, 10, 0.35); }
+    .badge-top { position: absolute; top: -11px; left: 16px; background: var(--color-naranja); color: #FFFFFF; font-family: var(--font-titulo); font-weight: 800; font-size: 0.7rem; padding: 0.22rem 0.7rem; border-radius: 99px; }
 
-    /* ===== TABLAS ===== */
-    .table-wrap { overflow-x: auto; border-radius: var(--radius-md); background: #FFFFFF; box-shadow: var(--shadow-card); border: 1px solid var(--border-subtle); }
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-md); background: #FFFFFF; border: 1px solid var(--border-subtle); }
     .data-table { width: 100%; min-width: 640px; font-size: 0.87rem; }
     .data-table thead tr { background: var(--color-negro); border-bottom: 2px solid var(--color-naranja); }
-    .data-table thead th { padding: 0.85rem 1rem; font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; color: var(--color-amarillo); white-space: nowrap; text-align: center; }
-    .data-table tbody tr { border-bottom: 1px solid #F1F5F9; transition: background var(--transition); }
-    .data-table tbody tr:hover { background: rgba(255, 90, 10, 0.04); }
-    .data-table tbody td { padding: 0.8rem 0.4rem; vertical-align: middle; text-align: center; }
+    .data-table thead th { padding: 0.85rem 1rem; font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; color: var(--color-amarillo); text-align: center; }
+    .data-table tbody tr { border-bottom: 1px solid #F1F5F9; }
+    .data-table tbody td { padding: 0.8rem 0.4rem; text-align: center; }
     .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 99px; font-size: 0.72rem; font-weight: 700; }
     .badge-si { background: rgba(0, 200, 100, 0.12); color: #16A34A; border: 1px solid rgba(0, 200, 100, 0.25); }
     .badge-no { background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0; }
 
-    /* ===== SIMULADOR DE FACTURACIÓN ===== */
+    /* ===== INFO GENERAL (EXCLUSIVO CROSS/ATQ) ===== */
+    .info-tabs { display: flex; gap: 0.5rem; margin-bottom: 0; }
+    .info-tab { background: #FFFFFF; color: var(--text-main); font-family: var(--font-titulo); font-weight: 800; padding: 0.8rem 2rem; border-radius: 12px 12px 0 0; font-size: 0.95rem; border: 1.5px solid var(--border-subtle); border-bottom: none; cursor: pointer; }
+    .info-tab.active { background: #0F0908; color: #FFFFFF; border-color: #0F0908; }
+    .info-content-box { background: #FFFFFF; border: 2px solid #0F0908; border-radius: 0 12px 12px 12px; overflow: hidden; }
+    .info-header-bar { background: #0F0908; color: #FFFFFF; padding: 0.8rem 1.5rem; font-family: var(--font-titulo); font-weight: 900; font-size: 1.1rem; border-bottom: 4px solid var(--color-naranja); }
+    .info-body-pad { padding: 2rem; }
+    .info-h4 { color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 900; font-size: 0.9rem; margin-bottom: 0.8rem; border-left: 3px solid var(--color-naranja); padding-left: 8px; }
+    .info-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .info-card-item { background: #FFFFFF; border: 1px solid var(--border-subtle); border-left: 3px solid var(--color-naranja); border-radius: 8px; padding: 1.2rem; font-size: 0.85rem; }
+
+    /* ===== SERVICIOS ADICIONALES ===== */
+    .adicionales-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.2rem; }
+    .servicio-card { background: #FFFFFF; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.4rem 1.2rem; display: flex; flex-direction: column; }
+    .servicio-card.con-parrilla { cursor: pointer; }
+    .btn-ver-parrilla { margin-top: 0.8rem; display: inline-flex; align-items: center; justify-content: center; background: rgba(255, 90, 10, 0.08); border: 1.5px solid var(--naranja-border); color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; padding: 0.4rem 0.8rem; border-radius: 99px; cursor: pointer; width: 100%; }
+
+    /* ===== SIMULADOR GENERAL Y ATQ ===== */
     #facturacion { background: linear-gradient(180deg, var(--bg-page) 0%, #FFFFFF 100%); }
     .sim-layout { display: flex; gap: 2rem; align-items: flex-start; width: 100%; }
-    .sim-layout .sim-form-card { flex: 0 0 auto; width: 100%; max-width: 480px; }
-    .sim-layout .table-wrap { flex: 1 1 auto; margin-top: 0 !important; min-width: 0; }
-    .sim-form-card { background: #FFFFFF; border: 1.5px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 2.5rem; max-width: 560px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
+    .sim-form-card { flex: 0 0 auto; width: 100%; max-width: 480px; background: #FFFFFF; border: 1.5px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
     .form-group { margin-bottom: 1.4rem; }
     .form-label { display: block; margin-bottom: 0.45rem; font-size: 0.85rem; font-weight: 700; }
     .form-input { width: 100%; background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: var(--radius-md); font-family: var(--font-titulo); font-weight: 700; font-size: 1.1rem; padding: 0.75rem 1rem; }
-    .form-input:focus { outline: none; background: #FFFFFF; border-color: var(--color-naranja); box-shadow: 0 0 0 3px rgba(255, 90, 10, 0.16); }
+    
+    /* Result Box General */
     .sim-result { margin-top: 1.5rem; background: #FFF9F6; border: 1.5px solid var(--color-naranja); border-radius: var(--radius-lg); padding: 1.5rem; display: none; }
     .sim-result.visible { display: block; animation: fadeSlideIn 0.4s ease both; }
     .sim-result-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 90, 10, 0.12); font-size: 0.9rem; }
@@ -185,17 +143,34 @@
     .sim-result-row .sr-val { font-family: var(--font-titulo); font-weight: 800; color: var(--color-naranja); }
     .sim-result-row .sr-val.big { font-size: 1.45rem; background: rgba(255, 194, 0, 0.2); padding: 3px 12px; border-radius: 8px; }
 
-    /* ===== SERVICIOS ADICIONALES ===== */
-    .adicionales-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.2rem; }
-    .servicio-card { background: #FFFFFF; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.4rem 1.2rem; transition: var(--transition); display: flex; flex-direction: column; box-shadow: var(--shadow-card); position: relative; }
-    .servicio-card:hover { border-color: var(--color-naranja); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
-    .servicio-card.con-parrilla { cursor: pointer; }
-    .servicio-card .srv-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
-    .servicio-card .srv-name { font-family: var(--font-titulo); font-weight: 800; font-size: 0.98rem; margin-bottom: 0.25rem; }
-    .servicio-card .srv-price { font-family: var(--font-titulo); font-weight: 900; font-size: 1.5rem; color: var(--color-naranja); }
-    .servicio-card .srv-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.3rem; line-height: 1.4; flex-grow: 1; }
-    .btn-ver-parrilla { margin-top: 0.8rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; background: rgba(255, 90, 10, 0.08); border: 1.5px solid var(--naranja-border); color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; padding: 0.4rem 0.8rem; border-radius: 99px; cursor: pointer; transition: all 0.2s ease; width: 100%; }
-    .btn-ver-parrilla:hover, .servicio-card.con-parrilla:hover .btn-ver-parrilla { background: var(--color-naranja); color: #FFFFFF; border-color: var(--color-naranja); }
+    /* Result Box Especial ATQ */
+    .atq-ahorro-box { background: #10B981; color: white; padding: 1rem; border-radius: 12px; text-align: center; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+    .atq-ahorro-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.2rem; opacity: 0.9; }
+    .atq-ahorro-monto { font-family: var(--font-titulo); font-size: 2rem; font-weight: 900; line-height: 1; }
+
+    /* Radio Buttons personalizados para ATQ */
+    .radio-group-atq { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .radio-btn-atq { flex: 1; position: relative; }
+    .radio-btn-atq input { position: absolute; opacity: 0; cursor: pointer; }
+    .radio-btn-atq label { display: block; width: 100%; padding: 0.8rem; border: 2px solid var(--border-subtle); border-radius: 10px; text-align: center; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+    .radio-btn-atq input:checked + label { border-color: var(--color-naranja); background: var(--naranja-alpha); color: var(--color-naranja); }
+
+    /* ===== SECCIÓN BENCHMARK (ATQ/CROSS) ===== */
+    #benchmark-competencia { background: #0F0908; color: #FFFFFF; }
+    #benchmark-competencia .section-title { color: #FFFFFF; }
+    .bench-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; width: 100%; margin-top: 2rem; }
+    .bench-card { background: #1A1210; border: 1px solid #332624; border-radius: 16px; padding: 2rem; text-align: center; position: relative; transition: transform 0.3s; }
+    .bench-card:hover { transform: translateY(-5px); }
+    .bench-card.win-card { background: linear-gradient(145deg, #FF5A0A 0%, #CC4808 100%); border: none; box-shadow: 0 10px 30px rgba(255, 90, 10, 0.4); transform: scale(1.05); z-index: 10; }
+    .bench-card.win-card:hover { transform: scale(1.08); }
+    .bench-logo { font-family: var(--font-titulo); font-weight: 900; font-size: 1.5rem; margin-bottom: 1rem; }
+    .bench-claro { color: #E3000F; } .bench-movistar { color: #019DF4; } .bench-win { color: #FFFFFF; }
+    .bench-speed { font-size: 2.5rem; font-family: var(--font-titulo); font-weight: 900; margin-bottom: 0.5rem; color: #FFFFFF; }
+    .bench-price { font-size: 1.2rem; color: #94A3B8; text-decoration: line-through; margin-bottom: 0.2rem; }
+    .bench-promo { font-size: 2rem; font-family: var(--font-titulo); font-weight: 900; color: #10B981; margin-bottom: 1rem; }
+    .bench-card.win-card .bench-price { color: rgba(255,255,255,0.7); }
+    .bench-card.win-card .bench-promo { color: #FFC200; font-size: 2.8rem; }
+    .bench-vs-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #FFC200; color: #0F0908; font-weight: 900; font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; }
 
     /* ===== MODAL ===== */
     .modal-overlay { position: fixed; inset: 0; background: rgba(15, 9, 8, 0.75); backdrop-filter: blur(8px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 1.2rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
@@ -203,46 +178,31 @@
     .modal-dialog { background: #FFFFFF; border-radius: var(--radius-xl); border: 2px solid var(--color-naranja); width: 100%; max-width: 950px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; transform: translateY(20px) scale(0.97); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
     .modal-overlay.open .modal-dialog { transform: translateY(0) scale(1); }
     .modal-header { padding: 1.1rem 1.5rem; background: #FFFFFF; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
-    .modal-title-wrap { display: flex; align-items: center; gap: 0.75rem; }
-    .modal-title { font-family: var(--font-titulo); font-weight: 900; font-size: 1.25rem; line-height: 1.2; }
-    .modal-badge { display: inline-block; background: rgba(255, 90, 10, 0.1); color: var(--color-naranja); font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 99px; margin-top: 0.2rem; }
-    .modal-close { width: 36px; height: 36px; border-radius: 50%; background: #F1F5F9; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
-    .modal-close:hover { background: #FEE2E2; color: #DC2626; border-color: #FCA5A5; }
+    .modal-title { font-family: var(--font-titulo); font-weight: 900; font-size: 1.25rem; }
+    .modal-close { width: 36px; height: 36px; border-radius: 50%; background: #F1F5F9; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .modal-body { padding: 1.2rem; overflow-y: auto; max-height: calc(90vh - 140px); background: #000000; display: flex; justify-content: center; }
     .modal-img-container img { max-width: 100%; border-radius: var(--radius-md); }
-    .modal-footer { padding: 0.85rem 1.5rem; background: #FFFFFF; border-top: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
-    .modal-desc { font-size: 0.82rem; color: var(--text-muted); }
-
-    /* ===== FAB FLOTANTES & TOAST ===== */
+    
+    /* ===== FAB & TOAST & FOOTER ===== */
     #fab-container { position: fixed; bottom: 2rem; right: 1.5rem; z-index: 800; display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; }
-    .fab-btn { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); }
+    .fab-btn { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.15); cursor: pointer; }
     #fab-mute { background: #FFFFFF; border: 1.5px solid var(--border-subtle); }
     #fab-top { background: var(--color-naranja); color: #FFFFFF; }
     #fab-calc { background: #FFFFFF; border: 1.5px solid var(--color-naranja); color: var(--color-naranja); }
-    #toast { position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%); z-index: 9000; background: #0F0908; border: 1.5px solid var(--color-naranja); border-radius: var(--radius-md); padding: 0.75rem 1.5rem; font-size: 0.88rem; font-weight: 700; color: #FFFFFF; opacity: 0; transition: opacity 0.3s ease; }
+    #toast { position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%); z-index: 9000; background: #0F0908; border: 1.5px solid var(--color-naranja); border-radius: var(--radius-md); padding: 0.75rem 1.5rem; font-size: 0.88rem; font-weight: 700; color: #FFFFFF; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
     #toast.visible { opacity: 1; }
-
-    /* ===== FOOTER ===== */
     #site-footer { background: var(--color-negro); border-top: 1px solid var(--border-subtle); padding: 2rem 1.5rem; text-align: center; }
-    #site-footer p { font-size: 0.8rem; color: rgba(255, 255, 255, 0.65); line-height: 1.7; }
+    #site-footer p { font-size: 0.8rem; color: rgba(255, 255, 255, 0.65); }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .header-nav { display: none; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .plans-grid { grid-template-columns: 1fr; }
-      .adicionales-grid { grid-template-columns: repeat(2, 1fr); }
       .sim-layout { flex-direction: column; }
-      .sim-layout .sim-form-card { max-width: 100%; }
       #page-dots { display: none; }
-      .tab-btn { min-width: 100px; font-size: 0.75rem; }
-      .table-wrap { width: 100% !important; max-width: 100vw !important; overflow-x: auto !important; display: block !important; padding-bottom: 15px; }
-      .sim-layout .data-table { width: max-content !important; min-width: 100% !important; margin: 0 !important; }
-      .table-wrap .data-table th, .table-wrap .data-table td { padding: 10px 15px !important; font-size: 0.8rem !important; white-space: nowrap !important; }
-    }
-    @media (max-width: 480px) {
-      .adicionales-grid { grid-template-columns: 1fr; }
-      .quick-access { flex-direction: column; }
+      .table-wrap { width: 100% !important; overflow-x: auto !important; display: block !important; padding-bottom: 15px; }
+      .sim-layout .data-table { min-width: 100% !important; margin: 0 !important; }
+      .bench-card.win-card { transform: scale(1); margin-top: 1rem; margin-bottom: 1rem; }
+      .bench-card.win-card:hover { transform: scale(1.02); }
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -252,7 +212,7 @@
 
   <div id="progress-bar" role="progressbar"></div>
 
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header id="site-header" role="banner">
     <button class="hamburger-btn" id="hamburger-btn"><span></span><span></span><span></span></button>
     <div class="logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:34px;width:auto;display:block;"></div>
@@ -260,60 +220,51 @@
       <button class="nav-btn" data-section="home">Inicio</button>
       <button class="nav-btn" data-section="lima">Lima</button>
       <button class="nav-btn" data-section="provincia">Provincia</button>
-      <!-- Botón exclusivo para CROSS (Oculto por defecto) -->
-      <button class="nav-btn oculto-por-canal" data-section="info-general">Info General</button>
+      <button class="nav-btn oculto-por-canal" data-section="info-general" id="nav-info">Info General</button>
       <button class="nav-btn" data-section="adicionales">Adicionales</button>
+      <button class="nav-btn oculto-por-canal" data-section="benchmark-competencia" id="nav-bench">Competencia</button>
       <button class="nav-btn" data-section="facturacion">Simulador</button>
     </nav>
   </header>
 
   <div id="drawer-overlay"></div>
 
-  <!-- ===== DRAWER LATERAL ===== -->
+  <!-- DRAWER -->
   <aside id="site-drawer">
     <div class="drawer-header">
-      <div class="drawer-logo"><img src="img/logo_winnaranja.png" alt="WIN Empresas" style="height:30px;width:auto;display:block;"></div>
+      <div class="drawer-logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:30px;width:auto;display:block;"></div>
       <button class="drawer-close" id="drawer-close-btn">✕</button>
     </div>
     <nav class="drawer-nav">
-      <button class="dnav-item" data-section="home"><span class="dnav-icon">🏠</span> Inicio</button>
-      <button class="dnav-item" data-section="lima"><span class="dnav-icon">🚀</span> Planes Lima</button>
-      <button class="dnav-item" data-section="provincia"><span class="dnav-icon">🗺️</span> Planes Provincia</button>
-      <button class="dnav-item oculto-por-canal" data-section="info-general"><span class="dnav-icon">ℹ️</span> Info General</button>
-      <button class="dnav-item" data-section="adicionales"><span class="dnav-icon">➕</span> Servicios Adicionales</button>
-      <button class="dnav-item" data-section="facturacion"><span class="dnav-icon">🧮</span> Simulador</button>
+      <button class="dnav-item" data-section="home">🏠 Inicio</button>
+      <button class="dnav-item" data-section="lima">🚀 Planes Lima</button>
+      <button class="dnav-item" data-section="provincia">🗺️ Planes Provincia</button>
+      <button class="dnav-item oculto-por-canal" data-section="info-general" id="dnav-info">ℹ️ Info General</button>
+      <button class="dnav-item" data-section="adicionales">➕ Adicionales</button>
+      <button class="dnav-item oculto-por-canal" data-section="benchmark-competencia" id="dnav-bench">🥊 Competencia</button>
+      <button class="dnav-item" data-section="facturacion">🧮 Simulador</button>
     </nav>
-    <div class="drawer-footer">
-      <p>WIN &copy; 2026<br>CFD - FORMACIÓN<br><em>Madeloun - Pedro</em></p>
-    </div>
   </aside>
 
-  <!-- ===== DOTS NAVEGACIÓN ===== -->
+  <!-- DOTS -->
   <div id="page-dots">
-    <button class="page-dot active" data-section="home" title="Inicio"></button>
-    <button class="page-dot" data-section="lima" title="Lima"></button>
-    <button class="page-dot" data-section="provincia" title="Provincia"></button>
-    <button class="page-dot oculto-por-canal" data-section="info-general" title="Info General"></button>
-    <button class="page-dot" data-section="adicionales" title="Adicionales"></button>
-    <button class="page-dot" data-section="facturacion" title="Simulador"></button>
+    <button class="page-dot active" data-section="home"></button>
+    <button class="page-dot" data-section="lima"></button>
+    <button class="page-dot" data-section="provincia"></button>
+    <button class="page-dot oculto-por-canal" data-section="info-general" id="dot-info"></button>
+    <button class="page-dot" data-section="adicionales"></button>
+    <button class="page-dot oculto-por-canal" data-section="benchmark-competencia" id="dot-bench"></button>
+    <button class="page-dot" data-section="facturacion"></button>
   </div>
 
   <main id="main-content">
 
-    <!-- ===== SECCIÓN 1: HOME ===== -->
+    <!-- HOME -->
     <section class="section-slide" id="home">
       <div class="section-inner">
         <div class="hero-eyebrow" id="hero-tag">💡 GENERAL</div>
         <h1 class="hero-title">OFERTA<br>COMERCIAL<br><span class="brand"><img src="img/logo_winnaranja.png" alt="WIN" style="height:135px;width:auto;display:block;margin-top:0.1rem;"></span></h1>
-        <p class="hero-subtitle" id="hero-desc">Conectividad fibra óptica de alta velocidad para Lima y provincias. Planes flexibles y promociones exclusivas.</p>
-        
-        <div class="stats-grid">
-          <div class="stat-card"><div class="stat-num">2.5GB</div><div class="stat-label">Velocidad máxima XGSPON</div></div>
-          <div class="stat-card"><div class="stat-num">50%</div><div class="stat-label">Descuento promo principal</div></div>
-          <div class="stat-card"><div class="stat-num">+20</div><div class="stat-label">Planes disponibles</div></div>
-          <div class="stat-card"><div class="stat-num">S/99</div><div class="stat-label">Plan Lima desde</div></div>
-        </div>
-        
+        <p class="hero-subtitle" id="hero-desc">Conectividad fibra óptica de alta velocidad. Planes flexibles y promociones exclusivas.</p>
         <div class="quick-access">
           <button class="btn-primary btn-planes-acceso" data-section="lima">📡 Ver Planes Lima</button>
           <button class="btn-primary btn-planes-acceso" data-section="provincia">🗺️ Ver Planes Provincia</button>
@@ -323,11 +274,10 @@
       </div>
     </section>
 
-    <!-- ===== SECCIÓN 2: PLANES LIMA ===== -->
+    <!-- LIMA -->
     <section class="section-slide" id="lima">
       <div class="section-inner">
         <h2 class="section-title">Planes <span class="accent">Lima</span></h2>
-        <p class="section-subtitle">Fibra óptica con la mayor velocidad del mercado.</p>
         <div class="tab-bar" role="tablist">
           <button class="tab-btn active" role="tab" data-tab="lima-mono">🏠 Mono Residencial</button>
           <button class="tab-btn" role="tab" data-tab="lima-xgspon">⚡ XGSPON / Gamer</button>
@@ -335,7 +285,6 @@
           <button class="tab-btn" role="tab" data-tab="lima-dgo">🎬 HB DGO</button>
           <button class="tab-btn" role="tab" data-tab="RUC20lima"> 🏪 RUC20</button>
         </div>
-        <!-- Paneles -->
         <div class="tab-panel active" id="panel-lima-mono"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-mono"></tbody></table></div><div id="grid-lima-mono" class="plans-grid" style="margin-top:1.5rem"></div></div>
         <div class="tab-panel" id="panel-lima-xgspon"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-xgspon"></tbody></table></div><div id="grid-lima-xgspon" class="plans-grid" style="margin-top:1.5rem"></div></div>
         <div class="tab-panel" id="panel-lima-bundles"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Equipos</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-wtv"></tbody></table></div><div id="grid-lima-wtv" class="plans-grid" style="margin-top:1.5rem"></div></div>
@@ -344,11 +293,10 @@
       </div>
     </section>
 
-    <!-- ===== SECCIÓN 3: PLANES PROVINCIA ===== -->
+    <!-- PROVINCIA -->
     <section class="section-slide" id="provincia">
       <div class="section-inner">
         <h2 class="section-title">Planes <span class="accent">Provincia</span></h2>
-        <p class="section-subtitle">Cobertura nacional con beneficios exclusivos.</p>
         <div class="tab-bar" role="tablist">
           <button class="tab-btn active" role="tab" data-tab="prov-mono">🏠 Mono Residencial</button>
           <button class="tab-btn" role="tab" data-tab="prov-hbtv">📺 HB WTV</button>
@@ -362,94 +310,168 @@
       </div>
     </section>
 
-    <!-- ===== SECCIÓN NUEVA: INFORMACIÓN GENERAL (EXCLUSIVA DE CROSS) ===== -->
+    <!-- INFO GENERAL (CROSS / ATQ) -->
     <section class="section-slide oculto-por-canal" id="info-general">
         <div class="section-inner">
             <h2 class="section-title">INFORMACIÓN <span class="accent">GENERAL</span></h2>
-            <p class="section-subtitle">Costos y beneficios de nuestros servicios de streaming.</p>
-
             <div class="info-tabs">
                 <button class="info-tab active" onclick="cambiarTabInfo('paramount')">PARAMOUNT +</button>
                 <button class="info-tab" onclick="cambiarTabInfo('universal')">UNIVERSAL +</button>
             </div>
-
-            <!-- TAB PARAMOUNT -->
             <div id="info-paramount" class="info-content-box">
                 <div class="info-header-bar"><span style="color:#FF5A0A;font-size:1.4rem;">●</span> PARAMOUNT+</div>
                 <div class="info-body-pad">
                     <h4 class="info-h4">| BENEFICIOS</h4>
-                    <p class="info-p">Paramount+ es un servicio de streaming donde puedes disfrutar de series, películas y contenidos originales de MTV, Nickelodeon, Paramount y Comedy Central.</p>
+                    <p style="margin-bottom:1.5rem;">Servicio de streaming con series, películas y contenidos originales de MTV, Nickelodeon y Comedy Central.</p>
                     <div class="info-cards-grid">
                         <div class="info-card-item"><strong>Pantallas simultáneas:</strong> hasta 2.</div>
-                        <div class="info-card-item"><strong>Perfiles:</strong> hasta 6 perfiles por cuenta.</div>
-                        <div class="info-card-item"><strong>Compatibilidad:</strong> Google Chrome, Mozilla Firefox, Safari, Internet Explorer y Microsoft Edge.</div>
-                        <div class="info-card-item">Disponible también en <strong>Smart TV y TV Box</strong> que cuenten con la aplicación en su tienda.</div>
-                        <div class="info-card-item"><strong>Calidad HD:</strong> para visualizar contenido en HD, el dispositivo debe ser compatible.</div>
+                        <div class="info-card-item"><strong>Perfiles:</strong> hasta 6 perfiles.</div>
+                        <div class="info-card-item"><strong>Compatibilidad:</strong> Chrome, Safari, Edge.</div>
+                        <div class="info-card-item"><strong>Smart TV:</strong> Disponible en tiendas.</div>
                     </div>
-                    <h4 class="info-h4">| COSTOS</h4>
-                    <p class="info-p" style="margin-bottom:0"><strong>S/ 14.90 mensuales</strong> (Facturado como servicio adicional independiente).</p>
                 </div>
             </div>
-
-            <!-- TAB UNIVERSAL -->
             <div id="info-universal" class="info-content-box" style="display: none;">
                 <div class="info-header-bar"><span style="color:#10b981;font-size:1.4rem;">●</span> UNIVERSAL+</div>
                 <div class="info-body-pad">
                     <h4 class="info-h4" style="border-color:#10b981; color:#10b981">| BENEFICIOS</h4>
-                    <p class="info-p">Disfruta de las mejores series, películas taquilleras y franquicias exclusivas del ecosistema de Universal Studios en alta calidad.</p>
+                    <p style="margin-bottom:1.5rem;">Las mejores series y películas taquilleras del ecosistema de Universal Studios en alta calidad.</p>
                     <div class="info-cards-grid">
-                        <div class="info-card-item" style="border-left-color:#10b981">Miles de horas de contenido On-Demand.</div>
-                        <div class="info-card-item" style="border-left-color:#10b981">Series aclamadas exclusivas de USA Network, SYFY y más.</div>
-                        <div class="info-card-item" style="border-left-color:#10b981">Películas directamente desde el cine a tu hogar.</div>
+                        <div class="info-card-item" style="border-left-color:#10b981">Miles de horas On-Demand.</div>
+                        <div class="info-card-item" style="border-left-color:#10b981">Series exclusivas de USA Network.</div>
+                        <div class="info-card-item" style="border-left-color:#10b981">Películas del cine a tu hogar.</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECCIÓN 4: SERVICIOS ADICIONALES ===== -->
+    <!-- ADICIONALES -->
     <section class="section-slide" id="adicionales">
       <div class="section-inner">
         <h2 class="section-title">Servicios <span class="accent">Adicionales</span></h2>
-        <p class="section-subtitle">Potencia tu plan con estos servicios complementarios.</p>
         <div id="grid-adicionales" class="adicionales-grid"></div>
       </div>
     </section>
 
-    <!-- ===== SECCIÓN 5: SIMULADOR ===== -->
+    <!-- BENCHMARK COMPETENCIA (NUEVO - SOLO ATQ / CROSS) -->
+    <section class="section-slide oculto-por-canal" id="benchmark-competencia">
+      <div class="section-inner">
+        <h2 class="section-title">WIN VS <span class="accent">COMPETENCIA</span></h2>
+        <p class="section-subtitle" style="color: #94A3B8;">Conoce por qué la oferta de Ataque es insuperable frente a otros operadores.</p>
+        
+        <div class="bench-grid">
+            <!-- Movistar -->
+            <div class="bench-card">
+                <div class="bench-logo bench-movistar">Movistar</div>
+                <div style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">Fibra Óptica HFC/FTTH</div>
+                <div class="bench-speed">1000 Mbps</div>
+                <div class="bench-price">Regular S/ 159.90</div>
+                <div class="bench-promo" style="color: #019DF4; font-size: 1.5rem;">S/ 79.90 <span style="font-size:0.8rem; font-weight:normal">x 6 meses</span></div>
+                <ul style="text-align: left; font-size: 0.85rem; color: #94A3B8; margin-top: 1rem; line-height: 1.6;">
+                    <li>❌ Simetría no garantizada</li>
+                    <li>❌ Sujeto a facilidades técnicas</li>
+                </ul>
+            </div>
+
+            <!-- WIN ATQ (Centro Destacado) -->
+            <div class="bench-card win-card">
+                <div class="bench-vs-badge">Nuestra Oferta ATQ</div>
+                <div class="bench-logo bench-win">WIN</div>
+                <div style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">100% Fibra Óptica</div>
+                <div class="bench-speed">1000 Mbps</div>
+                <div class="bench-price">Regular S/ 89.00</div>
+                <div class="bench-promo">S/ 1.00 <span style="font-size:0.9rem; font-weight:normal; color:#FFF">x 2 recibos</span></div>
+                <ul style="text-align: left; font-size: 0.9rem; color: #FFF; margin-top: 1rem; line-height: 1.6;">
+                    <li>✅ 100% Simetría garantizada</li>
+                    <li>✅ Router Mesh Wi-Fi 6 incluido</li>
+                    <li>✅ Ping optimizado para Gamers</li>
+                </ul>
+            </div>
+
+            <!-- Claro -->
+            <div class="bench-card">
+                <div class="bench-logo bench-claro">Claro</div>
+                <div style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">HFC / Fibra</div>
+                <div class="bench-speed">1000 Mbps</div>
+                <div class="bench-price">Regular S/ 135.00</div>
+                <div class="bench-promo" style="color: #E3000F; font-size: 1.5rem;">S/ 67.50 <span style="font-size:0.8rem; font-weight:normal">x 6 meses</span></div>
+                <ul style="text-align: left; font-size: 0.85rem; color: #94A3B8; margin-top: 1rem; line-height: 1.6;">
+                    <li>❌ Velocidad de subida limitada</li>
+                    <li>❌ Router básico de banda dual</li>
+                </ul>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULADOR (CAMALEÓNICO) -->
     <section class="section-slide" id="facturacion">
       <div class="section-inner">
         <h2 class="section-title">Simulador de <span class="accent">Facturación</span></h2>
-        <p class="section-subtitle">Calcula tu primera factura según el día de instalación.</p>
+        
         <div class="sim-layout">
           <div class="sim-form-card">
-            <form id="sim-form" novalidate>
+            
+            <!-- FORMULARIO GENERAL -->
+            <form id="form-general" novalidate>
               <div class="form-group">
                 <label class="form-label" for="sim-dia">📅 Día de instalación (1 - 31)</label>
-                <input class="form-input" type="number" id="sim-dia" min="1" max="31" placeholder="Ej: 15" required />
+                <input class="form-input" type="number" id="sim-dia" min="1" max="31" required />
               </div>
               <div class="form-group">
                 <label class="form-label" for="sim-monto">💰 Monto mensual del plan (S/)</label>
-                <input class="form-input" type="number" id="sim-monto" min="1" step="0.01" placeholder="Ej: 139" required />
+                <input class="form-input" type="number" id="sim-monto" min="1" step="0.01" required />
               </div>
-              <button type="submit" class="btn-primary" style="width:100%;justify-content:center;display:flex;gap:0.5rem;" data-sound="calc">🧾 Calcular 1er Recibo</button>
+              <button type="button" class="btn-primary" id="btnCalcGeneral" style="width:100%; display:flex; justify-content:center; gap:0.5rem;" data-sound="calc">🧾 Calcular 1er Recibo</button>
               <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; width: 100%;">
-                <a href="https://simulador-web-zeta.vercel.app/" target="_blank" style="flex: 1; display:flex;align-items:center;justify-content:center;gap:0.3rem;padding:0.75rem 0.2rem;background:linear-gradient(135deg,#FFD600,#FFC107);color:#1a1a1a;font-weight:800;font-size:0.85rem;font-family:var(--font-titulo);border-radius:10px;text-decoration:none;box-shadow:0 4px 15px rgba(255,214,0,0.4);" data-sound="click">💲 + Recibos</a>
-                <button type="button" id="btnVertical" class="btn-primary" style="flex: 1; justify-content:center;display:flex;align-items:center;gap:0.3rem;background-color:#4c534b;padding:0.75rem 0.2rem;font-size:0.85rem;border-radius:10px;box-shadow: 0 4px 15px rgba(96, 112, 100, 0.35);" data-sound="calc">🏢 Oferta Vertical</button>
+                <a href="https://simulador-web-zeta.vercel.app/" target="_blank" style="flex: 1; display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FFD600,#FFC107);color:#1a1a1a;font-weight:800;font-size:0.85rem;border-radius:10px;text-decoration:none;" data-sound="click">💲 + Recibos</a>
+                <button type="button" id="btnVertical" class="btn-primary" style="flex: 1; background-color:#4c534b; font-size:0.85rem; border-radius:10px;" data-sound="calc">🏢 Oferta Vertical</button>
               </div>
             </form>
+
+            <!-- FORMULARIO EXCLUSIVO ATQ -->
+            <form id="form-atq" class="oculto-por-canal" novalidate>
+              <div class="atq-ahorro-box">
+                  <div class="atq-ahorro-title">Promoción ATQ Agresiva</div>
+                  <div style="font-size:0.85rem; font-weight:normal">2 recibos a S/ 1.00</div>
+              </div>
+              <div class="radio-group-atq">
+                  <div class="radio-btn-atq">
+                      <input type="radio" id="tipo-mono" name="tipo-atq" value="MONO" checked>
+                      <label for="tipo-mono">🏠 Monoproducto<br><span style="font-size:0.7rem; font-weight:normal">(60 Días de Beneficio)</span></label>
+                  </div>
+                  <div class="radio-btn-atq">
+                      <input type="radio" id="tipo-hb" name="tipo-atq" value="HB">
+                      <label for="tipo-hb">📺 Combo HB<br><span style="font-size:0.7rem; font-weight:normal">(2 Recibos a S/1)</span></label>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sim-dia-atq">📅 Día de instalación (1 - 31)</label>
+                <input class="form-input" type="number" id="sim-dia-atq" min="1" max="31" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sim-monto-atq">💰 Monto REGULAR del plan (S/)</label>
+                <input class="form-input" type="number" id="sim-monto-atq" min="1" step="0.01" required />
+              </div>
+              <button type="button" class="btn-primary" id="btnCalcATQ" style="width:100%; display:flex; justify-content:center; gap:0.5rem;" data-sound="calc">🚀 Proyectar Recibos y Ahorro</button>
+            </form>
+
+            <!-- RESULTADOS -->
             <div class="sim-result" id="res-vertical" style="border-color: #353836; background-color: #353836;"></div>
+            
             <div class="sim-result" id="sim-result">
               <div class="sim-result-row"><span class="sr-label">📅 Día instalación</span><span class="sr-val" id="res-dia">—</span></div>
               <div class="sim-result-row"><span class="sr-label">📤 Fecha de emisión</span><span class="sr-val" id="res-emision">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">📆 Fecha de vencimiento</span><span class="sr-val" id="res-vencimiento">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">📋 Tipo de cobro</span><span class="sr-val" id="res-tipo">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">💵 Monto plan</span><span class="sr-val" id="res-monto-plan">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📆 Fecha vencimiento</span><span class="sr-val" id="res-vencimiento">—</span></div>
+              <div class="sim-result-row"><span class="sr-label">📋 Tipo cobro</span><span class="sr-val" id="res-tipo">—</span></div>
               <div class="sim-result-row"><span class="sr-label">💳 Primer cobro</span><span class="sr-val big" id="res-cobro">—</span></div>
-              <div class="sim-result-row"><span class="sr-label">📝 Detalle</span><span class="sr-val" id="res-detalle" style="font-size:0.82rem;text-align:right;max-width:60%">—</span></div>
             </div>
+
           </div>
-          <div class="table-wrap">
+          
+          <!-- TABLA DE CICLOS (Se oculta en ATQ) -->
+          <div class="table-wrap" id="tabla-ciclos">
             <table class="data-table" style="max-width:700px">
               <thead><tr><th>Día de Instalación</th><th>Día de Emisión</th><th>Vencimiento</th></tr></thead>
               <tbody>
@@ -468,7 +490,7 @@
 
   <footer id="site-footer">
     <div class="footer-logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:70px; display:inline-block;"></div>
-    <p>Oferta Comercial 2026 &mdash; CFD - FORMACIÓN<br>Pensado y creado por Madeloun - Pedro</p>
+    <p>Oferta Comercial 2026 &mdash; CFD - FORMACIÓN<br>Madeloun - Pedro</p>
   </footer>
 
   <div id="fab-container">
@@ -479,18 +501,18 @@
 
   <div id="toast"></div>
 
-  <!-- MODAL DE PARRILLAS (DINÁMICO) -->
+  <!-- MODAL DE PARRILLAS -->
   <div id="modal-parrilla" class="modal-overlay">
     <div class="modal-dialog">
       <div class="modal-header">
-        <div class="modal-title-wrap"><span class="modal-icon">📺</span><div><h3 id="modal-parrilla-titulo" class="modal-title">Parrilla</h3><span id="modal-parrilla-badge" class="modal-badge">WIN Entretenimiento</span></div></div>
+        <div class="modal-title-wrap"><span class="modal-icon">📺</span><div><h3 id="modal-parrilla-titulo" class="modal-title">Parrilla</h3></div></div>
         <button id="modal-close-btn" class="modal-close">✕</button>
       </div>
       <div class="modal-body">
         <div class="modal-img-container"><img id="modal-parrilla-img" src="" alt="Parrilla" /></div>
       </div>
       <div class="modal-footer">
-        <span id="modal-parrilla-desc" class="modal-desc">Detalles</span>
+        <span class="modal-desc">Detalles visuales</span>
         <button id="modal-footer-close" class="btn-primary btn-sm">Cerrar</button>
       </div>
     </div>
@@ -498,66 +520,54 @@
 
   <script>
     // ==========================================
-    // 1. DETECTOR DE CANALES Y NAVEGACIÓN
+    // 1. CONFIGURACIÓN MULTICANAL
     // ==========================================
     const urlParams = new URLSearchParams(window.location.search);
     const canalActual = (urlParams.get('canal') || 'GENERAL').toUpperCase();
-
-    // Actualiza el array de secciones solo con las visibles
     let SECCIONES_ACTIVAS = [];
-    function actualizarSeccionesVisibles() {
-      SECCIONES_ACTIVAS = Array.from(document.querySelectorAll('.section-slide:not(.oculto-por-canal)')).map(s => s.id);
-      
-      // Ocultar los botones de navegación que pertenecen a secciones escondidas
-      document.querySelectorAll('.page-dot, .nav-btn, .dnav-item').forEach(btn => {
-         const sec = btn.dataset.section;
-         if (sec) {
-            if (SECCIONES_ACTIVAS.includes(sec)) {
-                btn.classList.remove('oculto-por-canal');
-            } else {
-                btn.classList.add('oculto-por-canal');
-            }
-         }
-      });
-    }
 
     function configurarInterfazPorCanal() {
+        if (canalActual === 'CROSS' || canalActual === 'ATQ') {
+            document.getElementById('info-general').classList.remove('oculto-por-canal');
+            document.getElementById('benchmark-competencia').classList.remove('oculto-por-canal');
+            document.getElementById('nav-info').classList.remove('oculto-por-canal');
+            document.getElementById('nav-bench').classList.remove('oculto-por-canal');
+            document.getElementById('dnav-info').classList.remove('oculto-por-canal');
+            document.getElementById('dnav-bench').classList.remove('oculto-por-canal');
+            document.getElementById('dot-info').classList.remove('oculto-por-canal');
+            document.getElementById('dot-bench').classList.remove('oculto-por-canal');
+        }
+        
         if (canalActual === 'CROSS') {
-            // Ocultar Planes
             document.getElementById('lima').classList.add('oculto-por-canal');
             document.getElementById('provincia').classList.add('oculto-por-canal');
             document.querySelectorAll('.btn-planes-acceso').forEach(btn => btn.style.display = 'none');
-            
-            // Mostrar Info General
-            document.getElementById('info-general').classList.remove('oculto-por-canal');
             document.getElementById('hero-tag').textContent = `💡 CANAL CROSS`;
-            document.getElementById('hero-desc').textContent = "Beneficios exclusivos, argumentarios y servicios adicionales a tu medida.";
         } 
         else if (canalActual === 'ATQ') {
             document.getElementById('hero-tag').textContent = `💡 CANAL ATQ`;
-            
-            // MAGIA: OCULTAR TABS ESPECÍFICOS PARA ATQ
-            // Se oculta XGSPON de Lima, RUC20 de Lima y RUC20 de Provincia.
-            const pestañasOcultasATQ = ['lima-xgspon', 'RUC20lima', 'prov-RUC20'];
-            
-            pestañasOcultasATQ.forEach(tabId => {
-                // Ocultar el botón superior de la pestaña
+            // Ocultar pestañas que no van en ATQ
+            ['lima-xgspon', 'RUC20lima', 'prov-RUC20'].forEach(tabId => {
                 const btn = document.querySelector(`button[data-tab="${tabId}"]`);
                 if (btn) btn.classList.add('oculto-por-canal');
-                
-                // Ocultar el panel de la tabla (por si acaso)
-                const panel = document.getElementById(`panel-${tabId}`);
-                if (panel) panel.classList.add('oculto-por-canal');
             });
+            // Activar Simulador ATQ
+            document.getElementById('form-general').classList.add('oculto-por-canal');
+            document.getElementById('form-atq').classList.remove('oculto-por-canal');
+            document.getElementById('tabla-ciclos').classList.add('oculto-por-canal');
         }
-        actualizarSeccionesVisibles();
+
+        SECCIONES_ACTIVAS = Array.from(document.querySelectorAll('.section-slide:not(.oculto-por-canal)')).map(s => s.id);
+        document.querySelectorAll('.page-dot, .nav-btn, .dnav-item').forEach(btn => {
+           if (btn.dataset.section && !SECCIONES_ACTIVAS.includes(btn.dataset.section)) {
+               btn.classList.add('oculto-por-canal');
+           }
+        });
     }
 
-    // Funcionalidad de los TABS de Información (Paramount vs Universal)
     window.cambiarTabInfo = function(tipo) {
         document.querySelectorAll('.info-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.info-content-box').forEach(c => c.style.display = 'none');
-        
         if(tipo === 'paramount') {
             document.querySelectorAll('.info-tab')[0].classList.add('active');
             document.getElementById('info-paramount').style.display = 'block';
@@ -568,7 +578,7 @@
     }
 
     // ==========================================
-    // 2. CONEXIÓN A SUPABASE Y RENDERIZADO
+    // 2. CONEXIÓN SUPABASE
     // ==========================================
     const supabaseUrl = 'https://wqrolvaijhxhonegoewr.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxcm9sdmFpamh4aG9uZWdvZXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MzgwMjUsImV4cCI6MjEwNTUxNDAyNX0.wz0hAIqCHuL-KnbBav-OgYtC6pOlvycKCmWikLPoH74';  
@@ -584,7 +594,6 @@
             const { data: planes, error: errPlanes } = await clienteSupabase.from('planes_generales').select('*').order('orden', { ascending: true }); 
             if (errPlanes) throw errPlanes;
             
-            // Filtro por canal y luego renderizado normal
             const planesCanal = planes.filter(p => (p.canal || 'GENERAL').toUpperCase() === canalActual);
             
             if(canalActual !== 'CROSS') {
@@ -613,14 +622,10 @@
 
         const grid = document.getElementById('grid-adicionales');
         grid.innerHTML = '';
-        
         const serviciosCanal = data.filter(s => (s.canal || 'GENERAL').toUpperCase() === canalActual);
 
         serviciosCanal.forEach(srv => {
             const tieneParrilla = srv.imagen_url && srv.imagen_url.trim() !== '';
-            const btnParrillaHTML = tieneParrilla 
-              ? `<button class="btn-ver-parrilla" data-img-url="${srv.imagen_url}" data-img-title="Parrilla · ${srv.nombre}">📺 Ver canales</button>` : '';
-
             let notasHtml = '';
             if (srv.descripcion) srv.descripcion.split('\n').forEach(l => { if(l.trim()) notasHtml += `<div class="srv-note">${l.trim()}</div>` });
 
@@ -630,30 +635,21 @@
                 <div class="srv-name">${srv.nombre}</div>
                 <div class="srv-price">S/ ${srv.precio} <small style="font-size:0.8rem;color:var(--text-muted)">/mes</small></div>
                 ${notasHtml}
-                ${btnParrillaHTML}
+                ${tieneParrilla ? `<button class="btn-ver-parrilla" data-img-url="${srv.imagen_url}" data-img-title="Parrilla · ${srv.nombre}">📺 Ver canales</button>` : ''}
               </div>`;
         });
     }
 
     function pintarTablaSupabase(lista, idTabla, idGrid, esProvincia = false) {
-      const tbody = document.getElementById(idTabla);
-      const grid = document.getElementById(idGrid);
-      if (!tbody) return;
-      tbody.innerHTML = ''; if (grid) grid.innerHTML = '';
-
-      if (!lista || lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="${esProvincia ? 6 : 5}" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
-        return;
-      }
+      const tbody = document.getElementById(idTabla); const grid = document.getElementById(idGrid);
+      if (!tbody) return; tbody.innerHTML = ''; if (grid) grid.innerHTML = '';
+      if (!lista || lista.length === 0) { tbody.innerHTML = `<tr><td colspan="${esProvincia ? 6 : 5}" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`; return; }
 
       lista.forEach(plan => {
         let precioPromoHtml = plan.precio_promo > 0 ? `<span style="color: #ff6b00; font-weight: bold;">S/ ${plan.precio_promo} <small>${plan.texto_promo || ''}</small></span>` : `<span class="badge badge-no">Sin promo</span>`;
         const benTxt = (plan.beneficio_tabla || '').trim();
         const beneficioHtml = (benTxt === '' || benTxt.toUpperCase() === 'NO') ? `<span class="badge badge-no">NO</span>` : benTxt;
-
-        let fonowinTdHtml = '';
-        if (esProvincia) fonowinTdHtml = `<td>${(plan.fonowin || 'NO').toUpperCase() === 'SI' ? '<span class="badge badge-si">SÍ</span>' : '<span class="badge badge-no">NO</span>'}</td>`; 
-
+        let fonowinTdHtml = esProvincia ? `<td>${(plan.fonowin || 'NO').toUpperCase() === 'SI' ? '<span class="badge badge-si">SÍ</span>' : '<span class="badge badge-no">NO</span>'}</td>` : ''; 
         const verticalBadge = (plan.aplica_vertical || 'NO').toUpperCase() === 'SI' ? `<span class="badge badge-si">SÍ</span>` : `<span class="badge badge-no">NO</span>`;
 
         tbody.innerHTML += `<tr><td><strong>${plan.nombre_plan}</strong></td><td>S/ ${plan.precio_regular}</td><td>${precioPromoHtml}</td><td>${beneficioHtml}</td>${fonowinTdHtml}<td>${verticalBadge}</td></tr>`;
@@ -662,13 +658,9 @@
           const badgeTopHtml = plan.badge ? `<div class="badge-top">${plan.badge}</div>` : '';
           const cardFeatured = plan.badge ? 'featured' : '';
           const tienePromo = plan.precio_promo > 0;
-          
           let checksHtml = '';
-          if (plan.detalles_card && plan.detalles_card.trim()) {
-            plan.detalles_card.split('\n').forEach(l => { if (l.trim()) checksHtml += `<li>${l.trim()}</li>` });
-          } else {
-            checksHtml = `<li>Fibra Óptica</li><li>${plan.aplica_vertical === 'SI' ? 'Acceso a Vertical WIN' : 'Beneficios exclusivos'}</li>`;
-          }
+          if (plan.detalles_card && plan.detalles_card.trim()) { plan.detalles_card.split('\n').forEach(l => { if (l.trim()) checksHtml += `<li>${l.trim()}</li>` }); } 
+          else { checksHtml = `<li>Fibra Óptica</li><li>${plan.aplica_vertical === 'SI' ? 'Acceso a Vertical WIN' : 'Beneficios exclusivos'}</li>`; }
 
           grid.innerHTML += `
             <div class="plan-card ${cardFeatured}">
@@ -685,15 +677,9 @@
     }
 
     function pintarTablaRUC(lista, idTabla, idGrid) {
-      const tbody = document.getElementById(idTabla);
-      const grid = document.getElementById(idGrid);
-      if (!tbody) return;
-      tbody.innerHTML = ''; if (grid) grid.innerHTML = '';
-
-      if (!lista || lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`;
-        return;
-      }
+      const tbody = document.getElementById(idTabla); const grid = document.getElementById(idGrid);
+      if (!tbody) return; tbody.innerHTML = ''; if (grid) grid.innerHTML = '';
+      if (!lista || lista.length === 0) { tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:1rem;">No hay planes disponibles</td></tr>`; return; }
 
       lista.forEach(plan => {
         const benTxt = (plan.beneficio_tabla || '').trim();
@@ -703,11 +689,8 @@
         if (grid) {
           const tienePromo = plan.precio_promo > 0;
           let checksHtml = '';
-          if (plan.detalles_card && plan.detalles_card.trim()) {
-            plan.detalles_card.split('\n').forEach(l => { if (l.trim()) checksHtml += `<li>${l.trim()}</li>` });
-          } else {
-            checksHtml = `<li>Fibra Óptica</li><li>${beneficioHtml}</li><li>Ideal para empresas</li>`;
-          }
+          if (plan.detalles_card && plan.detalles_card.trim()) { plan.detalles_card.split('\n').forEach(l => { if (l.trim()) checksHtml += `<li>${l.trim()}</li>` }); } 
+          else { checksHtml = `<li>Fibra Óptica</li><li>${beneficioHtml}</li><li>Ideal para empresas</li>`; }
 
           grid.innerHTML += `
             <div class="plan-card">
@@ -723,7 +706,7 @@
     }
 
     // ==========================================
-    // 3. EVENTOS, SCROLL Y MODALES
+    // 3. UI, SONIDOS Y SIMULADORES
     // ==========================================
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     let ctx = null, muted = false; 
@@ -738,8 +721,7 @@
       const t = ctx.currentTime + delay;
       osc.frequency.setValueAtTime(freqStart, t);
       osc.frequency.linearRampToValueAtTime(freqEnd ?? freqStart, t + duration);
-      gain.gain.setValueAtTime(vol, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + duration + 0.02);
+      gain.gain.setValueAtTime(vol, t); gain.gain.exponentialRampToValueAtTime(0.001, t + duration + 0.02);
       osc.start(t); osc.stop(t + duration + 0.05);
     }
 
@@ -750,17 +732,12 @@
       error: () => playTone({ type: "sawtooth", freqStart: 300, freqEnd: 200, duration: 0.15, vol: 0.12 })
     };
 
-    const DOM = {
-      toast: document.getElementById("toast"),
-      simForm: document.getElementById("sim-form"),
-      simResult: document.getElementById("sim-result")
-    };
-
     let toastTimer = null;
     function mostrarToast(msg) {
       clearTimeout(toastTimer);
-      DOM.toast.textContent = msg; DOM.toast.classList.add("visible");
-      toastTimer = setTimeout(() => DOM.toast.classList.remove("visible"), 2500);
+      const t = document.getElementById("toast");
+      t.textContent = msg; t.classList.add("visible");
+      toastTimer = setTimeout(() => t.classList.remove("visible"), 2500);
     }
 
     function navegarA(seccionId) {
@@ -773,51 +750,28 @@
       document.getElementById("drawer-overlay").classList.remove("open");
     }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.4 && !entry.target.classList.contains('oculto-por-canal')) {
-          const id = entry.target.id;
-          document.querySelectorAll(".page-dot").forEach(d => d.classList.toggle("active", d.dataset.section === id));
-          document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.section === id));
-        }
-      });
-    }, { threshold: 0.4 });
-    document.querySelectorAll(".section-slide").forEach(s => observer.observe(s));
-
     document.getElementById("hamburger-btn").addEventListener("click", () => { document.getElementById("site-drawer").classList.add("open"); document.getElementById("drawer-overlay").classList.add("open"); });
     document.getElementById("drawer-close-btn").addEventListener("click", () => { document.getElementById("site-drawer").classList.remove("open"); document.getElementById("drawer-overlay").classList.remove("open"); });
     document.getElementById("drawer-overlay").addEventListener("click", () => { document.getElementById("site-drawer").classList.remove("open"); document.getElementById("drawer-overlay").classList.remove("open"); });
 
-    function manejarTab(btn) {
-      const tabBar = btn.closest(".tab-bar"), section = btn.closest(".section-slide");
-      if (!tabBar || !section) return;
-      tabBar.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      section.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-      document.getElementById("panel-" + btn.dataset.tab)?.classList.add("active");
-    }
-
-    // Modal Parrilla Dinámico (Desde Supabase)
+    // Modales
     const modalParrilla = document.getElementById("modal-parrilla");
     function abrirModalParrillaDinamico(url, titulo) {
       document.getElementById("modal-parrilla-titulo").textContent = titulo;
       document.getElementById("modal-parrilla-img").src = url;
-      modalParrilla.classList.add("open");
-      SFX.click();
+      modalParrilla.classList.add("open"); SFX.click();
     }
     document.getElementById("modal-close-btn").addEventListener("click", () => modalParrilla.classList.remove("open"));
     document.getElementById("modal-footer-close").addEventListener("click", () => modalParrilla.classList.remove("open"));
-    modalParrilla.addEventListener("click", (e) => { if(e.target === modalParrilla) modalParrilla.classList.remove("open") });
 
-    // Simulador
+    // === SIMULADORES ===
     let planVertical = false, planPrecio = 0;
-    DOM.simForm.addEventListener("submit", (e) => {
-      e.preventDefault();
+    
+    // 1. SIMULADOR GENERAL
+    document.getElementById("btnCalcGeneral").addEventListener("click", () => {
       const dia = parseInt(document.getElementById("sim-dia").value, 10), monto = parseFloat(document.getElementById("sim-monto").value);
       if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) return;
-      
-      SFX.calc();
-      document.getElementById("res-vertical").classList.remove("visible");
+      SFX.calc(); document.getElementById("res-vertical").classList.remove("visible");
       
       let diaEmision = (dia <= 10) ? 11 : (dia <= 14) ? 15 : (dia <= 18) ? 19 : (dia <= 22) ? 23 : 11;
       let mesOffset = (dia >= 23) ? 1 : 0;
@@ -832,23 +786,19 @@
       let d = new Date(), m = d.getMonth() + mesOffset, a = d.getFullYear();
       if(m > 11){ m -= 12; a++; }
 
-      document.getElementById("res-dia").textContent = `Día ${dia}`;
-      document.getElementById("res-emision").textContent = `${diaEmision} de ${meses[m]} ${a}`;
-      document.getElementById("res-vencimiento").textContent = `28 de ${meses[m]} ${a}`;
-      document.getElementById("res-tipo").textContent = tipo;
-      document.getElementById("res-monto-plan").textContent = `S/ ${monto.toFixed(2)}`;
-      document.getElementById("res-cobro").textContent = `S/ ${cobro.toFixed(2)}`;
+      document.getElementById("res-dia").textContent = `Día ${dia}`; document.getElementById("res-emision").textContent = `${diaEmision} de ${meses[m]} ${a}`;
+      document.getElementById("res-vencimiento").textContent = `28 de ${meses[m]} ${a}`; document.getElementById("res-tipo").textContent = tipo;
+      document.getElementById("res-monto-plan").textContent = `S/ ${monto.toFixed(2)}`; document.getElementById("res-cobro").textContent = `S/ ${cobro.toFixed(2)}`;
       document.getElementById("res-detalle").textContent = det;
       
-      DOM.simResult.classList.add("visible");
-      setTimeout(() => SFX.success(), 300);
-      mostrarToast("✅ Simulación calculada");
+      document.getElementById("sim-result").classList.add("visible");
+      setTimeout(() => SFX.success(), 300); mostrarToast("✅ Simulación calculada");
     });
 
     document.getElementById("btnVertical").addEventListener("click", () => {
       const dia = parseInt(document.getElementById("sim-dia").value, 10), monto = parseFloat(document.getElementById("sim-monto").value);
       if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) return;
-      SFX.calc(); DOM.simResult.classList.remove("visible");
+      SFX.calc(); document.getElementById("sim-result").classList.remove("visible");
 
       const res = document.getElementById("res-vertical");
       if (planVertical) {
@@ -866,12 +816,78 @@
       res.classList.add("visible");
     });
 
+    // 2. SIMULADOR ATQ (NUEVO)
+    document.getElementById("btnCalcATQ").addEventListener("click", () => {
+      const dia = parseInt(document.getElementById("sim-dia-atq").value, 10);
+      const montoRegular = parseFloat(document.getElementById("sim-monto-atq").value);
+      const tipoAtq = document.querySelector('input[name="tipo-atq"]:checked').value;
+      
+      if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(montoRegular)) {
+          mostrarToast("⚠️ Ingresa un día y monto válido."); SFX.error(); return;
+      }
+      
+      SFX.calc();
+      document.getElementById("sim-result").classList.remove("visible");
+      
+      const res = document.getElementById("res-vertical");
+      const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+      let m = new Date().getMonth() + (dia >= 23 ? 1 : 0);
+      
+      // Cálculo de Ahorro: (Monto regular * 2 meses) - Los 2 soles que pagará.
+      const ahorroTotal = (montoRegular * 2) - 2;
+
+      let htmlDetalle = '';
+      if(tipoAtq === 'MONO') {
+          htmlDetalle = `
+            <div style="text-align:center; margin-bottom:1rem; font-size:0.85rem; color:var(--text-muted);">Beneficio activo por 60 días exactos.</div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span><strong>1er Recibo</strong> (${meses[m%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span><strong>2do Recibo</strong> (${meses[(m+1)%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
+            <div style="display:flex;justify-content:space-between;margin-top:5px;"><span><strong>3er Recibo</strong> (${meses[(m+2)%12]})</span><span style="font-weight:900;">S/ ${montoRegular.toFixed(2)}*</span></div>
+            <div style="font-size:0.7rem; color:#64748B; margin-top:5px; text-align:center">*El 3er recibo podría ser menor (prorrateado) dependiendo del día de instalación.</div>
+          `;
+      } else {
+          htmlDetalle = `
+            <div style="text-align:center; margin-bottom:1rem; font-size:0.85rem; color:var(--text-muted);">Beneficio aplicado directo a facturación (2 Recibos).</div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span><strong>1er Recibo</strong> (${meses[m%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span><strong>2do Recibo</strong> (${meses[(m+1)%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
+            <div style="display:flex;justify-content:space-between;margin-top:5px;"><span><strong>3er Recibo</strong> (${meses[(m+2)%12]})</span><span style="font-weight:900;">S/ ${montoRegular.toFixed(2)}</span></div>
+          `;
+      }
+
+      res.innerHTML = `
+        <div style="background:#10B981; color:white; padding:15px; border-radius:12px; text-align:center; margin-bottom:15px;">
+            <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">¡El cliente ahorra!</div>
+            <div style="font-size:2.2rem; font-weight:900; font-family:var(--font-titulo);">S/ ${ahorroTotal.toFixed(2)}</div>
+        </div>
+        <div style="font-size:0.95rem; padding: 0 10px;">${htmlDetalle}</div>
+      `;
+      
+      res.style.borderColor = "#10B981"; res.style.backgroundColor = "#FFFFFF"; 
+      res.classList.add("visible");
+      setTimeout(() => SFX.success(), 300); mostrarToast("✅ Proyección ATQ calculada");
+    });
+
     document.addEventListener("click", (e) => {
       const btnSim = e.target.closest(".btn-card-sim");
       if (btnSim) {
         navegarA("facturacion");
-        planVertical = (btnSim.dataset.simVertical === 'SI'); planPrecio = parseFloat(btnSim.dataset.simRegular) || 0;
-        document.getElementById("sim-monto").value = btnSim.dataset.simMonto;
+        
+        // Si estamos en ATQ, llenamos el form de ATQ
+        if(canalActual === 'ATQ') {
+            document.getElementById("sim-monto-atq").value = btnSim.dataset.simRegular; // En ATQ usamos el regular para calcular el ahorro
+            // Auto-seleccionar radio basado en el nombre del plan
+            const nombrePlan = btnSim.dataset.simPlan.toUpperCase();
+            if(nombrePlan.includes("HB") || nombrePlan.includes("WTV") || nombrePlan.includes("DGO")) {
+                document.getElementById("tipo-hb").checked = true;
+            } else {
+                document.getElementById("tipo-mono").checked = true;
+            }
+        } else {
+            // General logic
+            planVertical = (btnSim.dataset.simVertical === 'SI'); planPrecio = parseFloat(btnSim.dataset.simRegular) || 0;
+            document.getElementById("sim-monto").value = btnSim.dataset.simMonto;
+        }
+        
         SFX.calc(); mostrarToast(`📋 Oferta cargada: ${btnSim.dataset.simPlan}`);
         return;
       }
@@ -880,22 +896,26 @@
       if (btnParrilla) { e.preventDefault(); abrirModalParrillaDinamico(btnParrilla.dataset.imgUrl, btnParrilla.dataset.imgTitle); return; }
       
       const btnSect = e.target.closest("[data-section]");
-      if (btnSect) navegarA(btnSect.dataset.section);
+      if (btnSect) { navegarA(btnSect.dataset.section); manejarTabEnSeccion(btnSect.dataset.section); }
       
       const btnTab = e.target.closest(".tab-btn");
       if (btnTab) manejarTab(btnTab);
     });
 
-    // Mute/Unmute
+    function manejarTabEnSeccion(seccionId) {
+        const sec = document.getElementById(seccionId);
+        if(sec) {
+            const primerBtnActivo = sec.querySelector('.tab-btn:not(.oculto-por-canal)');
+            if(primerBtnActivo) manejarTab(primerBtnActivo);
+        }
+    }
+
     document.getElementById("fab-mute").addEventListener("click", (e) => {
-      muted = !muted;
-      e.target.textContent = muted ? "🔇" : "🔊";
+      muted = !muted; e.target.textContent = muted ? "🔇" : "🔊";
       mostrarToast(muted ? "🔇 Sonidos silenciados" : "🔊 Sonidos activados");
     });
-
     window.addEventListener("scroll", () => {
-      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      document.getElementById("progress-bar").style.width = (pct || 0) + "%";
+      document.getElementById("progress-bar").style.width = ((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 || 0) + "%";
     }, { passive: true });
   </script>
 </body>
