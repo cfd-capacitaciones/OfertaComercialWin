@@ -7,14 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-gray-100 min-h-screen p-8 relative">
+<body class="bg-gray-100 min-h-screen p-8 relative flex flex-col">
     
-    <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6 w-full flex-grow">
         
-        <!-- CABECERA PRINCIPAL -->
+        <!-- CABECERA PRINCIPAL CON LOGO ACTUALIZADO -->
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h1 class="text-3xl font-black text-[#ff6b00] tracking-tighter mb-1">win</h1>
+                <!-- Se reemplazó el texto por el logo de la carpeta img -->
+                <img src="../img/logo_winnaranja.png" alt="WIN" style="height: 38px; width: auto; margin-bottom: 6px; display: block;">
                 <h2 class="text-xl font-bold text-gray-800">Gestor de Ofertas Comerciales</h2>
             </div>
             <div class="flex items-center space-x-3">
@@ -88,6 +89,12 @@
             </div>
         </div>
     </div>
+
+    <!-- SELLO DE AUTORÍA Y USO INTERNO -->
+    <footer class="w-full max-w-7xl mx-auto mt-8 text-center pb-4">
+        <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">Uso interno exclusivo de Formación WIN</p>
+        <p class="text-xs text-gray-400 mt-1">Plataforma diseñada y creada por <span class="font-semibold text-gray-500">Madeloun T.</span></p>
+    </footer>
 
     <!-- ==========================================
          MODAL: PLANES DE INTERNET 
