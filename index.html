@@ -535,6 +535,20 @@
         } 
         else if (canalActual === 'ATQ') {
             document.getElementById('hero-tag').textContent = `💡 CANAL ATQ`;
+            
+            // MAGIA: OCULTAR TABS ESPECÍFICOS PARA ATQ
+            // Se oculta XGSPON de Lima, RUC20 de Lima y RUC20 de Provincia.
+            const pestañasOcultasATQ = ['lima-xgspon', 'RUC20lima', 'prov-RUC20'];
+            
+            pestañasOcultasATQ.forEach(tabId => {
+                // Ocultar el botón superior de la pestaña
+                const btn = document.querySelector(`button[data-tab="${tabId}"]`);
+                if (btn) btn.classList.add('oculto-por-canal');
+                
+                // Ocultar el panel de la tabla (por si acaso)
+                const panel = document.getElementById(`panel-${tabId}`);
+                if (panel) panel.classList.add('oculto-por-canal');
+            });
         }
         actualizarSeccionesVisibles();
     }
