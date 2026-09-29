@@ -93,7 +93,6 @@
     .btn-card-sim { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: all 0.2s ease; z-index: 10; color: #1A1210; line-height: 1; }
     .btn-card-sim:hover { background: #FFF7ED; border-color: var(--color-naranja); transform: scale(1.12); box-shadow: 0 4px 12px rgba(255, 90, 10, 0.25); }
     
-    /* MODIFICACIÓN: TIPOGRAFÍA DE TARJETAS (Idéntica a la imagen) */
     .plan-card .plan-name { font-family: var(--font-titulo); font-weight: 700; font-size: 0.88rem; color: #64748B; text-transform: uppercase; margin-bottom: 0.2rem; }
     .plan-card .plan-speed { font-family: var(--font-titulo); font-weight: 900; font-size: 2.2rem; color: var(--text-main); line-height: 1; margin-bottom: 0.5rem; }
     .plan-card .plan-price { font-family: var(--font-titulo); font-weight: 900; font-size: 2.1rem; color: var(--color-naranja); margin-top: 0.25rem; display: block; }
@@ -127,6 +126,13 @@
     .servicio-card .srv-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.3rem; line-height: 1.4; flex-grow: 1; }
     .btn-ver-parrilla { margin-top: 0.8rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; background: rgba(255, 90, 10, 0.08); border: 1.5px solid var(--naranja-border); color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; padding: 0.4rem 0.8rem; border-radius: 99px; cursor: pointer; transition: all 0.2s ease; width: 100%; }
     .btn-ver-parrilla:hover, .servicio-card.con-parrilla:hover .btn-ver-parrilla { background: var(--color-naranja); color: #FFFFFF; border-color: var(--color-naranja); box-shadow: 0 4px 12px rgba(255, 90, 10, 0.3); transform: translateY(-1px); }
+
+    /* ===== CROSS: OBJECIONES ===== */
+    .obj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .obj-card { background: #fff; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-card); transition: var(--transition); }
+    .obj-card:hover { border-color: var(--color-naranja); transform: translateY(-4px); }
+    .obj-q { font-weight: 800; font-size: 1rem; color: var(--text-main); margin-bottom: 0.8rem; display: flex; align-items: flex-start; gap: 8px; line-height: 1.3;}
+    .obj-a { font-size: 0.9rem; color: var(--text-body); line-height: 1.5; padding-left: 1.5rem; border-left: 3px solid var(--color-naranja); }
 
     /* ===== SIMULADOR ===== */
     #facturacion { background: linear-gradient(180deg, var(--bg-page) 0%, #FFFFFF 100%); }
@@ -223,6 +229,8 @@
       <button class="nav-btn" data-section="lima">Lima</button>
       <button class="nav-btn" data-section="provincia">Provincia</button>
       <button class="nav-btn" data-section="adicionales">Adicionales</button>
+      <button class="nav-btn oculto-por-canal" data-section="objeciones" id="nav-obj">Objeciones</button>
+      <button class="nav-btn oculto-por-canal" data-section="matriz" id="nav-matriz">Dispositivos</button>
       <button class="nav-btn" data-section="facturacion">Simulador</button>
       <button class="nav-btn oculto-por-canal" data-section="benchmark-competencia" id="nav-bench">Competencia</button>
     </nav>
@@ -241,6 +249,8 @@
       <button class="dnav-item" data-section="lima">🚀 Planes Lima</button>
       <button class="dnav-item" data-section="provincia">🗺️ Planes Provincia</button>
       <button class="dnav-item" data-section="adicionales">➕ Adicionales</button>
+      <button class="dnav-item oculto-por-canal" data-section="objeciones" id="dnav-obj">🛡️ Objeciones</button>
+      <button class="dnav-item oculto-por-canal" data-section="matriz" id="dnav-matriz">📱 Dispositivos</button>
       <button class="dnav-item" data-section="facturacion">🧮 Simulador</button>
       <button class="dnav-item oculto-por-canal" data-section="benchmark-competencia" id="dnav-bench">🥊 Competencia</button>
     </nav>
@@ -252,6 +262,8 @@
     <button class="page-dot" data-section="lima"></button>
     <button class="page-dot" data-section="provincia"></button>
     <button class="page-dot" data-section="adicionales"></button>
+    <button class="page-dot oculto-por-canal" data-section="objeciones" id="dot-obj"></button>
+    <button class="page-dot oculto-por-canal" data-section="matriz" id="dot-matriz"></button>
     <button class="page-dot" data-section="facturacion"></button>
     <button class="page-dot oculto-por-canal" data-section="benchmark-competencia" id="dot-bench"></button>
   </div>
@@ -318,6 +330,93 @@
       </div>
     </section>
 
+    <!-- MANEJO DE OBJECIONES (NUEVO CROSS) -->
+    <section class="section-slide oculto-por-canal" id="objeciones">
+        <div class="section-inner">
+            <h2 class="section-title">Manejo de <span class="accent">Objeciones</span></h2>
+            <p class="section-subtitle">Argumentarios clave para rebatir los 'NO' más frecuentes del cliente de CROSS.</p>
+            
+            <div class="obj-grid">
+                <div class="obj-card">
+                    <div class="obj-q">🗣️ "Ya tengo Netflix, Max, etc. No necesito televisión."</div>
+                    <div class="obj-a">Las plataformas de streaming son buenas para series, pero <strong>no tienen TV en vivo, noticias locales ni el fútbol peruano (L1Max)</strong>. Con WINTV/DGO cubres esos vacíos y además te incluye plataformas (Prime Video, Paramount) para que tengas todo el entretenimiento en una sola boleta.</div>
+                </div>
+                <div class="obj-card">
+                    <div class="obj-q">🗣️ "No veo mucha tele, sería un gasto en vano."</div>
+                    <div class="obj-a">¡Exacto! Por eso ya no necesitas pagar los 120 soles de un cable tradicional. Por una fracción del costo puedes llevarte solo lo que realmente vas a ver (deportes con DGO, o canales puntuales con WINTV) y usarlo desde el celular donde estés.</div>
+                </div>
+                <div class="obj-card">
+                    <div class="obj-q">🗣️ "Mi Smart TV es muy antigua y no agarra las apps."</div>
+                    <div class="obj-a">¡No hay problema! Para eso tenemos el <strong>Winbox</strong>. Por un pequeño costo adicional, convertimos tu tele antigua en una pantalla con Android TV, para que descargues cualquier app (WINTV, Netflix, YouTube) sin tener que comprar un televisor nuevo.</div>
+                </div>
+                <div class="obj-card">
+                    <div class="obj-q">🗣️ "No quiero pagar más en mi recibo de internet."</div>
+                    <div class="obj-a">Lo entiendo, pero si divides el costo, equivale a menos de <strong>S/ 1.50 al día</strong>. Por esa cantidad tienes entretenimiento legal, de alta calidad y para toda tu familia (hasta 6 perfiles), sin consumir datos de tu celular y respaldado por la velocidad de WIN.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MATRIZ DE DISPOSITIVOS (NUEVO CROSS) -->
+    <section class="section-slide oculto-por-canal" id="matriz">
+        <div class="section-inner">
+            <h2 class="section-title">Matriz de <span class="accent">Dispositivos</span></h2>
+            <p class="section-subtitle">Tabla rápida de compatibilidad para asegurar la venta tecnológica.</p>
+            
+            <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                      <tr>
+                          <th style="text-align:left">Servicio SVA</th>
+                          <th>Android TV / Google TV</th>
+                          <th>Samsung (Tizen)</th>
+                          <th>LG (WebOS)</th>
+                          <th>Apple TV / Roku</th>
+                          <th>Web / Móvil</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td style="text-align:left; font-weight:800; color:var(--text-main)">📺 WINTV</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ (Solo Apple TV)</td>
+                          <td>✅ Compatible</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left; font-weight:800; color:var(--text-main)">🎬 DGO</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left; font-weight:800; color:var(--text-main)">⚫ Paramount+</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                          <td>✅ Compatible</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left; font-weight:800; color:var(--text-main)">🟢 Universal+</td>
+                          <td>✅ (Vía DGO)</td>
+                          <td>✅ (Vía DGO)</td>
+                          <td>✅ (Vía DGO)</td>
+                          <td>✅ (Vía DGO)</td>
+                          <td>✅ App Directa</td>
+                      </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
+                *Si el cliente tiene un TV no compatible, ofrecer la opción de <strong>Winbox</strong> para garantizar el funcionamiento.
+            </div>
+        </div>
+    </section>
+
     <!-- SIMULADOR -->
     <section class="section-slide" id="facturacion">
       <div class="section-inner">
@@ -371,6 +470,29 @@
               <button type="button" class="btn-primary" id="btnCalcATQ" style="width:100%; display:flex; justify-content:center; gap:0.5rem;" data-sound="calc">🚀 Proyectar Recibos y Ahorro</button>
             </form>
 
+            <!-- FORMULARIO EXCLUSIVO CROSS -->
+            <form id="form-cross" class="oculto-por-canal" novalidate>
+              <div class="atq-ahorro-box" style="background:#0F0908; box-shadow: 0 4px 15px rgba(15,9,8,0.2);">
+                  <div class="atq-ahorro-title" style="color:var(--color-naranja)">Calculadora de Prorrateo SVA</div>
+                  <div style="font-size:0.85rem; font-weight:normal; color:#FFF">Suma un nuevo servicio al plan actual</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sim-monto-actual">💰 ¿Cuánto paga tu cliente actualmente? (S/)</label>
+                <input class="form-input" type="number" id="sim-monto-actual" min="1" step="0.01" placeholder="Ej: 89" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sim-sva-select">➕ ¿Qué servicio adicional deseas venderle?</label>
+                <select id="sim-sva-select" class="form-input" required>
+                    <option value="" disabled selected>Cargando servicios...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sim-dia-cross">📅 Día de activación del SVA (1 - 31)</label>
+                <input class="form-input" type="number" id="sim-dia-cross" min="1" max="31" required />
+              </div>
+              <button type="button" class="btn-primary" id="btnCalcCross" style="width:100%; display:flex; justify-content:center; gap:0.5rem;" data-sound="calc">🧾 Calcular Próximo Recibo</button>
+            </form>
+
             <!-- RESULTADOS -->
             <div class="sim-result" id="res-vertical" style="border-color: #353836; background-color: #353836;"></div>
             
@@ -384,7 +506,7 @@
 
           </div>
           
-          <!-- TABLA DE CICLOS (AHORA SIEMPRE VISIBLE) -->
+          <!-- TABLA DE CICLOS -->
           <div class="table-wrap" id="tabla-ciclos">
             <table class="data-table" style="max-width:700px">
               <thead><tr><th>Día de Instalación</th><th>Día de Emisión</th><th>Vencimiento</th></tr></thead>
@@ -401,7 +523,7 @@
       </div>
     </section>
 
-    <!-- BENCHMARK COMPETENCIA (EXCLUSIVO ATQ / CROSS) -->
+    <!-- BENCHMARK COMPETENCIA (EXCLUSIVO ATQ) -->
     <section class="section-slide oculto-por-canal" id="benchmark-competencia">
       <div class="section-inner">
         <h2 class="section-title">WIN VS <span class="accent">COMPETENCIA</span></h2>
@@ -487,14 +609,12 @@
     let SECCIONES_ACTIVAS = [];
 
     function configurarInterfazPorCanal() {
-        if (canalActual === 'ATQ' || canalActual === 'CROSS') {
+        if (canalActual === 'ATQ') {
             document.getElementById('benchmark-competencia').classList.remove('oculto-por-canal');
             document.getElementById('nav-bench').classList.remove('oculto-por-canal');
             document.getElementById('dnav-bench').classList.remove('oculto-por-canal');
             document.getElementById('dot-bench').classList.remove('oculto-por-canal');
-        }
-        
-        if (canalActual === 'ATQ') {
+            
             document.getElementById('hero-tag').textContent = `💡 CANAL ATQ`;
             ['lima-xgspon', 'RUC20lima', 'prov-RUC20'].forEach(tabId => {
                 const btn = document.querySelector(`button[data-tab="${tabId}"]`);
@@ -502,7 +622,28 @@
             });
             document.getElementById('form-general').classList.add('oculto-por-canal');
             document.getElementById('form-atq').classList.remove('oculto-por-canal');
-            // SE ELIMINÓ LA LÍNEA QUE OCULTABA LA TABLA DE CICLOS
+        }
+        else if (canalActual === 'CROSS') {
+            document.getElementById('hero-tag').textContent = `💡 CANAL CROSS`;
+            
+            // Ocultar Planes
+            document.getElementById('lima').classList.add('oculto-por-canal');
+            document.getElementById('provincia').classList.add('oculto-por-canal');
+            document.querySelectorAll('.btn-planes-acceso').forEach(btn => btn.style.display = 'none');
+            
+            // Mostrar nuevas secciones CROSS
+            document.getElementById('objeciones').classList.remove('oculto-por-canal');
+            document.getElementById('matriz').classList.remove('oculto-por-canal');
+            document.getElementById('nav-obj').classList.remove('oculto-por-canal');
+            document.getElementById('nav-matriz').classList.remove('oculto-por-canal');
+            document.getElementById('dnav-obj').classList.remove('oculto-por-canal');
+            document.getElementById('dnav-matriz').classList.remove('oculto-por-canal');
+            document.getElementById('dot-obj').classList.remove('oculto-por-canal');
+            document.getElementById('dot-matriz').classList.remove('oculto-por-canal');
+
+            // Cambiar simulador a CROSS (manteniendo tabla ciclos visible)
+            document.getElementById('form-general').classList.add('oculto-por-canal');
+            document.getElementById('form-cross').classList.remove('oculto-por-canal');
         }
 
         SECCIONES_ACTIVAS = Array.from(document.querySelectorAll('.section-slide:not(.oculto-por-canal)')).map(s => s.id);
@@ -560,7 +701,17 @@
         grid.innerHTML = '';
         const serviciosCanal = data.filter(s => (s.canal || 'GENERAL').toUpperCase() === canalActual);
 
+        // Llenar el Dropdown de CROSS si está activo
+        const selectCross = document.getElementById("sim-sva-select");
+        if(canalActual === 'CROSS' && selectCross) {
+            selectCross.innerHTML = '<option value="" disabled selected>Elige un servicio adicional...</option>';
+        }
+
         serviciosCanal.forEach(srv => {
+            if(canalActual === 'CROSS' && selectCross) {
+                selectCross.innerHTML += `<option value="${srv.precio}">${srv.nombre} (S/ ${srv.precio})</option>`;
+            }
+
             const tieneParrilla = srv.imagen_url && srv.imagen_url.trim() !== '';
             let notasHtml = '';
             if (srv.descripcion) srv.descripcion.split('\n').forEach(l => { if(l.trim()) notasHtml += `<div class="srv-note">${l.trim()}</div>` });
@@ -783,45 +934,95 @@
       if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(montoRegular)) {
           mostrarToast("⚠️ Ingresa un día y monto válido."); SFX.error(); return;
       }
-      
-      SFX.calc();
-      document.getElementById("sim-result").classList.remove("visible");
+      SFX.calc(); document.getElementById("sim-result").classList.remove("visible");
       
       const res = document.getElementById("res-vertical");
       const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
       let m = new Date().getMonth() + (dia >= 23 ? 1 : 0);
-      
       const ahorroTotal = (montoRegular * 2) - 2;
 
       let htmlDetalle = '';
       if(tipoAtq === 'MONO') {
-          htmlDetalle = `
-            <div style="text-align:center; margin-bottom:1rem; font-size:0.85rem; color:var(--text-muted);">Beneficio activo por 60 días exactos.</div>
+          htmlDetalle = `<div style="text-align:center; margin-bottom:1rem; font-size:0.85rem; color:var(--text-muted);">Beneficio activo por 60 días exactos.</div>
             <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span><strong>1er Recibo</strong> (${meses[m%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
             <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span><strong>2do Recibo</strong> (${meses[(m+1)%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
             <div style="display:flex;justify-content:space-between;margin-top:5px;"><span><strong>3er Recibo</strong> (${meses[(m+2)%12]})</span><span style="font-weight:900;">S/ ${montoRegular.toFixed(2)}*</span></div>
-            <div style="font-size:0.7rem; color:#64748B; margin-top:5px; text-align:center">*El 3er recibo podría ser menor dependiendo del día de instalación.</div>
-          `;
+            <div style="font-size:0.7rem; color:#64748B; margin-top:5px; text-align:center">*El 3er recibo podría ser menor dependiendo del día de instalación.</div>`;
       } else {
-          htmlDetalle = `
-            <div style="text-align:center; margin-bottom:1rem; font-size:0.85rem; color:var(--text-muted);">Beneficio aplicado directo a facturación (2 Recibos).</div>
+          htmlDetalle = `<div style="text-align:center; margin-bottom:1rem; font-size:0.85rem; color:var(--text-muted);">Beneficio aplicado directo a facturación (2 Recibos).</div>
             <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span><strong>1er Recibo</strong> (${meses[m%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
             <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span><strong>2do Recibo</strong> (${meses[(m+1)%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
-            <div style="display:flex;justify-content:space-between;margin-top:5px;"><span><strong>3er Recibo</strong> (${meses[(m+2)%12]})</span><span style="font-weight:900;">S/ ${montoRegular.toFixed(2)}</span></div>
-          `;
+            <div style="display:flex;justify-content:space-between;margin-top:5px;"><span><strong>3er Recibo</strong> (${meses[(m+2)%12]})</span><span style="font-weight:900;">S/ ${montoRegular.toFixed(2)}</span></div>`;
       }
 
-      res.innerHTML = `
-        <div style="background:#10B981; color:white; padding:15px; border-radius:12px; text-align:center; margin-bottom:15px;">
+      res.innerHTML = `<div style="background:#10B981; color:white; padding:15px; border-radius:12px; text-align:center; margin-bottom:15px;">
             <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">¡El cliente ahorra!</div>
             <div style="font-size:2.2rem; font-weight:900; font-family:var(--font-titulo);">S/ ${ahorroTotal.toFixed(2)}</div>
-        </div>
-        <div style="font-size:0.95rem; padding: 0 10px;">${htmlDetalle}</div>
-      `;
-      
-      res.style.borderColor = "#10B981"; res.style.backgroundColor = "#FFFFFF"; 
-      res.classList.add("visible");
+        </div><div style="font-size:0.95rem; padding: 0 10px;">${htmlDetalle}</div>`;
+      res.style.borderColor = "#10B981"; res.style.backgroundColor = "#FFFFFF"; res.classList.add("visible");
       setTimeout(() => SFX.success(), 300); mostrarToast("✅ Proyección calculada");
+    });
+
+    // SIMULADOR CROSS (NUEVO)
+    document.getElementById("btnCalcCross").addEventListener("click", () => {
+        const dia = parseInt(document.getElementById("sim-dia-cross").value, 10);
+        const montoActual = parseFloat(document.getElementById("sim-monto-actual").value);
+        const selectSva = document.getElementById("sim-sva-select");
+        const montoSva = parseFloat(selectSva.value);
+        
+        if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(montoActual) || isNaN(montoSva)) {
+            mostrarToast("⚠️ Completa los campos correctamente"); SFX.error(); return;
+        }
+        
+        const nombreSva = selectSva.options[selectSva.selectedIndex].text.split(' (')[0];
+        SFX.calc();
+        document.getElementById("sim-result").classList.remove("visible");
+        const res = document.getElementById("res-vertical");
+
+        let tarifa_dia_sva = montoSva / 30;
+        let ultimoDia = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+
+        let prorrateoSva = 0;
+        let proxRecibo = 0;
+        let tarifaPlana = montoActual + montoSva;
+
+        if (dia <= 22) {
+            let diasCobro = ultimoDia - dia + 1;
+            prorrateoSva = tarifa_dia_sva * diasCobro;
+            proxRecibo = montoActual + prorrateoSva;
+            
+            res.innerHTML = `
+                <div style="background:#0F0908; color:white; padding:15px; border-radius:12px; text-align:center; margin-bottom:15px; border-left: 4px solid var(--color-naranja);">
+                    <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase; color:var(--text-muted)">TU PRÓXIMO RECIBO SERÁ</div>
+                    <div style="font-size:2.2rem; font-weight:900; font-family:var(--font-titulo); color:var(--color-naranja);">S/ ${proxRecibo.toFixed(2)}</div>
+                </div>
+                <div style="font-size:0.95rem; padding: 0 10px;">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span>Plan Actual</span><strong>S/ ${montoActual.toFixed(2)}</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span>${nombreSva} (Prorrateo ${diasCobro} días)</span><strong>S/ ${prorrateoSva.toFixed(2)}</strong></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:10px; color:#10B981; font-size:1.1rem;"><span><strong>Tarifa Plana Siguiente</strong></span><span style="font-weight:900;">S/ ${tarifaPlana.toFixed(2)}</span></div>
+                </div>
+            `;
+        } else {
+            let diasCobro = ultimoDia - dia + 1;
+            prorrateoSva = tarifa_dia_sva * diasCobro;
+            proxRecibo = montoActual + prorrateoSva + montoSva;
+            
+            res.innerHTML = `
+                <div style="background:#0F0908; color:white; padding:15px; border-radius:12px; text-align:center; margin-bottom:15px; border-left: 4px solid var(--color-naranja);">
+                    <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase; color:var(--text-muted)">TU PRÓXIMO RECIBO SERÁ</div>
+                    <div style="font-size:2.2rem; font-weight:900; font-family:var(--font-titulo); color:var(--color-naranja);">S/ ${proxRecibo.toFixed(2)}</div>
+                </div>
+                <div style="font-size:0.95rem; padding: 0 10px;">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span>Plan Actual</span><strong>S/ ${montoActual.toFixed(2)}</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span>${nombreSva} (Prorrateo ${diasCobro} días)</span><strong>S/ ${prorrateoSva.toFixed(2)}</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span>${nombreSva} (Mes adelantado)</span><strong>S/ ${montoSva.toFixed(2)}</strong></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:10px; color:#10B981; font-size:1.1rem;"><span><strong>Tarifa Plana Siguiente</strong></span><span style="font-weight:900;">S/ ${tarifaPlana.toFixed(2)}</span></div>
+                </div>
+            `;
+        }
+        res.style.borderColor = "#0F0908"; res.style.backgroundColor = "#FFFFFF"; 
+        res.classList.add("visible");
+        setTimeout(() => SFX.success(), 300); mostrarToast("✅ Proyección CROSS calculada");
     });
 
     // ==========================================
@@ -840,7 +1041,7 @@
             } else {
                 document.getElementById("tipo-mono").checked = true;
             }
-        } else {
+        } else if (canalActual !== 'CROSS') {
             planVertical = (btnSim.dataset.simVertical === 'SI'); planPrecio = parseFloat(btnSim.dataset.simRegular) || 0;
             document.getElementById("sim-monto").value = btnSim.dataset.simMonto;
         }
