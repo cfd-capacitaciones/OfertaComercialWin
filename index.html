@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WIN · Oferta Comercial 2026</title>
+  <!-- Código del Favicon -->
   <link rel="icon" type="image/png" href="img/favicon.png" />
   <meta name="description" content="Plataforma de Oferta comercial - CFD" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -90,14 +91,15 @@
     .plan-card { background: #F7F7F7; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.5rem; position: relative; display: flex; flex-direction: column; gap: 0.6rem; box-shadow: var(--shadow-card); transition: var(--transition); }
     .plan-card:hover { border-color: var(--color-naranja); transform: translateY(-4px); }
     .plan-card.featured { border: 2px solid var(--color-naranja); background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 90, 10, 0.02) 100%); }
-    .btn-card-sim { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; }
+    .btn-card-sim { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: all 0.2s ease; z-index: 10; color: #1A1210; line-height: 1; }
+    .btn-card-sim:hover { background: #FFF7ED; border-color: var(--color-naranja); transform: scale(1.12); box-shadow: 0 4px 12px rgba(255, 90, 10, 0.25); }
     .plan-card .plan-speed { font-family: var(--font-titulo); font-weight: 900; font-size: 1.6rem; color: var(--text-main); }
     .plan-card .plan-name { font-family: var(--font-titulo); font-weight: 700; font-size: 0.88rem; color: var(--text-muted); text-transform: uppercase; }
     .plan-card .plan-price { font-family: var(--font-titulo); font-weight: 900; font-size: 2.1rem; color: var(--color-naranja); margin-top: 0.25rem; }
     .plan-card .plan-details { font-size: 0.83rem; color: #475569; line-height: 1.7; padding-left: 0; }
     .plan-card .plan-details li { list-style-type: none; }
     .plan-card .plan-details li::before { content: "✓ "; color: var(--color-naranja); font-weight: 800; }
-    .badge-top { position: absolute; top: -11px; left: 16px; background: var(--color-naranja); color: #FFFFFF; font-family: var(--font-titulo); font-weight: 800; font-size: 0.7rem; padding: 0.22rem 0.7rem; border-radius: 99px; }
+    .badge-top { position: absolute; top: -11px; left: 16px; background: var(--color-naranja); color: #FFFFFF; font-family: var(--font-titulo); font-weight: 800; font-size: 0.7rem; padding: 0.22rem 0.7rem; border-radius: 99px; text-transform: uppercase; }
 
     .table-wrap { overflow-x: auto; border-radius: var(--radius-md); background: #FFFFFF; border: 1px solid var(--border-subtle); }
     .data-table { width: 100%; min-width: 640px; font-size: 0.87rem; }
@@ -109,22 +111,18 @@
     .badge-si { background: rgba(0, 200, 100, 0.12); color: #16A34A; border: 1px solid rgba(0, 200, 100, 0.25); }
     .badge-no { background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0; }
 
-    /* ===== INFO GENERAL (EXCLUSIVO CROSS/ATQ) ===== */
-    .info-tabs { display: flex; gap: 0.5rem; margin-bottom: 0; }
-    .info-tab { background: #FFFFFF; color: var(--text-main); font-family: var(--font-titulo); font-weight: 800; padding: 0.8rem 2rem; border-radius: 12px 12px 0 0; font-size: 0.95rem; border: 1.5px solid var(--border-subtle); border-bottom: none; cursor: pointer; }
-    .info-tab.active { background: #0F0908; color: #FFFFFF; border-color: #0F0908; }
-    .info-content-box { background: #FFFFFF; border: 2px solid #0F0908; border-radius: 0 12px 12px 12px; overflow: hidden; }
-    .info-header-bar { background: #0F0908; color: #FFFFFF; padding: 0.8rem 1.5rem; font-family: var(--font-titulo); font-weight: 900; font-size: 1.1rem; border-bottom: 4px solid var(--color-naranja); }
-    .info-body-pad { padding: 2rem; }
-    .info-h4 { color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 900; font-size: 0.9rem; margin-bottom: 0.8rem; border-left: 3px solid var(--color-naranja); padding-left: 8px; }
-    .info-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .info-card-item { background: #FFFFFF; border: 1px solid var(--border-subtle); border-left: 3px solid var(--color-naranja); border-radius: 8px; padding: 1.2rem; font-size: 0.85rem; }
-
-    /* ===== SERVICIOS ADICIONALES ===== */
+    /* ===== SERVICIOS ADICIONALES (DISEÑO LIMPIO RESTAURADO) ===== */
     .adicionales-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.2rem; }
-    .servicio-card { background: #FFFFFF; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.4rem 1.2rem; display: flex; flex-direction: column; }
+    .servicio-card { background: #FFFFFF; border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.4rem 1.2rem; display: flex; flex-direction: column; transition: var(--transition); box-shadow: var(--shadow-card); position: relative; }
+    .servicio-card:hover { border-color: var(--color-naranja); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
     .servicio-card.con-parrilla { cursor: pointer; }
-    .btn-ver-parrilla { margin-top: 0.8rem; display: inline-flex; align-items: center; justify-content: center; background: rgba(255, 90, 10, 0.08); border: 1.5px solid var(--naranja-border); color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; padding: 0.4rem 0.8rem; border-radius: 99px; cursor: pointer; width: 100%; }
+    .servicio-card.con-parrilla:hover { background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 90, 10, 0.02) 100%); }
+    .servicio-card .srv-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .servicio-card .srv-name { font-family: var(--font-titulo); font-weight: 800; font-size: 0.98rem; margin-bottom: 0.25rem; color: var(--text-main); }
+    .servicio-card .srv-price { font-family: var(--font-titulo); font-weight: 900; font-size: 1.5rem; color: var(--color-naranja); }
+    .servicio-card .srv-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.3rem; line-height: 1.4; flex-grow: 1; }
+    .btn-ver-parrilla { margin-top: 0.8rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; background: rgba(255, 90, 10, 0.08); border: 1.5px solid var(--naranja-border); color: var(--color-naranja); font-family: var(--font-titulo); font-weight: 700; font-size: 0.78rem; padding: 0.4rem 0.8rem; border-radius: 99px; cursor: pointer; transition: all 0.2s ease; width: 100%; }
+    .btn-ver-parrilla:hover, .servicio-card.con-parrilla:hover .btn-ver-parrilla { background: var(--color-naranja); color: #FFFFFF; border-color: var(--color-naranja); box-shadow: 0 4px 12px rgba(255, 90, 10, 0.3); transform: translateY(-1px); }
 
     /* ===== SIMULADOR GENERAL Y ATQ ===== */
     #facturacion { background: linear-gradient(180deg, var(--bg-page) 0%, #FFFFFF 100%); }
@@ -133,8 +131,8 @@
     .form-group { margin-bottom: 1.4rem; }
     .form-label { display: block; margin-bottom: 0.45rem; font-size: 0.85rem; font-weight: 700; }
     .form-input { width: 100%; background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: var(--radius-md); font-family: var(--font-titulo); font-weight: 700; font-size: 1.1rem; padding: 0.75rem 1rem; }
+    .form-input:focus { outline: none; background: #FFFFFF; border-color: var(--color-naranja); box-shadow: 0 0 0 3px rgba(255, 90, 10, 0.16); }
     
-    /* Result Box General */
     .sim-result { margin-top: 1.5rem; background: #FFF9F6; border: 1.5px solid var(--color-naranja); border-radius: var(--radius-lg); padding: 1.5rem; display: none; }
     .sim-result.visible { display: block; animation: fadeSlideIn 0.4s ease both; }
     .sim-result-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 90, 10, 0.12); font-size: 0.9rem; }
@@ -146,16 +144,13 @@
     /* Result Box Especial ATQ */
     .atq-ahorro-box { background: #10B981; color: white; padding: 1rem; border-radius: 12px; text-align: center; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
     .atq-ahorro-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.2rem; opacity: 0.9; }
-    .atq-ahorro-monto { font-family: var(--font-titulo); font-size: 2rem; font-weight: 900; line-height: 1; }
-
-    /* Radio Buttons personalizados para ATQ */
     .radio-group-atq { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
     .radio-btn-atq { flex: 1; position: relative; }
     .radio-btn-atq input { position: absolute; opacity: 0; cursor: pointer; }
     .radio-btn-atq label { display: block; width: 100%; padding: 0.8rem; border: 2px solid var(--border-subtle); border-radius: 10px; text-align: center; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
     .radio-btn-atq input:checked + label { border-color: var(--color-naranja); background: var(--naranja-alpha); color: var(--color-naranja); }
 
-    /* ===== SECCIÓN BENCHMARK (ATQ/CROSS) ===== */
+    /* ===== SECCIÓN BENCHMARK (NUEVO ORDEN) ===== */
     #benchmark-competencia { background: #0F0908; color: #FFFFFF; }
     #benchmark-competencia .section-title { color: #FFFFFF; }
     .bench-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; width: 100%; margin-top: 2rem; }
@@ -178,10 +173,15 @@
     .modal-dialog { background: #FFFFFF; border-radius: var(--radius-xl); border: 2px solid var(--color-naranja); width: 100%; max-width: 950px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; transform: translateY(20px) scale(0.97); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
     .modal-overlay.open .modal-dialog { transform: translateY(0) scale(1); }
     .modal-header { padding: 1.1rem 1.5rem; background: #FFFFFF; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
-    .modal-title { font-family: var(--font-titulo); font-weight: 900; font-size: 1.25rem; }
-    .modal-close { width: 36px; height: 36px; border-radius: 50%; background: #F1F5F9; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .modal-title-wrap { display: flex; align-items: center; gap: 0.75rem; }
+    .modal-title { font-family: var(--font-titulo); font-weight: 900; font-size: 1.25rem; line-height: 1.2; }
+    .modal-badge { display: inline-block; background: rgba(255, 90, 10, 0.1); color: var(--color-naranja); font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 99px; margin-top: 0.2rem; }
+    .modal-close { width: 36px; height: 36px; border-radius: 50%; background: #F1F5F9; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+    .modal-close:hover { background: #FEE2E2; color: #DC2626; border-color: #FCA5A5; }
     .modal-body { padding: 1.2rem; overflow-y: auto; max-height: calc(90vh - 140px); background: #000000; display: flex; justify-content: center; }
     .modal-img-container img { max-width: 100%; border-radius: var(--radius-md); }
+    .modal-footer { padding: 0.85rem 1.5rem; background: #FFFFFF; border-top: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
+    .modal-desc { font-size: 0.82rem; color: var(--text-muted); }
     
     /* ===== FAB & TOAST & FOOTER ===== */
     #fab-container { position: fixed; bottom: 2rem; right: 1.5rem; z-index: 800; display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; }
@@ -212,7 +212,7 @@
 
   <div id="progress-bar" role="progressbar"></div>
 
-  <!-- HEADER -->
+  <!-- HEADER (NUEVO ORDEN: Adicionales -> Simulador -> Competencia) -->
   <header id="site-header" role="banner">
     <button class="hamburger-btn" id="hamburger-btn"><span></span><span></span><span></span></button>
     <div class="logo"><img src="img/logo_winnaranja.png" alt="WIN" style="height:34px;width:auto;display:block;"></div>
@@ -220,10 +220,10 @@
       <button class="nav-btn" data-section="home">Inicio</button>
       <button class="nav-btn" data-section="lima">Lima</button>
       <button class="nav-btn" data-section="provincia">Provincia</button>
-      <button class="nav-btn oculto-por-canal" data-section="info-general" id="nav-info">Info General</button>
+      <!-- Se eliminó Info General -->
       <button class="nav-btn" data-section="adicionales">Adicionales</button>
-      <button class="nav-btn oculto-por-canal" data-section="benchmark-competencia" id="nav-bench">Competencia</button>
       <button class="nav-btn" data-section="facturacion">Simulador</button>
+      <button class="nav-btn oculto-por-canal" data-section="benchmark-competencia" id="nav-bench">Competencia</button>
     </nav>
   </header>
 
@@ -239,10 +239,9 @@
       <button class="dnav-item" data-section="home">🏠 Inicio</button>
       <button class="dnav-item" data-section="lima">🚀 Planes Lima</button>
       <button class="dnav-item" data-section="provincia">🗺️ Planes Provincia</button>
-      <button class="dnav-item oculto-por-canal" data-section="info-general" id="dnav-info">ℹ️ Info General</button>
       <button class="dnav-item" data-section="adicionales">➕ Adicionales</button>
-      <button class="dnav-item oculto-por-canal" data-section="benchmark-competencia" id="dnav-bench">🥊 Competencia</button>
       <button class="dnav-item" data-section="facturacion">🧮 Simulador</button>
+      <button class="dnav-item oculto-por-canal" data-section="benchmark-competencia" id="dnav-bench">🥊 Competencia</button>
     </nav>
   </aside>
 
@@ -251,10 +250,9 @@
     <button class="page-dot active" data-section="home"></button>
     <button class="page-dot" data-section="lima"></button>
     <button class="page-dot" data-section="provincia"></button>
-    <button class="page-dot oculto-por-canal" data-section="info-general" id="dot-info"></button>
     <button class="page-dot" data-section="adicionales"></button>
-    <button class="page-dot oculto-por-canal" data-section="benchmark-competencia" id="dot-bench"></button>
     <button class="page-dot" data-section="facturacion"></button>
+    <button class="page-dot oculto-por-canal" data-section="benchmark-competencia" id="dot-bench"></button>
   </div>
 
   <main id="main-content">
@@ -310,105 +308,20 @@
       </div>
     </section>
 
-    <!-- INFO GENERAL (CROSS / ATQ) -->
-    <section class="section-slide oculto-por-canal" id="info-general">
-        <div class="section-inner">
-            <h2 class="section-title">INFORMACIÓN <span class="accent">GENERAL</span></h2>
-            <div class="info-tabs">
-                <button class="info-tab active" onclick="cambiarTabInfo('paramount')">PARAMOUNT +</button>
-                <button class="info-tab" onclick="cambiarTabInfo('universal')">UNIVERSAL +</button>
-            </div>
-            <div id="info-paramount" class="info-content-box">
-                <div class="info-header-bar"><span style="color:#FF5A0A;font-size:1.4rem;">●</span> PARAMOUNT+</div>
-                <div class="info-body-pad">
-                    <h4 class="info-h4">| BENEFICIOS</h4>
-                    <p style="margin-bottom:1.5rem;">Servicio de streaming con series, películas y contenidos originales de MTV, Nickelodeon y Comedy Central.</p>
-                    <div class="info-cards-grid">
-                        <div class="info-card-item"><strong>Pantallas simultáneas:</strong> hasta 2.</div>
-                        <div class="info-card-item"><strong>Perfiles:</strong> hasta 6 perfiles.</div>
-                        <div class="info-card-item"><strong>Compatibilidad:</strong> Chrome, Safari, Edge.</div>
-                        <div class="info-card-item"><strong>Smart TV:</strong> Disponible en tiendas.</div>
-                    </div>
-                </div>
-            </div>
-            <div id="info-universal" class="info-content-box" style="display: none;">
-                <div class="info-header-bar"><span style="color:#10b981;font-size:1.4rem;">●</span> UNIVERSAL+</div>
-                <div class="info-body-pad">
-                    <h4 class="info-h4" style="border-color:#10b981; color:#10b981">| BENEFICIOS</h4>
-                    <p style="margin-bottom:1.5rem;">Las mejores series y películas taquilleras del ecosistema de Universal Studios en alta calidad.</p>
-                    <div class="info-cards-grid">
-                        <div class="info-card-item" style="border-left-color:#10b981">Miles de horas On-Demand.</div>
-                        <div class="info-card-item" style="border-left-color:#10b981">Series exclusivas de USA Network.</div>
-                        <div class="info-card-item" style="border-left-color:#10b981">Películas del cine a tu hogar.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ADICIONALES -->
+    <!-- ADICIONALES (CUARTA SECCIÓN) -->
     <section class="section-slide" id="adicionales">
       <div class="section-inner">
         <h2 class="section-title">Servicios <span class="accent">Adicionales</span></h2>
+        <p class="section-subtitle">Potencia tu plan con estos servicios complementarios.</p>
         <div id="grid-adicionales" class="adicionales-grid"></div>
       </div>
     </section>
 
-    <!-- BENCHMARK COMPETENCIA (NUEVO - SOLO ATQ / CROSS) -->
-    <section class="section-slide oculto-por-canal" id="benchmark-competencia">
-      <div class="section-inner">
-        <h2 class="section-title">WIN VS <span class="accent">COMPETENCIA</span></h2>
-        <p class="section-subtitle" style="color: #94A3B8;">Conoce por qué la oferta de Ataque es insuperable frente a otros operadores.</p>
-        
-        <div class="bench-grid">
-            <!-- Movistar -->
-            <div class="bench-card">
-                <div class="bench-logo bench-movistar">Movistar</div>
-                <div style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">Fibra Óptica HFC/FTTH</div>
-                <div class="bench-speed">1000 Mbps</div>
-                <div class="bench-price">Regular S/ 159.90</div>
-                <div class="bench-promo" style="color: #019DF4; font-size: 1.5rem;">S/ 79.90 <span style="font-size:0.8rem; font-weight:normal">x 6 meses</span></div>
-                <ul style="text-align: left; font-size: 0.85rem; color: #94A3B8; margin-top: 1rem; line-height: 1.6;">
-                    <li>❌ Simetría no garantizada</li>
-                    <li>❌ Sujeto a facilidades técnicas</li>
-                </ul>
-            </div>
-
-            <!-- WIN ATQ (Centro Destacado) -->
-            <div class="bench-card win-card">
-                <div class="bench-vs-badge">Nuestra Oferta ATQ</div>
-                <div class="bench-logo bench-win">WIN</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">100% Fibra Óptica</div>
-                <div class="bench-speed">1000 Mbps</div>
-                <div class="bench-price">Regular S/ 89.00</div>
-                <div class="bench-promo">S/ 1.00 <span style="font-size:0.9rem; font-weight:normal; color:#FFF">x 2 recibos</span></div>
-                <ul style="text-align: left; font-size: 0.9rem; color: #FFF; margin-top: 1rem; line-height: 1.6;">
-                    <li>✅ 100% Simetría garantizada</li>
-                    <li>✅ Router Mesh Wi-Fi 6 incluido</li>
-                    <li>✅ Ping optimizado para Gamers</li>
-                </ul>
-            </div>
-
-            <!-- Claro -->
-            <div class="bench-card">
-                <div class="bench-logo bench-claro">Claro</div>
-                <div style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">HFC / Fibra</div>
-                <div class="bench-speed">1000 Mbps</div>
-                <div class="bench-price">Regular S/ 135.00</div>
-                <div class="bench-promo" style="color: #E3000F; font-size: 1.5rem;">S/ 67.50 <span style="font-size:0.8rem; font-weight:normal">x 6 meses</span></div>
-                <ul style="text-align: left; font-size: 0.85rem; color: #94A3B8; margin-top: 1rem; line-height: 1.6;">
-                    <li>❌ Velocidad de subida limitada</li>
-                    <li>❌ Router básico de banda dual</li>
-                </ul>
-            </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SIMULADOR (CAMALEÓNICO) -->
+    <!-- SIMULADOR (QUINTA SECCIÓN) -->
     <section class="section-slide" id="facturacion">
       <div class="section-inner">
         <h2 class="section-title">Simulador de <span class="accent">Facturación</span></h2>
+        <p class="section-subtitle">Calcula tu primera factura según el día de instalación.</p>
         
         <div class="sim-layout">
           <div class="sim-form-card">
@@ -470,7 +383,7 @@
 
           </div>
           
-          <!-- TABLA DE CICLOS (Se oculta en ATQ) -->
+          <!-- TABLA DE CICLOS -->
           <div class="table-wrap" id="tabla-ciclos">
             <table class="data-table" style="max-width:700px">
               <thead><tr><th>Día de Instalación</th><th>Día de Emisión</th><th>Vencimiento</th></tr></thead>
@@ -486,6 +399,58 @@
         </div>
       </div>
     </section>
+
+    <!-- BENCHMARK COMPETENCIA (SEXTA SECCIÓN - ÚLTIMA) -->
+    <section class="section-slide oculto-por-canal" id="benchmark-competencia">
+      <div class="section-inner">
+        <h2 class="section-title">WIN VS <span class="accent">COMPETENCIA</span></h2>
+        <p class="section-subtitle" style="color: #94A3B8;">Conoce por qué la oferta de Ataque es insuperable frente a otros operadores.</p>
+        
+        <div class="bench-grid">
+            <!-- Movistar -->
+            <div class="bench-card">
+                <div class="bench-logo bench-movistar">Movistar</div>
+                <div style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">Fibra Óptica HFC/FTTH</div>
+                <div class="bench-speed">1000 Mbps</div>
+                <div class="bench-price">Regular S/ 159.90</div>
+                <div class="bench-promo" style="color: #019DF4; font-size: 1.5rem;">S/ 79.90 <span style="font-size:0.8rem; font-weight:normal">x 6 meses</span></div>
+                <ul style="text-align: left; font-size: 0.85rem; color: #94A3B8; margin-top: 1rem; line-height: 1.6;">
+                    <li>❌ Simetría no garantizada</li>
+                    <li>❌ Sujeto a facilidades técnicas</li>
+                </ul>
+            </div>
+
+            <!-- WIN ATQ -->
+            <div class="bench-card win-card">
+                <div class="bench-vs-badge">Nuestra Oferta ATQ</div>
+                <div class="bench-logo bench-win">WIN</div>
+                <div style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">100% Fibra Óptica</div>
+                <div class="bench-speed">1000 Mbps</div>
+                <div class="bench-price">Regular S/ 89.00</div>
+                <div class="bench-promo">S/ 1.00 <span style="font-size:0.9rem; font-weight:normal; color:#FFF">x 2 recibos</span></div>
+                <ul style="text-align: left; font-size: 0.9rem; color: #FFF; margin-top: 1rem; line-height: 1.6;">
+                    <li>✅ 100% Simetría garantizada</li>
+                    <li>✅ Router Mesh Wi-Fi 6 incluido</li>
+                    <li>✅ Ping optimizado para Gamers</li>
+                </ul>
+            </div>
+
+            <!-- Claro -->
+            <div class="bench-card">
+                <div class="bench-logo bench-claro">Claro</div>
+                <div style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1rem;">HFC / Fibra</div>
+                <div class="bench-speed">1000 Mbps</div>
+                <div class="bench-price">Regular S/ 135.00</div>
+                <div class="bench-promo" style="color: #E3000F; font-size: 1.5rem;">S/ 67.50 <span style="font-size:0.8rem; font-weight:normal">x 6 meses</span></div>
+                <ul style="text-align: left; font-size: 0.85rem; color: #94A3B8; margin-top: 1rem; line-height: 1.6;">
+                    <li>❌ Velocidad de subida limitada</li>
+                    <li>❌ Router básico de banda dual</li>
+                </ul>
+            </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer id="site-footer">
@@ -505,14 +470,14 @@
   <div id="modal-parrilla" class="modal-overlay">
     <div class="modal-dialog">
       <div class="modal-header">
-        <div class="modal-title-wrap"><span class="modal-icon">📺</span><div><h3 id="modal-parrilla-titulo" class="modal-title">Parrilla</h3></div></div>
+        <div class="modal-title-wrap"><span class="modal-icon">📺</span><div><h3 id="modal-parrilla-titulo" class="modal-title">Parrilla</h3><span id="modal-parrilla-badge" class="modal-badge">WIN Entretenimiento</span></div></div>
         <button id="modal-close-btn" class="modal-close">✕</button>
       </div>
       <div class="modal-body">
         <div class="modal-img-container"><img id="modal-parrilla-img" src="" alt="Parrilla" /></div>
       </div>
       <div class="modal-footer">
-        <span class="modal-desc">Detalles visuales</span>
+        <span id="modal-parrilla-desc" class="modal-desc">Detalle de canales disponibles</span>
         <button id="modal-footer-close" class="btn-primary btn-sm">Cerrar</button>
       </div>
     </div>
@@ -520,38 +485,30 @@
 
   <script>
     // ==========================================
-    // 1. CONFIGURACIÓN MULTICANAL
+    // 1. CONFIGURACIÓN MULTICANAL Y ORDEN
     // ==========================================
     const urlParams = new URLSearchParams(window.location.search);
     const canalActual = (urlParams.get('canal') || 'GENERAL').toUpperCase();
     let SECCIONES_ACTIVAS = [];
 
     function configurarInterfazPorCanal() {
-        if (canalActual === 'CROSS' || canalActual === 'ATQ') {
-            document.getElementById('info-general').classList.remove('oculto-por-canal');
+        if (canalActual === 'ATQ' || canalActual === 'CROSS') {
             document.getElementById('benchmark-competencia').classList.remove('oculto-por-canal');
-            document.getElementById('nav-info').classList.remove('oculto-por-canal');
             document.getElementById('nav-bench').classList.remove('oculto-por-canal');
-            document.getElementById('dnav-info').classList.remove('oculto-por-canal');
             document.getElementById('dnav-bench').classList.remove('oculto-por-canal');
-            document.getElementById('dot-info').classList.remove('oculto-por-canal');
             document.getElementById('dot-bench').classList.remove('oculto-por-canal');
         }
         
-        if (canalActual === 'CROSS') {
-            document.getElementById('lima').classList.add('oculto-por-canal');
-            document.getElementById('provincia').classList.add('oculto-por-canal');
-            document.querySelectorAll('.btn-planes-acceso').forEach(btn => btn.style.display = 'none');
-            document.getElementById('hero-tag').textContent = `💡 CANAL CROSS`;
-        } 
-        else if (canalActual === 'ATQ') {
+        if (canalActual === 'ATQ') {
             document.getElementById('hero-tag').textContent = `💡 CANAL ATQ`;
+            
             // Ocultar pestañas que no van en ATQ
             ['lima-xgspon', 'RUC20lima', 'prov-RUC20'].forEach(tabId => {
                 const btn = document.querySelector(`button[data-tab="${tabId}"]`);
                 if (btn) btn.classList.add('oculto-por-canal');
             });
-            // Activar Simulador ATQ
+            
+            // Activar Simulador ATQ y ocultar la tabla de ciclos para este canal
             document.getElementById('form-general').classList.add('oculto-por-canal');
             document.getElementById('form-atq').classList.remove('oculto-por-canal');
             document.getElementById('tabla-ciclos').classList.add('oculto-por-canal');
@@ -563,18 +520,6 @@
                btn.classList.add('oculto-por-canal');
            }
         });
-    }
-
-    window.cambiarTabInfo = function(tipo) {
-        document.querySelectorAll('.info-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.info-content-box').forEach(c => c.style.display = 'none');
-        if(tipo === 'paramount') {
-            document.querySelectorAll('.info-tab')[0].classList.add('active');
-            document.getElementById('info-paramount').style.display = 'block';
-        } else {
-            document.querySelectorAll('.info-tab')[1].classList.add('active');
-            document.getElementById('info-universal').style.display = 'block';
-        }
     }
 
     // ==========================================
@@ -706,7 +651,7 @@
     }
 
     // ==========================================
-    // 3. UI, SONIDOS Y SIMULADORES
+    // 3. UI, SONIDOS Y EVENTOS GLOBALES
     // ==========================================
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     let ctx = null, muted = false; 
@@ -750,11 +695,31 @@
       document.getElementById("drawer-overlay").classList.remove("open");
     }
 
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.4 && !entry.target.classList.contains('oculto-por-canal')) {
+          const id = entry.target.id;
+          document.querySelectorAll(".page-dot").forEach(d => d.classList.toggle("active", d.dataset.section === id));
+          document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.section === id));
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll(".section-slide").forEach(s => observer.observe(s));
+
     document.getElementById("hamburger-btn").addEventListener("click", () => { document.getElementById("site-drawer").classList.add("open"); document.getElementById("drawer-overlay").classList.add("open"); });
     document.getElementById("drawer-close-btn").addEventListener("click", () => { document.getElementById("site-drawer").classList.remove("open"); document.getElementById("drawer-overlay").classList.remove("open"); });
     document.getElementById("drawer-overlay").addEventListener("click", () => { document.getElementById("site-drawer").classList.remove("open"); document.getElementById("drawer-overlay").classList.remove("open"); });
 
-    // Modales
+    function manejarTab(btn) {
+      const tabBar = btn.closest(".tab-bar"), section = btn.closest(".section-slide");
+      if (!tabBar || !section) return;
+      tabBar.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      section.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("panel-" + btn.dataset.tab)?.classList.add("active");
+    }
+
+    // Modal Parrillas
     const modalParrilla = document.getElementById("modal-parrilla");
     function abrirModalParrillaDinamico(url, titulo) {
       document.getElementById("modal-parrilla-titulo").textContent = titulo;
@@ -763,11 +728,14 @@
     }
     document.getElementById("modal-close-btn").addEventListener("click", () => modalParrilla.classList.remove("open"));
     document.getElementById("modal-footer-close").addEventListener("click", () => modalParrilla.classList.remove("open"));
+    modalParrilla.addEventListener("click", (e) => { if(e.target === modalParrilla) modalParrilla.classList.remove("open") });
 
-    // === SIMULADORES ===
+    // ==========================================
+    // 4. LÓGICA DE SIMULADORES
+    // ==========================================
     let planVertical = false, planPrecio = 0;
     
-    // 1. SIMULADOR GENERAL
+    // SIMULADOR GENERAL
     document.getElementById("btnCalcGeneral").addEventListener("click", () => {
       const dia = parseInt(document.getElementById("sim-dia").value, 10), monto = parseFloat(document.getElementById("sim-monto").value);
       if (isNaN(dia) || dia < 1 || dia > 31 || isNaN(monto)) return;
@@ -816,7 +784,7 @@
       res.classList.add("visible");
     });
 
-    // 2. SIMULADOR ATQ (NUEVO)
+    // SIMULADOR ATQ
     document.getElementById("btnCalcATQ").addEventListener("click", () => {
       const dia = parseInt(document.getElementById("sim-dia-atq").value, 10);
       const montoRegular = parseFloat(document.getElementById("sim-monto-atq").value);
@@ -833,7 +801,6 @@
       const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
       let m = new Date().getMonth() + (dia >= 23 ? 1 : 0);
       
-      // Cálculo de Ahorro: (Monto regular * 2 meses) - Los 2 soles que pagará.
       const ahorroTotal = (montoRegular * 2) - 2;
 
       let htmlDetalle = '';
@@ -843,7 +810,7 @@
             <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span><strong>1er Recibo</strong> (${meses[m%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
             <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span><strong>2do Recibo</strong> (${meses[(m+1)%12]})</span><span style="color:#10B981;font-weight:900;">S/ 1.00</span></div>
             <div style="display:flex;justify-content:space-between;margin-top:5px;"><span><strong>3er Recibo</strong> (${meses[(m+2)%12]})</span><span style="font-weight:900;">S/ ${montoRegular.toFixed(2)}*</span></div>
-            <div style="font-size:0.7rem; color:#64748B; margin-top:5px; text-align:center">*El 3er recibo podría ser menor (prorrateado) dependiendo del día de instalación.</div>
+            <div style="font-size:0.7rem; color:#64748B; margin-top:5px; text-align:center">*El 3er recibo podría ser menor dependiendo del día de instalación.</div>
           `;
       } else {
           htmlDetalle = `
@@ -864,18 +831,19 @@
       
       res.style.borderColor = "#10B981"; res.style.backgroundColor = "#FFFFFF"; 
       res.classList.add("visible");
-      setTimeout(() => SFX.success(), 300); mostrarToast("✅ Proyección ATQ calculada");
+      setTimeout(() => SFX.success(), 300); mostrarToast("✅ Proyección calculada");
     });
 
+    // ==========================================
+    // 5. DELEGACIÓN DE EVENTOS GENERALES
+    // ==========================================
     document.addEventListener("click", (e) => {
       const btnSim = e.target.closest(".btn-card-sim");
       if (btnSim) {
         navegarA("facturacion");
         
-        // Si estamos en ATQ, llenamos el form de ATQ
         if(canalActual === 'ATQ') {
-            document.getElementById("sim-monto-atq").value = btnSim.dataset.simRegular; // En ATQ usamos el regular para calcular el ahorro
-            // Auto-seleccionar radio basado en el nombre del plan
+            document.getElementById("sim-monto-atq").value = btnSim.dataset.simRegular;
             const nombrePlan = btnSim.dataset.simPlan.toUpperCase();
             if(nombrePlan.includes("HB") || nombrePlan.includes("WTV") || nombrePlan.includes("DGO")) {
                 document.getElementById("tipo-hb").checked = true;
@@ -883,7 +851,6 @@
                 document.getElementById("tipo-mono").checked = true;
             }
         } else {
-            // General logic
             planVertical = (btnSim.dataset.simVertical === 'SI'); planPrecio = parseFloat(btnSim.dataset.simRegular) || 0;
             document.getElementById("sim-monto").value = btnSim.dataset.simMonto;
         }
