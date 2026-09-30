@@ -824,7 +824,7 @@
             const { data: planes, error: errPlanes } = await clienteSupabase.from('planes_generales').select('*').order('orden', { ascending: true }); 
             if (errPlanes) throw errPlanes;
             
-            const planesCanal = planes.filter(p => (p.canal || 'GENERAL').toUpperCase() === canalActual);
+            const planesCanal = planes.filter(p => (p.canal || 'GENERAL').toUpperCase() === canalActual && p.oculto !== true);
             
             if(canalActual !== 'CROSS') {
                 const limaPlanes = planesCanal.filter(p => (p.region || '').toLowerCase() === 'lima');
@@ -852,7 +852,7 @@
 
         const grid = document.getElementById('grid-adicionales');
         grid.innerHTML = '';
-        const serviciosCanal = data.filter(s => (s.canal || 'GENERAL').toUpperCase() === canalActual);
+        const serviciosCanal = data.filter(s => (s.canal || 'GENERAL').toUpperCase() === canalActual && s.oculto !== true);
 
         // Llenar el Dropdown de CROSS si está activo
         const selectCross = document.getElementById("sim-sva-select");
@@ -1131,7 +1131,7 @@
       }
       res.classList.add("visible");
     });
-    
+
     // SIMULADOR ATQ
     document.getElementById("btnCalcATQ").addEventListener("click", () => {
       const dia = parseInt(document.getElementById("sim-dia-atq").value, 10);

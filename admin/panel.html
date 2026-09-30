@@ -384,6 +384,8 @@
                         <td class="py-3 px-4">${plan.velocidad}</td>
                         <td class="py-3 px-4 text-[#ff6b00] font-bold">S/ ${plan.precio_promo}</td>
                         <td class="py-3 px-4 text-center space-x-3">
+                            <button onclick="toggleOcultoPlan(${plan.id}, ${plan.oculto})" style="color: ${plan.oculto ? '#10B981' : '#64748B'}; border:none; background:none; cursor:pointer; font-weight:600;">
+    ${plan.oculto ? '👁️ Mostrar' : '🙈 Ocultar'}</button>
                             <button onclick="abrirModal(${plan.id})" class="text-blue-600 hover:text-blue-800 font-semibold">Editar</button>
                             <button onclick="eliminarPlan(${plan.id})" class="text-red-500 hover:text-red-700 font-semibold">Eliminar</button>
                         </td>
@@ -503,6 +505,8 @@
                         <td class="py-3 px-4 font-bold text-[#10b981]">S/ ${srv.precio}</td>
                         <td class="py-3 px-4">${tieneParrilla}</td>
                         <td class="py-3 px-4 text-center space-x-3">
+                            <button onclick="toggleOcultoServicio(${servicio.id}, ${servicio.oculto})" style="color: ${servicio.oculto ? '#10B981' : '#64748B'}; border:none; background:none; cursor:pointer; font-weight:600;">
+    ${servicio.oculto ? '👁️ Mostrar' : '🙈 Ocultar'}</button>
                             <button onclick="abrirModalServicio(${srv.id})" class="text-blue-600 hover:text-blue-800 font-semibold">Editar</button>
                             <button onclick="eliminarServicio(${srv.id})" class="text-red-500 hover:text-red-700 font-semibold">Eliminar</button>
                         </td>
@@ -627,6 +631,40 @@
         }
 
         verificarSesion();
+        // --- FUNCIONES PARA OCULTAR/MOSTRAR ---
+async function toggleOcultoPlan(id, estadoActual) {
+    try {
+        const nuevoEstado = !estadoActual;
+        const { error } = await clienteSupabase
+            .from('planes_generales')
+            .update({ oculto: nuevoEstado })
+            .eq('id', id);
+            
+        if (error) throw error;
+        // Llama a tu función que recarga la tabla de planes
+        cargarPlanes(); 
+    } catch (error) {
+        console.error("Error al ocultar plan:", error);
+        alert("Hubo un error al cambiar la visibilidad.");
+    }
+}
+
+async function toggleOcultoServicio(id, estadoActual) {
+    try {
+        const nuevoEstado = !estadoActual;
+        const { error } = await clienteSupabase
+            .from('servicios_adicionales')
+            .update({ oculto: nuevoEstado })
+            .eq('id', id);
+            
+        if (error) throw error;
+        // Llama a tu función que recarga la tabla de servicios
+        cargarServicios(); 
+    } catch (error) {
+        console.error("Error al ocultar servicio:", error);
+        alert("Hubo un error al cambiar la visibilidad.");
+    }
+}
     </script>
 </body>
 </html>
