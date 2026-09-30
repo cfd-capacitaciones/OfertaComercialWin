@@ -62,7 +62,7 @@
 
     /* ===== SECCIONES PRINCIPALES ===== */
     main { padding-top: 60px; }
-    .section-slide { min-height: 100vh; padding: 4rem 1.5rem 3rem; display: flex; flex-direction: column; align-items: center; }
+    .section-slide { padding: 4rem 1.5rem 2rem; display: flex; flex-direction: column; align-items: center; }
     .section-inner { width: 100%; max-width: 1100px; }
     .section-title { font-family: var(--font-titulo); font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15; margin-bottom: 0.5rem; }
     .section-title .accent { color: var(--color-naranja); }
@@ -151,6 +151,7 @@
     .matriz-table tbody tr:last-child td { border-bottom: none; }
     .matriz-table tbody tr { transition: background 0.2s; }
     .matriz-table tbody tr:hover { background: #F8FAFC; }
+    .matriz-table td.td-check::before { content: "✓ "; color: var(--color-naranja); font-weight: 800; font-size: 1.1rem; }
 
     /* ===== SIMULADOR ===== */
     #facturacion { background: linear-gradient(180deg, var(--bg-page) 0%, #FFFFFF 100%); }
@@ -203,11 +204,6 @@
     .bench-card-v2 .b-features li { font-size: 0.85rem; color: var(--text-body); margin-bottom: 1rem; display: flex; gap: 8px; line-height: 1.4; }
     .bench-card-v2 .b-features li strong { color: var(--text-main); font-weight: 700; }
     
-    /* Flecha decorativa */
-    .bench-card-v2 .b-arrow { position: absolute; bottom: 1.5rem; right: 1.5rem; width: 34px; height: 34px; background: #F1F5F9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); font-weight: bold; font-size: 1.1rem; transition: 0.3s; }
-    .bench-card-v2.win-card .b-arrow { background: var(--color-naranja); color: #FFF; }
-    .bench-card-v2.dgo-card .b-arrow { background: #10B981; color: #FFF; }
-
     /* ===== MODAL ===== */
     .modal-overlay { position: fixed; inset: 0; background: rgba(15, 9, 8, 0.75); backdrop-filter: blur(8px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 1.2rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .modal-overlay.open { opacity: 1; pointer-events: all; }
@@ -389,9 +385,9 @@
                 <div class="obj-card-v2">
                     <div class="obj-img-placeholder" style="background: linear-gradient(135deg, rgba(255,90,10,0.1) 0%, rgba(255,194,0,0.1) 100%);">📺</div>
                     <div class="obj-content">
-                        <div class="obj-tag">Streaming vs TV</div>
-                        <div class="obj-q">"Ya tengo Netflix, Max, etc. No necesito televisión."</div>
-                        <div class="obj-a">Las plataformas son buenas para series, pero <strong>no tienen TV en vivo, noticias ni L1Max</strong>. Con WINTV/DGO cubres eso y además te incluye plataformas (Prime, Paramount) en una sola boleta.</div>
+                        <div class="obj-tag">Tv Digital</div>
+                        <div class="obj-q">"Ya tengo Netflix, Disney+, etc. No necesito televisión."</div>
+                        <div class="obj-a">Las plataformas son buenas para series, pero <strong>no tienen TV en vivo, noticias ni L1Max</strong>. Con WINTV/DGO cubres eso y además te incluye plataformas (Prime Video con Dgo) sin pagar nada extra y de por vida.</div>
                     </div>
                 </div>
                 
@@ -432,7 +428,7 @@
             <p class="section-subtitle">Tabla rápida de compatibilidad para asegurar la venta tecnológica.</p>
             
             <div style="overflow-x: auto; padding-bottom: 1rem;">
-                <table class="matriz-table">
+              <table class="matriz-table">
                   <thead>
                       <tr>
                           <th style="text-align:left;">Servicio SVA</th>
@@ -446,35 +442,35 @@
                   <tbody>
                       <tr>
                           <td style="text-align:left; font-weight:800; color:var(--text-main)"><span style="font-size:1.2rem; vertical-align:middle; margin-right:5px">📺</span> WINTV</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ (Solo Apple TV)</td>
-                          <td>✅ Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">(Solo Apple TV)</td>
+                          <td class="td-check">Compatible</td>
                       </tr>
                       <tr>
                           <td style="text-align:left; font-weight:800; color:var(--text-main)"><span style="font-size:1.2rem; vertical-align:middle; margin-right:5px">🎬</span> DGO</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
                       </tr>
                       <tr>
                           <td style="text-align:left; font-weight:800; color:var(--text-main)"><span style="font-size:1.2rem; vertical-align:middle; margin-right:5px">⚫</span> Paramount+</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
-                          <td>✅ Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
+                          <td class="td-check">Compatible</td>
                       </tr>
                       <tr>
                           <td style="text-align:left; font-weight:800; color:var(--text-main)"><span style="font-size:1.2rem; vertical-align:middle; margin-right:5px">🟢</span> Universal+</td>
-                          <td>✅ (Vía DGO)</td>
-                          <td>✅ (Vía DGO)</td>
-                          <td>✅ (Vía DGO)</td>
-                          <td>✅ (Vía DGO)</td>
-                          <td>✅ App Directa</td>
+                          <td class="td-check">(Vía DGO)</td>
+                          <td class="td-check">(Vía DGO)</td>
+                          <td class="td-check">(Vía DGO)</td>
+                          <td class="td-check">(Vía DGO)</td>
+                          <td class="td-check">App Directa</td>
                       </tr>
                   </tbody>
                 </table>
@@ -505,9 +501,8 @@
                         <li>⚽ <div><strong>Fútbol:</strong> Incluido (Liga1, Liga2, Femenina)</div></li>
                         <li>📺 <div><strong>Canales:</strong> Más de 90 canales nacionales e internacionales</div></li>
                         <li>🔄 <div><strong>Funciones:</strong> Pausa, retroceso 7 días, grabación 5h</div></li>
-                        <li>📱 <div><strong>Acceso:</strong> Smart TV, celular, tablet (4 disp.)</div></li>
+                        <li>📱 <div><strong>Acceso:</strong> Smart TV, celular, web, tablet (4 disp.)</div></li>
                     </ul>
-                    <div class="b-arrow">→</div>
                 </div>
 
                 <!-- DGO CARD (HIGHLIGHT ESMERALDA) -->
@@ -522,40 +517,40 @@
                         <li>⚽ <div><strong>Deportes:</strong> DSPORTS incluido (Exclusivos en vivo)</div></li>
                         <li>📺 <div><strong>Canales:</strong> Más de 100 canales en vivo</div></li>
                         <li>🔄 <div><strong>Funciones:</strong> Retroceso 1hr + Prime Video Incluido</div></li>
-                        <li>📱 <div><strong>Acceso:</strong> Smart TV, celular, web</div></li>
+                        <li>📱 <div><strong>Acceso:</strong> Smart TV, celular, web, tablet (4 disp.) </div></li>
+                        <li>📢 <div><strong>Adicionales:</strong> Puede agregar Paramount o Universal con desc. por tener DGO</div></li>
                     </ul>
-                    <div class="b-arrow">→</div>
                 </div>
 
                 <!-- CLARO CARD -->
                 <div class="bench-card-v2">
-                    <div class="b-title" style="color:#E3000F">Claro TV Digital</div>
+                    <div class="b-title" style="color:#E3000F">TV Digital</div>
                     <div class="b-subtitle">Competencia Tradicional</div>
                     <div class="b-price-box">
-                        <span class="b-price-regular">Plan postpago Max</span>
-                        <span class="b-price">Desde S/ 56.90</span>
+                        <span class="b-price-regular">Plan con internet incluido desde: </span>
+                        <span class="b-price">S/ 150.00</span>
                     </div>
                     <ul class="b-features">
                         <li>⚠️ <div><strong>Fútbol:</strong> Solo algunos partidos, depende del plan</div></li>
                         <li>📺 <div><strong>Canales:</strong> Más de 100 canales</div></li>
                         <li>❌ <div><strong>Funciones:</strong> No especificado o inexistente</div></li>
-                        <li>📱 <div><strong>Acceso:</strong> Claro Video App (Requiere registro)</div></li>
+                        <li>📱 <div><strong>Acceso:</strong> Claro Video App (Requiere registro) + Universal por meses</div></li>
                     </ul>
                 </div>
 
                 <!-- MOVISTAR CARD -->
                 <div class="bench-card-v2">
-                    <div class="b-title" style="color:#019DF4">Movistar TV Digital</div>
+                    <div class="b-title" style="color:#019DF4">TV Digital</div>
                     <div class="b-subtitle">Competencia Tradicional</div>
                     <div class="b-price-box">
-                        <span class="b-price-regular">Plan con internet incluido</span>
-                        <span class="b-price">Desde S/ 129.90</span>
+                        <span class="b-price-regular">Plan con internet incluido desde: </span>
+                        <span class="b-price">S/ 174.90</span>
                     </div>
                     <ul class="b-features">
                         <li>⚠️️ <div><strong>Fútbol:</strong> Parcial, algunos partidos requieren pago extra</div></li>
                         <li>📺 <div><strong>Canales:</strong> Más de 100 canales</div></li>
                         <li>⚠️ <div><strong>Funciones:</strong> App con 2 sesiones, sin funciones avanzadas claras</div></li>
-                        <li>📱 <div><strong>Acceso:</strong> Movistar TV App</div></li>
+                        <li>📱 <div><strong>Acceso:</strong> Movistar TV App + Disney incluido</div></li>
                     </ul>
                 </div>
 
@@ -592,8 +587,8 @@
             <!-- FORMULARIO ATQ -->
             <form id="form-atq" class="oculto-por-canal" novalidate>
               <div class="atq-ahorro-box">
-                  <div class="atq-ahorro-title">Promoción ATQ Agresiva</div>
-                  <div style="font-size:0.85rem; font-weight:normal">2 recibos a S/ 1.00</div>
+                  <div class="atq-ahorro-title">Promoción ATQ</div>
+                  <div style="font-size:0.85rem; font-weight:normal">2 meses a S/ 1.00</div>
               </div>
               <div class="radio-group-atq">
                   <div class="radio-btn-atq">
@@ -678,7 +673,7 @@
         <div class="bench-grid-v2">
             <!-- Movistar -->
             <div class="bench-card-v2">
-                <div class="b-title" style="color: #019DF4;">Movistar (Azules)</div>
+                <div class="b-title" style="color: #019DF4;">Azul</div>
                 <div class="b-subtitle">Fibra Óptica HFC/FTTH</div>
                 <div class="b-price-box">
                     <span class="b-price-regular">Regular S/ 149.90</span>
@@ -704,12 +699,11 @@
                     <li>✅ <div><strong>Equipos:</strong> Router Mesh Wi-Fi 6 incluido</div></li>
                     <li>✅ <div><strong>Gaming:</strong> Ping optimizado para Gamers</div></li>
                 </ul>
-                <div class="b-arrow">→</div>
             </div>
 
             <!-- Claro -->
             <div class="bench-card-v2">
-                <div class="b-title" style="color: #E3000F;">Claro (Rojos)</div>
+                <div class="b-title" style="color: #E3000F;">Rojos</div>
                 <div class="b-subtitle">HFC / Fibra</div>
                 <div class="b-price-box">
                     <span class="b-price-regular">Regular S/ 145.00</span>
@@ -1174,7 +1168,7 @@
                 <div style="font-size:0.95rem; padding: 0 10px;">
                     <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;"><span>Plan Actual</span><strong>S/ ${montoActual.toFixed(2)}</strong></div>
                     <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span>${nombreSva} (Prorrateo ${diasCobro} días)</span><strong>S/ ${prorrateoSva.toFixed(2)}</strong></div>
-                    <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span>${nombreSva} (Mes adelantado)</span><strong>S/ ${montoSva.toFixed(2)}</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding-bottom:5px;margin-top:5px;"><span>${nombreSva} (Proximo Mes)</span><strong>S/ ${montoSva.toFixed(2)}</strong></div>
                     <div style="display:flex;justify-content:space-between;margin-top:10px; color:#10B981; font-size:1.1rem;"><span><strong>Tarifa Plana Siguiente</strong></span><span style="font-weight:900;">S/ ${tarifaPlana.toFixed(2)}</span></div>
                 </div>
             `;
