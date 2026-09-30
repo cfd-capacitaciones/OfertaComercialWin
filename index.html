@@ -1229,6 +1229,30 @@
     window.addEventListener("scroll", () => {
       document.getElementById("progress-bar").style.width = ((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 || 0) + "%";
     }, { passive: true });
+
+    // ==========================================
+    // 6. BLOQUEO DE CLIC DERECHO E INSPECTOR
+    // ==========================================
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      // Bloquear F12
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+      }
+      // Bloquear Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (Herramientas de desarrollador)
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+        e.preventDefault();
+      }
+      // Bloquear Ctrl+U (Ver código fuente)
+      if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+        e.preventDefault();
+      }
+    });
+
+
   </script>
 </body>
 </html>
