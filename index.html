@@ -171,7 +171,7 @@
     .sim-result-row .sr-val { font-family: var(--font-titulo); font-weight: 800; color: var(--color-naranja); }
     .sim-result-row .sr-val.big { font-size: 1.45rem; background: rgba(255, 194, 0, 0.2); padding: 3px 12px; border-radius: 8px; }
 
-    .atq-ahorro-box { background: #10B981; color: white; padding: 1rem; border-radius: 12px; text-align: center; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+    .atq-ahorro-box { background: #FF5A0A; color: white; padding: 1rem; border-radius: 12px; text-align: center; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(80, 42, 10, 0.3); }
     .atq-ahorro-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.2rem; opacity: 0.9; }
     .radio-group-atq { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
     .radio-btn-atq { flex: 1; position: relative; }
@@ -484,7 +484,7 @@
     <!-- 4. BENCHMARK SVA LUMINOSO (CROSS) -->
     <section class="section-slide oculto-por-canal" id="benchmark-cross">
         <div class="section-inner">
-            <h2 class="section-title">Comparativo <span class="accent">Streaming vs TV</span></h2>
+            <h2 class="section-title">Comparativo <span class="accent">Streaming</span></h2>
             <p class="section-subtitle">Demuestra con hechos por qué nuestros servicios de televisión son superiores.</p>
             
             <div class="bench-grid-v2">
@@ -613,8 +613,8 @@
 
             <!-- FORMULARIO EXCLUSIVO CROSS -->
             <form id="form-cross" class="oculto-por-canal" novalidate>
-              <div class="atq-ahorro-box" style="background:#0F0908; box-shadow: 0 4px 15px rgba(15,9,8,0.2);">
-                  <div class="atq-ahorro-title" style="color:var(--color-naranja)">Calculadora de Prorrateo SVA</div>
+              <div class="atq-ahorro-box" style="background:#0f0908; box-shadow: 0 4px 15px rgba(15,9,8,0.2);">
+                  <div class="atq-ahorro-title" style="color:var(--color-amarillo)">Calculadora de Prorrateo SVA</div>
                   <div style="font-size:0.85rem; font-weight:normal; color:#FFF">Suma un nuevo servicio al plan actual</div>
               </div>
               <div class="form-group">
@@ -668,7 +668,7 @@
     <section class="section-slide oculto-por-canal" id="benchmark-competencia">
       <div class="section-inner">
         <h2 class="section-title">WIN VS <span class="accent">COMPETENCIA</span></h2>
-        <p class="section-subtitle">Conoce por qué nuestra oferta de Ataque es insuperable frente a otros operadores.</p>
+        <p class="section-subtitle">Conoce por qué nuestra oferta de Ataque es insuperable frente a otros operadores con un vs de 1000 Mbps.</p>
         
         <div class="bench-grid-v2">
             <!-- Movistar -->
@@ -677,7 +677,7 @@
                 <div class="b-subtitle">Fibra Óptica HFC/FTTH</div>
                 <div class="b-price-box">
                     <span class="b-price-regular">Regular S/ 149.90</span>
-                    <span class="b-price">S/ 139.90<span style="font-size:1rem; font-weight:normal">/mes x2</span></span>
+                    <span class="b-price">S/ 139.90<span style="font-size:1rem; font-weight:normal">/x2 meses</span></span>
                 </div>
                 <ul class="b-features">
                     <li>❌ <div><strong>Simetría:</strong> No garantizada</div></li>
@@ -692,7 +692,7 @@
                 <div class="b-subtitle" style="color:var(--color-naranja)">100% Fibra Óptica</div>
                 <div class="b-price-box">
                     <span class="b-price-regular">Regular S/ 139.00</span>
-                    <span class="b-price">S/ 1.00<span style="font-size:1.1rem; font-weight:normal; color:var(--text-muted)">/mes x2</span></span>
+                    <span class="b-price">S/ 1.00<span style="font-size:1.1rem; font-weight:normal; color:var(--text-muted)">/x2 meses</span></span>
                 </div>
                 <ul class="b-features">
                     <li>✅ <div><strong>Simetría:</strong> 100% garantizada</div></li>
@@ -707,7 +707,7 @@
                 <div class="b-subtitle">HFC / Fibra</div>
                 <div class="b-price-box">
                     <span class="b-price-regular">Regular S/ 145.00</span>
-                    <span class="b-price">S/ 119.00<span style="font-size:1rem; font-weight:normal">/mes x6</span></span>
+                    <span class="b-price">S/ 119.00<span style="font-size:1rem; font-weight:normal">/x6 meses</span></span>
                 </div>
                 <ul class="b-features">
                     <li>❌ <div><strong>Subida:</strong> Velocidad de carga limitada</div></li>
@@ -1048,10 +1048,11 @@
       let d = new Date(), m = d.getMonth() + mesOffset, a = d.getFullYear();
       if(m > 11){ m -= 12; a++; }
 
-      document.getElementById("res-dia").textContent = `Día ${dia}`; document.getElementById("res-emision").textContent = `${diaEmision} de ${meses[m]} ${a}`;
-      document.getElementById("res-vencimiento").textContent = `28 de ${meses[m]} ${a}`; document.getElementById("res-tipo").textContent = tipo;
-      document.getElementById("res-monto-plan").textContent = `S/ ${monto.toFixed(2)}`; document.getElementById("res-cobro").textContent = `S/ ${cobro.toFixed(2)}`;
-      document.getElementById("res-detalle").textContent = det;
+      document.getElementById("res-dia").textContent = `Día ${dia}`; 
+      document.getElementById("res-emision").textContent = `${diaEmision} de ${meses[m]} ${a}`;
+      document.getElementById("res-vencimiento").textContent = `28 de ${meses[m]} ${a}`; 
+      document.getElementById("res-tipo").textContent = tipo;
+      document.getElementById("res-cobro").textContent = `S/ ${cobro.toFixed(2)}`;
       
       document.getElementById("sim-result").classList.add("visible");
       setTimeout(() => SFX.success(), 300); mostrarToast("✅ Simulación calculada");
@@ -1146,7 +1147,7 @@
             
             res.innerHTML = `
                 <div style="background:#0F0908; color:white; padding:15px; border-radius:12px; text-align:center; margin-bottom:15px; border-left: 4px solid var(--color-naranja);">
-                    <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase; color:var(--text-muted)">TU PRÓXIMO RECIBO SERÁ</div>
+                    <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase; color:var(--text-white)">TU PRÓXIMO RECIBO SERÁ</div>
                     <div style="font-size:2.2rem; font-weight:900; font-family:var(--font-titulo); color:var(--color-naranja);">S/ ${proxRecibo.toFixed(2)}</div>
                 </div>
                 <div style="font-size:0.95rem; padding: 0 10px;">
