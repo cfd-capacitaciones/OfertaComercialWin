@@ -505,8 +505,8 @@
                         <td class="py-3 px-4 font-bold text-[#10b981]">S/ ${srv.precio}</td>
                         <td class="py-3 px-4">${tieneParrilla}</td>
                         <td class="py-3 px-4 text-center space-x-3">
-                            <button onclick="toggleOcultoServicio(${servicio.id}, ${servicio.oculto})" style="color: ${servicio.oculto ? '#10B981' : '#64748B'}; border:none; background:none; cursor:pointer; font-weight:600;">
-    ${servicio.oculto ? '👁️ Mostrar' : '🙈 Ocultar'}</button>
+                            <button onclick="toggleOcultoServicio(${srv.id}, ${srv.oculto})" style="color: ${srv.oculto ? '#10B981' : '#64748B'}; border:none; background:none; cursor:pointer; font-weight:600;">
+    ${srv.oculto ? '👁️ Mostrar' : '🙈 Ocultar'}</button>
                             <button onclick="abrirModalServicio(${srv.id})" class="text-blue-600 hover:text-blue-800 font-semibold">Editar</button>
                             <button onclick="eliminarServicio(${srv.id})" class="text-red-500 hover:text-red-700 font-semibold">Eliminar</button>
                         </td>
