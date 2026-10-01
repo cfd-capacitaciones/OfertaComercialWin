@@ -774,12 +774,6 @@
         }
         else if (canalActual === 'CROSS') {
             document.getElementById('hero-tag').textContent = `💡 CANAL CROSS`;
-            
-            // Ocultar Planes
-            document.getElementById('lima').classList.add('oculto-por-canal');
-            document.getElementById('provincia').classList.add('oculto-por-canal');
-            document.querySelectorAll('.btn-planes-acceso').forEach(btn => btn.style.display = 'none');
-            
             // Mostrar nuevas secciones CROSS
             document.getElementById('objeciones').classList.remove('oculto-por-canal');
             document.getElementById('matriz').classList.remove('oculto-por-canal');
