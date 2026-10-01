@@ -457,7 +457,7 @@
                           <td class="td-check">Compatible</td>
                       </tr>
                       <tr>
-                          <td style="text-align:left; font-weight:800; color:var(--text-main)"><span style="font-size:1.2rem; vertical-align:middle; margin-right:5px">🏜</span> Paramount+</td>
+                          <td style="text-align:left; font-weight:800; color:var(--text-main)"><span style="font-size:1.2rem; vertical-align:middle; margin-right:5px"> 🏜 </span> Paramount+</td>
                           <td class="td-check">Compatible</td>
                           <td class="td-check">Compatible</td>
                           <td class="td-check">Compatible</td>
@@ -774,6 +774,7 @@
         }
         else if (canalActual === 'CROSS') {
             document.getElementById('hero-tag').textContent = `💡 CANAL CROSS`;
+            
             // Mostrar nuevas secciones CROSS
             document.getElementById('objeciones').classList.remove('oculto-por-canal');
             document.getElementById('matriz').classList.remove('oculto-por-canal');
@@ -787,6 +788,25 @@
             document.getElementById('dot-obj').classList.remove('oculto-por-canal');
             document.getElementById('dot-matriz').classList.remove('oculto-por-canal');
             document.getElementById('dot-bench-cross').classList.remove('oculto-por-canal');
+
+            // --- NUEVO: UNIFICAR PLANES EN CROSS ---
+            // 1. Cambiar el título de la sección a solo "Planes"
+            document.querySelector('#lima .section-title').innerHTML = 'Nuestros <span class="accent">Planes</span>';
+            
+            // 2. Renombrar los botones del menú y del Hero
+            document.querySelector('.nav-btn[data-section="lima"]').textContent = 'Planes';
+            document.querySelector('.dnav-item[data-section="lima"]').innerHTML = '🚀 Planes';
+            const heroBtns = document.querySelectorAll('.btn-planes-acceso');
+            if(heroBtns.length > 0) {
+                heroBtns[0].textContent = '📡 Ver Planes'; 
+                heroBtns[1].style.display = 'none'; // Ocultar el botón de provincia en el hero
+            }
+            
+            // 3. Ocultar por completo la sección Provincia y sus menús para no repetir
+            document.getElementById('provincia').classList.add('oculto-por-canal');
+            document.querySelector('.nav-btn[data-section="provincia"]').classList.add('oculto-por-canal');
+            document.querySelector('.dnav-item[data-section="provincia"]').classList.add('oculto-por-canal');
+            document.querySelector('.page-dot[data-section="provincia"]').classList.add('oculto-por-canal');
 
             // Cambiar simulador a CROSS
             document.getElementById('form-general').classList.add('oculto-por-canal');
@@ -820,21 +840,20 @@
             
             const planesCanal = planes.filter(p => (p.canal || 'GENERAL').toUpperCase() === canalActual && p.oculto !== true);
             
-            if(canalActual !== 'CROSS') {
-                const limaPlanes = planesCanal.filter(p => (p.region || '').toLowerCase() === 'lima');
-                const provPlanes = planesCanal.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
+            // Ahora cargamos SIEMPRE los planes, sin importar el canal
+            const limaPlanes = planesCanal.filter(p => (p.region || '').toLowerCase() === 'lima');
+            const provPlanes = planesCanal.filter(p => (p.region || '').toLowerCase() === 'provincia' || (p.region || '').toLowerCase() === 'prov');
 
-                pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-lima-mono', 'grid-lima-mono');
-                pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon_gamer'), 'tabla-lima-xgspon', 'grid-lima-xgspon');
-                pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
-                pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-lima-dgo', 'grid-lima-dgo');
-                pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
+            pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-lima-mono', 'grid-lima-mono');
+            pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'xgspon_gamer'), 'tabla-lima-xgspon', 'grid-lima-xgspon');
+            pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
+            pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-lima-dgo', 'grid-lima-dgo');
+            pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
 
-                pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono', true);
-                pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
-                pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
-                pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
-            }
+            pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono', true);
+            pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
+            pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
+            pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
 
             await cargarServiciosAdicionales();
         } catch (err) { console.error(err); }
