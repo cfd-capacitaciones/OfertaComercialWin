@@ -332,12 +332,15 @@
           <button class="tab-btn" role="tab" data-tab="lima-bundles">📺 HB WTV</button>
           <button class="tab-btn" role="tab" data-tab="lima-dgo">🎬 HB DGO</button>
           <button class="tab-btn" role="tab" data-tab="RUC20lima"> 🏪 RUC20</button>
+          <!-- NUEVA PESTAÑA -->
+          <button class="tab-btn" role="tab" data-tab="lima-gamer">🎮 Planes Gamer</button>
         </div>
         <div class="tab-panel active" id="panel-lima-mono"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-mono"></tbody></table></div><div id="grid-lima-mono" class="plans-grid" style="margin-top:1.5rem"></div></div>
         <div class="tab-panel" id="panel-lima-xgspon"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-xgspon"></tbody></table></div><div id="grid-lima-xgspon" class="plans-grid" style="margin-top:1.5rem"></div></div>
         <div class="tab-panel" id="panel-lima-bundles"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Equipos</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-wtv"></tbody></table></div><div id="grid-lima-wtv" class="plans-grid" style="margin-top:1.5rem"></div></div>
         <div class="tab-panel" id="panel-lima-dgo"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Equipos</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-dgo"></tbody></table></div><div id="grid-lima-dgo" class="plans-grid" style="margin-top:1.5rem"></div></div>
         <div class="tab-panel" id="panel-RUC20lima"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Equipos</th></tr></thead><tbody id="tabla-lima-ruc20"></tbody></table></div><div id="grid-lima-ruc20" class="plans-grid" style="margin-top:1.5rem"></div></div>
+        <div class="tab-panel" id="panel-lima-gamer"><div class="table-wrap"><table class="data-table"><thead><tr><th>Plan</th><th>Precio Normal</th><th>Promoción</th><th>Beneficios</th><th>Vertical</th></tr></thead><tbody id="tabla-lima-gamer"></tbody></table></div><div id="grid-lima-gamer" class="plans-grid" style="margin-top:1.5rem"></div></div>
       </div>
     </section>
 
@@ -807,7 +810,11 @@
             document.querySelector('.nav-btn[data-section="provincia"]').classList.add('oculto-por-canal');
             document.querySelector('.dnav-item[data-section="provincia"]').classList.add('oculto-por-canal');
             document.querySelector('.page-dot[data-section="provincia"]').classList.add('oculto-por-canal');
-
+            // 4. Ocultar pestañas de TV y otras que no van en CROSS
+            ['lima-xgspon', 'lima-bundles', 'lima-dgo', 'RUC20lima'].forEach(tab => {
+                const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+                if(btn) btn.classList.add('oculto-por-canal');
+            });
             // Cambiar simulador a CROSS
             document.getElementById('form-general').classList.add('oculto-por-canal');
             document.getElementById('form-cross').classList.remove('oculto-por-canal');
@@ -849,7 +856,10 @@
             pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-lima-wtv', 'grid-lima-wtv');
             pintarTablaSupabase(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-lima-dgo', 'grid-lima-dgo');
             pintarTablaRUC(limaPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-lima-ruc20', 'grid-lima-ruc20');
-
+            pintarTablaSupabase(limaPlanes.filter(p => {
+                const cat = (p.categoria || '').toLowerCase();
+                return cat === 'planes gamer' || cat === 'planes_gamer';
+            }), 'tabla-lima-gamer', 'grid-lima-gamer');
             pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'mono_residencial'), 'tabla-prov-mono', 'grid-prov-mono', true);
             pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
             pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
