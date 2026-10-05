@@ -803,11 +803,10 @@
     const urlParams = new URLSearchParams(window.location.search);
     const canalActual = (urlParams.get('canal') || 'GENERAL').toUpperCase();
     let SECCIONES_ACTIVAS = [];
-    // === RASTREO DE ANALÍTICAS VERCEL ===
-    if (window.va) {
-    window.va('event', 'Visita_Canal_' + canalActual);
-    }
-
+    // === RASTREO GRATUITO POR CORTAFUEGOS ===
+        // Hace un "ping" silencioso para que Vercel lo cuente en la pestaña Tráfico
+        fetch('/estadistica-' + canalActual.toLowerCase()).catch(() => {});
+        
     function configurarInterfazPorCanal() {
         if (canalActual === 'ATQ') {
             document.getElementById('benchmark-competencia').classList.remove('oculto-por-canal');
