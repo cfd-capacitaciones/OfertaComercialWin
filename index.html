@@ -242,9 +242,9 @@
       .bench-card-v2.win-card, .bench-card-v2.dgo-card { transform: scale(1); margin-top: 1rem; margin-bottom: 1rem; }
     }
     /* ===== ALERTAS EN TIEMPO REAL ===== */
-    #sys-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 10000; background: #E3000F; color: white; text-align: center; padding: 0.6rem 1.5rem; font-family: var(--font-titulo); font-weight: 700; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 1rem; transform: translateY(-100%); transition: transform 0.4s ease; box-shadow: 0 4px 15px rgba(227, 0, 15, 0.3); height: 45px; }
+    #sys-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 10000; background: var(--color-naranja); color: white; text-align: center; padding: 0.6rem 1.5rem; font-family: var(--font-titulo); font-weight: 700; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 1rem; transform: translateY(-100%); transition: transform 0.4s ease; box-shadow: 0 4px 15px rgba(255, 90, 10, 0.4); height: 45px; }
     #sys-banner.visible { transform: translateY(0); }
-    .btn-reload-sm { background: white; color: #E3000F; border: none; padding: 0.3rem 0.8rem; border-radius: 99px; font-weight: 800; font-size: 0.75rem; cursor: pointer; transition: 0.2s; }
+    .btn-reload-sm { background: white; color: var(--color-naranja); border: none; padding: 0.3rem 0.8rem; border-radius: 99px; font-weight: 800; font-size: 0.75rem; cursor: pointer; transition: 0.2s; }
     .btn-reload-sm:hover { transform: scale(1.05); }
     
     #sys-bloqueo { position: fixed; inset: 0; z-index: 99999; background: rgba(15, 9, 8, 0.95); backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
@@ -274,13 +274,13 @@
   <!-- ALERTAS DEL SISTEMA -->
   <div id="sys-banner">
       <span id="sys-banner-msg"></span>
-      <button onclick="window.location.reload(true)" class="btn-reload-sm">Actualizar Ahora</button>
+      <button onclick="aceptarAlerta()" class="btn-reload-sm">Actualizar Ahora</button>
   </div>
   <div id="sys-bloqueo">
       <span style="font-size: 5rem; margin-bottom: 1rem;">⚠️</span>
       <h2 id="sys-bloqueo-titulo"></h2> 
       <p id="sys-bloqueo-msg"></p>
-      <button onclick="window.location.reload(true)" class="btn-reload-lg">Recargar Plataforma</button>
+      <button onclick="aceptarAlerta()" class="btn-reload-lg">Recargar Plataforma</button>
   </div>
 
 
@@ -1477,6 +1477,8 @@
             }).subscribe();
     }
 
+    let alertaActualId = null;
+
     function procesarAlertas(alertas) {
         const banner = document.getElementById('sys-banner');
         const bloqueo = document.getElementById('sys-bloqueo');
@@ -1485,9 +1487,19 @@
         banner.classList.remove('visible'); bloqueo.classList.remove('visible');
         header.style.top = '0';
 
-        const alertaActiva = alertas.find(a => a.canal_destino === 'TODOS' || a.canal_destino === canalActual);
+        // 1. Leer la memoria del navegador (alertas ya leídas)
+        let alertasOcultas = JSON.parse(localStorage.getItem('alertas_ocultas') || '[]');
+
+        // 2. Buscar la alerta activa que coincida con el canal y que NO esté en la lista de ocultas
+        const alertaActiva = alertas.find(a => 
+            (a.canal_destino === 'TODOS' || a.canal_destino === canalActual) && 
+            a.estado === true &&
+            !alertasOcultas.includes(a.id)
+        );
         
         if (alertaActiva) {
+            alertaActualId = alertaActiva.id; // Guardamos el ID
+            
             if (alertaActiva.tipo_alerta === 'BLOQUEO') {
                 document.getElementById('sys-bloqueo-titulo').textContent = alertaActiva.titulo || 'Aviso Importante';
                 document.getElementById('sys-bloqueo-msg').textContent = alertaActiva.mensaje;
@@ -1500,6 +1512,18 @@
                 SFX.click();
             }
         }
+    }
+
+    // 3. Función para guardar la alerta como "leída" y recargar
+    function aceptarAlerta() {
+        if (alertaActualId) {
+            let ocultas = JSON.parse(localStorage.getItem('alertas_ocultas') || '[]');
+            if (!ocultas.includes(alertaActualId)) {
+                ocultas.push(alertaActualId);
+                localStorage.setItem('alertas_ocultas', JSON.stringify(ocultas));
+            }
+        }
+        window.location.reload(true);
     }
   </script>
 </body>
