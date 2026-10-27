@@ -48,6 +48,9 @@
             <button id="tab-servicios" onclick="cambiarPestaña('servicios')" class="px-6 py-2 bg-gray-200 text-gray-600 hover:text-gray-900 font-bold rounded-t-lg transition-colors">
                 Servicios Adicionales
             </button>
+            <button id="tab-alertas" onclick="cambiarPestaña('alertas')" class="px-6 py-2 bg-gray-200 text-gray-600 hover:text-gray-900 font-bold rounded-t-lg transition-colors">
+                📡 Alertas en Vivo
+            </button>
         </div>
 
         <!-- ==========================================
@@ -100,6 +103,62 @@
                     <tbody id="tabla-servicios" class="text-gray-700 text-sm">
                         <tr><td colspan="5" class="text-center py-8">Cargando servicios...</td></tr>
                     </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="seccion-alertas" class="hidden">
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <p class="text-sm text-red-700 font-bold">Todo lo que guardes aquí se reflejará INMEDIATAMENTE en la pantalla de los asesores vía WebSockets.</p>
+            </div>
+            
+            <div class="bg-white border rounded-lg p-6 mb-6 shadow-sm">
+                <h4 class="font-bold text-gray-800 mb-4 text-lg">Emitir Nueva Alerta</h4>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de Alerta</label>
+                        <select id="a-tipo" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 outline-none font-bold">
+                            <option value="BANNER">Banner (Aviso suave)</option>
+                            <option value="BLOQUEO">Bloqueo (Estricto)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">¿A quién va dirigido?</label>
+                        <select id="a-canal" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="TODOS">Todas las plataformas</option>
+                            <option value="GENERAL">Solo GENERAL</option>
+                            <option value="CROSS">Solo CROSS</option>
+                            <option value="ATQ">Solo ATQ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Título de la Alerta</label>
+                        <input type="text" id="a-titulo" placeholder="Ej: ALERTA CRÍTICA" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 outline-none font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mensaje para el asesor</label>
+                        <input type="text" id="a-mensaje" placeholder="Ej: Nuevos precios aplicados..." class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="guardarAlerta()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2 rounded-md shadow-md">
+                        Transmitir Alerta Ahora
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Estado</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Tipo</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Destino</th>
+                            <th class="py-3 px-4 text-left font-semibold text-sm">Título y Mensaje</th>
+                            <th class="py-3 px-4 text-center font-semibold text-sm">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-alertas" class="text-gray-700 text-sm"></tbody>
                 </table>
             </div>
         </div>
@@ -284,23 +343,78 @@
             renderizarTablaServicios();
         }
 
-        function cambiarPestaña(seccion) {
-            document.getElementById('seccion-planes').classList.add('hidden');
-            document.getElementById('seccion-servicios').classList.add('hidden');
-            document.getElementById('tab-planes').classList.replace('bg-[#ff6b00]', 'bg-gray-200');
-            document.getElementById('tab-planes').classList.replace('text-white', 'text-gray-600');
-            document.getElementById('tab-servicios').classList.replace('bg-[#ff6b00]', 'bg-gray-200');
-            document.getElementById('tab-servicios').classList.replace('text-white', 'text-gray-600');
 
-            if(seccion === 'planes') {
-                document.getElementById('seccion-planes').classList.remove('hidden');
-                document.getElementById('tab-planes').classList.replace('bg-gray-200', 'bg-[#ff6b00]');
-                document.getElementById('tab-planes').classList.replace('text-gray-600', 'text-white');
-            } else {
-                document.getElementById('seccion-servicios').classList.remove('hidden');
-                document.getElementById('tab-servicios').classList.replace('bg-gray-200', 'bg-[#ff6b00]');
-                document.getElementById('tab-servicios').classList.replace('text-gray-600', 'text-white');
+        async function cargarAlertas() {
+            const { data, error } = await clienteSupabase.from('alertas_sistema').select('*').order('created_at', { ascending: false });
+            if (error) return;
+            
+            const tbody = document.getElementById('tabla-alertas');
+            tbody.innerHTML = '';
+            
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-gray-500 py-8 font-bold">No hay alertas registradas</td></tr>`;
+                return;
             }
+
+            data.forEach(a => {
+                const badgeEstado = a.estado ? '<span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-bold animate-pulse">🔴 ACTIVA</span>' : '<span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs font-bold">⚪ APAGADA</span>';
+                
+                tbody.innerHTML += `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="py-3 px-4">${badgeEstado}</td>
+                        <td class="py-3 px-4 font-bold text-gray-700">${a.tipo_alerta}</td>
+                        <td class="py-3 px-4 font-semibold">${a.canal_destino}</td>
+                        <td class="py-3 px-4"><strong>${a.titulo}</strong><br>${a.mensaje}</td>
+                        <td class="py-3 px-4 text-center">
+                            <button onclick="toggleEstadoAlerta(${a.id}, ${a.estado})" class="${a.estado ? 'text-gray-500' : 'text-green-600'} font-bold mr-3">${a.estado ? 'Apagar' : 'Encender'}</button>
+                            <button onclick="eliminarAlerta(${a.id})" class="text-red-500 font-bold">🗑️ Eliminar</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        async function guardarAlerta() {
+            const mensaje = document.getElementById('a-mensaje').value.trim();
+            const titulo = document.getElementById('a-titulo').value.trim() || 'Aviso del Sistema';
+            if(!mensaje) return alert("Debes escribir un mensaje");
+            
+            const nuevaAlerta = {
+                tipo_alerta: document.getElementById('a-tipo').value,
+                canal_destino: document.getElementById('a-canal').value,
+                titulo: titulo,
+                mensaje: mensaje,
+                estado: true
+            };
+            
+            await clienteSupabase.from('alertas_sistema').insert([nuevaAlerta]);
+            document.getElementById('a-mensaje').value = '';
+            document.getElementById('a-titulo').value = '';
+            cargarAlertas();
+        }
+
+        async function toggleEstadoAlerta(id, estadoActual) {
+            await clienteSupabase.from('alertas_sistema').update({ estado: !estadoActual }).eq('id', id);
+            cargarAlertas();
+        }
+
+        async function eliminarAlerta(id) {
+            if (confirm("¿Borrar esta alerta?")) {
+                await clienteSupabase.from('alertas_sistema').delete().eq('id', id);
+                cargarAlertas();
+            }
+        }
+
+        function cambiarPestaña(seccion) {
+            ['planes', 'servicios', 'alertas'].forEach(s => {
+                document.getElementById('seccion-' + s).classList.add('hidden');
+                const t = document.getElementById('tab-' + s);
+                t.classList.remove('bg-[#ff6b00]', 'text-white');
+                t.classList.add('bg-gray-200', 'text-gray-600');
+            });
+            document.getElementById('seccion-' + seccion).classList.remove('hidden');
+            const activo = document.getElementById('tab-' + seccion);
+            activo.classList.remove('bg-gray-200', 'text-gray-600');
+            activo.classList.add('bg-[#ff6b00]', 'text-white');
         }
 
         async function verificarSesion() {
@@ -310,6 +424,7 @@
                 // Cargamos ambos para tener la data lista en memoria
                 cargarPlanes(); 
                 cargarServicios();
+                cargarAlertas();
             }
         }
 

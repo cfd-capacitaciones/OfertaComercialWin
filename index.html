@@ -241,6 +241,18 @@
       .slider-header { flex-direction: column; align-items: flex-start; gap: 1rem;}
       .bench-card-v2.win-card, .bench-card-v2.dgo-card { transform: scale(1); margin-top: 1rem; margin-bottom: 1rem; }
     }
+    /* ===== ALERTAS EN TIEMPO REAL ===== */
+    #sys-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 10000; background: #E3000F; color: white; text-align: center; padding: 0.6rem 1.5rem; font-family: var(--font-titulo); font-weight: 700; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 1rem; transform: translateY(-100%); transition: transform 0.4s ease; box-shadow: 0 4px 15px rgba(227, 0, 15, 0.3); height: 45px; }
+    #sys-banner.visible { transform: translateY(0); }
+    .btn-reload-sm { background: white; color: #E3000F; border: none; padding: 0.3rem 0.8rem; border-radius: 99px; font-weight: 800; font-size: 0.75rem; cursor: pointer; transition: 0.2s; }
+    .btn-reload-sm:hover { transform: scale(1.05); }
+    
+    #sys-bloqueo { position: fixed; inset: 0; z-index: 99999; background: rgba(15, 9, 8, 0.95); backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    #sys-bloqueo.visible { opacity: 1; pointer-events: all; }
+    #sys-bloqueo h2 { font-family: var(--font-titulo); font-size: 2.5rem; color: var(--color-naranja); margin-bottom: 0.5rem; font-weight: 900; }
+    #sys-bloqueo p { color: #FFF; font-size: 1.1rem; max-width: 500px; margin-bottom: 2rem; line-height: 1.5; }
+    .btn-reload-lg { background: var(--color-naranja); color: white; border: none; padding: 1rem 2.5rem; border-radius: var(--radius-md); font-family: var(--font-titulo); font-weight: 800; font-size: 1.1rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 8px 25px rgba(255, 90, 10, 0.4); }
+    .btn-reload-lg:hover { transform: scale(1.05); }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Vercel Web Analytics -->
@@ -259,6 +271,18 @@
 </head>
 
 <body>
+  <!-- ALERTAS DEL SISTEMA -->
+  <div id="sys-banner">
+      <span id="sys-banner-msg"></span>
+      <button onclick="window.location.reload(true)" class="btn-reload-sm">Actualizar Ahora</button>
+  </div>
+  <div id="sys-bloqueo">
+      <span style="font-size: 5rem; margin-bottom: 1rem;">⚠️</span>
+      <h2 id="sys-bloqueo-titulo"></h2> 
+      <p id="sys-bloqueo-msg"></p>
+      <button onclick="window.location.reload(true)" class="btn-reload-lg">Recargar Plataforma</button>
+  </div>
+
 
   <div id="progress-bar" role="progressbar"></div>
 
@@ -904,6 +928,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       configurarInterfazPorCanal();
       cargarTodosLosPlanes();
+      escucharAlertas();
     });
 
     async function cargarTodosLosPlanes() {
@@ -1440,6 +1465,42 @@
       }
     });
     
+  </script>
+  <script>
+    async function escucharAlertas() {
+        const { data, error } = await clienteSupabase.from('alertas_sistema').select('*').eq('estado', true);
+        if (!error && data) procesarAlertas(data);
+
+        clienteSupabase.channel('alertas-radar')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'alertas_sistema' }, payload => {
+                escucharAlertas(); 
+            }).subscribe();
+    }
+
+    function procesarAlertas(alertas) {
+        const banner = document.getElementById('sys-banner');
+        const bloqueo = document.getElementById('sys-bloqueo');
+        const header = document.getElementById('site-header');
+        
+        banner.classList.remove('visible'); bloqueo.classList.remove('visible');
+        header.style.top = '0';
+
+        const alertaActiva = alertas.find(a => a.canal_destino === 'TODOS' || a.canal_destino === canalActual);
+        
+        if (alertaActiva) {
+            if (alertaActiva.tipo_alerta === 'BLOQUEO') {
+                document.getElementById('sys-bloqueo-titulo').textContent = alertaActiva.titulo || 'Aviso Importante';
+                document.getElementById('sys-bloqueo-msg').textContent = alertaActiva.mensaje;
+                bloqueo.classList.add('visible');
+                SFX.error(); 
+            } else if (alertaActiva.tipo_alerta === 'BANNER') {
+                document.getElementById('sys-banner-msg').textContent = alertaActiva.mensaje;
+                banner.classList.add('visible');
+                header.style.top = '45px'; 
+                SFX.click();
+            }
+        }
+    }
   </script>
 </body>
 </html>
