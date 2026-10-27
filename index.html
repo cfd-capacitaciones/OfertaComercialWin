@@ -927,7 +927,7 @@
             pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_wtv'), 'tabla-prov-wtv', 'grid-prov-wtv', true);
             pintarTablaSupabase(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'hb_dgo'), 'tabla-prov-dgo', 'grid-prov-dgo', true);
             pintarTablaRUC(provPlanes.filter(p => (p.categoria || '').toLowerCase() === 'ruc20'), 'tabla-prov-ruc20', 'grid-prov-ruc20');
-            pintarTablaSupabase(provPlanes.filter(p => {const cat = (p.categoria || '').toLowerCase(); return cat === 'prov-gamer' || cat === 'planes_gamer';}), 'tabla-prov-gamer', 'grid-prov-gamer', true);
+            pintarTablaSupabase(provPlanes.filter(p => {const cat = (p.categoria || '').toLowerCase(); return cat === 'prov_gamer' || cat === 'planes_gamer';}), 'tabla-prov-gamer', 'grid-prov-gamer', true);
             
             await cargarServiciosAdicionales();
         } catch (err) { console.error(err); }
